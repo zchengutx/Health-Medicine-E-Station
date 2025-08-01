@@ -1,0 +1,330 @@
+/* VerificationCodeInput 组件样式 */
+
+.container {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.input {
+  flex: 1;
+  height: 48px;
+  padding: 12px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  background-color: #fff;
+  transition: all 0.2s ease-in-out;
+  box-sizing: border-box;
+  letter-spacing: 2px; /* 增加字符间距，适合验证码显示 */
+  
+  /* 移动端优化 */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  /* 防止iOS缩放 */
+  font-size: 16px;
+}
+
+.input::placeholder {
+  color: #999;
+  font-size: 16px;
+  letter-spacing: normal;
+}
+
+/* 焦点状态 */
+.input:focus,
+.input.focused {
+  outline: none;
+  border-color: #ff4757;
+  box-shadow: 0 0 0 2px rgba(255, 71, 87, 0.1);
+}
+
+/* 错误状态 */
+.input.error {
+  border-color: #ff4757;
+  background-color: #fff5f5;
+}
+
+.input.error:focus {
+  box-shadow: 0 0 0 2px rgba(255, 71, 87, 0.2);
+}
+
+/* 禁用状态 */
+.input.disabled {
+  background-color: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+  border-color: #e0e0e0;
+}
+
+.input.disabled::placeholder {
+  color: #ccc;
+}
+
+/* 发送验证码按钮 */
+.sendButton {
+  height: 48px;
+  padding: 0 20px;
+  border: 1px solid #ff4757;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #ff4757;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  white-space: nowrap;
+  min-width: 100px;
+  
+  /* 移动端优化 */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sendButton:hover:not(.buttonDisabled) {
+  background-color: #ff4757;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(255, 71, 87, 0.2);
+}
+
+.sendButton:active:not(.buttonDisabled) {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(255, 71, 87, 0.2);
+}
+
+/* 按钮禁用状态 */
+.sendButton.buttonDisabled {
+  background-color: #f5f5f5;
+  border-color: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* 倒计时状态 */
+.sendButton.buttonCountdown {
+  background-color: #f5f5f5;
+  border-color: #e0e0e0;
+  color: #666;
+  cursor: not-allowed;
+  font-variant-numeric: tabular-nums; /* 等宽数字 */
+}
+
+/* 错误信息样式 */
+.errorMessage {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #ff4757;
+  line-height: 1.4;
+  padding-left: 4px;
+  animation: slideDown 0.2s ease-out;
+}
+
+/* 错误信息动画 */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 480px) {
+  .inputWrapper {
+    gap: 8px;
+  }
+  
+  .input {
+    height: 44px;
+    padding: 10px 14px;
+    font-size: 16px; /* 保持16px防止iOS缩放 */
+  }
+  
+  .sendButton {
+    height: 44px;
+    padding: 0 16px;
+    font-size: 13px;
+    min-width: 88px;
+  }
+  
+  .errorMessage {
+    font-size: 13px;
+  }
+}
+
+/* 超小屏幕适配 */
+@media (max-width: 360px) {
+  .inputWrapper {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .sendButton {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+/* 高DPI屏幕优化 */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .input,
+  .sendButton {
+    border-width: 0.5px;
+  }
+}
+
+/* 暗色模式支持 */
+@media (prefers-color-scheme: dark) {
+  .input {
+    background-color: #2a2a2a;
+    border-color: #404040;
+    color: #fff;
+  }
+  
+  .input::placeholder {
+    color: #888;
+  }
+  
+  .input:focus,
+  .input.focused {
+    border-color: #ff6b7a;
+    box-shadow: 0 0 0 2px rgba(255, 107, 122, 0.1);
+  }
+  
+  .input.error {
+    background-color: #2a1f1f;
+    border-color: #ff6b7a;
+  }
+  
+  .input.disabled {
+    background-color: #1a1a1a;
+    color: #666;
+    border-color: #333;
+  }
+  
+  .sendButton {
+    background-color: #2a2a2a;
+    border-color: #ff6b7a;
+    color: #ff6b7a;
+  }
+  
+  .sendButton:hover:not(.buttonDisabled) {
+    background-color: #ff6b7a;
+    color: #fff;
+  }
+  
+  .sendButton.buttonDisabled,
+  .sendButton.buttonCountdown {
+    background-color: #1a1a1a;
+    border-color: #333;
+    color: #666;
+  }
+  
+  .errorMessage {
+    color: #ff6b7a;
+  }
+}
+
+/* 无障碍访问优化 */
+@media (prefers-reduced-motion: reduce) {
+  .input,
+  .sendButton,
+  .errorMessage {
+    transition: none;
+    animation: none;
+  }
+  
+  .sendButton:hover:not(.buttonDisabled) {
+    transform: none;
+  }
+  
+  .sendButton:active:not(.buttonDisabled) {
+    transform: none;
+  }
+}
+
+/* 高对比度模式 */
+@media (prefers-contrast: high) {
+  .input {
+    border-width: 2px;
+    border-color: #000;
+  }
+  
+  .input:focus,
+  .input.focused {
+    border-color: #0066cc;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.3);
+  }
+  
+  .input.error {
+    border-color: #cc0000;
+  }
+  
+  .sendButton {
+    border-width: 2px;
+    border-color: #cc0000;
+    color: #cc0000;
+  }
+  
+  .sendButton:hover:not(.buttonDisabled) {
+    background-color: #cc0000;
+    color: #fff;
+  }
+  
+  .sendButton.buttonDisabled,
+  .sendButton.buttonCountdown {
+    border-color: #666;
+    color: #666;
+  }
+  
+  .errorMessage {
+    color: #cc0000;
+    font-weight: bold;
+  }
+}
+
+/* 触摸设备优化 */
+@media (hover: none) and (pointer: coarse) {
+  .sendButton {
+    min-height: 44px; /* 确保触摸目标足够大 */
+  }
+  
+  .sendButton:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* 打印样式 */
+@media print {
+  .sendButton {
+    display: none;
+  }
+  
+  .input {
+    border: 1px solid #000;
+    background: transparent;
+  }
+  
+  .errorMessage {
+    color: #000;
+  }
+}

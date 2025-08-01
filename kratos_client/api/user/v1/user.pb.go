@@ -226,6 +226,202 @@ func (x *LoginReply) GetToken() string {
 	return ""
 }
 
+// The request message containing the user's name.
+type UpdateNickNameRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	NickName      string                 `protobuf:"bytes,1,opt,name=nickName,proto3" json:"nickName,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateNickNameRequest) Reset() {
+	*x = UpdateNickNameRequest{}
+	mi := &file_user_v1_user_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateNickNameRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateNickNameRequest) ProtoMessage() {}
+
+func (x *UpdateNickNameRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_v1_user_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateNickNameRequest.ProtoReflect.Descriptor instead.
+func (*UpdateNickNameRequest) Descriptor() ([]byte, []int) {
+	return file_user_v1_user_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *UpdateNickNameRequest) GetNickName() string {
+	if x != nil {
+		return x.NickName
+	}
+	return ""
+}
+
+// The response message containing the greetings
+type UpdateNickNameReply struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Message       string                 `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateNickNameReply) Reset() {
+	*x = UpdateNickNameReply{}
+	mi := &file_user_v1_user_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateNickNameReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateNickNameReply) ProtoMessage() {}
+
+func (x *UpdateNickNameReply) ProtoReflect() protoreflect.Message {
+	mi := &file_user_v1_user_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateNickNameReply.ProtoReflect.Descriptor instead.
+func (*UpdateNickNameReply) Descriptor() ([]byte, []int) {
+	return file_user_v1_user_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *UpdateNickNameReply) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+// The request message containing the user's name.
+type UpdateMobileRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Mobile        string                 `protobuf:"bytes,1,opt,name=mobile,proto3" json:"mobile,omitempty"`
+	SendSmsCode   string                 `protobuf:"bytes,2,opt,name=sendSmsCode,proto3" json:"sendSmsCode,omitempty"`
+	NewMobile     string                 `protobuf:"bytes,3,opt,name=newMobile,proto3" json:"newMobile,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateMobileRequest) Reset() {
+	*x = UpdateMobileRequest{}
+	mi := &file_user_v1_user_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateMobileRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateMobileRequest) ProtoMessage() {}
+
+func (x *UpdateMobileRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_v1_user_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateMobileRequest.ProtoReflect.Descriptor instead.
+func (*UpdateMobileRequest) Descriptor() ([]byte, []int) {
+	return file_user_v1_user_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *UpdateMobileRequest) GetMobile() string {
+	if x != nil {
+		return x.Mobile
+	}
+	return ""
+}
+
+func (x *UpdateMobileRequest) GetSendSmsCode() string {
+	if x != nil {
+		return x.SendSmsCode
+	}
+	return ""
+}
+
+func (x *UpdateMobileRequest) GetNewMobile() string {
+	if x != nil {
+		return x.NewMobile
+	}
+	return ""
+}
+
+// The response message containing the greetings
+type UpdateMobileReply struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Message       string                 `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateMobileReply) Reset() {
+	*x = UpdateMobileReply{}
+	mi := &file_user_v1_user_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateMobileReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateMobileReply) ProtoMessage() {}
+
+func (x *UpdateMobileReply) ProtoReflect() protoreflect.Message {
+	mi := &file_user_v1_user_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateMobileReply.ProtoReflect.Descriptor instead.
+func (*UpdateMobileReply) Descriptor() ([]byte, []int) {
+	return file_user_v1_user_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *UpdateMobileReply) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
 var File_user_v1_user_proto protoreflect.FileDescriptor
 
 const file_user_v1_user_proto_rawDesc = "" +
@@ -242,10 +438,22 @@ const file_user_v1_user_proto_rawDesc = "" +
 	"\n" +
 	"LoginReply\x12\x18\n" +
 	"\amessage\x18\x01 \x01(\tR\amessage\x12\x14\n" +
-	"\x05token\x18\x02 \x01(\tR\x05token2\xa4\x01\n" +
+	"\x05token\x18\x02 \x01(\tR\x05token\"3\n" +
+	"\x15UpdateNickNameRequest\x12\x1a\n" +
+	"\bnickName\x18\x01 \x01(\tR\bnickName\"/\n" +
+	"\x13UpdateNickNameReply\x12\x18\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"m\n" +
+	"\x13UpdateMobileRequest\x12\x16\n" +
+	"\x06mobile\x18\x01 \x01(\tR\x06mobile\x12 \n" +
+	"\vsendSmsCode\x18\x02 \x01(\tR\vsendSmsCode\x12\x1c\n" +
+	"\tnewMobile\x18\x03 \x01(\tR\tnewMobile\"-\n" +
+	"\x11UpdateMobileReply\x12\x18\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage2\xfa\x02\n" +
 	"\x04User\x12Q\n" +
 	"\aSendSms\x12\x17.user.v1.SendSmsRequest\x1a\x15.user.v1.SendSmsReply\"\x16\x82\xd3\xe4\x93\x02\x10:\x01*\"\v/v1/sendSms\x12I\n" +
-	"\x05Login\x12\x15.user.v1.LoginRequest\x1a\x13.user.v1.LoginReply\"\x14\x82\xd3\xe4\x93\x02\x0e:\x01*\"\t/v1/loginBE\n" +
+	"\x05Login\x12\x15.user.v1.LoginRequest\x1a\x13.user.v1.LoginReply\"\x14\x82\xd3\xe4\x93\x02\x0e:\x01*\"\t/v1/login\x12m\n" +
+	"\x0eUpdateNickName\x12\x1e.user.v1.UpdateNickNameRequest\x1a\x1c.user.v1.UpdateNickNameReply\"\x1d\x82\xd3\xe4\x93\x02\x17:\x01*\"\x12/v1/updateNickName\x12e\n" +
+	"\fUpdateMobile\x12\x1c.user.v1.UpdateMobileRequest\x1a\x1a.user.v1.UpdateMobileReply\"\x1b\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/v1/updateMobileBE\n" +
 	"\x16dev.kratos.api.user.v1B\vuserProtoV1P\x01Z\x1ckratos_client/api/user/v1;v1b\x06proto3"
 
 var (
@@ -260,20 +468,28 @@ func file_user_v1_user_proto_rawDescGZIP() []byte {
 	return file_user_v1_user_proto_rawDescData
 }
 
-var file_user_v1_user_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_user_v1_user_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_user_v1_user_proto_goTypes = []any{
-	(*SendSmsRequest)(nil), // 0: user.v1.SendSmsRequest
-	(*SendSmsReply)(nil),   // 1: user.v1.SendSmsReply
-	(*LoginRequest)(nil),   // 2: user.v1.LoginRequest
-	(*LoginReply)(nil),     // 3: user.v1.LoginReply
+	(*SendSmsRequest)(nil),        // 0: user.v1.SendSmsRequest
+	(*SendSmsReply)(nil),          // 1: user.v1.SendSmsReply
+	(*LoginRequest)(nil),          // 2: user.v1.LoginRequest
+	(*LoginReply)(nil),            // 3: user.v1.LoginReply
+	(*UpdateNickNameRequest)(nil), // 4: user.v1.UpdateNickNameRequest
+	(*UpdateNickNameReply)(nil),   // 5: user.v1.UpdateNickNameReply
+	(*UpdateMobileRequest)(nil),   // 6: user.v1.UpdateMobileRequest
+	(*UpdateMobileReply)(nil),     // 7: user.v1.UpdateMobileReply
 }
 var file_user_v1_user_proto_depIdxs = []int32{
 	0, // 0: user.v1.User.SendSms:input_type -> user.v1.SendSmsRequest
 	2, // 1: user.v1.User.Login:input_type -> user.v1.LoginRequest
-	1, // 2: user.v1.User.SendSms:output_type -> user.v1.SendSmsReply
-	3, // 3: user.v1.User.Login:output_type -> user.v1.LoginReply
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
+	4, // 2: user.v1.User.UpdateNickName:input_type -> user.v1.UpdateNickNameRequest
+	6, // 3: user.v1.User.UpdateMobile:input_type -> user.v1.UpdateMobileRequest
+	1, // 4: user.v1.User.SendSms:output_type -> user.v1.SendSmsReply
+	3, // 5: user.v1.User.Login:output_type -> user.v1.LoginReply
+	5, // 6: user.v1.User.UpdateNickName:output_type -> user.v1.UpdateNickNameReply
+	7, // 7: user.v1.User.UpdateMobile:output_type -> user.v1.UpdateMobileReply
+	4, // [4:8] is the sub-list for method output_type
+	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -290,7 +506,7 @@ func file_user_v1_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_user_v1_user_proto_rawDesc), len(file_user_v1_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

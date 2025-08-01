@@ -118,3 +118,43 @@ func (s *UserService) Upload(c http.Context) error {
 		"url":     s2,
 	})
 }
+
+func (s *UserService) UpdateNickName(ctx context.Context, in *v1.UpdateNickNameRequest) (*v1.UpdateNickNameReply, error) {
+	value := ctx.Value("user_id")
+
+	_, err := s.uc.Update(ctx, &biz.MtUser{
+		Id:       int32(value.(float64)),
+		NickName: in.NickName,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return &v1.UpdateNickNameReply{Message: "update nickName success"}, nil
+}
+
+func (s *UserService) UpdateMobile(ctx context.Context, in *v1.UpdateMobileRequest) (*v1.UpdateMobileReply, error) {
+
+	get := s.data.Redis().Get(ctx, "sendSms"+in.Mobile+"update")
+
+	if get.Val() != in.SendSmsCode {
+		return &v1.UpdateMobileReply{Message: "send sms code error"}, nil
+	}
+
+	_, err := s.uc.Find(ctx, &biz.MtUser{Mobile: in.Mobile})
+	if err != nil {
+		return &v1.UpdateMobileReply{Message: "I don't have this phone number"}, err
+	}
+
+	value := ctx.Value("user_id")
+
+	_, err = s.uc.Update(ctx, &biz.MtUser{
+		Id:     int32(value.(float64)),
+		Mobile: in.NewMobile,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return &v1.UpdateMobileReply{Message: "update mobile success"}, nil
+}

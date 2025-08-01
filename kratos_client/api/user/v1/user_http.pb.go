@@ -10,6 +10,7 @@ import (
 	context "context"
 	http "github.com/go-kratos/kratos/v2/transport/http"
 	binding "github.com/go-kratos/kratos/v2/transport/http/binding"
+	"kratos_client/comment"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -21,17 +22,23 @@ const _ = http.SupportPackageIsVersion1
 
 const OperationUserLogin = "/user.v1.User/Login"
 const OperationUserSendSms = "/user.v1.User/SendSms"
+const OperationUserUpdateMobile = "/user.v1.User/UpdateMobile"
+const OperationUserUpdateNickName = "/user.v1.User/UpdateNickName"
 
 type UserHTTPServer interface {
 	Login(context.Context, *LoginRequest) (*LoginReply, error)
 	// SendSms Sends a greeting
 	SendSms(context.Context, *SendSmsRequest) (*SendSmsReply, error)
+	UpdateMobile(context.Context, *UpdateMobileRequest) (*UpdateMobileReply, error)
+	UpdateNickName(context.Context, *UpdateNickNameRequest) (*UpdateNickNameReply, error)
 }
 
 func RegisterUserHTTPServer(s *http.Server, srv UserHTTPServer) {
 	r := s.Route("/")
 	r.POST("/v1/sendSms", _User_SendSms0_HTTP_Handler(srv))
 	r.POST("/v1/login", _User_Login0_HTTP_Handler(srv))
+	r.POST("/v1/updateNickName", _User_UpdateNickName0_HTTP_Handler(srv),comment.JWTMiddleware())
+	r.POST("/v1/updateMobile", _User_UpdateMobile0_HTTP_Handler(srv),comment.JWTMiddleware())
 }
 
 func _User_SendSms0_HTTP_Handler(srv UserHTTPServer) func(ctx http.Context) error {
@@ -78,9 +85,55 @@ func _User_Login0_HTTP_Handler(srv UserHTTPServer) func(ctx http.Context) error 
 	}
 }
 
+func _User_UpdateNickName0_HTTP_Handler(srv UserHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in UpdateNickNameRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationUserUpdateNickName)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdateNickName(ctx, req.(*UpdateNickNameRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*UpdateNickNameReply)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _User_UpdateMobile0_HTTP_Handler(srv UserHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in UpdateMobileRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationUserUpdateMobile)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdateMobile(ctx, req.(*UpdateMobileRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*UpdateMobileReply)
+		return ctx.Result(200, reply)
+	}
+}
+
 type UserHTTPClient interface {
 	Login(ctx context.Context, req *LoginRequest, opts ...http.CallOption) (rsp *LoginReply, err error)
 	SendSms(ctx context.Context, req *SendSmsRequest, opts ...http.CallOption) (rsp *SendSmsReply, err error)
+	UpdateMobile(ctx context.Context, req *UpdateMobileRequest, opts ...http.CallOption) (rsp *UpdateMobileReply, err error)
+	UpdateNickName(ctx context.Context, req *UpdateNickNameRequest, opts ...http.CallOption) (rsp *UpdateNickNameReply, err error)
 }
 
 type UserHTTPClientImpl struct {
@@ -109,6 +162,32 @@ func (c *UserHTTPClientImpl) SendSms(ctx context.Context, in *SendSmsRequest, op
 	pattern := "/v1/sendSms"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationUserSendSms))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *UserHTTPClientImpl) UpdateMobile(ctx context.Context, in *UpdateMobileRequest, opts ...http.CallOption) (*UpdateMobileReply, error) {
+	var out UpdateMobileReply
+	pattern := "/v1/updateMobile"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationUserUpdateMobile))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *UserHTTPClientImpl) UpdateNickName(ctx context.Context, in *UpdateNickNameRequest, opts ...http.CallOption) (*UpdateNickNameReply, error) {
+	var out UpdateNickNameReply
+	pattern := "/v1/updateNickName"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationUserUpdateNickName))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
