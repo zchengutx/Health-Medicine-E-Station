@@ -1,5 +1,0 @@
-package comment
-
-func SendSms() {
-
-}
