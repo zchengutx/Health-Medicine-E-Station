@@ -6,25 +6,79 @@ info:
     title: ""
     version: 0.0.1
 paths:
-    /helloworld/{name}:
-        get:
+    /v1/DoctorsList:
+        post:
             tags:
-                - Greeter
+                - Doctors
             description: Sends a greeting
-            operationId: Greeter_SayHello
-            parameters:
-                - name: name
-                  in: path
-                  required: true
-                  schema:
-                    type: string
+            operationId: Doctors_DoctorsList
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/doctors.v1.DoctorsListRequest'
+                required: true
             responses:
                 "200":
                     description: OK
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/helloworld.v1.HelloReply'
+                                $ref: '#/components/schemas/doctors.v1.DoctorsListReply'
+    /v1/SearchForCities:
+        post:
+            tags:
+                - User
+            operationId: User_SearchForCities
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/user.v1.SearchForCitiesRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/user.v1.SearchForCitiesReply'
+    /v1/SelectTheCity:
+        post:
+            tags:
+                - User
+            operationId: User_SelectTheCity
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/user.v1.SelectTheCityRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/user.v1.SelectTheCityReply'
+    /v1/createAddress:
+        post:
+            tags:
+                - User
+            operationId: User_CreateAddress
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/user.v1.CreateAddressRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/user.v1.CreateAddressReply'
     /v1/login:
         post:
             tags:
@@ -100,12 +154,58 @@ paths:
                                 $ref: '#/components/schemas/user.v1.UpdateNickNameReply'
 components:
     schemas:
-        helloworld.v1.HelloReply:
+        doctors.v1.DoctorsList:
+            type: object
+            properties:
+                doctorCode:
+                    type: string
+                doctorsName:
+                    type: string
+        doctors.v1.DoctorsListReply:
+            type: object
+            properties:
+                message:
+                    type: string
+                doctorsList:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/doctors.v1.DoctorsList'
+            description: The response message containing the greetings
+        doctors.v1.DoctorsListRequest:
+            type: object
+            properties: {}
+            description: The request message containing the user's name.
+        user.v1.CityList:
+            type: object
+            properties:
+                cityName:
+                    type: string
+                cityId:
+                    type: integer
+                    format: int32
+        user.v1.CreateAddressReply:
             type: object
             properties:
                 message:
                     type: string
             description: The response message containing the greetings
+        user.v1.CreateAddressRequest:
+            type: object
+            properties:
+                userName:
+                    type: string
+                mobile:
+                    type: string
+                cityId:
+                    type: integer
+                    format: int32
+                shippingAddress:
+                    type: string
+                doorplateFloor:
+                    type: string
+                label:
+                    type: string
+            description: The request message containing the user's name.
         user.v1.LoginReply:
             type: object
             properties:
@@ -121,6 +221,35 @@ components:
                     type: string
                 sendSmsCode:
                     type: string
+            description: The request message containing the user's name.
+        user.v1.SearchForCitiesReply:
+            type: object
+            properties:
+                message:
+                    type: string
+                cityList:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/user.v1.CityList'
+        user.v1.SearchForCitiesRequest:
+            type: object
+            properties:
+                addressName:
+                    type: string
+            description: The response message containing the greetings
+        user.v1.SelectTheCityReply:
+            type: object
+            properties:
+                message:
+                    type: string
+                cityList:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/user.v1.CityList'
+            description: The response message containing the greetings
+        user.v1.SelectTheCityRequest:
+            type: object
+            properties: {}
             description: The request message containing the user's name.
         user.v1.SendSmsReply:
             type: object
@@ -165,7 +294,7 @@ components:
                     type: string
             description: The request message containing the user's name.
 tags:
-    - name: Greeter
+    - name: Doctors
       description: The greeting service definition.
     - name: User
       description: The greeting service definition.

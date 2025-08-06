@@ -40,6 +40,27 @@ service User {
     };
   }
 
+  rpc SelectTheCity (SelectTheCityRequest) returns (SelectTheCityReply) {
+    option (google.api.http) = {
+      post: "/v1/SelectTheCity"
+      body: "*"
+    };
+  }
+
+  rpc SearchForCities (SearchForCitiesRequest) returns (SearchForCitiesReply) {
+    option (google.api.http) = {
+      post: "/v1/SearchForCities"
+      body: "*"
+    };
+  }
+
+  rpc CreateAddress (CreateAddressRequest) returns (CreateAddressReply) {
+    option (google.api.http) = {
+      post: "/v1/createAddress"
+      body: "*"
+    };
+  }
+
 }
 
 // The request message containing the user's name.
@@ -87,3 +108,43 @@ message UpdateMobileRequest {
 message UpdateMobileReply {
   string message = 1;
 }
+
+// The request message containing the user's name.
+message SelectTheCityRequest {
+}
+
+// The response message containing the greetings
+message SelectTheCityReply {
+  string message = 1;
+  repeated CityList cityList = 2;
+}
+message CityList {
+  string cityName = 1;
+  int32 cityId = 2;
+}
+
+// The response message containing the greetings
+message SearchForCitiesRequest {
+  string addressName = 1;
+}
+message SearchForCitiesReply {
+  string message = 1;
+  repeated CityList cityList = 2;
+}
+
+
+// The request message containing the user's name.
+message CreateAddressRequest {
+  string userName = 1;
+  string mobile = 2;
+  int32 cityId = 3;
+  string shippingAddress = 4;
+  string doorplateFloor = 5;
+  string label = 6;
+}
+
+// The response message containing the greetings
+message CreateAddressReply {
+  string message = 1;
+}
+

@@ -20,13 +20,19 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
+const OperationUserCreateAddress = "/user.v1.User/CreateAddress"
 const OperationUserLogin = "/user.v1.User/Login"
+const OperationUserSearchForCities = "/user.v1.User/SearchForCities"
+const OperationUserSelectTheCity = "/user.v1.User/SelectTheCity"
 const OperationUserSendSms = "/user.v1.User/SendSms"
 const OperationUserUpdateMobile = "/user.v1.User/UpdateMobile"
 const OperationUserUpdateNickName = "/user.v1.User/UpdateNickName"
 
 type UserHTTPServer interface {
+	CreateAddress(context.Context, *CreateAddressRequest) (*CreateAddressReply, error)
 	Login(context.Context, *LoginRequest) (*LoginReply, error)
+	SearchForCities(context.Context, *SearchForCitiesRequest) (*SearchForCitiesReply, error)
+	SelectTheCity(context.Context, *SelectTheCityRequest) (*SelectTheCityReply, error)
 	// SendSms Sends a greeting
 	SendSms(context.Context, *SendSmsRequest) (*SendSmsReply, error)
 	UpdateMobile(context.Context, *UpdateMobileRequest) (*UpdateMobileReply, error)
@@ -37,8 +43,11 @@ func RegisterUserHTTPServer(s *http.Server, srv UserHTTPServer) {
 	r := s.Route("/")
 	r.POST("/v1/sendSms", _User_SendSms0_HTTP_Handler(srv))
 	r.POST("/v1/login", _User_Login0_HTTP_Handler(srv))
-	r.POST("/v1/updateNickName", _User_UpdateNickName0_HTTP_Handler(srv),comment.JWTMiddleware())
-	r.POST("/v1/updateMobile", _User_UpdateMobile0_HTTP_Handler(srv),comment.JWTMiddleware())
+	r.POST("/v1/updateNickName", _User_UpdateNickName0_HTTP_Handler(srv))
+	r.POST("/v1/updateMobile", _User_UpdateMobile0_HTTP_Handler(srv))
+	r.POST("/v1/SelectTheCity", _User_SelectTheCity0_HTTP_Handler(srv))
+	r.POST("/v1/SearchForCities", _User_SearchForCities0_HTTP_Handler(srv))
+	r.POST("/v1/createAddress", _User_CreateAddress0_HTTP_Handler(srv),comment.JWTMiddleware())
 }
 
 func _User_SendSms0_HTTP_Handler(srv UserHTTPServer) func(ctx http.Context) error {
@@ -129,8 +138,77 @@ func _User_UpdateMobile0_HTTP_Handler(srv UserHTTPServer) func(ctx http.Context)
 	}
 }
 
+func _User_SelectTheCity0_HTTP_Handler(srv UserHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in SelectTheCityRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationUserSelectTheCity)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.SelectTheCity(ctx, req.(*SelectTheCityRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*SelectTheCityReply)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _User_SearchForCities0_HTTP_Handler(srv UserHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in SearchForCitiesRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationUserSearchForCities)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.SearchForCities(ctx, req.(*SearchForCitiesRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*SearchForCitiesReply)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _User_CreateAddress0_HTTP_Handler(srv UserHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in CreateAddressRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationUserCreateAddress)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CreateAddress(ctx, req.(*CreateAddressRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*CreateAddressReply)
+		return ctx.Result(200, reply)
+	}
+}
+
 type UserHTTPClient interface {
+	CreateAddress(ctx context.Context, req *CreateAddressRequest, opts ...http.CallOption) (rsp *CreateAddressReply, err error)
 	Login(ctx context.Context, req *LoginRequest, opts ...http.CallOption) (rsp *LoginReply, err error)
+	SearchForCities(ctx context.Context, req *SearchForCitiesRequest, opts ...http.CallOption) (rsp *SearchForCitiesReply, err error)
+	SelectTheCity(ctx context.Context, req *SelectTheCityRequest, opts ...http.CallOption) (rsp *SelectTheCityReply, err error)
 	SendSms(ctx context.Context, req *SendSmsRequest, opts ...http.CallOption) (rsp *SendSmsReply, err error)
 	UpdateMobile(ctx context.Context, req *UpdateMobileRequest, opts ...http.CallOption) (rsp *UpdateMobileReply, err error)
 	UpdateNickName(ctx context.Context, req *UpdateNickNameRequest, opts ...http.CallOption) (rsp *UpdateNickNameReply, err error)
@@ -144,11 +222,50 @@ func NewUserHTTPClient(client *http.Client) UserHTTPClient {
 	return &UserHTTPClientImpl{client}
 }
 
+func (c *UserHTTPClientImpl) CreateAddress(ctx context.Context, in *CreateAddressRequest, opts ...http.CallOption) (*CreateAddressReply, error) {
+	var out CreateAddressReply
+	pattern := "/v1/createAddress"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationUserCreateAddress))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
 func (c *UserHTTPClientImpl) Login(ctx context.Context, in *LoginRequest, opts ...http.CallOption) (*LoginReply, error) {
 	var out LoginReply
 	pattern := "/v1/login"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationUserLogin))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *UserHTTPClientImpl) SearchForCities(ctx context.Context, in *SearchForCitiesRequest, opts ...http.CallOption) (*SearchForCitiesReply, error) {
+	var out SearchForCitiesReply
+	pattern := "/v1/SearchForCities"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationUserSearchForCities))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *UserHTTPClientImpl) SelectTheCity(ctx context.Context, in *SelectTheCityRequest, opts ...http.CallOption) (*SelectTheCityReply, error) {
+	var out SelectTheCityReply
+	pattern := "/v1/SelectTheCity"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationUserSelectTheCity))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
