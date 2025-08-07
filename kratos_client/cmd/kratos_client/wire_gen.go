@@ -24,7 +24,6 @@ import (
 
 // wireApp init kratos application.
 func wireApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*kratos.App, func(), error) {
-	grpcServer := server.NewGRPCServer(confServer, logger)
 	db, err := data.NewDb(confData)
 	if err != nil {
 		return nil, nil, err
@@ -33,12 +32,25 @@ func wireApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*
 	if err != nil {
 		return nil, nil, err
 	}
+	doctorsRepo := data.NewDoctorsRepo(dataData, logger)
+	doctorsService := biz.NewDoctorsUsecase(doctorsRepo, logger)
+	serviceDoctorsService := service.NewDoctorsService(doctorsService, dataData)
+	drugRepo := data.NewDrugRepo(dataData, logger)
+	drugService := biz.NewDrugService(drugRepo, logger)
+	serviceDrugService := service.NewDrugService(drugService, dataData)
+	estimateRepo := data.NewEstimateRepo(dataData, logger)
+	estimateService := biz.NewEstimateService(estimateRepo, logger)
+	serviceEstimateService := service.NewEstimateService(estimateService, dataData)
+	grpcServer := server.NewGRPCServer(confServer, serviceDoctorsService, serviceDrugService, serviceEstimateService, logger)
 	userRepo := data.NewUserRepo(dataData, logger)
 	userService := biz.NewUserUsecase(userRepo, logger)
 	cityRepo := data.NewCityRepo(dataData, logger)
 	cityService := biz.NewCityUsecase(cityRepo, logger)
 	serviceUserService := service.NewUserService(userService, dataData, cityService)
-	httpServer := server.NewHTTPServer(confServer, serviceUserService, logger)
+	chatRepo := data.NewChatRepo(dataData, logger)
+	chatService := biz.NewChatService(chatRepo, logger)
+	serviceChatService := service.NewChatService(chatService, dataData)
+	httpServer := server.NewHTTPServer(confServer, serviceUserService, serviceDoctorsService, serviceDrugService, serviceEstimateService, serviceChatService, logger)
 	app := newApp(logger, grpcServer, httpServer)
 	return app, func() {
 		cleanup()
