@@ -1,13 +1,13 @@
 package comment
 
 import (
+	"github.com/go-kratos/kratos/v2/transport/http"
+	"github.com/gorilla/websocket"
 	"log"
-	"net/http"
+	https "net/http"
 	"strconv"
 	"sync"
 	"time"
-
-	"github.com/gorilla/websocket"
 )
 
 // WebSocket升级器配置
@@ -132,27 +132,27 @@ func generateRoomID(userID1, userID2 int32) string {
 }
 
 // WebSocket连接处理器
-func HandleWebSocket(w http.ResponseWriter, r *http.Request) {
+func HandleWebSocket(w http.ResponseWriter, r *http.Request, ctx http.Context) {
 	// 从查询参数获取用户信息
-	userIDStr := r.URL.Query().Get("user_id")
-	userName := r.URL.Query().Get("user_name")
+	req := ctx.Request()
+	value := req.Context().Value("user_id")
 	userRole := r.URL.Query().Get("user_role") // "doctor" 或 "patient"
 	targetIDStr := r.URL.Query().Get("target_id")
 
-	if userIDStr == "" || userName == "" || targetIDStr == "" {
-		http.Error(w, "缺少必要参数", http.StatusBadRequest)
+	if targetIDStr == "" {
+		https.Error(w, "缺少必要参数", https.StatusBadRequest)
 		return
 	}
 
-	userID, err := strconv.Atoi(userIDStr)
-	if err != nil {
-		http.Error(w, "无效的用户ID", http.StatusBadRequest)
+	// 检查userID是否存在且有效
+	if value == nil {
+		https.Error(w, "Unauthorized", https.StatusUnauthorized)
 		return
 	}
 
 	targetID, err := strconv.Atoi(targetIDStr)
 	if err != nil {
-		http.Error(w, "无效的目标用户ID", http.StatusBadRequest)
+		https.Error(w, "无效的目标用户ID", https.StatusBadRequest)
 		return
 	}
 
@@ -163,17 +163,12 @@ func HandleWebSocket(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 生成房间ID
-	roomID := generateRoomID(int32(userID), int32(targetID))
-
 	// 创建客户端
 	client := &Client{
-		ID:     int32(userID),
-		Name:   userName,
-		Role:   userRole,
-		Conn:   conn,
-		Send:   make(chan ChatMessage, 256),
-		RoomID: roomID,
+		ID:   int32(value.(float64)),
+		Role: userRole,
+		Conn: conn,
+		Send: make(chan ChatMessage, 256),
 	}
 
 	// 注册客户端
@@ -330,7 +325,7 @@ func HandleTestWebSocket(w http.ResponseWriter, r *http.Request) {
 		} else {
 			content = "收到你的消息"
 		}
-		
+
 		response := map[string]interface{}{
 			"type":     "echo",
 			"content":  content,
