@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>跨域测试页面 - Kiro修改</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        button { padding: 10px 15px; margin: 5px; background: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .result { margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 3px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>跨域功能测试页面</h1>
+    <p><strong>Kiro修改：</strong>此页面用于测试后端API的跨域配置是否正确</p>
+    
+    <div class="test-section">
+        <h3>测试1: 发送短信接口 (POST /v1/sendSms)</h3>
+        <button onclick="testSendSms()">测试发送短信</button>
+        <div id="sendSmsResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>测试2: 选择城市接口 (POST /v1/SelectTheCity)</h3>
+        <button onclick="testSelectCity()">测试选择城市</button>
+        <div id="selectCityResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>测试3: OPTIONS预检请求</h3>
+        <button onclick="testOptions()">测试OPTIONS请求</button>
+        <div id="optionsResult" class="result"></div>
+    </div>
+
+    <script>
+        // Kiro修改：API基础URL
+        const API_BASE = 'http://localhost:8000';
+
+        // Kiro修改：测试发送短信接口
+        async function testSendSms() {
+            const resultDiv = document.getElementById('sendSmsResult');
+            resultDiv.innerHTML = '正在测试...';
+            
+            try {
+                const response = await fetch(`${API_BASE}/v1/sendSms`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        mobile: '13800138000',
+                        source: 'test'
+                    })
+                });
+                
+                const data = await response.json();
+                resultDiv.className = 'result success';
+                resultDiv.innerHTML = `✅ 成功！状态码: ${response.status}<br>响应: ${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `❌ 失败！错误: ${error.message}`;
+            }
+        }
+
+        // Kiro修改：测试选择城市接口
+        async function testSelectCity() {
+            const resultDiv = document.getElementById('selectCityResult');
+            resultDiv.innerHTML = '正在测试...';
+            
+            try {
+                const response = await fetch(`${API_BASE}/v1/SelectTheCity`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({})
+                });
+                
+                const data = await response.json();
+                resultDiv.className = 'result success';
+                resultDiv.innerHTML = `✅ 成功！状态码: ${response.status}<br>城市数量: ${data.cityList ? data.cityList.length : 0}`;
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `❌ 失败！错误: ${error.message}`;
+            }
+        }
+
+        // Kiro修改：测试OPTIONS预检请求
+        async function testOptions() {
+            const resultDiv = document.getElementById('optionsResult');
+            resultDiv.innerHTML = '正在测试...';
+            
+            try {
+                const response = await fetch(`${API_BASE}/v1/SelectTheCity`, {
+                    method: 'OPTIONS',
+                    headers: {
+                        'Origin': window.location.origin,
+                        'Access-Control-Request-Method': 'POST',
+                        'Access-Control-Request-Headers': 'Content-Type'
+                    }
+                });
+                
+                resultDiv.className = 'result success';
+                resultDiv.innerHTML = `✅ OPTIONS请求成功！状态码: ${response.status}<br>
+                    Access-Control-Allow-Origin: ${response.headers.get('Access-Control-Allow-Origin')}<br>
+                    Access-Control-Allow-Methods: ${response.headers.get('Access-Control-Allow-Methods')}<br>
+                    Access-Control-Allow-Headers: ${response.headers.get('Access-Control-Allow-Headers')}`;
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `❌ OPTIONS请求失败！错误: ${error.message}`;
+            }
+        }
+
+        // Kiro修改：页面加载时显示当前域名
+        window.onload = function() {
+            console.log('Kiro修改：当前页面域名:', window.location.origin);
+            console.log('Kiro修改：目标API地址:', API_BASE);
+        };
+    </script>
+</body>
+</html>
