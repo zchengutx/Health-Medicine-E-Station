@@ -19,8 +19,13 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	User_SendSms_FullMethodName = "/user.v1.User/SendSms"
-	User_Login_FullMethodName   = "/user.v1.User/Login"
+	User_SendSms_FullMethodName         = "/user.v1.User/SendSms"
+	User_Login_FullMethodName           = "/user.v1.User/Login"
+	User_UpdateNickName_FullMethodName  = "/user.v1.User/UpdateNickName"
+	User_UpdateMobile_FullMethodName    = "/user.v1.User/UpdateMobile"
+	User_SelectTheCity_FullMethodName   = "/user.v1.User/SelectTheCity"
+	User_SearchForCities_FullMethodName = "/user.v1.User/SearchForCities"
+	User_CreateAddress_FullMethodName   = "/user.v1.User/CreateAddress"
 )
 
 // UserClient is the client API for User service.
@@ -32,6 +37,11 @@ type UserClient interface {
 	// Sends a greeting
 	SendSms(ctx context.Context, in *SendSmsRequest, opts ...grpc.CallOption) (*SendSmsReply, error)
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginReply, error)
+	UpdateNickName(ctx context.Context, in *UpdateNickNameRequest, opts ...grpc.CallOption) (*UpdateNickNameReply, error)
+	UpdateMobile(ctx context.Context, in *UpdateMobileRequest, opts ...grpc.CallOption) (*UpdateMobileReply, error)
+	SelectTheCity(ctx context.Context, in *SelectTheCityRequest, opts ...grpc.CallOption) (*SelectTheCityReply, error)
+	SearchForCities(ctx context.Context, in *SearchForCitiesRequest, opts ...grpc.CallOption) (*SearchForCitiesReply, error)
+	CreateAddress(ctx context.Context, in *CreateAddressRequest, opts ...grpc.CallOption) (*CreateAddressReply, error)
 }
 
 type userClient struct {
@@ -62,6 +72,56 @@ func (c *userClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.C
 	return out, nil
 }
 
+func (c *userClient) UpdateNickName(ctx context.Context, in *UpdateNickNameRequest, opts ...grpc.CallOption) (*UpdateNickNameReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateNickNameReply)
+	err := c.cc.Invoke(ctx, User_UpdateNickName_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) UpdateMobile(ctx context.Context, in *UpdateMobileRequest, opts ...grpc.CallOption) (*UpdateMobileReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateMobileReply)
+	err := c.cc.Invoke(ctx, User_UpdateMobile_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) SelectTheCity(ctx context.Context, in *SelectTheCityRequest, opts ...grpc.CallOption) (*SelectTheCityReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SelectTheCityReply)
+	err := c.cc.Invoke(ctx, User_SelectTheCity_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) SearchForCities(ctx context.Context, in *SearchForCitiesRequest, opts ...grpc.CallOption) (*SearchForCitiesReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SearchForCitiesReply)
+	err := c.cc.Invoke(ctx, User_SearchForCities_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) CreateAddress(ctx context.Context, in *CreateAddressRequest, opts ...grpc.CallOption) (*CreateAddressReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateAddressReply)
+	err := c.cc.Invoke(ctx, User_CreateAddress_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServer is the server API for User service.
 // All implementations must embed UnimplementedUserServer
 // for forward compatibility.
@@ -71,6 +131,11 @@ type UserServer interface {
 	// Sends a greeting
 	SendSms(context.Context, *SendSmsRequest) (*SendSmsReply, error)
 	Login(context.Context, *LoginRequest) (*LoginReply, error)
+	UpdateNickName(context.Context, *UpdateNickNameRequest) (*UpdateNickNameReply, error)
+	UpdateMobile(context.Context, *UpdateMobileRequest) (*UpdateMobileReply, error)
+	SelectTheCity(context.Context, *SelectTheCityRequest) (*SelectTheCityReply, error)
+	SearchForCities(context.Context, *SearchForCitiesRequest) (*SearchForCitiesReply, error)
+	CreateAddress(context.Context, *CreateAddressRequest) (*CreateAddressReply, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -86,6 +151,21 @@ func (UnimplementedUserServer) SendSms(context.Context, *SendSmsRequest) (*SendS
 }
 func (UnimplementedUserServer) Login(context.Context, *LoginRequest) (*LoginReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+}
+func (UnimplementedUserServer) UpdateNickName(context.Context, *UpdateNickNameRequest) (*UpdateNickNameReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateNickName not implemented")
+}
+func (UnimplementedUserServer) UpdateMobile(context.Context, *UpdateMobileRequest) (*UpdateMobileReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMobile not implemented")
+}
+func (UnimplementedUserServer) SelectTheCity(context.Context, *SelectTheCityRequest) (*SelectTheCityReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SelectTheCity not implemented")
+}
+func (UnimplementedUserServer) SearchForCities(context.Context, *SearchForCitiesRequest) (*SearchForCitiesReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchForCities not implemented")
+}
+func (UnimplementedUserServer) CreateAddress(context.Context, *CreateAddressRequest) (*CreateAddressReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAddress not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 func (UnimplementedUserServer) testEmbeddedByValue()              {}
@@ -144,6 +224,96 @@ func _User_Login_Handler(srv interface{}, ctx context.Context, dec func(interfac
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_UpdateNickName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateNickNameRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).UpdateNickName(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_UpdateNickName_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).UpdateNickName(ctx, req.(*UpdateNickNameRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_UpdateMobile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateMobileRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).UpdateMobile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_UpdateMobile_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).UpdateMobile(ctx, req.(*UpdateMobileRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_SelectTheCity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SelectTheCityRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).SelectTheCity(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_SelectTheCity_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).SelectTheCity(ctx, req.(*SelectTheCityRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_SearchForCities_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchForCitiesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).SearchForCities(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_SearchForCities_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).SearchForCities(ctx, req.(*SearchForCitiesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_CreateAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateAddressRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).CreateAddress(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_CreateAddress_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).CreateAddress(ctx, req.(*CreateAddressRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // User_ServiceDesc is the grpc.ServiceDesc for User service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -158,6 +328,26 @@ var User_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Login",
 			Handler:    _User_Login_Handler,
+		},
+		{
+			MethodName: "UpdateNickName",
+			Handler:    _User_UpdateNickName_Handler,
+		},
+		{
+			MethodName: "UpdateMobile",
+			Handler:    _User_UpdateMobile_Handler,
+		},
+		{
+			MethodName: "SelectTheCity",
+			Handler:    _User_SelectTheCity_Handler,
+		},
+		{
+			MethodName: "SearchForCities",
+			Handler:    _User_SearchForCities_Handler,
+		},
+		{
+			MethodName: "CreateAddress",
+			Handler:    _User_CreateAddress_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
