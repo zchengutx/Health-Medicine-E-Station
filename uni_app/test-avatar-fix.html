@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>头像上传修复测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .info { background-color: #d1ecf1; border-color: #bee5eb; }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+        }
+        button:hover { background-color: #0056b3; }
+        .file-input {
+            margin: 10px 0;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>头像上传修复测试</h1>
+    
+    <div class="test-section info">
+        <h3>当前状态</h3>
+        <p>Token: <span id="tokenStatus">检查中...</span></p>
+        <p>后端地址: http://localhost:8000</p>
+    </div>
+
+    <div class="test-section">
+        <h3>头像上传测试</h3>
+        <div class="file-input">
+            <input type="file" id="avatarFile" accept="image/*">
+            <button onclick="uploadAvatar()">上传头像</button>
+        </div>
+        <div id="uploadResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>调试信息</h3>
+        <button onclick="checkToken()">检查Token</button>
+        <button onclick="testConnection()">测试连接</button>
+        <div id="debugInfo"></div>
+    </div>
+
+    <script>
+        // 页面加载时检查token
+        window.addEventListener('load', function() {
+            checkToken();
+        });
+
+        // 检查token状态
+        function checkToken() {
+            const token = localStorage.getItem('token');
+            const tokenStatus = document.getElementById('tokenStatus');
+            const debugInfo = document.getElementById('debugInfo');
+            
+            if (token) {
+                tokenStatus.textContent = '✅ 已找到 (' + token.substring(0, 20) + '...)';
+                debugInfo.innerHTML += '<p class="success">Token检查: 正常</p>';
+            } else {
+                tokenStatus.textContent = '❌ 未找到';
+                debugInfo.innerHTML += '<p class="error">Token检查: 未找到token，请先登录</p>';
+            }
+        }
+
+        // 测试连接
+        async function testConnection() {
+            const debugInfo = document.getElementById('debugInfo');
+            debugInfo.innerHTML += '<p>正在测试连接...</p>';
+            
+            try {
+                const response = await fetch('http://localhost:8000/v1/userInfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': localStorage.getItem('token') || ''
+                    },
+                    body: JSON.stringify({})
+                });
+                
+                if (response.ok) {
+                    debugInfo.innerHTML += '<p class="success">连接测试: 成功</p>';
+                } else {
+                    debugInfo.innerHTML += '<p class="error">连接测试: 失败 (状态码: ' + response.status + ')</p>';
+                }
+            } catch (error) {
+                debugInfo.innerHTML += '<p class="error">连接测试: 错误 - ' + error.message + '</p>';
+            }
+        }
+
+        // 上传头像
+        async function uploadAvatar() {
+            const fileInput = document.getElementById('avatarFile');
+            const resultDiv = document.getElementById('uploadResult');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                resultDiv.innerHTML = '<p class="error">❌ 请先选择文件</p>';
+                return;
+            }
+
+            resultDiv.innerHTML = '<p>正在上传...</p>';
+            
+            try {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    resultDiv.innerHTML = '<p class="error">❌ 没有找到token，请先登录</p>';
+                    return;
+                }
+
+                console.log('开始上传文件:', file.name, file.size, 'bytes');
+                console.log('Token:', token.substring(0, 20) + '...');
+
+                // 创建FormData
+                const formData = new FormData();
+                formData.append('file', file);
+
+                console.log('FormData创建完成');
+
+                // 上传文件 - 注意：不设置Content-Type头
+                const response = await fetch('http://localhost:8000/upload', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': token
+                        // 不设置Content-Type，让浏览器自动设置
+                    },
+                    body: formData
+                });
+
+                console.log('上传响应状态:', response.status);
+                console.log('响应头:', Object.fromEntries(response.headers.entries()));
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('上传失败:', response.status, errorText);
+                    resultDiv.innerHTML = '<p class="error">❌ 上传失败！状态码: ' + response.status + '</p><pre>' + errorText + '</pre>';
+                    return;
+                }
+
+                const data = await response.json();
+                console.log('上传成功，响应数据:', data);
+
+                resultDiv.innerHTML = '<p class="success">✅ 上传成功！</p><pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                
+                // 更新本地用户信息
+                const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
+                if (data.data && data.data.avatar) {
+                    userInfo.avatar = data.data.avatar;
+                } else if (data.avatar) {
+                    userInfo.avatar = data.avatar;
+                }
+                localStorage.setItem('userInfo', JSON.stringify(userInfo));
+                
+                console.log('本地用户信息已更新:', userInfo);
+                
+            } catch (error) {
+                console.error('上传错误:', error);
+                resultDiv.innerHTML = '<p class="error">❌ 上传错误: ' + error.message + '</p>';
+            }
+        }
+    </script>
+</body>
+</html>

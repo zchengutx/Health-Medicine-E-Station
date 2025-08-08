@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>头像显示测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .avatar-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .avatar-display {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f0f0;
+            overflow: hidden;
+        }
+        .avatar-display img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .avatar-display .placeholder {
+            font-size: 40px;
+            color: #999;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .info {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>头像显示测试</h1>
+        
+        <div class="avatar-section">
+            <h3>当前头像显示</h3>
+            <div class="avatar-display" id="avatarDisplay">
+                <div class="placeholder">👤</div>
+            </div>
+            <div class="info" id="avatarInfo">未设置头像</div>
+        </div>
+        
+        <div class="avatar-section">
+            <h3>测试操作</h3>
+            <button onclick="checkToken()">检查Token</button>
+            <button onclick="loadUserInfo()">加载用户信息</button>
+            <button onclick="uploadAvatar()">上传头像</button>
+            <button onclick="clearAvatar()">清除头像</button>
+        </div>
+        
+        <div class="avatar-section">
+            <h3>调试信息</h3>
+            <div id="debugInfo"></div>
+        </div>
+    </div>
+
+    <script>
+        // 调试信息显示
+        function log(message, type = 'info') {
+            const debugInfo = document.getElementById('debugInfo');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = type;
+            logEntry.innerHTML = `[${timestamp}] ${message}`;
+            debugInfo.appendChild(logEntry);
+            debugInfo.scrollTop = debugInfo.scrollHeight;
+            console.log(message);
+        }
+
+        // 更新头像显示
+        function updateAvatarDisplay(avatarUrl) {
+            const avatarDisplay = document.getElementById('avatarDisplay');
+            const avatarInfo = document.getElementById('avatarInfo');
+            
+            log(`正在更新头像显示: ${avatarUrl}`);
+            
+            if (avatarUrl && avatarUrl.trim() !== '') {
+                // 构建完整的头像URL
+                let fullAvatarUrl = avatarUrl;
+                if (!avatarUrl.startsWith('http')) {
+                    fullAvatarUrl = `http://localhost:8000/uploads/${avatarUrl}`;
+                }
+                
+                log(`完整头像URL: ${fullAvatarUrl}`);
+                
+                // 创建图片元素
+                const img = document.createElement('img');
+                img.src = fullAvatarUrl;
+                img.alt = '头像';
+                
+                // 图片加载成功
+                img.onload = function() {
+                    log('头像加载成功');
+                    avatarDisplay.innerHTML = '';
+                    avatarDisplay.appendChild(img);
+                    avatarInfo.textContent = `头像已设置: ${avatarUrl}`;
+                    avatarInfo.className = 'info success';
+                };
+                
+                // 图片加载失败
+                img.onerror = function() {
+                    log('头像加载失败，显示默认头像');
+                    avatarDisplay.innerHTML = '<div class="placeholder">👤</div>';
+                    avatarInfo.textContent = `头像加载失败: ${avatarUrl}`;
+                    avatarInfo.className = 'info error';
+                };
+            } else {
+                log('没有头像，显示默认头像');
+                avatarDisplay.innerHTML = '<div class="placeholder">👤</div>';
+                avatarInfo.textContent = '未设置头像';
+                avatarInfo.className = 'info';
+            }
+        }
+
+        // 检查Token
+        function checkToken() {
+            const token = localStorage.getItem('token');
+            if (token) {
+                log(`Token存在: ${token.substring(0, 20)}...`, 'success');
+            } else {
+                log('Token不存在，请先登录', 'error');
+            }
+        }
+
+        // 加载用户信息
+        async function loadUserInfo() {
+            try {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    log('请先登录', 'error');
+                    return;
+                }
+                
+                log('正在从后端获取用户信息...');
+                const response = await fetch('http://localhost:8000/v1/userInfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    },
+                    body: JSON.stringify({})
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`后端响应: ${JSON.stringify(data)}`);
+                    
+                    if (data.success || data.code === 0 || (data.message && data.message.includes('success'))) {
+                        const serverUserInfo = data.data || data;
+                        if (serverUserInfo && serverUserInfo.avatar) {
+                            log(`获取到头像: ${serverUserInfo.avatar}`, 'success');
+                            updateAvatarDisplay(serverUserInfo.avatar);
+                        } else {
+                            log('后端未返回头像信息', 'error');
+                        }
+                    } else {
+                        log(`后端返回错误: ${data.message}`, 'error');
+                    }
+                } else {
+                    log(`HTTP错误: ${response.status}`, 'error');
+                }
+            } catch (error) {
+                log(`获取用户信息失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 上传头像
+        function uploadAvatar() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                log('请先登录', 'error');
+                return;
+            }
+            
+            // 创建文件输入元素
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = 'image/*';
+            fileInput.style.display = 'none';
+            
+            fileInput.onchange = async function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    await performUpload(file);
+                }
+            };
+            
+            document.body.appendChild(fileInput);
+            fileInput.click();
+            document.body.removeChild(fileInput);
+        }
+
+        // 执行上传
+        async function performUpload(file) {
+            try {
+                const token = localStorage.getItem('token');
+                log(`开始上传文件: ${file.name}`);
+                
+                // 创建FormData
+                const formData = new FormData();
+                formData.append('file', file);
+                
+                // 上传文件
+                const response = await fetch('http://localhost:8000/upload', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': token
+                    },
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP ${response.status}: ${errorText}`);
+                }
+                
+                const data = await response.json();
+                log(`上传响应: ${JSON.stringify(data)}`);
+                
+                // 检查上传结果
+                if (data.success || data.code === 0 || (data.message && data.message.includes('success'))) {
+                    let newAvatar = '';
+                    if (data.data && data.data.avatar) {
+                        newAvatar = data.data.avatar;
+                    } else if (data.avatar) {
+                        newAvatar = data.avatar;
+                    }
+                    
+                    log(`头像上传成功: ${newAvatar}`, 'success');
+                    updateAvatarDisplay(newAvatar);
+                    
+                    // 更新本地存储
+                    const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
+                    userInfo.avatar = newAvatar;
+                    localStorage.setItem('userInfo', JSON.stringify(userInfo));
+                    
+                } else {
+                    throw new Error(data.message || '上传失败');
+                }
+            } catch (error) {
+                log(`上传失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 清除头像
+        function clearAvatar() {
+            localStorage.removeItem('userInfo');
+            updateAvatarDisplay('');
+            log('头像已清除', 'success');
+        }
+
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            log('页面加载完成');
+            checkToken();
+            
+            // 尝试从本地存储加载头像
+            const userInfo = localStorage.getItem('userInfo');
+            if (userInfo) {
+                const user = JSON.parse(userInfo);
+                if (user.avatar) {
+                    log(`从本地存储加载头像: ${user.avatar}`);
+                    updateAvatarDisplay(user.avatar);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

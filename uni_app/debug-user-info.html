@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户信息调试 - 健康医疗驿站</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .info-box {
+            background: #f0f8ff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .data-display {
+            word-break: break-all;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 12px;
+            margin: 10px 0;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .error {
+            color: #dc3545;
+            background: #f8d7da;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success {
+            color: #155724;
+            background: #d4edda;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .warning {
+            color: #856404;
+            background: #fff3cd;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>用户信息调试页面</h1>
+        
+        <div class="info-box">
+            <h3>当前本地存储的用户信息：</h3>
+            <div id="localUserInfo">正在加载...</div>
+        </div>
+        
+        <div class="info-box">
+            <h3>当前本地存储的Token：</h3>
+            <div id="localToken">正在加载...</div>
+        </div>
+        
+        <div class="info-box">
+            <h3>从后端获取最新用户信息：</h3>
+            <button onclick="fetchLatestUserInfo()">获取最新用户信息</button>
+            <div id="serverUserInfo">点击按钮获取</div>
+        </div>
+        
+        <div class="info-box">
+            <h3>数据对比分析：</h3>
+            <div id="comparison">等待数据...</div>
+        </div>
+        
+        <div class="info-box">
+            <h3>操作：</h3>
+            <button onclick="refreshAll()">刷新所有信息</button>
+            <button onclick="clearStorage()">清除本地存储</button>
+            <button onclick="goToLogin()">跳转到登录页</button>
+            <button onclick="goToProfile()">跳转到用户信息页</button>
+        </div>
+    </div>
+
+    <script>
+        // 页面加载时显示信息
+        document.addEventListener('DOMContentLoaded', function() {
+            refreshAll();
+        });
+        
+        // 刷新所有信息
+        function refreshAll() {
+            displayLocalUserInfo();
+            displayLocalToken();
+            updateComparison();
+        }
+        
+        // 显示本地用户信息
+        function displayLocalUserInfo() {
+            const userInfo = localStorage.getItem('userInfo');
+            const userInfoDiv = document.getElementById('localUserInfo');
+            
+            if (userInfo) {
+                try {
+                    const user = JSON.parse(userInfo);
+                    userInfoDiv.innerHTML = `
+                        <strong>用户信息存在：</strong> 是<br>
+                        <strong>用户名：</strong> ${user.username || '未设置'}<br>
+                        <strong>手机号：</strong> ${user.phone || '未设置'}<br>
+                        <strong>头像：</strong> ${user.avatar || '未设置'}<br>
+                        <strong>原始数据：</strong>
+                        <div class="data-display">${JSON.stringify(user, null, 2)}</div>
+                    `;
+                } catch (e) {
+                    userInfoDiv.innerHTML = `
+                        <div class="error">
+                            <strong>用户信息格式错误</strong><br>
+                            错误信息: ${e.message}<br>
+                            原始数据: ${userInfo}
+                        </div>
+                    `;
+                }
+            } else {
+                userInfoDiv.innerHTML = '<strong>用户信息：</strong> 未找到';
+            }
+        }
+        
+        // 显示本地Token
+        function displayLocalToken() {
+            const token = localStorage.getItem('token');
+            const tokenDiv = document.getElementById('localToken');
+            
+            if (token) {
+                tokenDiv.innerHTML = `
+                    <strong>Token存在：</strong> 是<br>
+                    <strong>Token值：</strong><br>
+                    <div class="data-display">${token}</div>
+                `;
+            } else {
+                tokenDiv.innerHTML = '<strong>Token存在：</strong> 否';
+            }
+        }
+        
+        // 从后端获取最新用户信息
+        async function fetchLatestUserInfo() {
+            const serverUserInfoDiv = document.getElementById('serverUserInfo');
+            const token = localStorage.getItem('token');
+            
+            if (!token) {
+                serverUserInfoDiv.innerHTML = '<div class="error">未找到token，请先登录</div>';
+                return;
+            }
+            
+            serverUserInfoDiv.innerHTML = '<div class="success">正在获取...</div>';
+            
+            try {
+                // 使用正确的用户信息API
+                const response = await fetch('http://localhost:8000/v1/userInfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    },
+                    body: JSON.stringify({}) // 空的请求体
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    serverUserInfoDiv.innerHTML = `
+                        <div class="success">
+                            <strong>获取成功！</strong><br>
+                            响应状态: ${response.status}<br>
+                            响应数据: 
+                            <div class="data-display">${JSON.stringify(data, null, 2)}</div>
+                        </div>
+                    `;
+                } else {
+                    const errorText = await response.text();
+                    serverUserInfoDiv.innerHTML = `
+                        <div class="error">
+                            <strong>获取失败</strong><br>
+                            状态码: ${response.status}<br>
+                            错误信息: ${errorText}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                serverUserInfoDiv.innerHTML = `
+                    <div class="error">
+                        <strong>网络错误</strong><br>
+                        错误信息: ${error.message}<br>
+                                                 <div class="warning">
+                             注意：如果后端没有 userInfo 接口，这是正常的错误。
+                             请检查你的后端是否有获取用户信息的API接口。
+                         </div>
+                    </div>
+                `;
+            }
+        }
+        
+        // 更新数据对比
+        function updateComparison() {
+            const comparisonDiv = document.getElementById('comparison');
+            const userInfo = localStorage.getItem('userInfo');
+            const token = localStorage.getItem('token');
+            
+            if (!token) {
+                comparisonDiv.innerHTML = '<div class="error">未找到token，无法进行对比</div>';
+                return;
+            }
+            
+            if (!userInfo) {
+                comparisonDiv.innerHTML = '<div class="error">未找到本地用户信息，无法进行对比</div>';
+                return;
+            }
+            
+            try {
+                const user = JSON.parse(userInfo);
+                comparisonDiv.innerHTML = `
+                    <div class="success">
+                        <strong>本地数据状态：</strong><br>
+                        ✅ Token: 已存储<br>
+                        ✅ 用户信息: 已存储<br>
+                        ✅ 用户名: ${user.username || '未设置'}<br>
+                        ✅ 手机号: ${user.phone || '未设置'}<br>
+                        <br>
+                        <strong>建议：</strong><br>
+                        1. 如果昵称显示不正确，请点击"获取最新用户信息"按钮<br>
+                        2. 如果后端没有 getUserInfo 接口，请检查后端API<br>
+                        3. 确保修改昵称时后端API正常工作
+                    </div>
+                `;
+            } catch (e) {
+                comparisonDiv.innerHTML = `
+                    <div class="error">
+                        <strong>本地数据格式错误</strong><br>
+                        错误信息: ${e.message}
+                    </div>
+                `;
+            }
+        }
+        
+        // 清除存储
+        function clearStorage() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userInfo');
+            refreshAll();
+            alert('已清除所有存储数据');
+        }
+        
+        // 跳转到登录页
+        function goToLogin() {
+            window.location.href = 'login.html';
+        }
+        
+        // 跳转到用户信息页
+        function goToProfile() {
+            window.location.href = 'profile.html';
+        }
+    </script>
+</body>
+</html>

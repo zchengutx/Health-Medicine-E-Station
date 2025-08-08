@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户信息API调试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .result {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <h1>用户信息API调试工具</h1>
+    
+    <div class="section">
+        <h3>1. 检查本地存储</h3>
+        <button class="button" onclick="checkLocalStorage()">检查本地存储</button>
+        <div id="localStorageResult" class="result"></div>
+    </div>
+    
+    <div class="section">
+        <h3>2. 测试用户信息API</h3>
+        <button class="button" onclick="testUserInfoAPI()">调用 /v1/userInfo</button>
+        <div id="apiResult" class="result"></div>
+    </div>
+    
+    <div class="section">
+        <h3>3. 强制刷新用户信息</h3>
+        <button class="button" onclick="forceRefreshUserInfo()">强制刷新</button>
+        <div id="refreshResult" class="result"></div>
+    </div>
+    
+    <div class="section">
+        <h3>4. 清除本地存储</h3>
+        <button class="button" onclick="clearLocalStorage()">清除本地存储</button>
+        <div id="clearResult" class="result"></div>
+    </div>
+
+    <script>
+        function log(elementId, message, isError = false) {
+            const element = document.getElementById(elementId);
+            const className = isError ? 'result error' : 'result success';
+            element.className = className;
+            element.textContent = new Date().toLocaleTimeString() + ': ' + message;
+        }
+        
+        function checkLocalStorage() {
+            const token = localStorage.getItem('token');
+            const userInfo = localStorage.getItem('userInfo');
+            
+            let result = 'Token: ' + (token ? token.substring(0, 20) + '...' : 'null') + '\n';
+            result += 'UserInfo: ' + (userInfo ? userInfo : 'null');
+            
+            if (userInfo) {
+                try {
+                    const parsed = JSON.parse(userInfo);
+                    result += '\n\n解析后的用户信息:\n';
+                    result += 'username: ' + (parsed.username || 'undefined') + '\n';
+                    result += 'phone: ' + (parsed.phone || 'undefined') + '\n';
+                    result += 'avatar: ' + (parsed.avatar || 'undefined');
+                } catch (e) {
+                    result += '\n\n解析失败: ' + e.message;
+                }
+            }
+            
+            log('localStorageResult', result);
+        }
+        
+        async function testUserInfoAPI() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                log('apiResult', '没有找到token，请先登录', true);
+                return;
+            }
+            
+            try {
+                log('apiResult', '正在调用API...');
+                
+                const response = await fetch('http://localhost:8000/v1/userInfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    },
+                    body: JSON.stringify({})
+                });
+                
+                log('apiResult', 'API响应状态: ' + response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    log('apiResult', 'API调用成功:\n' + JSON.stringify(data, null, 2));
+                } else {
+                    const errorText = await response.text();
+                    log('apiResult', 'API调用失败:\n状态: ' + response.status + '\n错误: ' + errorText, true);
+                }
+            } catch (error) {
+                log('apiResult', '网络错误: ' + error.message, true);
+            }
+        }
+        
+        async function forceRefreshUserInfo() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                log('refreshResult', '没有找到token，请先登录', true);
+                return;
+            }
+            
+            try {
+                log('refreshResult', '正在强制刷新用户信息...');
+                
+                const response = await fetch('http://localhost:8000/v1/userInfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    },
+                    body: JSON.stringify({})
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    if (data.success || data.code === 0 || (data.message && data.message.includes('success'))) {
+                        const serverUserInfo = data.data || data;
+                        
+                        if (serverUserInfo) {
+                            // 处理字段名映射
+                            const mappedUserInfo = {
+                                username: serverUserInfo.userName || serverUserInfo.username,
+                                phone: serverUserInfo.mobile || serverUserInfo.phone,
+                                avatar: serverUserInfo.avatar
+                            };
+                            
+                            // 更新本地存储
+                            localStorage.setItem('userInfo', JSON.stringify(mappedUserInfo));
+                            
+                            log('refreshResult', '用户信息已强制刷新:\n' + JSON.stringify(mappedUserInfo, null, 2));
+                        } else {
+                            log('refreshResult', '服务器返回的用户信息为空', true);
+                        }
+                    } else {
+                        log('refreshResult', '服务器返回错误: ' + JSON.stringify(data), true);
+                    }
+                } else {
+                    const errorText = await response.text();
+                    log('refreshResult', 'API调用失败: ' + response.status + ' - ' + errorText, true);
+                }
+            } catch (error) {
+                log('refreshResult', '网络错误: ' + error.message, true);
+            }
+        }
+        
+        function clearLocalStorage() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userInfo');
+            log('clearResult', '本地存储已清除');
+        }
+    </script>
+</body>
+</html>

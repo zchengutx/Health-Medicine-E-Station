@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户信息接口测试 - 健康医疗驿站</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .info-box {
+            background: #f0f8ff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .data-display {
+            word-break: break-all;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 12px;
+            margin: 10px 0;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .error {
+            color: #dc3545;
+            background: #f8d7da;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success {
+            color: #155724;
+            background: #d4edda;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .warning {
+            color: #856404;
+            background: #fff3cd;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        .test-section {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>用户信息接口测试页面</h1>
+        
+        <div class="info-box">
+            <h3>当前Token状态：</h3>
+            <div id="tokenStatus">正在检查...</div>
+        </div>
+        
+        <div class="test-section">
+            <h3>测试1: 不带Bearer前缀的Token</h3>
+            <button onclick="testUserInfoWithoutBearer()">测试不带Bearer</button>
+            <div id="testResult1">点击按钮测试</div>
+        </div>
+        
+        <div class="test-section">
+            <h3>测试2: 带Bearer前缀的Token</h3>
+            <button onclick="testUserInfoWithBearer()">测试带Bearer</button>
+            <div id="testResult2">点击按钮测试</div>
+        </div>
+        
+        <div class="test-section">
+            <h3>测试3: 使用GET方法</h3>
+            <button onclick="testUserInfoGET()">测试GET方法</button>
+            <div id="testResult3">点击按钮测试</div>
+        </div>
+        
+        <div class="test-section">
+            <h3>测试4: 检查后端健康状态</h3>
+            <button onclick="testBackendHealth()">检查后端状态</button>
+            <div id="testResult4">点击按钮测试</div>
+        </div>
+        
+        <div class="info-box">
+            <h3>操作：</h3>
+            <button onclick="refreshToken()">刷新Token信息</button>
+            <button onclick="clearStorage()">清除存储</button>
+            <button onclick="goToLogin()">跳转到登录页</button>
+        </div>
+    </div>
+
+    <script>
+        // 页面加载时显示信息
+        document.addEventListener('DOMContentLoaded', function() {
+            refreshToken();
+        });
+        
+        // 刷新Token信息
+        function refreshToken() {
+            const token = localStorage.getItem('token');
+            const userInfo = localStorage.getItem('userInfo');
+            const tokenStatusDiv = document.getElementById('tokenStatus');
+            
+            if (token) {
+                let userInfoText = '未找到';
+                if (userInfo) {
+                    try {
+                        const user = JSON.parse(userInfo);
+                        userInfoText = user.username || '未设置';
+                    } catch (e) {
+                        userInfoText = '格式错误';
+                    }
+                }
+                
+                tokenStatusDiv.innerHTML = `
+                    <div class="success">
+                        <strong>Token存在：</strong> 是<br>
+                        <strong>Token长度：</strong> ${token.length} 字符<br>
+                        <strong>当前用户：</strong> ${userInfoText}<br>
+                        <strong>Token前20字符：</strong> ${token.substring(0, 20)}...
+                    </div>
+                `;
+            } else {
+                tokenStatusDiv.innerHTML = `
+                    <div class="error">
+                        <strong>Token存在：</strong> 否<br>
+                        请先登录获取Token
+                    </div>
+                `;
+            }
+        }
+        
+        // 测试不带Bearer前缀
+        async function testUserInfoWithoutBearer() {
+            const resultDiv = document.getElementById('testResult1');
+            const token = localStorage.getItem('token');
+            
+            if (!token) {
+                resultDiv.innerHTML = '<div class="error">未找到token，请先登录</div>';
+                return;
+            }
+            
+            resultDiv.innerHTML = '<div class="warning">正在测试...</div>';
+            
+            try {
+                console.log('测试不带Bearer前缀的Token');
+                const response = await fetch('http://localhost:8000/v1/userInfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    },
+                    body: JSON.stringify({})
+                });
+                
+                console.log('响应状态:', response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <strong>测试成功！</strong><br>
+                            状态码: ${response.status}<br>
+                            响应数据:
+                            <div class="data-display">${JSON.stringify(data, null, 2)}</div>
+                        </div>
+                    `;
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = `
+                        <div class="error">
+                            <strong>测试失败</strong><br>
+                            状态码: ${response.status}<br>
+                            错误信息: ${errorText}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <strong>网络错误</strong><br>
+                        错误信息: ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        // 测试带Bearer前缀
+        async function testUserInfoWithBearer() {
+            const resultDiv = document.getElementById('testResult2');
+            const token = localStorage.getItem('token');
+            
+            if (!token) {
+                resultDiv.innerHTML = '<div class="error">未找到token，请先登录</div>';
+                return;
+            }
+            
+            resultDiv.innerHTML = '<div class="warning">正在测试...</div>';
+            
+            try {
+                console.log('测试带Bearer前缀的Token');
+                const response = await fetch('http://localhost:8000/v1/userInfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({})
+                });
+                
+                console.log('响应状态:', response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <strong>测试成功！</strong><br>
+                            状态码: ${response.status}<br>
+                            响应数据:
+                            <div class="data-display">${JSON.stringify(data, null, 2)}</div>
+                        </div>
+                    `;
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = `
+                        <div class="error">
+                            <strong>测试失败</strong><br>
+                            状态码: ${response.status}<br>
+                            错误信息: ${errorText}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <strong>网络错误</strong><br>
+                        错误信息: ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        // 测试GET方法
+        async function testUserInfoGET() {
+            const resultDiv = document.getElementById('testResult3');
+            const token = localStorage.getItem('token');
+            
+            if (!token) {
+                resultDiv.innerHTML = '<div class="error">未找到token，请先登录</div>';
+                return;
+            }
+            
+            resultDiv.innerHTML = '<div class="warning">正在测试...</div>';
+            
+            try {
+                console.log('测试GET方法');
+                const response = await fetch('http://localhost:8000/v1/userInfo', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    }
+                });
+                
+                console.log('响应状态:', response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <strong>测试成功！</strong><br>
+                            状态码: ${response.status}<br>
+                            响应数据:
+                            <div class="data-display">${JSON.stringify(data, null, 2)}</div>
+                        </div>
+                    `;
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = `
+                        <div class="error">
+                            <strong>测试失败</strong><br>
+                            状态码: ${response.status}<br>
+                            错误信息: ${errorText}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <strong>网络错误</strong><br>
+                        错误信息: ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        // 测试后端健康状态
+        async function testBackendHealth() {
+            const resultDiv = document.getElementById('testResult4');
+            
+            resultDiv.innerHTML = '<div class="warning">正在检查后端状态...</div>';
+            
+            try {
+                console.log('检查后端健康状态');
+                const response = await fetch('http://localhost:8000/health', {
+                    method: 'GET'
+                });
+                
+                console.log('健康检查响应状态:', response.status);
+                
+                if (response.ok) {
+                    const data = await response.text();
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <strong>后端正常！</strong><br>
+                            状态码: ${response.status}<br>
+                            响应: ${data}
+                        </div>
+                    `;
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = `
+                        <div class="error">
+                            <strong>后端异常</strong><br>
+                            状态码: ${response.status}<br>
+                            错误信息: ${errorText}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <strong>无法连接到后端</strong><br>
+                        错误信息: ${error.message}<br>
+                        <div class="warning">
+                            请检查后端服务是否正在运行在 http://localhost:8000
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        // 清除存储
+        function clearStorage() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userInfo');
+            refreshToken();
+            alert('已清除所有存储数据');
+        }
+        
+        // 跳转到登录页
+        function goToLogin() {
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

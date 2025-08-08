@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token测试 - 健康医疗驿站</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .info-box {
+            background: #f0f8ff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .token-display {
+            word-break: break-all;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .error {
+            color: #dc3545;
+            background: #f8d7da;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success {
+            color: #155724;
+            background: #d4edda;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Token测试页面</h1>
+        
+        <div class="info-box">
+            <h3>当前存储的Token信息：</h3>
+            <div id="tokenInfo">正在加载...</div>
+        </div>
+        
+        <div class="info-box">
+            <h3>用户信息：</h3>
+            <div id="userInfo">正在加载...</div>
+        </div>
+        
+        <div class="info-box">
+            <h3>测试修改昵称API：</h3>
+            <input type="text" id="testNickname" placeholder="输入测试昵称" value="测试昵称123" style="padding: 8px; margin: 5px; width: 200px;">
+            <button onclick="testUpdateNickname()">测试修改昵称</button>
+            <div id="testResult"></div>
+        </div>
+        
+        <div class="info-box">
+            <h3>操作：</h3>
+            <button onclick="clearStorage()">清除所有存储</button>
+            <button onclick="refreshInfo()">刷新信息</button>
+            <button onclick="goToLogin()">跳转到登录页</button>
+        </div>
+    </div>
+
+    <script>
+        // 页面加载时显示信息
+        document.addEventListener('DOMContentLoaded', function() {
+            refreshInfo();
+        });
+        
+        // 刷新显示信息
+        function refreshInfo() {
+            const token = localStorage.getItem('token');
+            const userInfo = localStorage.getItem('userInfo');
+            
+            // 显示token信息
+            const tokenInfoDiv = document.getElementById('tokenInfo');
+            if (token) {
+                tokenInfoDiv.innerHTML = `
+                    <strong>Token存在：</strong> 是<br>
+                    <strong>Token值：</strong><br>
+                    <div class="token-display">${token}</div>
+                `;
+            } else {
+                tokenInfoDiv.innerHTML = '<strong>Token存在：</strong> 否';
+            }
+            
+            // 显示用户信息
+            const userInfoDiv = document.getElementById('userInfo');
+            if (userInfo) {
+                try {
+                    const user = JSON.parse(userInfo);
+                    userInfoDiv.innerHTML = `
+                        <strong>用户名：</strong> ${user.username || '未设置'}<br>
+                        <strong>手机号：</strong> ${user.phone || '未设置'}<br>
+                        <strong>头像：</strong> ${user.avatar || '未设置'}
+                    `;
+                } catch (e) {
+                    userInfoDiv.innerHTML = '<strong>用户信息格式错误</strong>';
+                }
+            } else {
+                userInfoDiv.innerHTML = '<strong>用户信息：</strong> 未找到';
+            }
+        }
+        
+        // 测试修改昵称API
+        async function testUpdateNickname() {
+            const testResultDiv = document.getElementById('testResult');
+            const nickname = document.getElementById('testNickname').value.trim();
+            
+            if (!nickname) {
+                testResultDiv.innerHTML = '<div class="error">请输入昵称</div>';
+                return;
+            }
+            
+            const token = localStorage.getItem('token');
+            if (!token) {
+                testResultDiv.innerHTML = '<div class="error">未找到token，请先登录</div>';
+                return;
+            }
+            
+            testResultDiv.innerHTML = '<div class="success">正在测试...</div>';
+            
+            try {
+                const response = await fetch('http://localhost:8000/v1/updateNickName', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    },
+                    body: JSON.stringify({
+                        nickName: nickname
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    if (data.success || data.code === 0 || (data.message && data.message.includes('success'))) {
+                        testResultDiv.innerHTML = `
+                            <div class="success">
+                                <strong>测试成功！</strong><br>
+                                响应状态: ${response.status}<br>
+                                响应数据: ${JSON.stringify(data, null, 2)}
+                            </div>
+                        `;
+                    } else {
+                        testResultDiv.innerHTML = `
+                            <div class="error">
+                                <strong>API返回错误</strong><br>
+                                响应状态: ${response.status}<br>
+                                响应数据: ${JSON.stringify(data, null, 2)}
+                            </div>
+                        `;
+                    }
+                } else {
+                    testResultDiv.innerHTML = `
+                        <div class="error">
+                            <strong>HTTP错误</strong><br>
+                            状态码: ${response.status}<br>
+                            响应数据: ${JSON.stringify(data, null, 2)}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                testResultDiv.innerHTML = `
+                    <div class="error">
+                        <strong>网络错误</strong><br>
+                        错误信息: ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        // 清除存储
+        function clearStorage() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userInfo');
+            refreshInfo();
+            alert('已清除所有存储数据');
+        }
+        
+        // 跳转到登录页
+        function goToLogin() {
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

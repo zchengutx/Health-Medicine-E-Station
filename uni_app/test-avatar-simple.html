@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>头像测试</title>
+    <style>
+        .avatar { width: 100px; height: 100px; border-radius: 50%; border: 2px solid #ddd; }
+        .info { margin: 10px 0; padding: 10px; background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h1>头像显示测试</h1>
+    <div class="avatar" id="avatarDisplay">👤</div>
+    <div class="info" id="info">未设置头像</div>
+    <button onclick="checkToken()">检查Token</button>
+    <button onclick="loadUserInfo()">加载用户信息</button>
+    <button onclick="uploadAvatar()">上传头像</button>
+    
+    <script>
+        function log(msg) {
+            console.log(msg);
+            document.getElementById('info').textContent = msg;
+        }
+        
+        function updateAvatar(avatarUrl) {
+            const display = document.getElementById('avatarDisplay');
+            if (avatarUrl && avatarUrl.trim() !== '') {
+                const fullUrl = avatarUrl.startsWith('http') ? avatarUrl : `http://localhost:8000/uploads/${avatarUrl}`;
+                display.innerHTML = `<img src="${fullUrl}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+                log(`头像已更新: ${avatarUrl}`);
+            } else {
+                display.innerHTML = '👤';
+                log('显示默认头像');
+            }
+        }
+        
+        function checkToken() {
+            const token = localStorage.getItem('token');
+            log(token ? `Token存在: ${token.substring(0,20)}...` : 'Token不存在');
+        }
+        
+        async function loadUserInfo() {
+            try {
+                const token = localStorage.getItem('token');
+                if (!token) { log('请先登录'); return; }
+                
+                const response = await fetch('http://localhost:8000/v1/userInfo', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': token },
+                    body: JSON.stringify({})
+                });
+                
+                const data = await response.json();
+                log(`后端响应: ${JSON.stringify(data)}`);
+                
+                if (data.success || data.code === 0 || (data.message && data.message.includes('success'))) {
+                    const userInfo = data.data || data;
+                    if (userInfo.avatar) {
+                        updateAvatar(userInfo.avatar);
+                    }
+                }
+            } catch (error) {
+                log(`错误: ${error.message}`);
+            }
+        }
+        
+        function uploadAvatar() {
+            const token = localStorage.getItem('token');
+            if (!token) { log('请先登录'); return; }
+            
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = async (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    try {
+                        const formData = new FormData();
+                        formData.append('file', file);
+                        
+                        const response = await fetch('http://localhost:8000/upload', {
+                            method: 'POST',
+                            headers: { 'Authorization': token },
+                            body: formData
+                        });
+                        
+                        const data = await response.json();
+                        log(`上传响应: ${JSON.stringify(data)}`);
+                        
+                        if (data.success || data.code === 0 || (data.message && data.message.includes('success'))) {
+                            const newAvatar = data.data?.avatar || data.avatar;
+                            if (newAvatar) {
+                                updateAvatar(newAvatar);
+                                const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
+                                userInfo.avatar = newAvatar;
+                                localStorage.setItem('userInfo', JSON.stringify(userInfo));
+                            }
+                        }
+                    } catch (error) {
+                        log(`上传失败: ${error.message}`);
+                    }
+                }
+            };
+            input.click();
+        }
+        
+        // 页面加载时检查本地存储
+        document.addEventListener('DOMContentLoaded', () => {
+            const userInfo = localStorage.getItem('userInfo');
+            if (userInfo) {
+                const user = JSON.parse(userInfo);
+                if (user.avatar) {
+                    updateAvatar(user.avatar);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

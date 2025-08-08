@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - 健康医疗驿站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-row {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+        
+        .label {
+            width: 80px;
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: #333;
+            background: transparent;
+        }
+        
+        .input::placeholder {
+            color: #999;
+        }
+        
+        .code-btn {
+            background: none;
+            border: none;
+            color: #ff4d4f;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .code-btn:hover:not(:disabled) {
+            background: rgba(255, 77, 79, 0.1);
+        }
+        
+        .code-btn:disabled {
+            color: #999;
+            cursor: not-allowed;
+        }
+        
+        .login-btn {
+            width: 100%;
+            background: #ff4d4f;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn:hover {
+            background: #ff3333;
+            transform: translateY(-2px);
+        }
+        
+        .quick-login {
+            text-align: center;
+            font-size: 14px;
+            color: #999;
+            margin-top: 15px;
+        }
+        
+        .agreement {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 30px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .checkbox {
+            margin-right: 10px;
+            margin-top: 2px;
+        }
+        
+        .agreement-text {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .error-message {
+            color: #ff4d4f;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .success-message {
+            color: #52c41a;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="header">
+            <h1 class="title">登录</h1>
+        </div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <div class="form-row">
+                    <label class="label">手机号码</label>
+                    <input type="tel" id="phone" class="input" placeholder="请输入手机号码" maxlength="11" value="13323133762">
+                </div>
+                <div class="error-message" id="phoneError"></div>
+            </div>
+            
+            <div class="form-group">
+                <div class="form-row">
+                    <label class="label">验证码</label>
+                    <input type="text" id="code" class="input" placeholder="输入验证码" maxlength="6">
+                    <button type="button" id="codeBtn" class="code-btn">获取验证码</button>
+                </div>
+                <div class="error-message" id="codeError"></div>
+                <div class="success-message" id="codeSuccess"></div>
+            </div>
+            
+            <button type="submit" class="login-btn">登录</button>
+            
+            <div class="quick-login">手机号快捷登录</div>
+        </form>
+        
+        <div class="agreement">
+            <input type="checkbox" id="agree" class="checkbox" checked>
+            <label for="agree" class="agreement-text">
+                我已认真阅读，理解并同意《叮当快药用户协议》及《叮当快药隐私协议》。未注册的手机号验证成功后会为您自动创建叮当账户
+            </label>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInput = document.getElementById('phone');
+            const codeInput = document.getElementById('code');
+            const codeBtn = document.getElementById('codeBtn');
+            const agreeCheckbox = document.getElementById('agree');
+            const loginForm = document.getElementById('loginForm');
+            const phoneError = document.getElementById('phoneError');
+            const codeError = document.getElementById('codeError');
+            const codeSuccess = document.getElementById('codeSuccess');
+            
+            // 后端 API 基础 URL，请根据实际情况修改
+            const API_BASE_URL = 'http://localhost:8000';
+            
+            let countdownTimer = null;
+
+            // 获取验证码
+            codeBtn.addEventListener('click', function() {
+                const phone = phoneInput.value.trim();
+                
+                // 验证手机号
+                if (!/^1[3-9]\d{9}$/.test(phone)) {
+                    showError(phoneError, '请输入正确的手机号码');
+                    return;
+                }
+                
+                hideError(phoneError);
+                
+                // 开始倒计时
+                startCountdown();
+                
+                // 调用真实的后端API发送验证码
+                console.log('开始调用发送短信接口');
+                console.log('请求URL:', `${API_BASE_URL}/v1/sendSms`);
+                console.log('请求参数:', { mobile: phone, source: 'login' });
+                
+                fetch(`${API_BASE_URL}/v1/sendSms`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        mobile: phone,
+                        source: "login"
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`网络响应错误: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('发送验证码响应:', data);
+                    // 检查多种可能的成功响应格式
+                    if (data.success || data.code === 0 || (data.message && data.message.includes('success'))) {
+                        showSuccess(codeSuccess, '验证码发送成功');
+                        setTimeout(() => hideSuccess(codeSuccess), 3000);
+                    } else {
+                        throw new Error(data.message || data.msg || '发送失败');
+                    }
+                })
+                .catch(error => {
+                    console.error('发送验证码失败:', error);
+                    showError(codeError, `发送失败: ${error.message}`);
+                    resetCountdown();
+                });
+            });
+
+            // 登录表单提交
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const phone = phoneInput.value.trim();
+                const code = codeInput.value.trim();
+                const agree = agreeCheckbox.checked;
+
+                // 清除之前的错误信息
+                hideError(phoneError);
+                hideError(codeError);
+
+                // 验证手机号
+                if (!/^1[3-9]\d{9}$/.test(phone)) {
+                    showError(phoneError, '请输入正确的手机号码');
+                    return;
+                }
+
+                // 验证验证码
+                if (!/^\d{6}$/.test(code)) {
+                    showError(codeError, '请输入正确的验证码');
+                    return;
+                }
+
+                // 验证协议
+                if (!agree) {
+                    alert('请同意用户协议和隐私协议');
+                    return;
+                }
+
+                // 调用真实的后端API进行登录
+                console.log('开始调用登录接口');
+                console.log('请求URL:', `${API_BASE_URL}/v1/login`);
+                console.log('请求参数:', { mobile: phone, sendSmsCode: code });
+                
+                fetch(`${API_BASE_URL}/v1/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        mobile: phone,
+                        sendSmsCode: code
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.text().then(text => {
+                            throw new Error(`网络响应错误: ${response.status}, 响应内容: ${text.substring(0, 200)}`);
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('登录响应:', data);
+                    // 检查多种可能的成功响应格式
+                    if (data.success || data.code === 0 || (data.message && data.message.includes('success'))) {
+                        // 保存用户信息到本地存储
+                        const userInfo = {
+                            username: data.data?.username || '用户' + phone.substring(7),
+                            phone: phone,
+                            avatar: data.data?.avatar || '',
+                            token: data.data?.token || data.token || 'token_' + Date.now()
+                        };
+                        
+                        localStorage.setItem('token', userInfo.token);
+                        localStorage.setItem('userInfo', JSON.stringify(userInfo));
+                        
+                        // 直接跳转到用户页面，不显示弹框
+                        window.location.href = 'user.html';
+                    } else {
+                        throw new Error(data.message || '登录失败');
+                    }
+                })
+                .catch(error => {
+                    console.error('登录失败:', error);
+                    alert(`登录失败: ${error.message}`);
+                });
+            });
+
+            // 倒计时功能
+            function startCountdown() {
+                let countDown = 60;
+                codeBtn.disabled = true;
+                codeBtn.textContent = `${countDown}s`;
+
+                countdownTimer = setInterval(function() {
+                    countDown--;
+                    codeBtn.textContent = `${countDown}s`;
+                    if (countDown <= 0) {
+                        resetCountdown();
+                    }
+                }, 1000);
+            }
+
+            function resetCountdown() {
+                if (countdownTimer) {
+                    clearInterval(countdownTimer);
+                    countdownTimer = null;
+                }
+                codeBtn.disabled = false;
+                codeBtn.textContent = '获取验证码';
+            }
+
+            // 显示错误信息
+            function showError(element, message) {
+                element.textContent = message;
+                element.style.display = 'block';
+            }
+
+            // 隐藏错误信息
+            function hideError(element) {
+                element.style.display = 'none';
+            }
+
+            // 显示成功信息
+            function showSuccess(element, message) {
+                element.textContent = message;
+                element.style.display = 'block';
+            }
+
+            // 隐藏成功信息
+            function hideSuccess(element) {
+                element.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
