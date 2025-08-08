@@ -20,7 +20,7 @@ type UserRepo interface {
 	Create(context.Context, *MtUser) (*MtUser, error)
 	Find(context.Context, *MtUser) (*MtUser, error)
 	Update(context.Context, *MtUser) (*MtUser, error)
-	FindByID(context.Context, int32) (*MtUser, error)
+	FindId(context.Context, *MtUser) (*MtUser, error)
 }
 
 type UserService struct {
@@ -45,12 +45,12 @@ func (s *UserService) Find(ctx context.Context, req *MtUser) (*MtUser, error) {
 	return s.repo.Find(ctx, req)
 }
 
+func (s *UserService) FindId(ctx context.Context, req *MtUser) (*MtUser, error) {
+	s.log.WithContext(ctx).Infof("Find id user %+v", req)
+	return s.repo.FindId(ctx, req)
+}
+
 func (s *UserService) Update(ctx context.Context, req *MtUser) (*MtUser, error) {
 	s.log.WithContext(ctx).Infof("Update user %+v", req)
 	return s.repo.Update(ctx, req)
-}
-
-func (s *UserService) FindByID(ctx context.Context, id int32) (*MtUser, error) {
-	s.log.WithContext(ctx).Infof("FindByID user %d", id)
-	return s.repo.FindByID(ctx, id)
 }

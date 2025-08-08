@@ -3,21 +3,19 @@ package comment
 import (
 	"context"
 	"fmt"
+	"github.com/smartwalle/alipay/v3"
 	"log"
 	"net/url"
-	"time"
-
-	"github.com/smartwalle/alipay/v3"
 )
 
 // 支付宝配置结构
 type AlipayConfig struct {
-	AppID              string // 应用ID
-	PrivateKey         string // 应用私钥
-	AlipayPublicKey    string // 支付宝公钥
-	IsProduction       bool   // 是否生产环境
-	NotifyURL          string // 异步通知地址
-	ReturnURL          string // 同步返回地址
+	AppID           string // 应用ID
+	PrivateKey      string // 应用私钥
+	AlipayPublicKey string // 支付宝公钥
+	IsProduction    bool   // 是否生产环境
+	NotifyURL       string // 异步通知地址
+	ReturnURL       string // 同步返回地址
 }
 
 // 支付宝客户端
@@ -155,31 +153,6 @@ func QueryAlipayOrder(orderID string) (*alipay.TradeQueryRsp, error) {
 	}
 
 	return rsp, nil
-}
-
-// 关闭订单
-func CloseAlipayOrder(orderID string) error {
-	if alipayClient == nil {
-		return fmt.Errorf("支付宝客户端未初始化")
-	}
-
-	var p = alipay.TradeClose{}
-	p.OutTradeNo = orderID
-
-	_, err := alipayClient.TradeClose(context.Background(), p)
-	if err != nil {
-		return fmt.Errorf("关闭订单失败: %v", err)
-	}
-
-	log.Printf("订单关闭成功: orderID=%s", orderID)
-	return nil
-}
-
-
-
-// 生成订单号
-func GenerateOrderID(prefix string) string {
-	return fmt.Sprintf("%s%d", prefix, time.Now().UnixNano())
 }
 
 // 支付结果结构
