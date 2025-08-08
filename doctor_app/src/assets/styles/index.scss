@@ -1,0 +1,660 @@
+@import './variables.scss';
+@import './mixins.scss';
+
+// 重置样式
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: $text-primary;
+  background-color: $bg-primary;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+
+// 移动端适配 - 基于vw单位的响应式方案
+html {
+  font-size: 4.267vw; // 基于375px设计稿，16px = 4.267vw
+}
+
+// 限制最小和最大字体大小
+@media screen and (max-width: 320px) {
+  html {
+    font-size: 13.65px; // 320px * 4.267% = 13.65px
+  }
+}
+
+@media screen and (min-width: 414px) {
+  html {
+    font-size: 17.66px; // 414px * 4.267% = 17.66px
+  }
+}
+
+@media screen and (min-width: 768px) {
+  html {
+    font-size: 18px; // 平板和桌面端固定字体大小
+  }
+}
+
+// 安全区域适配（iPhone X等带刘海屏的设备）
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+// 通用样式类
+.container {
+  width: 100%;
+  min-height: 100vh;
+  min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  padding: 0 $spacing-md;
+  background-color: $bg-primary;
+}
+
+// 文本对齐
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+// 文本颜色
+.text-primary {
+  color: $primary-color;
+}
+
+.text-secondary {
+  color: $text-secondary;
+}
+
+.text-white {
+  color: $text-white;
+}
+
+.text-muted {
+  color: $text-placeholder;
+}
+
+// 背景颜色
+.bg-primary {
+  background-color: $bg-primary;
+}
+
+.bg-secondary {
+  background-color: $bg-secondary;
+}
+
+.bg-gray {
+  background-color: $bg-gray;
+}
+
+// 间距工具类
+.m-0 { margin: 0; }
+.mt-0 { margin-top: 0; }
+.mr-0 { margin-right: 0; }
+.mb-0 { margin-bottom: 0; }
+.ml-0 { margin-left: 0; }
+
+.m-xs { margin: $spacing-xs; }
+.mt-xs { margin-top: $spacing-xs; }
+.mr-xs { margin-right: $spacing-xs; }
+.mb-xs { margin-bottom: $spacing-xs; }
+.ml-xs { margin-left: $spacing-xs; }
+
+.m-sm { margin: $spacing-sm; }
+.mt-sm { margin-top: $spacing-sm; }
+.mr-sm { margin-right: $spacing-sm; }
+.mb-sm { margin-bottom: $spacing-sm; }
+.ml-sm { margin-left: $spacing-sm; }
+
+.m-md { margin: $spacing-md; }
+.mt-md { margin-top: $spacing-md; }
+.mr-md { margin-right: $spacing-md; }
+.mb-md { margin-bottom: $spacing-md; }
+.ml-md { margin-left: $spacing-md; }
+
+.m-lg { margin: $spacing-lg; }
+.mt-lg { margin-top: $spacing-lg; }
+.mr-lg { margin-right: $spacing-lg; }
+.mb-lg { margin-bottom: $spacing-lg; }
+.ml-lg { margin-left: $spacing-lg; }
+
+.m-xl { margin: $spacing-xl; }
+.mt-xl { margin-top: $spacing-xl; }
+.mr-xl { margin-right: $spacing-xl; }
+.mb-xl { margin-bottom: $spacing-xl; }
+.ml-xl { margin-left: $spacing-xl; }
+
+// 内边距工具类
+.p-0 { padding: 0; }
+.pt-0 { padding-top: 0; }
+.pr-0 { padding-right: 0; }
+.pb-0 { padding-bottom: 0; }
+.pl-0 { padding-left: 0; }
+
+.p-xs { padding: $spacing-xs; }
+.pt-xs { padding-top: $spacing-xs; }
+.pr-xs { padding-right: $spacing-xs; }
+.pb-xs { padding-bottom: $spacing-xs; }
+.pl-xs { padding-left: $spacing-xs; }
+
+.p-sm { padding: $spacing-sm; }
+.pt-sm { padding-top: $spacing-sm; }
+.pr-sm { padding-right: $spacing-sm; }
+.pb-sm { padding-bottom: $spacing-sm; }
+.pl-sm { padding-left: $spacing-sm; }
+
+.p-md { padding: $spacing-md; }
+.pt-md { padding-top: $spacing-md; }
+.pr-md { padding-right: $spacing-md; }
+.pb-md { padding-bottom: $spacing-md; }
+.pl-md { padding-left: $spacing-md; }
+
+.p-lg { padding: $spacing-lg; }
+.pt-lg { padding-top: $spacing-lg; }
+.pr-lg { padding-right: $spacing-lg; }
+.pb-lg { padding-bottom: $spacing-lg; }
+.pl-lg { padding-left: $spacing-lg; }
+
+.p-xl { padding: $spacing-xl; }
+.pt-xl { padding-top: $spacing-xl; }
+.pr-xl { padding-right: $spacing-xl; }
+.pb-xl { padding-bottom: $spacing-xl; }
+.pl-xl { padding-left: $spacing-xl; }
+
+// 布局工具类
+.d-flex {
+  display: flex;
+}
+
+.d-inline-flex {
+  display: inline-flex;
+}
+
+.d-block {
+  display: block;
+}
+
+.d-inline-block {
+  display: inline-block;
+}
+
+.d-none {
+  display: none;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.align-start {
+  align-items: flex-start;
+}
+
+.align-end {
+  align-items: flex-end;
+}
+
+.align-stretch {
+  align-items: stretch;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+// 宽度工具类
+.w-full {
+  width: 100%;
+}
+
+.w-auto {
+  width: auto;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.w-25 {
+  width: 25%;
+}
+
+.w-75 {
+  width: 75%;
+}
+
+// 高度工具类
+.h-full {
+  height: 100%;
+}
+
+.h-screen {
+  height: 100vh;
+  height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+}
+
+.h-auto {
+  height: auto;
+}
+
+// 位置工具类
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.sticky {
+  position: sticky;
+}
+
+// 圆角工具类
+.rounded {
+  border-radius: $border-radius;
+}
+
+.rounded-lg {
+  border-radius: $border-radius-large;
+}
+
+.rounded-full {
+  border-radius: 50%;
+}
+
+.rounded-none {
+  border-radius: 0;
+}
+
+// 阴影工具类
+.shadow-sm {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.shadow {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-none {
+  box-shadow: none;
+}
+
+// 按钮样式系统
+.btn {
+  @include button-style($gray-200, $text-primary);
+  @include touch-optimized;
+  
+  &.btn-primary {
+    @include button-style($primary-color);
+  }
+  
+  &.btn-success {
+    @include button-style($success-color);
+  }
+  
+  &.btn-warning {
+    @include button-style($warning-color);
+  }
+  
+  &.btn-error {
+    @include button-style($error-color);
+  }
+  
+  &.btn-outline {
+    background-color: transparent;
+    border: 1px solid $primary-color;
+    color: $primary-color;
+    
+    &:hover:not(:disabled) {
+      background-color: $primary-color;
+      color: $text-white;
+    }
+  }
+  
+  &.btn-sm {
+    height: $button-height-sm;
+    padding: $spacing-xs $spacing-sm;
+    font-size: $font-size-sm;
+  }
+  
+  &.btn-lg {
+    height: $button-height-lg;
+    padding: $spacing-md $spacing-lg;
+    font-size: $font-size-lg;
+  }
+  
+  &.btn-full {
+    width: 100%;
+  }
+  
+  &.btn-rounded {
+    border-radius: $border-radius-full;
+  }
+}
+
+// 输入框样式系统
+.input-group {
+  margin-bottom: $spacing-md;
+
+  .input-field {
+    @include input-style;
+    height: $input-height;
+    
+    &.input-sm {
+      height: $input-height-sm;
+      padding: $spacing-xs $spacing-sm;
+      font-size: $font-size-sm;
+    }
+    
+    &.input-lg {
+      height: $input-height-lg;
+      padding: $spacing-md $spacing-lg;
+      font-size: $font-size-lg;
+    }
+    
+    &.input-error {
+      border-color: $error-color;
+      
+      &:focus {
+        border-color: $error-color;
+        box-shadow: 0 0 0 2px rgba($error-color, 0.1);
+      }
+    }
+    
+    &.input-success {
+      border-color: $success-color;
+      
+      &:focus {
+        border-color: $success-color;
+        box-shadow: 0 0 0 2px rgba($success-color, 0.1);
+      }
+    }
+  }
+  
+  .input-label {
+    display: block;
+    margin-bottom: $spacing-xs;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $text-secondary;
+  }
+  
+  .input-error-text {
+    margin-top: $spacing-xs;
+    font-size: $font-size-xs;
+    color: $error-color;
+  }
+  
+  .input-help-text {
+    margin-top: $spacing-xs;
+    font-size: $font-size-xs;
+    color: $text-tertiary;
+  }
+}
+
+// 卡片样式系统
+.card {
+  @include card-style;
+  
+  &.card-shadow {
+    box-shadow: $shadow-md;
+  }
+  
+  &.card-hover {
+    transition: all $transition-normal;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: $shadow-lg;
+    }
+  }
+  
+  .card-header {
+    padding-bottom: $spacing-md;
+    border-bottom: 1px solid $border-light;
+    margin-bottom: $spacing-md;
+  }
+  
+  .card-footer {
+    padding-top: $spacing-md;
+    border-top: 1px solid $border-light;
+    margin-top: $spacing-md;
+  }
+}
+// 
+移动端特定优化
+// 触摸优化
+.touch-action-manipulation {
+  touch-action: manipulation;
+}
+
+.touch-action-none {
+  touch-action: none;
+}
+
+// 滚动优化
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-scroll {
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.overflow-auto {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+// 移动端按钮优化
+.btn-touch {
+  min-height: 44px; // iOS推荐的最小触摸目标
+  min-width: 44px;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+// 移动端输入框优化
+.input-touch {
+  font-size: 16px; // 防止iOS缩放
+  -webkit-appearance: none;
+  border-radius: 0; // 重置iOS默认圆角
+  
+  &:focus {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+// 移动端文本优化
+.text-no-select {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-ellipsis-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text-ellipsis-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// 响应式显示/隐藏
+@media screen and (max-width: 480px) {
+  .hidden-mobile {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 481px) {
+  .visible-mobile {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hidden-tablet {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .visible-tablet {
+    display: none !important;
+  }
+}
+
+// 移动端容器优化
+.mobile-container {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+  
+  @media screen and (max-width: 375px) {
+    padding: 0 $spacing-sm;
+  }
+}
+
+// 安全区域适配工具类
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-area-left {
+  padding-left: env(safe-area-inset-left);
+}
+
+.safe-area-right {
+  padding-right: env(safe-area-inset-right);
+}
+
+// 移动端动画优化
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// 移动端性能优化
+.gpu-accelerated {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+// 移动端字体大小响应式
+@media screen and (max-width: 320px) {
+  .responsive-text {
+    font-size: 0.9em;
+  }
+}
+
+@media screen and (min-width: 414px) {
+  .responsive-text {
+    font-size: 1.1em;
+  }
+}

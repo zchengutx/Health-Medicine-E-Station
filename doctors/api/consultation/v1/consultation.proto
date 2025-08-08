@@ -1,0 +1,313 @@
+syntax = "proto3";
+
+package api.consultation.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "doctors/api/consultation/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.consultation.v1";
+
+//问诊服务模块
+service Consultation {
+	// 在线问诊
+	rpc StartConsultation (StartConsultationReq) returns (StartConsultationResp) {
+		option (google.api.http) = {
+			post: "/api/v1/consultation/StartConsultation"
+			body: "*"
+		};
+	}
+	rpc GetConsultationDetail (GetConsultationDetailReq) returns (GetConsultationDetailResp) {
+		option (google.api.http) = {
+			post: "/api/v1/consultation/GetConsultationDetail"
+			body: "*"
+		};
+	}
+	rpc UpdateConsultationStatus (UpdateConsultationStatusReq) returns (UpdateConsultationStatusResp) {
+		option (google.api.http) = {
+			post: "/api/v1/consultation/UpdateConsultationStatus"
+			body: "*"
+		};
+	}
+	rpc EndConsultation (EndConsultationReq) returns (EndConsultationResp) {
+		option (google.api.http) = {
+			post: "/api/v1/consultation/EndConsultation"
+			body: "*"
+		};
+	}
+	
+	// 问诊记录管理
+	rpc GetConsultationHistory (GetConsultationHistoryReq) returns (GetConsultationHistoryResp) {
+		option (google.api.http) = {
+			post: "/api/v1/consultation/GetConsultationHistory"
+			body: "*"
+		};
+	}
+	rpc AddConsultationRecord (AddConsultationRecordReq) returns (AddConsultationRecordResp) {
+		option (google.api.http) = {
+			post: "/api/v1/consultation/AddConsultationRecord"
+			body: "*"
+		};
+	}
+	rpc GetConsultationRecords (GetConsultationRecordsReq) returns (GetConsultationRecordsResp) {
+		option (google.api.http) = {
+			post: "/api/v1/consultation/GetConsultationRecords"
+			body: "*"
+		};
+	}
+	
+	// 问诊状态报告
+	rpc GetConsultationReport (GetConsultationReportReq) returns (GetConsultationReportResp) {
+		option (google.api.http) = {
+			post: "/api/v1/consultation/GetConsultationReport"
+			body: "*"
+		};
+	}
+	
+	// 问诊分类 (图文问诊、视频问诊等)
+	rpc GetConsultationsByType (GetConsultationsByTypeReq) returns (GetConsultationsByTypeResp) {
+		option (google.api.http) = {
+			post: "/api/v1/consultation/GetConsultationsByType"
+			body: "*"
+		};
+	}
+	
+	// 消息相关接口
+	rpc SendMessage (SendMessageReq) returns (SendMessageResp) {
+		option (google.api.http) = {
+			post: "/api/v1/consultation/SendMessage"
+			body: "*"
+		};
+	}
+	rpc GetMessages (GetMessagesReq) returns (GetMessagesResp) {
+		option (google.api.http) = {
+			post: "/api/v1/consultation/GetMessages"
+			body: "*"
+		};
+	}
+	rpc MarkMessageRead (MarkMessageReadReq) returns (MarkMessageReadResp) {
+		option (google.api.http) = {
+			post: "/api/v1/consultation/MarkMessageRead"
+			body: "*"
+		};
+	}
+}
+
+//开始问诊
+message StartConsultationReq{
+	int64 PatientId = 1; //患者ID
+	int64 DoctorId = 2; //医生ID
+	string Type = 3; //问诊类型：在线问诊/视频问诊/图文问诊
+	string ChiefComplaint = 4; //主诉
+	string PresentIllness = 5; //现病史
+	string Symptoms = 6; //症状描述
+	double Fee = 7; //问诊费用
+}
+message StartConsultationResp{
+	string Message = 1;
+	int64 Code = 2;
+	int64 ConsultationId = 3;
+	string ConsultationCode = 4;
+}
+
+//获取问诊详情
+message GetConsultationDetailReq{
+	int64 consultation_id = 1;
+}
+message GetConsultationDetailResp{
+	string Message = 1;
+	int64 Code = 2;
+	ConsultationDetail Detail = 3;
+}
+message ConsultationDetail{
+	int64 ConsultationId = 1;
+	string ConsultationCode = 2;
+	int64 PatientId = 3;
+	string PatientName = 4;
+	int64 DoctorId = 5;
+	string DoctorName = 6;
+	string Type = 7;
+	string Status = 8;
+	string ChiefComplaint = 9;
+	string PresentIllness = 10;
+	string Symptoms = 11;
+	string Diagnosis = 12;
+	string Treatment = 13;
+	string Prescription = 14;
+	string Advice = 15;
+	string StartTime = 16;
+	string EndTime = 17;
+	int32 Duration = 18;
+	double Fee = 19;
+	string PaymentStatus = 20;
+	int32 Rating = 21;
+	string Feedback = 22;
+	string Remarks = 23;
+	string CreatedAt = 24;
+	string UpdatedAt = 25;
+}
+
+//更新问诊状态
+message UpdateConsultationStatusReq{
+	int64 ConsultationId = 1;
+	string Status = 2; //状态：待接诊/进行中/已完成/已取消
+	string Diagnosis = 3; //诊断结果
+	string Treatment = 4; //治疗方案
+	string Prescription = 5; //处方信息
+	string Advice = 6; //医嘱建议
+}
+message UpdateConsultationStatusResp{
+	string Message = 1;
+	int64 Code = 2;
+}
+
+//结束问诊
+message EndConsultationReq{
+	int64 ConsultationId = 1;
+	string Diagnosis = 2; //诊断结果
+	string Treatment = 3; //治疗方案
+	string Prescription = 4; //处方信息
+	string Advice = 5; //医嘱建议
+	int32 Rating = 6; //患者评分
+	string Feedback = 7; //患者反馈
+}
+message EndConsultationResp{
+	string Message = 1;
+	int64 Code = 2;
+}
+
+//获取问诊历史
+message GetConsultationHistoryReq{
+	int64 PatientId = 1; //患者ID（可选）
+	int64 DoctorId = 2; //医生ID（可选）
+	string Status = 3; //状态筛选（可选）
+	string Type = 4; //类型筛选（可选）
+	int32 Page = 5; //页码
+	int32 PageSize = 6; //每页数量
+}
+message GetConsultationHistoryResp{
+	string Message = 1;
+	int64 Code = 2;
+	repeated ConsultationDetail Consultations = 3;
+	int64 Total = 4;
+	int32 Page = 5;
+	int32 PageSize = 6;
+}
+
+//添加问诊记录
+message AddConsultationRecordReq{
+	int64 ConsultationId = 1;
+	string RecordType = 2; //记录类型：vital_signs/examination/lab_result/image
+	string Title = 3;
+	string Content = 4;
+	string DataValue = 5; //结构化数据JSON
+	string FileURL = 6;
+	int64 CreatedBy = 7;
+}
+message AddConsultationRecordResp{
+	string Message = 1;
+	int64 Code = 2;
+	int64 RecordId = 3;
+}
+
+//获取问诊记录
+message GetConsultationRecordsReq{
+	int64 consultation_id = 1;
+	string RecordType = 2; //记录类型筛选（可选）
+}
+message GetConsultationRecordsResp{
+	string Message = 1;
+	int64 Code = 2;
+	repeated ConsultationRecord Records = 3;
+}
+message ConsultationRecord{
+	int64 RecordId = 1;
+	int64 ConsultationId = 2;
+	string RecordType = 3;
+	string Title = 4;
+	string Content = 5;
+	string DataValue = 6;
+	string FileURL = 7;
+	int64 CreatedBy = 8;
+	string CreatedAt = 9;
+	string UpdatedAt = 10;
+}
+
+//获取问诊报告
+message GetConsultationReportReq{
+	int64 consultation_id = 1;
+}
+message GetConsultationReportResp{
+	string Message = 1;
+	int64 Code = 2;
+	ConsultationReport Report = 3;
+}
+message ConsultationReport{
+	ConsultationDetail Detail = 1;
+	repeated ConsultationRecord Records = 2;
+	repeated ConsultationMessage Messages = 3;
+}
+
+//按类型获取问诊
+message GetConsultationsByTypeReq{
+	string type = 1;
+	int32 Page = 2;
+	int32 PageSize = 3;
+	string Status = 4; //状态筛选（可选）
+}
+message GetConsultationsByTypeResp{
+	string Message = 1;
+	int64 Code = 2;
+	repeated ConsultationDetail Consultations = 3;
+	int64 Total = 4;
+}
+
+//发送消息
+message SendMessageReq{
+	int64 ConsultationId = 1;
+	int64 SenderId = 2;
+	string SenderType = 3; //发送者类型：doctor/patient
+	string MessageType = 4; //消息类型：text/image/voice/video/file
+	string Content = 5;
+	string MediaURL = 6;
+}
+message SendMessageResp{
+	string Message = 1;
+	int64 Code = 2;
+	int64 MessageId = 3;
+}
+
+//获取消息列表
+message GetMessagesReq{
+	int64 consultation_id = 1;
+	int32 Page = 2;
+	int32 PageSize = 3;
+}
+message GetMessagesResp{
+	string Message = 1;
+	int64 Code = 2;
+	repeated ConsultationMessage Messages = 3;
+	int64 Total = 4;
+}
+message ConsultationMessage{
+	int64 MessageId = 1;
+	int64 ConsultationId = 2;
+	int64 SenderId = 3;
+	string SenderType = 4;
+	string MessageType = 5;
+	string Content = 6;
+	string MediaURL = 7;
+	bool IsRead = 8;
+	string ReadTime = 9;
+	string CreatedAt = 10;
+}
+
+//标记消息已读
+message MarkMessageReadReq{
+	int64 MessageId = 1;
+	int64 ReaderId = 2; //阅读者ID
+}
+message MarkMessageReadResp{
+	string Message = 1;
+	int64 Code = 2;
+}

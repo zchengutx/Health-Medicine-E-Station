@@ -1,0 +1,172 @@
+syntax = "proto3";
+
+package api.doctor.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "doctors/api/doctor/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.doctor.v1";
+//医生用户管理模块
+service Doctor {
+	rpc SendSms (SendSmsReq) returns (SendSmsResp) {
+		option (google.api.http) = {
+			post: "/api/v1/doctor/SendSms"
+			body: "*"
+		};
+	}
+	rpc RegisterDoctor (RegisterDoctorReq) returns (RegisterDoctorResp) {
+		option (google.api.http) = {
+			post: "/api/v1/doctor/RegisterDoctor"
+			body: "*"
+		};
+	}
+	rpc LoginDoctor (LoginDoctorReq) returns (LoginDoctorResp) {
+		option (google.api.http) = {
+			post: "/api/v1/doctor/LoginDoctor"
+			body: "*"
+		};
+	}
+	rpc Authentication (AuthenticationReq) returns (AuthenticationResp) {
+		option (google.api.http) = {
+			post: "/api/v1/doctor/Authentication"
+			body: "*"
+		};
+	}
+	rpc GetDoctorProfile (GetDoctorProfileReq) returns (GetDoctorProfileResp) {
+		option (google.api.http) = {
+			post: "/api/v1/doctor/GetDoctorProfile"
+			body: "*"
+		};
+	}
+	rpc UpdateDoctorProfile (UpdateDoctorProfileReq) returns (UpdateDoctorProfileResp) {
+		option (google.api.http) = {
+			post: "/api/v1/doctor/UpdateDoctorProfile"
+			body: "*"
+		};
+	}
+	rpc ChangePassword (ChangePasswordReq) returns (ChangePasswordResp) {
+		option (google.api.http) = {
+			post: "/api/v1/doctor/ChangePassword"
+			body: "*"
+		};
+	}
+	rpc DeleteAccount (DeleteAccountReq) returns (DeleteAccountResp) {
+		option (google.api.http) = {
+			post: "/api/v1/doctor/DeleteAccount"
+			body: "*"
+		};
+	}
+}
+//短信发送
+message SendSmsReq{
+	string Phone = 1;
+	string SendSmsCode = 2;
+}
+message SendSmsResp{
+	string Message = 1;
+	int64 Code = 2;
+}
+//注册
+message RegisterDoctorReq{
+	string Phone = 1;
+	string Password = 2;
+	string SendSmsCode = 3;
+}
+message RegisterDoctorResp{
+	string Message = 1;
+	int64 Code = 2;
+}
+//登录
+message LoginDoctorReq{
+	string Phone = 1;
+	string Password = 2;
+	string SendSmsCode = 3;
+}
+message  LoginDoctorResp{
+	string Message = 1;
+	int64 Code = 2;
+	int64 DId = 3;
+}
+//个人资料认证
+message AuthenticationReq{
+	int64 DId = 1;
+	string Name = 2; //医生姓名
+	string Gender = 3; //性别
+	string BirthData = 4; //出生日期
+	string Email = 5; //邮箱
+	string Avatar = 6; //头像
+	string LicenseNumber = 7; //执业医师资格证号
+	int64 DepartmentId = 8; //科室ID
+	int64 HospitalId = 9; //医院ID
+	string Title = 10; //职称
+	string Speciality = 11; //专业特长
+	string PracticeScope = 12; //执业范围
+}
+message AuthenticationResp{
+	string Message = 1;
+	int64 Code = 2;
+}
+//获取医生个人信息
+message GetDoctorProfileReq{
+	int64 doctor_id = 1;
+}
+message GetDoctorProfileResp{
+	string Message = 1;
+	int64 Code = 2;
+	DoctorProfile Profile = 3;
+}
+message DoctorProfile{
+	int64 DId = 1;
+	string DoctorCode = 2;
+	string Name = 3;
+	string Gender = 4;
+	string BirthDate = 5;
+	string Phone = 6;
+	string Email = 7;
+	string Avatar = 8;
+	string LicenseNumber = 9;
+	int64 DepartmentId = 10;
+	int64 HospitalId = 11;
+	string Title = 12;
+	string Speciality = 13;
+	string PracticeScope = 14;
+	string Status = 15;
+	string CreatedAt = 16;
+	string UpdatedAt = 17;
+}
+//更新医生个人信息
+message UpdateDoctorProfileReq{
+	int64 DId = 1;
+	string Name = 2;
+	string Gender = 3;
+	string BirthDate = 4;
+	string Email = 5;
+	string Avatar = 6;
+	string Title = 7;
+	string Speciality = 8;
+	string PracticeScope = 9;
+}
+message UpdateDoctorProfileResp{
+	string Message = 1;
+	int64 Code = 2;
+}
+//修改密码
+message ChangePasswordReq{
+	int64 DId = 1;
+	string OldPassword = 2;
+	string NewPassword = 3;
+	string ConfirmPassword = 4;
+}
+message ChangePasswordResp{
+	string Message = 1;
+	int64 Code = 2;
+}
+//注销账号
+message DeleteAccountReq{
+	int64 DId = 1;
+}
+message DeleteAccountResp{
+	string Message = 1;
+	int64 Code = 2;
+}

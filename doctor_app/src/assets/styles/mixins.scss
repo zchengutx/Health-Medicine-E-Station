@@ -1,0 +1,234 @@
+// 样式混合器
+
+// 清除浮动
+@mixin clearfix {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+// 文本省略
+@mixin text-ellipsis($lines: 1) {
+  @if $lines == 1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+// 居中对齐
+@mixin center-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// 绝对居中
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// 响应式断点
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == xs {
+    @media (max-width: #{$breakpoint-xs - 1px}) {
+      @content;
+    }
+  }
+  @if $breakpoint == sm {
+    @media (min-width: #{$breakpoint-sm}) {
+      @content;
+    }
+  }
+  @if $breakpoint == md {
+    @media (min-width: #{$breakpoint-md}) {
+      @content;
+    }
+  }
+  @if $breakpoint == lg {
+    @media (min-width: #{$breakpoint-lg}) {
+      @content;
+    }
+  }
+  @if $breakpoint == xl {
+    @media (min-width: #{$breakpoint-xl}) {
+      @content;
+    }
+  }
+}
+
+// 按钮样式
+@mixin button-style($bg-color, $text-color: $text-white, $hover-bg: darken($bg-color, 10%)) {
+  background-color: $bg-color;
+  color: $text-color;
+  border: none;
+  border-radius: $border-radius;
+  padding: $spacing-sm $spacing-md;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  transition: all $transition-normal;
+  user-select: none;
+  touch-action: manipulation;
+  
+  &:hover:not(:disabled) {
+    background-color: $hover-bg;
+    transform: translateY(-1px);
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+  
+  &:disabled {
+    background-color: $gray-300;
+    color: $gray-500;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+// 输入框样式
+@mixin input-style {
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  font-size: $font-size-md;
+  background-color: $bg-primary;
+  transition: border-color $transition-normal;
+  
+  &::placeholder {
+    color: $text-placeholder;
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
+  }
+  
+  &:disabled {
+    background-color: $bg-secondary;
+    color: $text-disabled;
+    cursor: not-allowed;
+  }
+}
+
+// 卡片样式
+@mixin card-style($padding: $spacing-md) {
+  background-color: $bg-primary;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-sm;
+  padding: $padding;
+  border: 1px solid $border-light;
+}
+
+// 渐变背景
+@mixin gradient-bg($start-color, $end-color, $direction: 135deg) {
+  background: linear-gradient($direction, $start-color 0%, $end-color 100%);
+}
+
+// 毛玻璃效果
+@mixin glass-effect($opacity: 0.8) {
+  background: rgba(255, 255, 255, $opacity);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+// 动画关键帧
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+// 动画属性
+@mixin animation($animation) {
+  -webkit-animation: $animation;
+  animation: $animation;
+}
+
+// 变换
+@mixin transform($transforms) {
+  -webkit-transform: $transforms;
+  -moz-transform: $transforms;
+  -ms-transform: $transforms;
+  -o-transform: $transforms;
+  transform: $transforms;
+}
+
+// 过渡
+@mixin transition($transition) {
+  -webkit-transition: $transition;
+  -moz-transition: $transition;
+  -ms-transition: $transition;
+  -o-transition: $transition;
+  transition: $transition;
+}
+
+// 用户选择
+@mixin user-select($select) {
+  -webkit-user-select: $select;
+  -moz-user-select: $select;
+  -ms-user-select: $select;
+  user-select: $select;
+}
+
+// 触摸优化
+@mixin touch-optimized {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+// 安全区域适配
+@mixin safe-area($property, $value) {
+  #{$property}: $value;
+  #{$property}: calc(#{$value} + env(safe-area-inset-#{str-slice(#{$property}, -3)}));
+}
+
+// 医疗主题色彩混合器
+@mixin medical-theme {
+  --primary-color: #{$medical-blue};
+  --success-color: #{$medical-green};
+  --error-color: #{$medical-red};
+  --warning-color: #{$medical-orange};
+  --info-color: #{$medical-teal};
+}
+
+// 深色模式支持
+@mixin dark-mode {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+// 减少动画
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+// 高对比度模式
+@mixin high-contrast {
+  @media (prefers-contrast: high) {
+    @content;
+  }
+}

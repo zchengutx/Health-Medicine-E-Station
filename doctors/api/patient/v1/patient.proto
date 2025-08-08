@@ -1,0 +1,162 @@
+syntax = "proto3";
+
+package api.patient.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "doctors/api/patient/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.patient.v1";
+
+//患者管理模块
+service Patient {
+	// 患者信息录入
+	rpc CreatePatient (CreatePatientReq) returns (CreatePatientResp) {
+		option (google.api.http) = {
+			post: "/api/v1/patient/CreatePatient"
+			body: "*"
+		};
+	}
+	// 患者档案管理
+	rpc GetPatientProfile (GetPatientProfileReq) returns (GetPatientProfileResp) {
+		option (google.api.http) = {
+			post: "/api/v1/patient/GetPatientProfile"
+			body: "*"
+		};
+	}
+	rpc UpdatePatientProfile (UpdatePatientProfileReq) returns (UpdatePatientProfileResp) {
+		option (google.api.http) = {
+			post: "/api/v1/patient/UpdatePatientProfile"
+			body: "*"
+		};
+	}
+	rpc GetPatientList (GetPatientListReq) returns (GetPatientListResp) {
+		option (google.api.http) = {
+			post: "/api/v1/patient/GetPatientList"
+			body: "*"
+		};
+	}
+	// 患者分类管理
+	rpc GetPatientsByCategory (GetPatientsByCategoryReq) returns (GetPatientsByCategoryResp) {
+		option (google.api.http) = {
+			post: "/api/v1/patient/GetPatientsByCategory"
+			body: "*"
+		};
+	}
+	rpc UpdatePatientCategory (UpdatePatientCategoryReq) returns (UpdatePatientCategoryResp) {
+		option (google.api.http) = {
+			post: "/api/v1/patient/UpdatePatientCategory"
+			body: "*"
+		};
+	}
+}
+
+//患者信息录入
+message CreatePatientReq{
+	string Name = 1; //患者姓名
+	string Gender = 2; //性别
+	string BirthDate = 3; //出生日期
+	string Phone = 4; //手机号码
+	string IdCard = 5; //身份证号
+	string Address = 6; //地址
+	string EmergencyContact = 7; //紧急联系人
+	string EmergencyPhone = 8; //紧急联系人电话
+	string MedicalHistory = 9; //病史
+	string Allergies = 10; //过敏史
+	string Category = 11; //患者分类
+	string Remarks = 12; //备注
+}
+message CreatePatientResp{
+	string Message = 1;
+	int64 Code = 2;
+	int64 PatientId = 3;
+}
+
+//获取患者档案
+message GetPatientProfileReq{
+	int64 patient_id = 1;
+}
+message GetPatientProfileResp{
+	string Message = 1;
+	int64 Code = 2;
+	PatientProfile Profile = 3;
+}
+message PatientProfile{
+	int64 PatientId = 1;
+	string PatientCode = 2;
+	string Name = 3;
+	string Gender = 4;
+	string BirthDate = 5;
+	int32 Age = 6;
+	string Phone = 7;
+	string IdCard = 8;
+	string Address = 9;
+	string EmergencyContact = 10;
+	string EmergencyPhone = 11;
+	string MedicalHistory = 12;
+	string Allergies = 13;
+	string Category = 14;
+	string Status = 15;
+	string Remarks = 16;
+	string CreatedAt = 17;
+	string UpdatedAt = 18;
+}
+
+//更新患者档案
+message UpdatePatientProfileReq{
+	int64 PatientId = 1;
+	string Name = 2;
+	string Gender = 3;
+	string BirthDate = 4;
+	string Phone = 5;
+	string Address = 6;
+	string EmergencyContact = 7;
+	string EmergencyPhone = 8;
+	string MedicalHistory = 9;
+	string Allergies = 10;
+	string Remarks = 11;
+}
+message UpdatePatientProfileResp{
+	string Message = 1;
+	int64 Code = 2;
+}
+
+//获取患者列表
+message GetPatientListReq{
+	int32 Page = 1; //页码
+	int32 PageSize = 2; //每页数量
+	string Keyword = 3; //搜索关键词
+	string Category = 4; //患者分类
+	string Status = 5; //状态筛选
+}
+message GetPatientListResp{
+	string Message = 1;
+	int64 Code = 2;
+	repeated PatientProfile Patients = 3;
+	int64 Total = 4;
+	int32 Page = 5;
+	int32 PageSize = 6;
+}
+
+//按分类获取患者
+message GetPatientsByCategoryReq{
+	string category = 1;
+	int32 Page = 2;
+	int32 PageSize = 3;
+}
+message GetPatientsByCategoryResp{
+	string Message = 1;
+	int64 Code = 2;
+	repeated PatientProfile Patients = 3;
+	int64 Total = 4;
+}
+
+//更新患者分类
+message UpdatePatientCategoryReq{
+	int64 PatientId = 1;
+	string Category = 2;
+}
+message UpdatePatientCategoryResp{
+	string Message = 1;
+	int64 Code = 2;
+}

@@ -1,0 +1,17 @@
+server:
+  http:
+    addr: 0.0.0.0:8000
+    timeout: 1s
+  grpc:
+    addr: 0.0.0.0:9001
+    timeout: 1s
+data:
+  database:
+    driver: mysql
+    source: root:badb6fe15b05b84863ff1e2b249deab2@tcp(14.103.243.15:3306)/doctor?parseTime=True&loc=Local
+  redis:
+    addr: 14.103.243.15:6379
+    password: badb6fe15b05b84863ff1e2b249deab2
+    db: 0
+    read_timeout: 0.2s
+    write_timeout: 0.2s

@@ -1,0 +1,197 @@
+// 主题色彩变量 - 蓝色主题
+$primary-color: #007AFF;
+$primary-light: #4DA3FF;
+$primary-lighter: #80C7FF;
+$primary-lightest: #B3DBFF;
+$primary-dark: #0056CC;
+$primary-darker: #003D99;
+
+// 辅助色彩
+$secondary-color: #6C757D;
+$secondary-light: #ADB5BD;
+$secondary-dark: #495057;
+
+// 文字颜色层级
+$text-primary: #1A1A1A;
+$text-secondary: #666666;
+$text-tertiary: #999999;
+$text-placeholder: #CCCCCC;
+$text-disabled: #D9D9D9;
+$text-white: #FFFFFF;
+$text-inverse: #FFFFFF;
+
+// 背景色层级
+$bg-primary: #FFFFFF;
+$bg-secondary: #F8F9FA;
+$bg-tertiary: #F5F5F5;
+$bg-gray: #EEEEEE;
+$bg-dark: #2C2C2C;
+$bg-black: #000000;
+
+// 医疗主题色彩
+$medical-blue: #007AFF;
+$medical-green: #34C759;
+$medical-red: #FF3B30;
+$medical-orange: #FF9500;
+$medical-purple: #AF52DE;
+$medical-teal: #5AC8FA;
+
+// 边框色层级
+$border-color: #E5E5E5;
+$border-light: #F0F0F0;
+$border-medium: #D9D9D9;
+$border-dark: #CCCCCC;
+
+// 状态色系统
+$success-color: #52C41A;
+$success-light: #95DE64;
+$success-dark: #389E0D;
+$success-bg: #F6FFED;
+
+$warning-color: #FAAD14;
+$warning-light: #FFD666;
+$warning-dark: #D48806;
+$warning-bg: #FFFBE6;
+
+$error-color: #FF4D4F;
+$error-light: #FF7875;
+$error-dark: #CF1322;
+$error-bg: #FFF2F0;
+
+$info-color: #1890FF;
+$info-light: #69C0FF;
+$info-dark: #096DD9;
+$info-bg: #E6F7FF;
+
+// 中性色系统
+$gray-50: #FAFAFA;
+$gray-100: #F5F5F5;
+$gray-200: #EEEEEE;
+$gray-300: #D9D9D9;
+$gray-400: #BFBFBF;
+$gray-500: #8C8C8C;
+$gray-600: #595959;
+$gray-700: #434343;
+$gray-800: #262626;
+$gray-900: #1F1F1F;
+
+// 阴影色彩
+$shadow-light: rgba(0, 0, 0, 0.04);
+$shadow-medium: rgba(0, 0, 0, 0.08);
+$shadow-dark: rgba(0, 0, 0, 0.12);
+$shadow-primary: rgba(0, 122, 255, 0.2);
+
+// 渐变色彩
+$gradient-primary: linear-gradient(135deg, $primary-color 0%, $primary-light 100%);
+$gradient-secondary: linear-gradient(135deg, $secondary-color 0%, $secondary-light 100%);
+$gradient-success: linear-gradient(135deg, $success-color 0%, $success-light 100%);
+$gradient-warning: linear-gradient(135deg, $warning-color 0%, $warning-light 100%);
+$gradient-error: linear-gradient(135deg, $error-color 0%, $error-light 100%);
+
+// 医疗场景专用色彩
+$medicine-bottle: #3498DB;
+$medicine-cap: #F39C12;
+$medicine-pill-1: linear-gradient(45deg, #F39C12 50%, #E67E22 50%);
+$medicine-pill-2: linear-gradient(45deg, #9B59B6 50%, #8E44AD 50%);
+$doctor-coat: #FFFFFF;
+$stethoscope: #636E72;
+$skin-tone: #FDBCB4;
+$plant-green: #00B894;
+
+// 圆角尺寸
+$border-radius-xs: 2px;
+$border-radius-sm: 4px;
+$border-radius: 8px;
+$border-radius-lg: 12px;
+$border-radius-large: 12px; // 兼容性别名
+$border-radius-xl: 16px;
+$border-radius-2xl: 20px;
+$border-radius-full: 50%;
+
+// 间距系统
+$spacing-0: 0;
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-2xl: 40px;
+$spacing-3xl: 48px;
+$spacing-4xl: 64px;
+
+// 字体大小系统
+$font-size-xs: 10px;
+$font-size-sm: 12px;
+$font-size-base: 14px;
+$font-size-md: 16px;
+$font-size-lg: 18px;
+$font-size-xl: 20px;
+$font-size-2xl: 24px;
+$font-size-3xl: 28px;
+$font-size-4xl: 32px;
+$font-size-xxl: 36px;
+
+// 字体权重
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// 行高
+$line-height-tight: 1.2;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.75;
+
+// 字体家族
+$font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-family-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+
+// 阴影系统
+$shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+$shadow-md: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+$shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+$shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.15);
+
+// 过渡动画
+$transition-fast: 0.15s ease-out;
+$transition-normal: 0.3s ease-out;
+$transition-slow: 0.5s ease-out;
+
+// Z-index层级
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;
+
+// 断点系统
+$breakpoint-xs: 320px;
+$breakpoint-sm: 375px;
+$breakpoint-md: 414px;
+$breakpoint-lg: 768px;
+$breakpoint-xl: 1024px;
+
+// 容器最大宽度
+$container-max-width: 480px;
+
+// 输入框高度
+$input-height-sm: 32px;
+$input-height: 40px;
+$input-height-lg: 48px;
+
+// 按钮高度
+$button-height-sm: 32px;
+$button-height: 40px;
+$button-height-lg: 48px;
+
+// 头像尺寸
+$avatar-size-xs: 24px;
+$avatar-size-sm: 32px;
+$avatar-size: 40px;
+$avatar-size-lg: 48px;
+$avatar-size-xl: 64px;

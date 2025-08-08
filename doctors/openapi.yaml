@@ -1,0 +1,325 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: Doctor API
+    description: 医生用户管理模块
+    version: 0.0.1
+paths:
+    /api/v1/doctor/Authentication:
+        post:
+            tags:
+                - Doctor
+            operationId: Doctor_Authentication
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.doctor.v1.AuthenticationReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.doctor.v1.AuthenticationResp'
+    /api/v1/doctor/ChangePassword:
+        post:
+            tags:
+                - Doctor
+            operationId: Doctor_ChangePassword
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.doctor.v1.ChangePasswordReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.doctor.v1.ChangePasswordResp'
+    /api/v1/doctor/GetDoctorProfile:
+        post:
+            tags:
+                - Doctor
+            operationId: Doctor_GetDoctorProfile
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.doctor.v1.GetDoctorProfileReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.doctor.v1.GetDoctorProfileResp'
+    /api/v1/doctor/LoginDoctor:
+        post:
+            tags:
+                - Doctor
+            operationId: Doctor_LoginDoctor
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.doctor.v1.LoginDoctorReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.doctor.v1.LoginDoctorResp'
+    /api/v1/doctor/RegisterDoctor:
+        post:
+            tags:
+                - Doctor
+            operationId: Doctor_RegisterDoctor
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.doctor.v1.RegisterDoctorReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.doctor.v1.RegisterDoctorResp'
+    /api/v1/doctor/SendSms:
+        post:
+            tags:
+                - Doctor
+            operationId: Doctor_SendSms
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.doctor.v1.SendSmsReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.doctor.v1.SendSmsResp'
+    /api/v1/doctor/UpdateDoctorProfile:
+        post:
+            tags:
+                - Doctor
+            operationId: Doctor_UpdateDoctorProfile
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.doctor.v1.UpdateDoctorProfileReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.doctor.v1.UpdateDoctorProfileResp'
+components:
+    schemas:
+        api.doctor.v1.AuthenticationReq:
+            type: object
+            properties:
+                DId:
+                    type: string
+                Name:
+                    type: string
+                Gender:
+                    type: string
+                BirthData:
+                    type: string
+                Email:
+                    type: string
+                Avatar:
+                    type: string
+                LicenseNumber:
+                    type: string
+                DepartmentId:
+                    type: string
+                HospitalId:
+                    type: string
+                Title:
+                    type: string
+                Speciality:
+                    type: string
+                PracticeScope:
+                    type: string
+            description: 个人资料认证
+        api.doctor.v1.AuthenticationResp:
+            type: object
+            properties:
+                Message:
+                    type: string
+                Code:
+                    type: string
+        api.doctor.v1.ChangePasswordReq:
+            type: object
+            properties:
+                DId:
+                    type: string
+                OldPassword:
+                    type: string
+                NewPassword:
+                    type: string
+                ConfirmPassword:
+                    type: string
+            description: 修改密码
+        api.doctor.v1.ChangePasswordResp:
+            type: object
+            properties:
+                Message:
+                    type: string
+                Code:
+                    type: string
+        api.doctor.v1.DoctorProfile:
+            type: object
+            properties:
+                DId:
+                    type: string
+                DoctorCode:
+                    type: string
+                Name:
+                    type: string
+                Gender:
+                    type: string
+                BirthDate:
+                    type: string
+                Phone:
+                    type: string
+                Email:
+                    type: string
+                Avatar:
+                    type: string
+                LicenseNumber:
+                    type: string
+                DepartmentId:
+                    type: string
+                HospitalId:
+                    type: string
+                Title:
+                    type: string
+                Speciality:
+                    type: string
+                PracticeScope:
+                    type: string
+                Status:
+                    type: string
+                CreatedAt:
+                    type: string
+                UpdatedAt:
+                    type: string
+        api.doctor.v1.GetDoctorProfileReq:
+            type: object
+            properties:
+                doctorId:
+                    type: string
+            description: 获取医生个人信息
+        api.doctor.v1.GetDoctorProfileResp:
+            type: object
+            properties:
+                Message:
+                    type: string
+                Code:
+                    type: string
+                Profile:
+                    $ref: '#/components/schemas/api.doctor.v1.DoctorProfile'
+        api.doctor.v1.LoginDoctorReq:
+            type: object
+            properties:
+                Phone:
+                    type: string
+                Password:
+                    type: string
+                SendSmsCode:
+                    type: string
+            description: 登录
+        api.doctor.v1.LoginDoctorResp:
+            type: object
+            properties:
+                Message:
+                    type: string
+                Code:
+                    type: string
+                DId:
+                    type: string
+        api.doctor.v1.RegisterDoctorReq:
+            type: object
+            properties:
+                Phone:
+                    type: string
+                Password:
+                    type: string
+                SendSmsCode:
+                    type: string
+            description: 注册
+        api.doctor.v1.RegisterDoctorResp:
+            type: object
+            properties:
+                Message:
+                    type: string
+                Code:
+                    type: string
+        api.doctor.v1.SendSmsReq:
+            type: object
+            properties:
+                Phone:
+                    type: string
+                SendSmsCode:
+                    type: string
+            description: 短信发送
+        api.doctor.v1.SendSmsResp:
+            type: object
+            properties:
+                Message:
+                    type: string
+                Code:
+                    type: string
+        api.doctor.v1.UpdateDoctorProfileReq:
+            type: object
+            properties:
+                DId:
+                    type: string
+                Name:
+                    type: string
+                Gender:
+                    type: string
+                BirthDate:
+                    type: string
+                Email:
+                    type: string
+                Avatar:
+                    type: string
+                Title:
+                    type: string
+                Speciality:
+                    type: string
+                PracticeScope:
+                    type: string
+            description: 更新医生个人信息
+        api.doctor.v1.UpdateDoctorProfileResp:
+            type: object
+            properties:
+                Message:
+                    type: string
+                Code:
+                    type: string
+tags:
+    - name: Doctor

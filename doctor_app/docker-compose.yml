@@ -1,0 +1,110 @@
+version: '3.8'
+
+services:
+  # 医生端前端应用
+  doctor-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: doctor-app
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # SSL证书挂载（如果有）
+      - ./ssl:/etc/nginx/ssl:ro
+      # 日志挂载
+      - ./logs/nginx:/var/log/nginx
+    environment:
+      - NODE_ENV=production
+      - TZ=Asia/Shanghai
+    restart: unless-stopped
+    networks:
+      - doctor-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # 可选：医生端后端API服务
+  doctor-api:
+    image: doctor-api:latest
+    container_name: doctor-api
+    ports:
+      - "8000:8000"
+    environment:
+      - NODE_ENV=production
+      - TZ=Asia/Shanghai
+      - DB_HOST=doctor-db
+      - REDIS_HOST=doctor-redis
+    restart: unless-stopped
+    networks:
+      - doctor-network
+    depends_on:
+      - doctor-db
+      - doctor-redis
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # 可选：数据库服务
+  doctor-db:
+    image: mysql:8.0
+    container_name: doctor-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=your_root_password
+      - MYSQL_DATABASE=doctor_db
+      - MYSQL_USER=doctor_user
+      - MYSQL_PASSWORD=your_password
+      - TZ=Asia/Shanghai
+    volumes:
+      - doctor_db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+    networks:
+      - doctor-network
+    command: --default-authentication-plugin=mysql_native_password
+
+  # 可选：Redis缓存服务
+  doctor-redis:
+    image: redis:7-alpine
+    container_name: doctor-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - doctor_redis_data:/data
+    restart: unless-stopped
+    networks:
+      - doctor-network
+    command: redis-server --appendonly yes
+
+  # 可选：监控服务
+  doctor-monitor:
+    image: prom/prometheus:latest
+    container_name: doctor-monitor
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - doctor_prometheus_data:/prometheus
+    restart: unless-stopped
+    networks:
+      - doctor-network
+
+networks:
+  doctor-network:
+    driver: bridge
+
+volumes:
+  doctor_db_data:
+    driver: local
+  doctor_redis_data:
+    driver: local
+  doctor_prometheus_data:
+    driver: local
