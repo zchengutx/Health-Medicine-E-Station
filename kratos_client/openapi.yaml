@@ -6,6 +6,350 @@ info:
     title: ""
     version: 0.0.1
 paths:
+    /api/v1/coupons:
+        get:
+            tags:
+                - CouponService
+            description: 获取优惠券列表
+            operationId: CouponService_ListCoupons
+            parameters:
+                - name: storeId
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+                - name: page
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageSize
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.coupon.v1.ListCouponsReply'
+    /api/v1/coupons/calculate:
+        post:
+            tags:
+                - CouponService
+            description: 计算订单可用优惠券
+            operationId: CouponService_CalculateAvailableCoupons
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.coupon.v1.CalculateAvailableCouponsRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.coupon.v1.CalculateAvailableCouponsReply'
+    /api/v1/coupons/{couponId}:
+        get:
+            tags:
+                - CouponService
+            description: 获取优惠券详情和使用规则
+            operationId: CouponService_GetCouponDetail
+            parameters:
+                - name: couponId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.coupon.v1.GetCouponDetailReply'
+    /api/v1/coupons/{couponId}/claim:
+        post:
+            tags:
+                - CouponService
+            description: 领取优惠券
+            operationId: CouponService_ClaimCoupon
+            parameters:
+                - name: couponId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.coupon.v1.ClaimCouponRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.coupon.v1.ClaimCouponReply'
+    /api/v1/doctors/{doctorId}/prescriptions:
+        get:
+            tags:
+                - PrescriptionService
+            description: 获取医生处方列表
+            operationId: PrescriptionService_ListDoctorPrescriptions
+            parameters:
+                - name: doctorId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: status
+                  in: query
+                  schema:
+                    type: string
+                - name: page
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageSize
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.prescription.v1.ListDoctorPrescriptionsReply'
+    /api/v1/orders:
+        post:
+            tags:
+                - OrderService
+            description: 创建订单
+            operationId: OrderService_CreateOrder
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.order.v1.CreateOrderRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.order.v1.CreateOrderReply'
+    /api/v1/orders/{orderNo}:
+        get:
+            tags:
+                - OrderService
+            description: 获取订单详情
+            operationId: OrderService_GetOrder
+            parameters:
+                - name: orderNo
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.order.v1.GetOrderReply'
+    /api/v1/orders/{orderNo}/payment:
+        post:
+            tags:
+                - OrderService
+            description: 处理支付
+            operationId: OrderService_ProcessPayment
+            parameters:
+                - name: orderNo
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.order.v1.ProcessPaymentRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.order.v1.ProcessPaymentReply'
+    /api/v1/patients/{patientId}/prescriptions:
+        get:
+            tags:
+                - PrescriptionService
+            description: 获取患者处方列表
+            operationId: PrescriptionService_ListPatientPrescriptions
+            parameters:
+                - name: patientId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: status
+                  in: query
+                  schema:
+                    type: string
+                - name: page
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageSize
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.prescription.v1.ListPatientPrescriptionsReply'
+    /api/v1/prescriptions:
+        get:
+            tags:
+                - PrescriptionService
+            description: 获取处方列表
+            operationId: PrescriptionService_ListPrescriptions
+            parameters:
+                - name: status
+                  in: query
+                  schema:
+                    type: string
+                - name: prescriptionType
+                  in: query
+                  schema:
+                    type: string
+                - name: startDate
+                  in: query
+                  schema:
+                    type: string
+                - name: endDate
+                  in: query
+                  schema:
+                    type: string
+                - name: page
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageSize
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.prescription.v1.ListPrescriptionsReply'
+    /api/v1/prescriptions/{prescriptionId}:
+        get:
+            tags:
+                - PrescriptionService
+            description: 获取处方详情
+            operationId: PrescriptionService_GetPrescriptionDetail
+            parameters:
+                - name: prescriptionId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.prescription.v1.GetPrescriptionDetailReply'
+    /api/v1/users/{userId}/coupons:
+        get:
+            tags:
+                - CouponService
+            description: 获取用户优惠券列表
+            operationId: CouponService_ListUserCoupons
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: status
+                  in: query
+                  schema:
+                    type: string
+                - name: page
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageSize
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.coupon.v1.ListUserCouponsReply'
+    /api/v1/users/{userId}/orders:
+        get:
+            tags:
+                - OrderService
+            description: 获取用户订单列表
+            operationId: OrderService_ListUserOrders
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: page
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageSize
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.order.v1.ListUserOrdersReply'
     /v1/DoctorsList:
         post:
             tags:
@@ -61,6 +405,185 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/user.v1.SelectTheCityReply'
+    /v1/cart/create:
+        post:
+            tags:
+                - Cart
+            operationId: Cart_CreateCart
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.cart.v1.CreateCartRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.cart.v1.CreateCartReply'
+    /v1/cart/delete:
+        post:
+            tags:
+                - Cart
+            operationId: Cart_DeleteCart
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.cart.v1.DeleteCartRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.cart.v1.DeleteCartReply'
+    /v1/cart/list:
+        post:
+            tags:
+                - Cart
+            operationId: Cart_ListCart
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.cart.v1.ListCartRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.cart.v1.ListCartReply'
+    /v1/cart/update:
+        post:
+            tags:
+                - Cart
+            operationId: Cart_UpdateCart
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.cart.v1.UpdateCartRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.cart.v1.UpdateCartReply'
+    /v1/chat/doctor/online:
+        post:
+            tags:
+                - Chat
+            description: 更新医生在线状态
+            operationId: Chat_UpdateDoctorOnlineStatus
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/.UpdateDoctorOnlineStatusRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/.UpdateDoctorOnlineStatusReply'
+    /v1/chat/doctors:
+        get:
+            tags:
+                - Chat
+            description: 获取用户的聊天医生列表
+            operationId: Chat_GetUserChatDoctors
+            parameters:
+                - name: token
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/.GetUserChatDoctorsReply'
+    /v1/chat/history:
+        get:
+            tags:
+                - Chat
+            description: 获取聊天历史记录
+            operationId: Chat_GetChatHistory
+            parameters:
+                - name: token
+                  in: query
+                  schema:
+                    type: string
+                - name: doctorId
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+                - name: page
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageSize
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/.GetChatHistoryReply'
+    /v1/chat/message:
+        post:
+            tags:
+                - Chat
+            description: 保存聊天消息
+            operationId: Chat_SaveChatMessage
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/.SaveChatMessageRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/.SaveChatMessageReply'
+    /v1/create/estimate:
+        post:
+            tags:
+                - Estimate
+            operationId: Estimate_CreateEstimate
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/.CreateEstimateRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/.CreateEstimateReply'
     /v1/createAddress:
         post:
             tags:
@@ -79,6 +602,257 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/user.v1.CreateAddressReply'
+    /v1/delete/estimate:
+        post:
+            tags:
+                - Estimate
+            operationId: Estimate_DeleteEstimate
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/.DeleteEstimateRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/.DeleteEstimateReply'
+    /v1/drug:
+        post:
+            tags:
+                - Drug
+            operationId: Drug_GetDrug
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/drug.v1.GetDrugRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/drug.v1.GetDrugReply'
+    /v1/drug/explain:
+        post:
+            tags:
+                - Drug
+            operationId: Drug_GetExplain
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/drug.v1.GetExplainRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/drug.v1.GetExplainReply'
+    /v1/drug/guide:
+        post:
+            tags:
+                - Drug
+            operationId: Drug_GetGuide
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/drug.v1.GetGuideRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/drug.v1.GetGuideReply'
+    /v1/drug/hot-search:
+        get:
+            tags:
+                - Drug
+            description: 获取热门搜索
+            operationId: Drug_GetHotSearch
+            parameters:
+                - name: limit
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/drug.v1.GetHotSearchReply'
+    /v1/drug/inventory:
+        get:
+            tags:
+                - Drug
+            description: 库存管理
+            operationId: Drug_GetInventory
+            parameters:
+                - name: drugId
+                  in: query
+                  schema:
+                    type: string
+                - name: drugStoreId
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/drug.v1.GetInventoryReply'
+    /v1/drug/inventory/update:
+        post:
+            tags:
+                - Drug
+            operationId: Drug_UpdateInventory
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/drug.v1.UpdateInventoryRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/drug.v1.UpdateInventoryReply'
+    /v1/drug/list:
+        post:
+            tags:
+                - Drug
+            operationId: Drug_ListDrug
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/drug.v1.ListDrugRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/drug.v1.ListDrugReply'
+    /v1/drug/prescription:
+        post:
+            tags:
+                - Drug
+            description: 处方药管理
+            operationId: Drug_CreatePrescription
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/drug.v1.CreatePrescriptionRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/drug.v1.CreatePrescriptionReply'
+    /v1/drug/prescriptions:
+        get:
+            tags:
+                - Drug
+            operationId: Drug_ListPrescriptions
+            parameters:
+                - name: token
+                  in: query
+                  schema:
+                    type: string
+                - name: page
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+                - name: size
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/drug.v1.ListPrescriptionsReply'
+    /v1/drug/search:
+        post:
+            tags:
+                - Drug
+            description: 搜索药品
+            operationId: Drug_SearchDrugs
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/drug.v1.SearchDrugsRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/drug.v1.SearchDrugsReply'
+    /v1/get/estimate:
+        post:
+            tags:
+                - Estimate
+            operationId: Estimate_GetEstimate
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/.GetEstimateRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/.GetEstimateReply'
+    /v1/list/estimate:
+        post:
+            tags:
+                - Estimate
+            operationId: Estimate_ListDrugEstimate
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/.ListDrugEstimateRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/.ListDrugEstimateReply'
     /v1/login:
         post:
             tags:
@@ -97,6 +871,79 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/user.v1.LoginReply'
+    /v1/payment/create:
+        post:
+            tags:
+                - Payment
+            description: 创建支付订单
+            operationId: Payment_CreatePayment
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.payment.v1.CreatePaymentRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.payment.v1.CreatePaymentReply'
+    /v1/payment/notify:
+        post:
+            tags:
+                - Payment
+            description: 支付回调通知
+            operationId: Payment_PaymentNotify
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.payment.v1.PaymentNotifyRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.payment.v1.PaymentNotifyReply'
+    /v1/payment/query:
+        get:
+            tags:
+                - Payment
+            description: 支付结果查询
+            operationId: Payment_QueryPayment
+            parameters:
+                - name: orderId
+                  in: query
+                  schema:
+                    type: string
+                - name: token
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.payment.v1.QueryPaymentReply'
+    /v1/payment/return:
+        get:
+            tags:
+                - Payment
+            description: 支付返回页面
+            operationId: Payment_PaymentReturn
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.payment.v1.PaymentReturnReply'
     /v1/sendSms:
         post:
             tags:
@@ -154,6 +1001,827 @@ paths:
                                 $ref: '#/components/schemas/user.v1.UpdateNickNameReply'
 components:
     schemas:
+        .ChatDoctorInfo:
+            type: object
+            properties:
+                doctorId:
+                    type: integer
+                    format: int32
+                doctorName:
+                    type: string
+                isOnline:
+                    type: boolean
+                lastMessage:
+                    type: string
+                lastMessageTime:
+                    type: string
+                unreadCount:
+                    type: integer
+                    format: int32
+        .ChatMessageInfo:
+            type: object
+            properties:
+                id:
+                    type: string
+                fromId:
+                    type: integer
+                    format: int32
+                toId:
+                    type: integer
+                    format: int32
+                fromName:
+                    type: string
+                toName:
+                    type: string
+                content:
+                    type: string
+                messageType:
+                    type: string
+                createdAt:
+                    type: string
+        .CreateEstimateReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                message:
+                    type: string
+        .CreateEstimateRequest:
+            type: object
+            properties:
+                drugId:
+                    type: string
+                userId:
+                    type: string
+                content:
+                    type: string
+                image:
+                    type: string
+        .DeleteEstimateReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                message:
+                    type: string
+        .DeleteEstimateRequest:
+            type: object
+            properties:
+                id:
+                    type: string
+        .EstimateInfo:
+            type: object
+            properties:
+                drugId:
+                    type: string
+                content:
+                    type: string
+                image:
+                    type: string
+                mobile:
+                    type: string
+                createTime:
+                    type: string
+                avatar:
+                    type: string
+        .GetChatHistoryReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                message:
+                    type: string
+                messages:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/.ChatMessageInfo'
+                total:
+                    type: integer
+                    format: int32
+        .GetEstimateReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                message:
+                    type: string
+                info:
+                    $ref: '#/components/schemas/.EstimateInfo'
+        .GetEstimateRequest:
+            type: object
+            properties:
+                id:
+                    type: string
+                userId:
+                    type: string
+        .GetUserChatDoctorsReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                message:
+                    type: string
+                doctors:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/.ChatDoctorInfo'
+        .InfoDrugs:
+            type: object
+            properties:
+                drugName:
+                    type: string
+                specification:
+                    type: string
+                price:
+                    type: number
+                    format: double
+                salesVolume:
+                    type: number
+                    format: double
+                inventory:
+                    type: string
+                exhibitionUrl:
+                    type: string
+        .ListDrugEstimateReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                message:
+                    type: string
+                info:
+                    $ref: '#/components/schemas/.InfoDrugs'
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/.EstimateInfo'
+        .ListDrugEstimateRequest:
+            type: object
+            properties:
+                drugId:
+                    type: string
+                userId:
+                    type: string
+        .SaveChatMessageReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                message:
+                    type: string
+        .SaveChatMessageRequest:
+            type: object
+            properties:
+                token:
+                    type: string
+                doctorId:
+                    type: integer
+                    format: int32
+                content:
+                    type: string
+                messageType:
+                    type: string
+        .UpdateDoctorOnlineStatusReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                message:
+                    type: string
+        .UpdateDoctorOnlineStatusRequest:
+            type: object
+            properties:
+                token:
+                    type: string
+                isOnline:
+                    type: boolean
+        api.cart.v1.CreateCartReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                msg:
+                    type: string
+        api.cart.v1.CreateCartRequest:
+            type: object
+            properties:
+                userId:
+                    type: string
+                drugId:
+                    type: string
+                number:
+                    type: string
+        api.cart.v1.DeleteCartReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                msg:
+                    type: string
+        api.cart.v1.DeleteCartRequest:
+            type: object
+            properties:
+                userId:
+                    type: string
+                drugIds:
+                    type: array
+                    items:
+                        type: string
+        api.cart.v1.InfoCart:
+            type: object
+            properties:
+                id:
+                    type: string
+                userId:
+                    type: string
+                drugId:
+                    type: string
+                number:
+                    type: string
+                drugName:
+                    type: string
+                specification:
+                    type: string
+                price:
+                    type: number
+                    format: double
+                inventory:
+                    type: string
+                exhibitionUrl:
+                    type: string
+        api.cart.v1.ListCartReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                msg:
+                    type: string
+                cart:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.cart.v1.InfoCart'
+        api.cart.v1.ListCartRequest:
+            type: object
+            properties:
+                userId:
+                    type: string
+        api.cart.v1.UpdateCartReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                msg:
+                    type: string
+        api.cart.v1.UpdateCartRequest:
+            type: object
+            properties:
+                userId:
+                    type: string
+                drugId:
+                    type: string
+                number:
+                    type: string
+        api.coupon.v1.AvailableCoupon:
+            type: object
+            properties:
+                userCouponId:
+                    type: string
+                coupon:
+                    $ref: '#/components/schemas/api.coupon.v1.Coupon'
+                discountAmount:
+                    type: string
+                finalAmount:
+                    type: string
+                canUse:
+                    type: boolean
+                reason:
+                    type: string
+            description: 可用优惠券
+        api.coupon.v1.CalculateAvailableCouponsReply:
+            type: object
+            properties:
+                availableCoupons:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.coupon.v1.AvailableCoupon'
+                bestDiscountAmount:
+                    type: string
+                bestCouponId:
+                    type: string
+            description: 计算可用优惠券响应
+        api.coupon.v1.CalculateAvailableCouponsRequest:
+            type: object
+            properties:
+                userId:
+                    type: string
+                items:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.coupon.v1.OrderItem'
+                totalAmount:
+                    type: string
+                storeId:
+                    type: integer
+                    format: int32
+            description: 计算可用优惠券请求
+        api.coupon.v1.ClaimCouponReply:
+            type: object
+            properties:
+                success:
+                    type: boolean
+                message:
+                    type: string
+                userCouponId:
+                    type: string
+            description: 领取优惠券响应
+        api.coupon.v1.ClaimCouponRequest:
+            type: object
+            properties:
+                couponId:
+                    type: integer
+                    format: int32
+                userId:
+                    type: string
+            description: 领取优惠券请求
+        api.coupon.v1.Coupon:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int32
+                discountName:
+                    type: string
+                classify:
+                    type: string
+                storeId:
+                    type: integer
+                    format: int32
+                discountAmount:
+                    type: string
+                minOrderAmount:
+                    type: string
+                startTime:
+                    type: string
+                endTime:
+                    type: string
+                maxIssue:
+                    type: integer
+                    format: int32
+                maxPerUser:
+                    type: integer
+                    format: int32
+                issuedCount:
+                    type: integer
+                    format: int32
+                usedCount:
+                    type: integer
+                    format: int32
+            description: 优惠券信息
+        api.coupon.v1.CouponRule:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int32
+                discountId:
+                    type: integer
+                    format: int32
+                ruleKey:
+                    type: integer
+                    format: int32
+                ruleValue:
+                    type: string
+                platform:
+                    type: string
+                drugId:
+                    type: integer
+                    format: int32
+                astrict:
+                    type: string
+            description: 优惠券规则
+        api.coupon.v1.GetCouponDetailReply:
+            type: object
+            properties:
+                coupon:
+                    $ref: '#/components/schemas/api.coupon.v1.Coupon'
+                rules:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.coupon.v1.CouponRule'
+            description: 获取优惠券详情响应
+        api.coupon.v1.ListCouponsReply:
+            type: object
+            properties:
+                coupons:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.coupon.v1.Coupon'
+                total:
+                    type: string
+            description: 获取优惠券列表响应
+        api.coupon.v1.ListUserCouponsReply:
+            type: object
+            properties:
+                coupons:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.coupon.v1.UserCoupon'
+                total:
+                    type: string
+            description: 获取用户优惠券列表响应
+        api.coupon.v1.OrderItem:
+            type: object
+            properties:
+                drugId:
+                    type: string
+                quantity:
+                    type: integer
+                    format: int32
+                price:
+                    type: string
+            description: 订单项
+        api.coupon.v1.UserCoupon:
+            type: object
+            properties:
+                id:
+                    type: string
+                couponId:
+                    type: integer
+                    format: int32
+                userId:
+                    type: string
+                status:
+                    type: string
+                claimTime:
+                    type: string
+                useTime:
+                    type: string
+                expireTime:
+                    type: string
+                coupon:
+                    $ref: '#/components/schemas/api.coupon.v1.Coupon'
+            description: 用户优惠券
+        api.order.v1.CreateOrderReply:
+            type: object
+            properties:
+                orderNo:
+                    type: string
+                totalAmount:
+                    type: string
+                status:
+                    type: string
+                message:
+                    type: string
+            description: 创建订单响应
+        api.order.v1.CreateOrderRequest:
+            type: object
+            properties:
+                userId:
+                    type: string
+                userName:
+                    type: string
+                userPhone:
+                    type: string
+                doctorId:
+                    type: string
+                doctorName:
+                    type: string
+                addressId:
+                    type: string
+                addressDetail:
+                    type: string
+                items:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.order.v1.OrderItem'
+                remark:
+                    type: string
+            description: 创建订单请求
+        api.order.v1.GetOrderReply:
+            type: object
+            properties:
+                order:
+                    $ref: '#/components/schemas/api.order.v1.Order'
+                items:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.order.v1.OrderItemDetail'
+            description: 获取订单响应
+        api.order.v1.ListUserOrdersReply:
+            type: object
+            properties:
+                orders:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.order.v1.OrderSummary'
+                total:
+                    type: string
+            description: 获取用户订单列表响应
+        api.order.v1.Order:
+            type: object
+            properties:
+                id:
+                    type: string
+                orderNo:
+                    type: string
+                userId:
+                    type: string
+                userName:
+                    type: string
+                userPhone:
+                    type: string
+                doctorId:
+                    type: string
+                doctorName:
+                    type: string
+                addressId:
+                    type: string
+                addressDetail:
+                    type: string
+                totalAmount:
+                    type: string
+                payType:
+                    type: string
+                status:
+                    type: string
+                payTime:
+                    type: string
+                drugTime:
+                    type: string
+                sendTime:
+                    type: string
+                finishTime:
+                    type: string
+                cancelTime:
+                    type: string
+                remark:
+                    type: string
+            description: 订单信息
+        api.order.v1.OrderItem:
+            type: object
+            properties:
+                drugId:
+                    type: string
+                quantity:
+                    type: integer
+                    format: int32
+            description: 订单项
+        api.order.v1.OrderItemDetail:
+            type: object
+            properties:
+                id:
+                    type: string
+                orderId:
+                    type: string
+                drugId:
+                    type: string
+                drugName:
+                    type: string
+                drugSpec:
+                    type: string
+                quantity:
+                    type: integer
+                    format: int32
+                price:
+                    type: string
+                subtotal:
+                    type: string
+            description: 订单项详情
+        api.order.v1.OrderSummary:
+            type: object
+            properties:
+                orderNo:
+                    type: string
+                totalAmount:
+                    type: string
+                status:
+                    type: string
+                itemCount:
+                    type: integer
+                    format: int32
+            description: 订单摘要
+        api.order.v1.ProcessPaymentReply:
+            type: object
+            properties:
+                message:
+                    type: string
+                success:
+                    type: boolean
+            description: 处理支付响应
+        api.order.v1.ProcessPaymentRequest:
+            type: object
+            properties:
+                orderNo:
+                    type: string
+                payType:
+                    type: string
+                amount:
+                    type: string
+                tradeNo:
+                    type: string
+            description: 处理支付请求
+        api.payment.v1.CreatePaymentReply:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    format: int32
+                message:
+                    type: string
+                paymentUrl:
+                    type: string
+                orderId:
+                    type: string
+            description: 创建支付响应
+        api.payment.v1.CreatePaymentRequest:
+            type: object
+            properties:
+                token:
+                    type: string
+                subject:
+                    type: string
+                totalAmount:
+                    type: string
+                orderType:
+                    type: string
+                businessId:
+                    type: string
+                description:
+                    type: string
+            description: 创建支付请求
+        api.payment.v1.PaymentInfo:
+            type: object
+            properties:
+                orderId:
+                    type: string
+                tradeNo:
+                    type: string
+                totalAmount:
+                    type: string
+                tradeStatus:
+                    type: string
+                payTime:
+                    type: string
+                subject:
+                    type: string
+            description: 支付信息
+        api.payment.v1.PaymentNotifyReply:
+            type: object
+            properties:
+                result:
+                    type: string
+            description: 支付通知响应
+        api.payment.v1.PaymentNotifyRequest:
+            type: object
+            properties:
+                params:
+                    type: object
+                    additionalProperties:
+                        type: string
+            description: 支付通知请求
+        api.payment.v1.PaymentReturnReply:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    format: int32
+                message:
+                    type: string
+                redirectUrl:
+                    type: string
+            description: 支付返回响应
+        api.payment.v1.QueryPaymentReply:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    format: int32
+                message:
+                    type: string
+                paymentInfo:
+                    $ref: '#/components/schemas/api.payment.v1.PaymentInfo'
+            description: 查询支付响应
+        api.prescription.v1.GetPrescriptionDetailReply:
+            type: object
+            properties:
+                prescription:
+                    $ref: '#/components/schemas/api.prescription.v1.Prescription'
+                medicines:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.prescription.v1.PrescriptionMedicine'
+            description: 获取处方详情响应
+        api.prescription.v1.ListDoctorPrescriptionsReply:
+            type: object
+            properties:
+                prescriptions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.prescription.v1.Prescription'
+                total:
+                    type: string
+            description: 获取医生处方列表响应
+        api.prescription.v1.ListPatientPrescriptionsReply:
+            type: object
+            properties:
+                prescriptions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.prescription.v1.Prescription'
+                total:
+                    type: string
+            description: 获取患者处方列表响应
+        api.prescription.v1.ListPrescriptionsReply:
+            type: object
+            properties:
+                prescriptions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.prescription.v1.Prescription'
+                total:
+                    type: string
+            description: 获取处方列表响应
+        api.prescription.v1.Prescription:
+            type: object
+            properties:
+                id:
+                    type: string
+                prescriptionNo:
+                    type: string
+                doctorId:
+                    type: string
+                patientId:
+                    type: string
+                medicalRecordId:
+                    type: string
+                prescriptionDate:
+                    type: string
+                totalAmount:
+                    type: string
+                prescriptionType:
+                    type: string
+                usageInstruction:
+                    type: string
+                status:
+                    type: string
+                auditorId:
+                    type: string
+                auditTime:
+                    type: string
+                auditNotes:
+                    type: string
+                createdAt:
+                    type: string
+                updatedAt:
+                    type: string
+                doctorName:
+                    type: string
+                    description: 扩展信息
+                patientName:
+                    type: string
+                auditorName:
+                    type: string
+                medicineCount:
+                    type: integer
+                    format: int32
+            description: 处方信息
+        api.prescription.v1.PrescriptionMedicine:
+            type: object
+            properties:
+                id:
+                    type: string
+                prescriptionId:
+                    type: string
+                medicineId:
+                    type: string
+                quantity:
+                    type: string
+                unit:
+                    type: string
+                unitPrice:
+                    type: string
+                totalPrice:
+                    type: string
+                dosage:
+                    type: string
+                frequency:
+                    type: string
+                duration:
+                    type: string
+                usageMethod:
+                    type: string
+                notes:
+                    type: string
+                createdAt:
+                    type: string
+                medicineName:
+                    type: string
+                    description: 扩展信息
+                medicineSpec:
+                    type: string
+                manufacturer:
+                    type: string
+            description: 处方药品明细
         doctors.v1.DoctorsList:
             type: object
             properties:
@@ -175,6 +1843,389 @@ components:
             type: object
             properties: {}
             description: The request message containing the user's name.
+        drug.v1.CategoryFacet:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int32
+                name:
+                    type: string
+                count:
+                    type: string
+        drug.v1.CreatePrescriptionReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                msg:
+                    type: string
+                prescriptionId:
+                    type: string
+        drug.v1.CreatePrescriptionRequest:
+            type: object
+            properties:
+                token:
+                    type: string
+                imageUrl:
+                    type: string
+                expiryDate:
+                    type: string
+            description: 处方药相关消息
+        drug.v1.ExplainInfo:
+            type: object
+            properties:
+                commonName:
+                    type: string
+                goodsName:
+                    type: string
+                component:
+                    type: string
+                taboos:
+                    type: string
+                function:
+                    type: string
+                usageAndDosage:
+                    type: string
+                character:
+                    type: string
+                packagingSpecification:
+                    type: string
+                badnessReaction:
+                    type: string
+                condition:
+                    type: string
+                validTime:
+                    type: string
+                notice:
+                    type: string
+                interaction:
+                    type: string
+                ratifyNumber:
+                    type: string
+                manufacturer:
+                    type: string
+                standardNumber:
+                    type: string
+                possessor:
+                    type: string
+                address:
+                    type: string
+                specification:
+                    type: string
+                dosageForm:
+                    type: string
+        drug.v1.GetDrugReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                msg:
+                    type: string
+                drug:
+                    $ref: '#/components/schemas/drug.v1.InfoDrug'
+        drug.v1.GetDrugRequest:
+            type: object
+            properties:
+                id:
+                    type: string
+        drug.v1.GetExplainReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                msg:
+                    type: string
+                explain:
+                    $ref: '#/components/schemas/drug.v1.ExplainInfo'
+        drug.v1.GetExplainRequest:
+            type: object
+            properties:
+                id:
+                    type: string
+        drug.v1.GetGuideReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                msg:
+                    type: string
+                guide:
+                    $ref: '#/components/schemas/drug.v1.GuideInfo'
+        drug.v1.GetGuideRequest:
+            type: object
+            properties:
+                id:
+                    type: string
+        drug.v1.GetHotSearchReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                msg:
+                    type: string
+                hotKeywords:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/drug.v1.HotItem'
+                hotSymptoms:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/drug.v1.HotItem'
+                hotQuestions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/drug.v1.HotItem'
+        drug.v1.GetInventoryReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                msg:
+                    type: string
+                inventory:
+                    $ref: '#/components/schemas/drug.v1.InventoryInfo'
+        drug.v1.GuideInfo:
+            type: object
+            properties:
+                majorFunction:
+                    type: string
+                usageAndDosage:
+                    type: string
+                taboos:
+                    type: string
+                specialCrowd:
+                    type: string
+                condition:
+                    type: string
+        drug.v1.HotItem:
+            type: object
+            properties:
+                content:
+                    type: string
+                count:
+                    type: string
+                score:
+                    type: number
+                    format: double
+        drug.v1.InfoDrug:
+            type: object
+            properties:
+                drugName:
+                    type: string
+                specification:
+                    type: string
+                price:
+                    type: number
+                    format: double
+                salesVolume:
+                    type: number
+                    format: double
+                inventory:
+                    type: string
+                exhibitionUrl:
+                    type: string
+                guide:
+                    $ref: '#/components/schemas/drug.v1.GuideInfo'
+        drug.v1.InfoDrugs:
+            type: object
+            properties:
+                drugName:
+                    type: string
+                specification:
+                    type: string
+                price:
+                    type: number
+                    format: double
+                salesVolume:
+                    type: number
+                    format: double
+                inventory:
+                    type: string
+                exhibitionUrl:
+                    type: string
+        drug.v1.InventoryInfo:
+            type: object
+            properties:
+                drugId:
+                    type: string
+                drugStoreId:
+                    type: integer
+                    format: int32
+                quantity:
+                    type: string
+                reservedQty:
+                    type: string
+                alertThreshold:
+                    type: string
+                price:
+                    type: number
+                    format: double
+                status:
+                    type: integer
+                    format: int32
+        drug.v1.ListDrugReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                msg:
+                    type: string
+                drug:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/drug.v1.InfoDrugs'
+        drug.v1.ListDrugRequest:
+            type: object
+            properties:
+                fristCategoryId:
+                    type: string
+                secondCategoryId:
+                    type: string
+                keyword:
+                    type: string
+        drug.v1.ListPrescriptionsReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                msg:
+                    type: string
+                prescriptions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/drug.v1.PrescriptionInfo'
+                total:
+                    type: string
+        drug.v1.ManufacturerFacet:
+            type: object
+            properties:
+                name:
+                    type: string
+                count:
+                    type: string
+        drug.v1.PrescriptionInfo:
+            type: object
+            properties:
+                id:
+                    type: string
+                imageUrl:
+                    type: string
+                status:
+                    type: integer
+                    format: int32
+                statusText:
+                    type: string
+                rejectReason:
+                    type: string
+                expiryDate:
+                    type: string
+                createdAt:
+                    type: string
+        drug.v1.PriceFacet:
+            type: object
+            properties:
+                range:
+                    type: string
+                count:
+                    type: string
+        drug.v1.SearchDrugInfo:
+            type: object
+            properties:
+                id:
+                    type: string
+                drugName:
+                    type: string
+                specification:
+                    type: string
+                price:
+                    type: number
+                    format: double
+                inventory:
+                    type: string
+                manufacturer:
+                    type: string
+                isPrescription:
+                    type: boolean
+                exhibitionUrl:
+                    type: string
+        drug.v1.SearchDrugsReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                msg:
+                    type: string
+                drugs:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/drug.v1.SearchDrugInfo'
+                total:
+                    type: string
+                facets:
+                    $ref: '#/components/schemas/drug.v1.SearchFacets'
+        drug.v1.SearchDrugsRequest:
+            type: object
+            properties:
+                keyword:
+                    type: string
+                categoryId:
+                    type: integer
+                    format: int32
+                drugStoreId:
+                    type: integer
+                    format: int32
+                onlyInStock:
+                    type: boolean
+                includePrescription:
+                    type: boolean
+                page:
+                    type: integer
+                    format: int32
+                size:
+                    type: integer
+                    format: int32
+                sortBy:
+                    type: string
+                priceMin:
+                    type: number
+                    format: double
+                priceMax:
+                    type: number
+                    format: double
+            description: 搜索相关消息
+        drug.v1.SearchFacets:
+            type: object
+            properties:
+                categories:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/drug.v1.CategoryFacet'
+                priceRanges:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/drug.v1.PriceFacet'
+                manufacturers:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/drug.v1.ManufacturerFacet'
+        drug.v1.UpdateInventoryReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                msg:
+                    type: string
+        drug.v1.UpdateInventoryRequest:
+            type: object
+            properties:
+                drugId:
+                    type: string
+                drugStoreId:
+                    type: integer
+                    format: int32
+                quantity:
+                    type: string
         user.v1.CityList:
             type: object
             properties:
@@ -294,7 +2345,19 @@ components:
                     type: string
             description: The request message containing the user's name.
 tags:
+    - name: Cart
+    - name: Chat
+    - name: CouponService
+      description: 优惠券服务
     - name: Doctors
       description: The greeting service definition.
+    - name: Drug
+    - name: Estimate
+    - name: OrderService
+      description: 订单服务
+    - name: Payment
+      description: 支付服务
+    - name: PrescriptionService
+      description: 处方服务
     - name: User
       description: The greeting service definition.

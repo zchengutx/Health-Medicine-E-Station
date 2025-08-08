@@ -37,6 +37,7 @@ func (r *drugRepo) ListDrug(ctx context.Context, fristCategoryId int32, secondCa
 	}
 	return drugs, nil
 }
+
 func (r *drugRepo) GetDrug(ctx context.Context, id int32) (*biz.MtDrug, error) {
 	var drug biz.MtDrug
 	err := r.data.Db.Where("id = ?", id).First(&drug).Error
@@ -45,6 +46,7 @@ func (r *drugRepo) GetDrug(ctx context.Context, id int32) (*biz.MtDrug, error) {
 	}
 	return &drug, nil
 }
+
 func (r *drugRepo) GetExplain(ctx context.Context, id int32) (*biz.MtExplain, error) {
 	var explain biz.MtExplain
 	err := r.data.Db.Where("id = ?", id).First(&explain).Error
@@ -53,6 +55,7 @@ func (r *drugRepo) GetExplain(ctx context.Context, id int32) (*biz.MtExplain, er
 	}
 	return &explain, nil
 }
+
 func (r *drugRepo) GetGuide(ctx context.Context, id int32) (*biz.MtGuide, error) {
 	var guide biz.MtGuide
 	err := r.data.Db.Where("id = ?", id).Find(&guide).Limit(1).Error

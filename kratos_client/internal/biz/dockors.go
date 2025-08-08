@@ -40,6 +40,7 @@ func (m *MtDoctors) TableName() string {
 
 type DoctorsRepo interface {
 	DoctorsFind(ctx context.Context, m *MtDoctors) (*[]MtDoctors, error)
+	FindByID(ctx context.Context, id int32) (*MtDoctors, error)
 }
 
 type DoctorsService struct {
@@ -54,4 +55,9 @@ func NewDoctorsUsecase(repo DoctorsRepo, logger log.Logger) *DoctorsService {
 func (m *DoctorsService) DoctorsFind(ctx context.Context, req *MtDoctors) (*[]MtDoctors, error) {
 	m.log.WithContext(ctx).Infof("MtCity %+v", req)
 	return m.repo.DoctorsFind(ctx, req)
+}
+
+func (m *DoctorsService) FindByID(ctx context.Context, id int32) (*MtDoctors, error) {
+	m.log.WithContext(ctx).Infof("FindByID doctor %d", id)
+	return m.repo.FindByID(ctx, id)
 }

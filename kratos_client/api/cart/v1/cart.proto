@@ -46,8 +46,9 @@ message CreateCartReply {
 }
 
 message UpdateCartRequest {
-	int64 id = 1;
-	int64 number = 2;
+	int64 user_id = 1;
+	int64 drug_id = 2;
+	int64 number = 3;
 }
 message UpdateCartReply {
 	int64 code = 1;
@@ -55,7 +56,8 @@ message UpdateCartReply {
 }
 
 message DeleteCartRequest {
-	int64 id = 1;
+	int64 user_id = 1;
+	repeated int64 drug_ids = 2; // 支持批量删除，传入多个药品ID
 }
 message DeleteCartReply {
 	int64 code = 1;
@@ -79,4 +81,9 @@ message InfoCart {
 	int64 user_id = 2;
 	int64 drug_id = 3;
 	int64 number = 4;
+	string drug_name = 5;
+	string specification = 6;
+	double price = 7;
+	int64 inventory = 8;
+	string exhibition_url = 9;
 }

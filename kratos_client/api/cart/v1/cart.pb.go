@@ -136,8 +136,9 @@ func (x *CreateCartReply) GetMsg() string {
 
 type UpdateCartRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Number        int64                  `protobuf:"varint,2,opt,name=number,proto3" json:"number,omitempty"`
+	UserId        int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	DrugId        int64                  `protobuf:"varint,2,opt,name=drug_id,json=drugId,proto3" json:"drug_id,omitempty"`
+	Number        int64                  `protobuf:"varint,3,opt,name=number,proto3" json:"number,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -172,9 +173,16 @@ func (*UpdateCartRequest) Descriptor() ([]byte, []int) {
 	return file_cart_v1_cart_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *UpdateCartRequest) GetId() int64 {
+func (x *UpdateCartRequest) GetUserId() int64 {
 	if x != nil {
-		return x.Id
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *UpdateCartRequest) GetDrugId() int64 {
+	if x != nil {
+		return x.DrugId
 	}
 	return 0
 }
@@ -240,7 +248,8 @@ func (x *UpdateCartReply) GetMsg() string {
 
 type DeleteCartRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	UserId        int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	DrugIds       []int64                `protobuf:"varint,2,rep,packed,name=drug_ids,json=drugIds,proto3" json:"drug_ids,omitempty"` // 支持批量删除，传入多个药品ID
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -275,11 +284,18 @@ func (*DeleteCartRequest) Descriptor() ([]byte, []int) {
 	return file_cart_v1_cart_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *DeleteCartRequest) GetId() int64 {
+func (x *DeleteCartRequest) GetUserId() int64 {
 	if x != nil {
-		return x.Id
+		return x.UserId
 	}
 	return 0
+}
+
+func (x *DeleteCartRequest) GetDrugIds() []int64 {
+	if x != nil {
+		return x.DrugIds
+	}
+	return nil
 }
 
 type DeleteCartReply struct {
@@ -488,6 +504,11 @@ type InfoCart struct {
 	UserId        int64                  `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	DrugId        int64                  `protobuf:"varint,3,opt,name=drug_id,json=drugId,proto3" json:"drug_id,omitempty"`
 	Number        int64                  `protobuf:"varint,4,opt,name=number,proto3" json:"number,omitempty"`
+	DrugName      string                 `protobuf:"bytes,5,opt,name=drug_name,json=drugName,proto3" json:"drug_name,omitempty"`
+	Specification string                 `protobuf:"bytes,6,opt,name=specification,proto3" json:"specification,omitempty"`
+	Price         float64                `protobuf:"fixed64,7,opt,name=price,proto3" json:"price,omitempty"`
+	Inventory     int64                  `protobuf:"varint,8,opt,name=inventory,proto3" json:"inventory,omitempty"`
+	ExhibitionUrl string                 `protobuf:"bytes,9,opt,name=exhibition_url,json=exhibitionUrl,proto3" json:"exhibition_url,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -550,6 +571,41 @@ func (x *InfoCart) GetNumber() int64 {
 	return 0
 }
 
+func (x *InfoCart) GetDrugName() string {
+	if x != nil {
+		return x.DrugName
+	}
+	return ""
+}
+
+func (x *InfoCart) GetSpecification() string {
+	if x != nil {
+		return x.Specification
+	}
+	return ""
+}
+
+func (x *InfoCart) GetPrice() float64 {
+	if x != nil {
+		return x.Price
+	}
+	return 0
+}
+
+func (x *InfoCart) GetInventory() int64 {
+	if x != nil {
+		return x.Inventory
+	}
+	return 0
+}
+
+func (x *InfoCart) GetExhibitionUrl() string {
+	if x != nil {
+		return x.ExhibitionUrl
+	}
+	return ""
+}
+
 var File_cart_v1_cart_proto protoreflect.FileDescriptor
 
 const file_cart_v1_cart_proto_rawDesc = "" +
@@ -561,15 +617,17 @@ const file_cart_v1_cart_proto_rawDesc = "" +
 	"\x06number\x18\x03 \x01(\x03R\x06number\"7\n" +
 	"\x0fCreateCartReply\x12\x12\n" +
 	"\x04code\x18\x01 \x01(\x03R\x04code\x12\x10\n" +
-	"\x03msg\x18\x02 \x01(\tR\x03msg\";\n" +
-	"\x11UpdateCartRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x16\n" +
-	"\x06number\x18\x02 \x01(\x03R\x06number\"7\n" +
+	"\x03msg\x18\x02 \x01(\tR\x03msg\"]\n" +
+	"\x11UpdateCartRequest\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\x03R\x06userId\x12\x17\n" +
+	"\adrug_id\x18\x02 \x01(\x03R\x06drugId\x12\x16\n" +
+	"\x06number\x18\x03 \x01(\x03R\x06number\"7\n" +
 	"\x0fUpdateCartReply\x12\x12\n" +
 	"\x04code\x18\x01 \x01(\x03R\x04code\x12\x10\n" +
-	"\x03msg\x18\x02 \x01(\tR\x03msg\"#\n" +
-	"\x11DeleteCartRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x03R\x02id\"7\n" +
+	"\x03msg\x18\x02 \x01(\tR\x03msg\"G\n" +
+	"\x11DeleteCartRequest\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\x03R\x06userId\x12\x19\n" +
+	"\bdrug_ids\x18\x02 \x03(\x03R\adrugIds\"7\n" +
 	"\x0fDeleteCartReply\x12\x12\n" +
 	"\x04code\x18\x01 \x01(\x03R\x04code\x12\x10\n" +
 	"\x03msg\x18\x02 \x01(\tR\x03msg\" \n" +
@@ -580,12 +638,17 @@ const file_cart_v1_cart_proto_rawDesc = "" +
 	"\rListCartReply\x12\x12\n" +
 	"\x04code\x18\x01 \x01(\x03R\x04code\x12\x10\n" +
 	"\x03msg\x18\x02 \x01(\tR\x03msg\x12)\n" +
-	"\x04cart\x18\x03 \x03(\v2\x15.api.cart.v1.InfoCartR\x04cart\"d\n" +
+	"\x04cart\x18\x03 \x03(\v2\x15.api.cart.v1.InfoCartR\x04cart\"\x82\x02\n" +
 	"\bInfoCart\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\x03R\x06userId\x12\x17\n" +
 	"\adrug_id\x18\x03 \x01(\x03R\x06drugId\x12\x16\n" +
-	"\x06number\x18\x04 \x01(\x03R\x06number2\x9e\x03\n" +
+	"\x06number\x18\x04 \x01(\x03R\x06number\x12\x1b\n" +
+	"\tdrug_name\x18\x05 \x01(\tR\bdrugName\x12$\n" +
+	"\rspecification\x18\x06 \x01(\tR\rspecification\x12\x14\n" +
+	"\x05price\x18\a \x01(\x01R\x05price\x12\x1c\n" +
+	"\tinventory\x18\b \x01(\x03R\tinventory\x12%\n" +
+	"\x0eexhibition_url\x18\t \x01(\tR\rexhibitionUrl2\x9e\x03\n" +
 	"\x04Cart\x12f\n" +
 	"\n" +
 	"CreateCart\x12\x1e.api.cart.v1.CreateCartRequest\x1a\x1c.api.cart.v1.CreateCartReply\"\x1a\x82\xd3\xe4\x93\x02\x14:\x01*\"\x0f/v1/cart/create\x12f\n" +

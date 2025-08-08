@@ -28,7 +28,6 @@ type ChatMessage struct {
 	ToID      int32     `json:"to_id"`
 	FromName  string    `json:"from_name"`
 	Timestamp time.Time `json:"timestamp"`
-	RoomID    string    `json:"room_id"`
 }
 
 // 客户端连接结构
@@ -38,12 +37,11 @@ type Client struct {
 	Role   string // "doctor" 或 "patient"
 	Conn   *websocket.Conn
 	Send   chan ChatMessage
-	RoomID string
 }
 
 // 一对一聊天管理器
 type ChatManager struct {
-	clients    map[string]*Client // key: roomID_userID
+	clients    map[int32]*Client // key: userID
 	register   chan *Client
 	unregister chan *Client
 	message    chan ChatMessage
@@ -56,7 +54,7 @@ var chatManager *ChatManager
 // 初始化聊天管理器
 func init() {
 	chatManager = &ChatManager{
-		clients:    make(map[string]*Client),
+		clients:    make(map[int32]*Client),
 		register:   make(chan *Client),
 		unregister: make(chan *Client),
 		message:    make(chan ChatMessage),
@@ -85,10 +83,8 @@ func (cm *ChatManager) registerClient(client *Client) {
 	cm.mutex.Lock()
 	defer cm.mutex.Unlock()
 
-	clientKey := client.RoomID + "_" + strconv.Itoa(int(client.ID))
-	cm.clients[clientKey] = client
-
-	log.Printf("客户端 %d (%s) 连接到房间 %s", client.ID, client.Name, client.RoomID)
+	cm.clients[client.ID] = client
+	log.Printf("客户端 %d (%s, %s) 已连接", client.ID, client.Name, client.Role)
 }
 
 // 注销客户端
@@ -96,9 +92,8 @@ func (cm *ChatManager) unregisterClient(client *Client) {
 	cm.mutex.Lock()
 	defer cm.mutex.Unlock()
 
-	clientKey := client.RoomID + "_" + strconv.Itoa(int(client.ID))
-	if _, exists := cm.clients[clientKey]; exists {
-		delete(cm.clients, clientKey)
+	if _, exists := cm.clients[client.ID]; exists {
+		delete(cm.clients, client.ID)
 		close(client.Send)
 		log.Printf("客户端 %d (%s) 断开连接", client.ID, client.Name)
 	}
@@ -110,52 +105,89 @@ func (cm *ChatManager) handleMessage(message ChatMessage) {
 	defer cm.mutex.RUnlock()
 
 	// 找到目标用户的连接
-	targetClientKey := message.RoomID + "_" + strconv.Itoa(int(message.ToID))
-	if targetClient, exists := cm.clients[targetClientKey]; exists {
+	if targetClient, exists := cm.clients[message.ToID]; exists {
 		select {
 		case targetClient.Send <- message:
 			log.Printf("消息从 %d 发送到 %d: %s", message.FromID, message.ToID, message.Content)
 		default:
 			// 如果发送失败，关闭连接
 			close(targetClient.Send)
-			delete(cm.clients, targetClientKey)
+			delete(cm.clients, message.ToID)
 		}
+	} else {
+		log.Printf("目标用户 %d 不在线，消息未发送", message.ToID)
 	}
-}
-
-// 生成房间ID（基于两个用户ID）
-func generateRoomID(userID1, userID2 int32) string {
-	if userID1 > userID2 {
-		userID1, userID2 = userID2, userID1
-	}
-	return "room_" + strconv.Itoa(int(userID1)) + "_" + strconv.Itoa(int(userID2))
 }
 
 // WebSocket连接处理器
 func HandleWebSocket(w http.ResponseWriter, r *http.Request) {
-	// 从查询参数获取用户信息
-	userIDStr := r.URL.Query().Get("user_id")
-	userName := r.URL.Query().Get("user_name")
-	userRole := r.URL.Query().Get("user_role") // "doctor" 或 "patient"
-	targetIDStr := r.URL.Query().Get("target_id")
+	// 打印所有请求头用于调试
+	log.Printf("WebSocket连接请求，Headers:")
+	for name, values := range r.Header {
+		for _, value := range values {
+			log.Printf("  %s: %s", name, value)
+		}
+	}
 
-	if userIDStr == "" || userName == "" || targetIDStr == "" {
-		http.Error(w, "缺少必要参数", http.StatusBadRequest)
+	// 从Header获取token和目标用户信息
+	token := r.Header.Get("Authorization")
+	userRole := r.Header.Get("User-Role") // "doctor" 或 "patient"
+	targetIDStr := r.Header.Get("Target-Id")
+
+	log.Printf("解析到的参数: token=%s, userRole=%s, targetID=%s", token, userRole, targetIDStr)
+
+	// 处理Authorization header中的Bearer前缀
+	if token != "" && len(token) > 7 && token[:7] == "Bearer " {
+		token = token[7:]
+		log.Printf("去除Bearer前缀后的token: %s", token)
+	}
+
+	// 如果Header中有认证信息，先验证
+	if token != "" && userRole != "" && targetIDStr != "" {
+		log.Printf("Header中有完整认证信息，开始验证")
+		
+		// 验证JWT token
+		claims, errMsg := GetToken(token)
+		if claims == nil || errMsg != "" {
+			log.Printf("Token验证失败: %s", errMsg)
+			http.Error(w, "token无效: "+errMsg, http.StatusUnauthorized)
+			return
+		}
+
+		userIDFloat, ok := claims["user"].(float64)
+		if !ok {
+			log.Printf("Token中用户ID格式错误")
+			http.Error(w, "token中用户ID格式错误", http.StatusUnauthorized)
+			return
+		}
+		userID := int32(userIDFloat)
+
+		targetID, err := strconv.Atoi(targetIDStr)
+		if err != nil {
+			log.Printf("无效的目标用户ID: %s", targetIDStr)
+			http.Error(w, "无效的目标用户ID", http.StatusBadRequest)
+			return
+		}
+
+		log.Printf("认证成功，用户ID: %d, 目标ID: %d", userID, targetID)
+
+		// 升级HTTP连接为WebSocket
+		conn, err := upgrader.Upgrade(w, r, nil)
+		if err != nil {
+			log.Printf("WebSocket升级失败: %v", err)
+			return
+		}
+
+		log.Printf("WebSocket连接升级成功")
+
+		// 处理已认证的连接
+		handleAuthenticatedWebSocket(conn, userID, userRole, int32(targetID))
 		return
 	}
 
-	userID, err := strconv.Atoi(userIDStr)
-	if err != nil {
-		http.Error(w, "无效的用户ID", http.StatusBadRequest)
-		return
-	}
-
-	targetID, err := strconv.Atoi(targetIDStr)
-	if err != nil {
-		http.Error(w, "无效的目标用户ID", http.StatusBadRequest)
-		return
-	}
-
+	// 如果Header中没有完整信息，升级连接后等待认证消息
+	log.Printf("Header信息不完整，升级连接后等待认证消息")
+	
 	// 升级HTTP连接为WebSocket
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
@@ -163,25 +195,121 @@ func HandleWebSocket(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 生成房间ID
-	roomID := generateRoomID(int32(userID), int32(targetID))
+	log.Printf("WebSocket连接升级成功，等待认证消息")
+	handleUnauthenticatedConnection(conn)
+}
+
+// 处理已认证的WebSocket连接
+func handleAuthenticatedWebSocket(conn *websocket.Conn, userID int32, userRole string, targetID int32) {
+	log.Printf("处理已认证的WebSocket连接: userID=%d, userRole=%s, targetID=%d", userID, userRole, targetID)
+
+	// 如果是患者连接医生，检查医生是否在线
+	if userRole == "patient" {
+		if _, exists := chatManager.clients[targetID]; !exists {
+			log.Printf("目标医生 %d 不在线", targetID)
+			conn.WriteJSON(map[string]interface{}{
+				"type":    "error",
+				"message": "医生当前不在线，无法建立连接",
+			})
+			conn.Close()
+			return
+		}
+	}
 
 	// 创建客户端
 	client := &Client{
-		ID:     int32(userID),
-		Name:   userName,
-		Role:   userRole,
-		Conn:   conn,
-		Send:   make(chan ChatMessage, 256),
-		RoomID: roomID,
+		ID:   userID,
+		Name: "", // 用户名将在需要时从数据库查询
+		Role: userRole,
+		Conn: conn,
+		Send: make(chan ChatMessage, 256),
 	}
 
 	// 注册客户端
 	chatManager.register <- client
 
+	// 发送连接成功消息
+	conn.WriteJSON(map[string]interface{}{
+		"type":    "system",
+		"message": "连接成功",
+	})
+
+	log.Printf("客户端 %d 注册成功", userID)
+
 	// 启动读写协程
 	go client.writePump()
-	go client.readPump(int32(targetID))
+	go client.readPump(targetID)
+}
+
+// 处理未认证的连接（等待认证消息）
+func handleUnauthenticatedConnection(conn *websocket.Conn) {
+	defer conn.Close()
+
+	// 设置读取超时
+	conn.SetReadDeadline(time.Now().Add(30 * time.Second))
+
+	// 等待认证消息
+	var authMsg map[string]interface{}
+	err := conn.ReadJSON(&authMsg)
+	if err != nil {
+		log.Printf("读取认证消息失败: %v", err)
+		return
+	}
+
+	// 检查是否为认证消息
+	if msgType, ok := authMsg["type"].(string); !ok || msgType != "auth" {
+		conn.WriteJSON(map[string]interface{}{
+			"type":    "error",
+			"message": "需要先发送认证消息",
+		})
+		return
+	}
+
+	// 提取认证信息
+	token, _ := authMsg["token"].(string)
+	userRole, _ := authMsg["user_role"].(string)
+	targetIDFloat, _ := authMsg["target_id"].(float64)
+	targetIDStr := strconv.Itoa(int(targetIDFloat))
+
+	if token == "" || userRole == "" || targetIDStr == "" {
+		conn.WriteJSON(map[string]interface{}{
+			"type":    "error",
+			"message": "认证信息不完整",
+		})
+		return
+	}
+
+	// 验证JWT token
+	claims, errMsg := GetToken(token)
+	if claims == nil || errMsg != "" {
+		conn.WriteJSON(map[string]interface{}{
+			"type":    "error",
+			"message": "token无效: " + errMsg,
+		})
+		return
+	}
+
+	userIDFloat, ok := claims["user"].(float64)
+	if !ok {
+		conn.WriteJSON(map[string]interface{}{
+			"type":    "error",
+			"message": "token中用户ID格式错误",
+		})
+		return
+	}
+	userID := int32(userIDFloat)
+
+	targetID, err := strconv.Atoi(targetIDStr)
+	if err != nil {
+		conn.WriteJSON(map[string]interface{}{
+			"type":    "error",
+			"message": "无效的目标用户ID",
+		})
+		return
+	}
+
+	// 使用认证信息建立连接
+	handleAuthenticatedWebSocket(conn, userID, userRole, int32(targetID))
 }
 
 // 读取消息
@@ -213,7 +341,6 @@ func (c *Client) readPump(targetID int32) {
 		message.ToID = targetID
 		message.FromName = c.Name
 		message.Timestamp = time.Now()
-		message.RoomID = c.RoomID
 
 		// 发送消息给目标用户
 		chatManager.message <- message
@@ -251,27 +378,34 @@ func (c *Client) writePump() {
 	}
 }
 
-// 获取房间中的在线用户
-func GetRoomUsers(roomID string) []map[string]interface{} {
+// 获取在线用户列表
+func GetOnlineUsers() []map[string]interface{} {
 	chatManager.mutex.RLock()
 	defer chatManager.mutex.RUnlock()
 
 	users := make([]map[string]interface{}, 0)
 	for _, client := range chatManager.clients {
-		if client.RoomID == roomID {
-			users = append(users, map[string]interface{}{
-				"id":   client.ID,
-				"name": client.Name,
-				"role": client.Role,
-			})
-		}
+		users = append(users, map[string]interface{}{
+			"id":   client.ID,
+			"name": client.Name,
+			"role": client.Role,
+		})
 	}
 
 	return users
 }
 
+// 检查用户是否在线
+func IsUserOnline(userID int32) bool {
+	chatManager.mutex.RLock()
+	defer chatManager.mutex.RUnlock()
+
+	_, exists := chatManager.clients[userID]
+	return exists
+}
+
 // 发送消息到特定用户
-func SendMessageToUser(roomID string, fromID, toID int32, fromName, content string) error {
+func SendMessageToUser(fromID, toID int32, fromName, content string) error {
 	message := ChatMessage{
 		Type:      "text",
 		Content:   content,
@@ -279,7 +413,6 @@ func SendMessageToUser(roomID string, fromID, toID int32, fromName, content stri
 		ToID:      toID,
 		FromName:  fromName,
 		Timestamp: time.Now(),
-		RoomID:    roomID,
 	}
 
 	chatManager.message <- message

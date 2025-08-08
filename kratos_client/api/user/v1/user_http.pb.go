@@ -10,7 +10,6 @@ import (
 	context "context"
 	http "github.com/go-kratos/kratos/v2/transport/http"
 	binding "github.com/go-kratos/kratos/v2/transport/http/binding"
-	"kratos_client/comment"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -47,7 +46,7 @@ func RegisterUserHTTPServer(s *http.Server, srv UserHTTPServer) {
 	r.POST("/v1/updateMobile", _User_UpdateMobile0_HTTP_Handler(srv))
 	r.POST("/v1/SelectTheCity", _User_SelectTheCity0_HTTP_Handler(srv))
 	r.POST("/v1/SearchForCities", _User_SearchForCities0_HTTP_Handler(srv))
-	r.POST("/v1/createAddress", _User_CreateAddress0_HTTP_Handler(srv),comment.JWTMiddleware())
+	r.POST("/v1/createAddress", _User_CreateAddress0_HTTP_Handler(srv))
 }
 
 func _User_SendSms0_HTTP_Handler(srv UserHTTPServer) func(ctx http.Context) error {
