@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>当前API状态测试</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-item { margin: 10px 0; padding: 10px; border: 1px solid #ddd; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .loading { background-color: #fff3cd; border-color: #ffeaa7; }
+        button { margin: 5px; padding: 10px 15px; }
+    </style>
+</head>
+<body>
+    <h1>当前API状态测试</h1>
+    
+    <button onclick="testAllAPIs()">测试所有API</button>
+    <button onclick="clearResults()">清空结果</button>
+    
+    <div id="results"></div>
+
+    <script>
+        const baseURL = 'http://localhost:8888';
+        
+        async function testAPI(name, url, method = 'GET', data = null) {
+            const resultDiv = document.getElementById('results');
+            const testItem = document.createElement('div');
+            testItem.className = 'test-item loading';
+            testItem.innerHTML = `<h3>${name}</h3><p>测试中...</p>`;
+            resultDiv.appendChild(testItem);
+            
+            try {
+                const config = {
+                    method: method,
+                    url: url,
+                    timeout: 5000
+                };
+                
+                if (data) {
+                    config.data = data;
+                }
+                
+                const response = await axios(config);
+                
+                testItem.className = 'test-item success';
+                testItem.innerHTML = `
+                    <h3>✅ ${name}</h3>
+                    <p><strong>状态:</strong> ${response.status} ${response.statusText}</p>
+                    <p><strong>响应时间:</strong> ${Date.now() - startTime}ms</p>
+                    <p><strong>数据:</strong> ${JSON.stringify(response.data, null, 2).substring(0, 200)}...</p>
+                `;
+            } catch (error) {
+                testItem.className = 'test-item error';
+                testItem.innerHTML = `
+                    <h3>❌ ${name}</h3>
+                    <p><strong>错误:</strong> ${error.message}</p>
+                    <p><strong>状态:</strong> ${error.response?.status || 'Network Error'}</p>
+                    <p><strong>详情:</strong> ${error.response?.data?.msg || error.response?.statusText || '网络连接失败'}</p>
+                `;
+            }
+        }
+        
+        async function testAllAPIs() {
+            clearResults();
+            
+            const tests = [
+                ['健康检查', `${baseURL}/health`],
+                ['药品列表', `${baseURL}/mtDrug/getMtDrugList?page=1&pageSize=5`],
+                ['药品类型阶梯列表', `${baseURL}/mtDrugTypeStair/getMtDrugTypeStairList?page=1&pageSize=5`],
+                ['药品类型级别列表', `${baseURL}/mtDrugTypeLevel/getMtDrugTypeLevelList?page=1&pageSize=5`],
+                ['获取所有药品类型阶梯', `${baseURL}/mtDrugTypeStair/getAllMtDrugTypeStair`],
+                ['获取所有药品类型级别', `${baseURL}/mtDrugTypeLevel/getAllMtDrugTypeLevel`],
+                ['字典查询-药品状态', `${baseURL}/sysDictionary/findSysDictionary?type=drug_status`],
+                ['字典查询-用户状态', `${baseURL}/sysDictionary/findSysDictionary?type=user_status`]
+            ];
+            
+            for (const [name, url] of tests) {
+                const startTime = Date.now();
+                await testAPI(name, url);
+                await new Promise(resolve => setTimeout(resolve, 500)); // 延迟500ms避免请求过快
+            }
+        }
+        
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+        }
+        
+        // 页面加载时自动测试
+        window.onload = function() {
+            testAllAPIs();
+        };
+    </script>
+</body>
+</html>

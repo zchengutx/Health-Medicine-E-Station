@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>调试API调用</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-item { margin: 10px 0; padding: 10px; border: 1px solid #ddd; }
+        .success { background-color: #d4edda; }
+        .error { background-color: #f8d7da; }
+        .loading { background-color: #fff3cd; }
+        button { margin: 5px; padding: 10px 15px; }
+        pre { background: #f8f9fa; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🔍 调试API调用问题</h1>
+    
+    <button onclick="testBasicAPIs()">测试基础API</button>
+    <button onclick="testDrugAPI()">测试药品API</button>
+    <button onclick="testDictionaryAPI()">测试字典API</button>
+    <button onclick="clearResults()">清空结果</button>
+    
+    <div id="results"></div>
+
+    <script>
+        const baseURL = 'http://localhost:8888';
+        
+        async function testAPI(name, url, expectedError = false) {
+            const resultDiv = document.getElementById('results');
+            const testItem = document.createElement('div');
+            testItem.className = 'test-item loading';
+            testItem.innerHTML = `<h3>${name}</h3><p>测试中...</p><p>URL: ${url}</p>`;
+            resultDiv.appendChild(testItem);
+            
+            try {
+                const startTime = Date.now();
+                const response = await axios.get(url, { timeout: 5000 });
+                const responseTime = Date.now() - startTime;
+                
+                testItem.className = 'test-item success';
+                testItem.innerHTML = `
+                    <h3>✅ ${name}</h3>
+                    <p><strong>状态:</strong> ${response.status} ${response.statusText}</p>
+                    <p><strong>响应时间:</strong> ${responseTime}ms</p>
+                    <p><strong>URL:</strong> ${url}</p>
+                    <details>
+                        <summary>响应数据 (${JSON.stringify(response.data).length} 字符)</summary>
+                        <pre>${JSON.stringify(response.data, null, 2)}</pre>
+                    </details>
+                `;
+            } catch (error) {
+                const responseTime = Date.now() - startTime;
+                
+                if (expectedError) {
+                    testItem.className = 'test-item success';
+                    testItem.innerHTML = `
+                        <h3>✅ ${name} (预期错误)</h3>
+                        <p><strong>错误:</strong> ${error.message}</p>
+                        <p><strong>状态:</strong> ${error.response?.status || 'Network Error'}</p>
+                        <p><strong>这是预期的错误，说明API路径存在但可能需要认证</strong></p>
+                    `;
+                } else {
+                    testItem.className = 'test-item error';
+                    testItem.innerHTML = `
+                        <h3>❌ ${name}</h3>
+                        <p><strong>错误:</strong> ${error.message}</p>
+                        <p><strong>状态:</strong> ${error.response?.status || 'Network Error'}</p>
+                        <p><strong>URL:</strong> ${url}</p>
+                        <details>
+                            <summary>错误详情</summary>
+                            <pre>${JSON.stringify(error.response?.data || error.message, null, 2)}</pre>
+                        </details>
+                    `;
+                }
+            }
+        }
+        
+        async function testBasicAPIs() {
+            await testAPI('健康检查', `${baseURL}/health`);
+            await new Promise(resolve => setTimeout(resolve, 500));
+        }
+        
+        async function testDrugAPI() {
+            await testAPI('药品列表', `${baseURL}/mtDrug/getMtDrugList?page=1&pageSize=5`);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            await testAPI('药品详情', `${baseURL}/mtDrug/findMtDrug?ID=1`, true); // 可能没有ID=1的数据
+            await new Promise(resolve => setTimeout(resolve, 500));
+        }
+        
+        async function testDictionaryAPI() {
+            await testAPI('字典-药品状态', `${baseURL}/sysDictionary/findSysDictionary?type=drug_status`);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            await testAPI('字典-用户状态', `${baseURL}/sysDictionary/findSysDictionary?type=user_status`);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            await testAPI('字典列表', `${baseURL}/sysDictionary/getSysDictionaryList?page=1&pageSize=10`);
+        }
+        
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+        }
+        
+        // 页面加载时显示说明
+        window.onload = function() {
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'test-item';
+            infoDiv.style.backgroundColor = '#e2e3e5';
+            infoDiv.innerHTML = `
+                <h3>📋 API调试说明</h3>
+                <p>这个工具用于调试前端404错误问题。</p>
+                <p><strong>服务器:</strong> ${baseURL}</p>
+                <p><strong>目标:</strong> 找出哪个API调用失败导致404错误</p>
+                <p>点击上方按钮开始测试各个API接口。</p>
+            `;
+            document.getElementById('results').appendChild(infoDiv);
+        };
+    </script>
+</body>
+</html>

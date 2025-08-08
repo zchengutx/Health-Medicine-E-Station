@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试医院和科室API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .result {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 3px;
+            margin-top: 10px;
+            white-space: pre-wrap;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>医院和科室API测试</h1>
+    
+    <div class="section">
+        <h2>1. 测试医院列表API</h2>
+        <button onclick="testHospitals()">获取医院列表</button>
+        <div id="hospitalsResult" class="result"></div>
+    </div>
+    
+    <div class="section">
+        <h2>2. 测试科室列表API</h2>
+        <label>医院ID: <input type="number" id="hospitalId" value="1" min="1" max="5"></label>
+        <button onclick="testDepartments()">获取科室列表</button>
+        <div id="departmentsResult" class="result"></div>
+    </div>
+    
+    <div class="section">
+        <h2>3. 测试医生列表API</h2>
+        <button onclick="testDoctors()">获取医生列表</button>
+        <div id="doctorsResult" class="result"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8888/api';
+        
+        async function makeRequest(url, options = {}) {
+            try {
+                const response = await fetch(url, {
+                    ...options,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('请求失败:', error);
+                throw error;
+            }
+        }
+        
+        async function testHospitals() {
+            const resultDiv = document.getElementById('hospitalsResult');
+            resultDiv.innerHTML = '正在获取医院列表...';
+            
+            try {
+                const response = await makeRequest(`${API_BASE}/mtHospitals/getMtHospitalsListPublic`);
+                resultDiv.innerHTML = `✅ 成功获取医院列表:\n${JSON.stringify(response, null, 2)}`;
+                resultDiv.className = 'result success';
+            } catch (error) {
+                resultDiv.innerHTML = `❌ 获取医院列表失败:\n${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        }
+        
+        async function testDepartments() {
+            const resultDiv = document.getElementById('departmentsResult');
+            const hospitalId = document.getElementById('hospitalId').value;
+            resultDiv.innerHTML = `正在获取医院ID ${hospitalId} 的科室列表...`;
+            
+            try {
+                const response = await makeRequest(`${API_BASE}/mtDepartments/getMtDepartmentsListPublic?hospitalId=${hospitalId}`);
+                resultDiv.innerHTML = `✅ 成功获取科室列表:\n${JSON.stringify(response, null, 2)}`;
+                resultDiv.className = 'result success';
+            } catch (error) {
+                resultDiv.innerHTML = `❌ 获取科室列表失败:\n${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        }
+        
+        async function testDoctors() {
+            const resultDiv = document.getElementById('doctorsResult');
+            resultDiv.innerHTML = '正在获取医生列表...';
+            
+            try {
+                const response = await makeRequest(`${API_BASE}/mtDoctors/getMtDoctorsList?page=1&pageSize=10`);
+                resultDiv.innerHTML = `✅ 成功获取医生列表:\n${JSON.stringify(response, null, 2)}`;
+                resultDiv.className = 'result success';
+            } catch (error) {
+                resultDiv.innerHTML = `❌ 获取医生列表失败:\n${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        }
+        
+        // 页面加载时自动测试
+        window.onload = function() {
+            console.log('页面加载完成，可以开始测试API');
+        };
+    </script>
+</body>
+</html> 

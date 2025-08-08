@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>测试药品列表API（多表联查）</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .result { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
+        .drug-item { border: 1px solid #ddd; margin: 10px 0; padding: 10px; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>测试药品列表API（多表联查）</h1>
+    
+    <button onclick="testDrugList()">测试药品列表</button>
+    <button onclick="testDrugDetail()">测试药品详情</button>
+    
+    <div id="result" class="result"></div>
+
+    <script>
+        const baseURL = 'http://localhost:8888';
+        
+        // 设置axios默认配置
+        axios.defaults.headers.common['Authorization'] = 'Bearer your-token-here';
+        
+        function testDrugList() {
+            document.getElementById('result').innerHTML = '<p>正在请求药品列表...</p>';
+            
+            axios.get(`${baseURL}/mtDrug/getMtDrugList?page=1&pageSize=10`)
+                .then(response => {
+                    console.log('药品列表响应:', response.data);
+                    
+                    if (response.data.code === 0) {
+                        const drugs = response.data.data.list || [];
+                        let html = '<h3 class="success">药品列表获取成功！</h3>';
+                        html += `<p>总数: ${response.data.data.total}</p>`;
+                        
+                        if (drugs.length > 0) {
+                            drugs.forEach(drug => {
+                                html += `
+                                    <div class="drug-item">
+                                        <h4>${drug.drugName || '未知药品'}</h4>
+                                        <p><strong>ID:</strong> ${drug.ID}</p>
+                                        <p><strong>规格:</strong> ${drug.specification || '无'}</p>
+                                        <p><strong>价格:</strong> ${drug.price || '无'}</p>
+                                        <p><strong>库存:</strong> ${drug.inventory || '无'}</p>
+                                        <p><strong>状态:</strong> ${drug.status || '无'}</p>
+                                        <p><strong>用药指导ID:</strong> ${drug.guide || '无'}</p>
+                                        <p><strong>用药指导内容:</strong> <span style="color: blue;">${drug.guides || '暂无'}</span></p>
+                                        <p><strong>说明书ID:</strong> ${drug.explain || '无'}</p>
+                                        <p><strong>说明书内容:</strong> <span style="color: green;">${drug.explains || '暂无'}</span></p>
+                                    </div>
+                                `;
+                            });
+                        } else {
+                            html += '<p>没有找到药品数据</p>';
+                        }
+                        
+                        document.getElementById('result').innerHTML = html;
+                    } else {
+                        document.getElementById('result').innerHTML = `<h3 class="error">请求失败:</h3><pre>${JSON.stringify(response.data, null, 2)}</pre>`;
+                    }
+                })
+                .catch(error => {
+                    console.error('请求错误:', error);
+                    document.getElementById('result').innerHTML = `<h3 class="error">请求错误:</h3><pre>${JSON.stringify(error.response?.data || error.message, null, 2)}</pre>`;
+                });
+        }
+        
+        function testDrugDetail() {
+            document.getElementById('result').innerHTML = '<p>正在请求药品详情...</p>';
+            
+            axios.get(`${baseURL}/mtDrug/findMtDrug?ID=1`)
+                .then(response => {
+                    console.log('药品详情响应:', response.data);
+                    
+                    if (response.data.code === 0) {
+                        const drug = response.data.data;
+                        let html = '<h3 class="success">药品详情获取成功！</h3>';
+                        html += `
+                            <div class="drug-item">
+                                <h4>${drug.drugName || '未知药品'}</h4>
+                                <p><strong>ID:</strong> ${drug.ID}</p>
+                                <p><strong>规格:</strong> ${drug.specification || '无'}</p>
+                                <p><strong>价格:</strong> ${drug.price || '无'}</p>
+                                <p><strong>库存:</strong> ${drug.inventory || '无'}</p>
+                                <p><strong>状态:</strong> ${drug.status || '无'}</p>
+                                <p><strong>用药指导ID:</strong> ${drug.guide || '无'}</p>
+                                <p><strong>用药指导内容:</strong> <span style="color: blue;">${drug.guides || '暂无'}</span></p>
+                                <p><strong>说明书ID:</strong> ${drug.explain || '无'}</p>
+                                <p><strong>说明书内容:</strong> <span style="color: green;">${drug.explains || '暂无'}</span></p>
+                            </div>
+                        `;
+                        
+                        document.getElementById('result').innerHTML = html;
+                    } else {
+                        document.getElementById('result').innerHTML = `<h3 class="error">请求失败:</h3><pre>${JSON.stringify(response.data, null, 2)}</pre>`;
+                    }
+                })
+                .catch(error => {
+                    console.error('请求错误:', error);
+                    document.getElementById('result').innerHTML = `<h3 class="error">请求错误:</h3><pre>${JSON.stringify(error.response?.data || error.message, null, 2)}</pre>`;
+                });
+        }
+        
+        // 页面加载时自动测试
+        window.onload = function() {
+            testDrugList();
+        };
+    </script>
+</body>
+</html>

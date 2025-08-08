@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>患者管理API测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1, h2 {
+            color: #333;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .success {
+            border-left: 4px solid #4CAF50;
+            background-color: #f0f8f0;
+        }
+        .error {
+            border-left: 4px solid #f44336;
+            background-color: #fdf0f0;
+        }
+        .status {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .api-info {
+            background-color: #e3f2fd;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>患者管理、药品订单和医生入驻 API 测试</h1>
+        <p>测试患者管理、药品订单和医生入驻相关的API接口是否正常工作</p>
+    </div>
+
+    <div class="container">
+        <h2>1. 患者管理 (mtUser) API 测试</h2>
+        <div class="api-info">
+            <strong>API地址:</strong> http://127.0.0.1:8888/mtUser/getMtUserList
+        </div>
+        
+        <div class="test-section">
+            <h3>获取患者列表</h3>
+            <button onclick="testGetUserList()">测试获取患者列表</button>
+            <div id="userListResult" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>获取单个患者信息</h3>
+            <button onclick="testGetUser()">测试获取患者详情</button>
+            <div id="userDetailResult" class="result"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>2. 药品订单 (mtOrdersDrug) API 测试</h2>
+        <div class="api-info">
+            <strong>API地址:</strong> http://127.0.0.1:8888/mtOrdersDrug/getMtOrdersDrugList
+        </div>
+        
+        <div class="test-section">
+            <h3>获取药品订单列表</h3>
+            <button onclick="testGetOrdersList()">测试获取订单列表</button>
+            <div id="ordersListResult" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>获取订单详情</h3>
+            <button onclick="testGetOrderDetail()">测试获取订单详情</button>
+            <div id="orderDetailResult" class="result"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>3. 医生管理 (mtDoctors) API 测试</h2>
+        <div class="api-info">
+            <strong>API地址:</strong> http://127.0.0.1:8888/mtDoctors/getMtDoctorsList
+        </div>
+        
+        <div class="test-section">
+            <h3>获取医生列表</h3>
+            <button onclick="testGetDoctorsList()">测试获取医生列表</button>
+            <div id="doctorsListResult" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>获取医生详情</h3>
+            <button onclick="testGetDoctor()">测试获取医生详情</button>
+            <div id="doctorDetailResult" class="result"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>4. 患者关系管理 (mtDoctorPatients) API 测试</h2>
+        <div class="api-info">
+            <strong>API地址:</strong> http://127.0.0.1:8888/mtDoctorPatients/getMtDoctorPatientsList
+        </div>
+        
+        <div class="test-section">
+            <h3>获取医生患者关系列表</h3>
+            <button onclick="testGetDoctorPatientsList()">测试获取患者关系列表</button>
+            <div id="doctorPatientsListResult" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        // 通用的API请求函数
+        async function makeRequest(url, options = {}) {
+            try {
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiYTQ4MGNhNzctYTI5Zi00NzI5LWI0YjAtZGY5NzI4NjVkNzBhIiwiSUQiOjEsIlVzZXJuYW1lIjoiYWRtaW4iLCJOaWNrTmFtZSI6Ik1yLuWlh-WFrCIsIkF1dGhvcml0eUlkIjoiODg4IiwiQnVmZmVyVGltZSI6ODY0MDAsImlzcyI6InZhbS1hZG1pbiIsImF1ZCI6WyJHVkEiXSwiZXhwIjoxNzIzNzI2Nzc1LCJuYmYiOjE3MjMxMjE5NzUsImlhdCI6MTcyMzEyMTk3NX0.VgPKx7VaVEXdAl5nfyJn0vQQyeQHVxHZmbQI_PmFjQs'
+                    },
+                    ...options
+                });
+                
+                const data = await response.json();
+                return {
+                    success: response.ok,
+                    status: response.status,
+                    data: data
+                };
+            } catch (error) {
+                return {
+                    success: false,
+                    error: error.message
+                };
+            }
+        }
+
+        // 显示结果的通用函数
+        function displayResult(elementId, result) {
+            const element = document.getElementById(elementId);
+            const timestamp = new Date().toLocaleString();
+            
+            if (result.success) {
+                element.className = 'result success';
+                element.innerHTML = `<div class="status">✅ 请求成功 (${timestamp})</div>` +
+                                  `<strong>状态码:</strong> ${result.status}\n` +
+                                  `<strong>响应数据:</strong>\n${JSON.stringify(result.data, null, 2)}`;
+            } else {
+                element.className = 'result error';
+                element.innerHTML = `<div class="status">❌ 请求失败 (${timestamp})</div>` +
+                                  `<strong>错误信息:</strong> ${result.error || '未知错误'}\n` +
+                                  `<strong>状态码:</strong> ${result.status || 'N/A'}\n` +
+                                  `<strong>响应数据:</strong>\n${JSON.stringify(result.data, null, 2)}`;
+            }
+        }
+
+        // 患者管理API测试
+        async function testGetUserList() {
+            const result = await makeRequest('http://127.0.0.1:8888/mtUser/getMtUserList?page=1&pageSize=10');
+            displayResult('userListResult', result);
+        }
+
+        async function testGetUser() {
+            const result = await makeRequest('http://127.0.0.1:8888/mtUser/findMtUser?ID=1');
+            displayResult('userDetailResult', result);
+        }
+
+        // 药品订单API测试
+        async function testGetOrdersList() {
+            const result = await makeRequest('http://127.0.0.1:8888/mtOrdersDrug/getMtOrdersDrugList?page=1&pageSize=10');
+            displayResult('ordersListResult', result);
+        }
+
+        async function testGetOrderDetail() {
+            const result = await makeRequest('http://127.0.0.1:8888/mtOrdersDrug/findMtOrdersDrug?ID=1');
+            displayResult('orderDetailResult', result);
+        }
+
+        // 医生管理API测试
+        async function testGetDoctorsList() {
+            const result = await makeRequest('http://127.0.0.1:8888/mtDoctors/getMtDoctorsList?page=1&pageSize=10');
+            displayResult('doctorsListResult', result);
+        }
+
+        async function testGetDoctor() {
+            const result = await makeRequest('http://127.0.0.1:8888/mtDoctors/findMtDoctors?ID=1');
+            displayResult('doctorDetailResult', result);
+        }
+
+        // 患者关系管理API测试
+        async function testGetDoctorPatientsList() {
+            const result = await makeRequest('http://127.0.0.1:8888/mtDoctorPatients/getMtDoctorPatientsList?page=1&pageSize=10');
+            displayResult('doctorPatientsListResult', result);
+        }
+
+        // 页面加载完成后自动运行一些基础测试
+        window.onload = function() {
+            console.log('页面加载完成，可以开始测试API');
+        };
+    </script>
+</body>
+</html>

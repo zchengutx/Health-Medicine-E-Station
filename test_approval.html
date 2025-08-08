@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>审核API测试</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>审核API测试页面</h1>
+    
+    <div>
+        <h2>测试获取审核记录列表</h2>
+        <button onclick="testGetApprovalList()">测试获取列表</button>
+        <div id="listResult"></div>
+    </div>
+    
+    <div>
+        <h2>测试根据医生ID获取审核记录</h2>
+        <input type="number" id="doctorId" value="1" placeholder="医生ID">
+        <button onclick="testGetApprovalByDoctorId()">测试获取详情</button>
+        <div id="detailResult"></div>
+    </div>
+
+    <script>
+        const baseURL = 'http://localhost:8888/api';
+        
+        // 测试获取审核记录列表
+        async function testGetApprovalList() {
+            try {
+                const response = await axios.get(`${baseURL}/mtDoctorApproval/getMtDoctorApprovalList`, {
+                    params: {
+                        page: 1,
+                        pageSize: 10
+                    }
+                });
+                document.getElementById('listResult').innerHTML = 
+                    '<pre>' + JSON.stringify(response.data, null, 2) + '</pre>';
+            } catch (error) {
+                document.getElementById('listResult').innerHTML = 
+                    '<p style="color: red;">错误: ' + (error.response?.data?.msg || error.message) + '</p>';
+            }
+        }
+        
+        // 测试根据医生ID获取审核记录
+        async function testGetApprovalByDoctorId() {
+            const doctorId = document.getElementById('doctorId').value;
+            try {
+                const response = await axios.get(`${baseURL}/mtDoctorApproval/getMtDoctorApprovalByDoctorId`, {
+                    params: {
+                        doctorId: doctorId
+                    }
+                });
+                document.getElementById('detailResult').innerHTML = 
+                    '<pre>' + JSON.stringify(response.data, null, 2) + '</pre>';
+            } catch (error) {
+                document.getElementById('detailResult').innerHTML = 
+                    '<p style="color: red;">错误: ' + (error.response?.data?.msg || error.message) + '</p>';
+            }
+        }
+    </script>
+</body>
+</html> 
