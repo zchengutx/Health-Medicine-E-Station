@@ -49,6 +49,49 @@ func NewHTTPServer(c *conf.Server, doctors *service.DoctorsService, drugs *servi
 	srv.Route("/").POST("/upload", user.Upload, comment.JWTMiddleware())
 	srv.Route("/").POST("/GetTargeted", user.GetTargeted, comment.JWTMiddleware())
 
+	// Kiro修改：添加心跳检测相关API
+	// 获取用户在线状态
+	srv.Route("/").GET("/api/heartbeat/user/{userId}/status", func(ctx http.Context) error {
+		userID := ctx.Vars()["userId"][0]
+		status := comment.GetUserOnlineStatus(userID)
+		return ctx.JSON(200, map[string]interface{}{
+			"code":    0,
+			"message": "success",
+			"data":    status,
+		})
+	})
+
+	// Kiro修改：获取所有在线用户
+	srv.Route("/").GET("/api/heartbeat/online-users", func(ctx http.Context) error {
+		onlineUsers := comment.GetAllOnlineUsers()
+		return ctx.JSON(200, map[string]interface{}{
+			"code":    0,
+			"message": "success",
+			"data": map[string]interface{}{
+				"online_users": onlineUsers,
+				"count":        len(onlineUsers),
+			},
+		})
+	})
+
+	// Kiro修改：手动更新用户心跳（用于测试）
+	srv.Route("/").POST("/api/heartbeat/update", func(ctx http.Context) error {
+		var req struct {
+			UserID string `json:"user_id"`
+		}
+		if err := ctx.Bind(&req); err != nil {
+			return ctx.JSON(400, map[string]interface{}{
+				"code":    1,
+				"message": "invalid request",
+			})
+		}
+		comment.UpdateUserHeartbeat(req.UserID)
+		return ctx.JSON(200, map[string]interface{}{
+			"code":    0,
+			"message": "heartbeat updated",
+		})
+	}, comment.JWTMiddleware())
+
 	// WebSocket聊天路由
 	srv.Route("/").GET("/ws/chat", func(ctx http.Context) error {
 		// 从查询参数或Header获取token进行验证

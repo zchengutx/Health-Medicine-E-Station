@@ -12,7 +12,6 @@ const (
 )
 
 func TokenHandler(id int32) (string, error) {
-	fmt.Println(id)
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"user": id,
 		"exp":  time.Now().Add(time.Hour * time.Duration(10)).Unix(),
@@ -37,7 +36,6 @@ func GetToken(tokenString string) (jwt.MapClaims, string) {
 		return nil, "token错误"
 	}
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		fmt.Println(claims["foo"], claims["nbf"])
 		return claims, ""
 	} else {
 		fmt.Println(err)

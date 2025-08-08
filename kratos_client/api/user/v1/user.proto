@@ -26,6 +26,14 @@ service User {
     };
   }
 
+  rpc UserInfo (UserInfoRequest) returns (UserInfoReply) {
+    option (google.api.http) = {
+      post: "/v1/userInfo"
+      body: "*"
+    };
+  }
+
+
   rpc UpdateNickName (UpdateNickNameRequest) returns (UpdateNickNameReply) {
     option (google.api.http) = {
       post: "/v1/updateNickName"
@@ -146,5 +154,18 @@ message CreateAddressRequest {
 // The response message containing the greetings
 message CreateAddressReply {
   string message = 1;
+}
+
+// The request message containing the user's name.
+message UserInfoRequest {
+  int32 id = 1;
+}
+
+// The response message containing the greetings
+message UserInfoReply {
+  string message = 1;
+  string userName = 2;
+  string mobile = 3;
+  string avatar = 4;
 }
 

@@ -34,6 +34,14 @@ func (r *userRepo) Find(ctx context.Context, u *biz.MtUser) (*biz.MtUser, error)
 	return u, nil
 }
 
+func (r *userRepo) FindId(ctx context.Context, u *biz.MtUser) (*biz.MtUser, error) {
+	tx := r.data.Db.Where("id = ?", u.Id).First(u)
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+	return u, nil
+}
+
 func (r *userRepo) Update(ctx context.Context, u *biz.MtUser) (*biz.MtUser, error) {
 	tx := r.data.Db.Where("id = ?", u.Id).Updates(u)
 	if tx.Error != nil {

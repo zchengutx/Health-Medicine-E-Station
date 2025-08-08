@@ -309,3 +309,23 @@ func (c *UserService) CreateAddress(ctx context.Context, in *v1.CreateAddressReq
 		Message: "Created successfully",
 	}, nil
 }
+
+func (c *UserService) UserInfo(ctx context.Context, in *v1.UserInfoRequest) (*v1.UserInfoReply, error) {
+	value := ctx.Value("user_id")
+
+	find, err := c.uc.FindId(ctx, &biz.MtUser{
+		Id: int32(value.(float64)),
+	})
+	if err != nil {
+		return &v1.UserInfoReply{
+			Message: "The query failed",
+		}, err
+	}
+
+	return &v1.UserInfoReply{
+		Message:  "The query was successful",
+		UserName: find.NickName,
+		Mobile:   find.Mobile,
+		Avatar:   find.Avatar,
+	}, nil
+}
