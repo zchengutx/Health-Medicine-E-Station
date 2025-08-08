@@ -10,6 +10,13 @@
             </set>
           </value>
         </entry>
+        <entry key="CategoryFacet">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go" />
+            </set>
+          </value>
+        </entry>
         <entry key="ChatHTTPClientImpl">
           <value>
             <set>
@@ -110,10 +117,24 @@
             </set>
           </value>
         </entry>
+        <entry key="DrugDocument">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go" />
+            </set>
+          </value>
+        </entry>
         <entry key="DrugHTTPClientImpl">
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug_http.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="DrugInfo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go" />
             </set>
           </value>
         </entry>
@@ -287,6 +308,13 @@
             </set>
           </value>
         </entry>
+        <entry key="HotItem">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go" />
+            </set>
+          </value>
+        </entry>
         <entry key="InfoDrug">
           <value>
             <set>
@@ -299,6 +327,13 @@
             <set>
               <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
               <option value="file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="InventoryUpdate">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go" />
             </set>
           </value>
         </entry>
@@ -344,6 +379,13 @@
             </set>
           </value>
         </entry>
+        <entry key="ManufacturerFacet">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go" />
+            </set>
+          </value>
+        </entry>
         <entry key="MtChatMessage">
           <value>
             <set>
@@ -359,6 +401,13 @@
           </value>
         </entry>
         <entry key="MtDrug">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MtDrugInventory">
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go" />
@@ -386,10 +435,31 @@
             </set>
           </value>
         </entry>
+        <entry key="MtPrescription">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go" />
+            </set>
+          </value>
+        </entry>
         <entry key="MtUser">
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/user.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="PriceFacet">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="PriceRange">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go" />
             </set>
           </value>
         </entry>
@@ -404,6 +474,27 @@
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="SearchFacets">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="SearchRequest">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="SearchResponse">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go" />
             </set>
           </value>
         </entry>
@@ -489,6 +580,13 @@
             <set>
               <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/user.go" />
               <option value="file://$PROJECT_DIR$/kratos_client/internal/service/user.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="cartRepo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/kratos_client/internal/data/cart.go" />
             </set>
           </value>
         </entry>
@@ -899,12 +997,23 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1754491202038" />
+              <option name="lastModified" value="1754651659052" />
               <option name="schema">
                 <list>
                   <option value="MtDrug" />
                   <option value="MtGuide" />
                   <option value="MtExplain" />
+                  <option value="DrugDocument" />
+                  <option value="MtDrugInventory" />
+                  <option value="SearchRequest" />
+                  <option value="PriceRange" />
+                  <option value="SearchResponse" />
+                  <option value="DrugInfo" />
+                  <option value="SearchFacets" />
+                  <option value="CategoryFacet" />
+                  <option value="PriceFacet" />
+                  <option value="ManufacturerFacet" />
+                  <option value="HotItem" />
                   <option value="DrugService" />
                 </list>
               </option>
@@ -964,6 +1073,18 @@
                   <option value="Data_Database" />
                   <option value="Data_Redis" />
                   <option value="x" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/cart.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754539700899" />
+              <option name="schema">
+                <list>
+                  <option value="cartRepo" />
                 </list>
               </option>
             </ScannedPath>
@@ -1044,7 +1165,7 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/server/grpc.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1754359378007" />
+              <option name="lastModified" value="1754535446395" />
             </ScannedPath>
           </value>
         </entry>
@@ -1134,6 +1255,8 @@
     <option name="tableStructMapping">
       <map>
         <entry key="bootstrap" value="Bootstrap" />
+        <entry key="cart_repo" value="cartRepo" />
+        <entry key="category_facet" value="CategoryFacet" />
         <entry key="chat_client" value="chatClient" />
         <entry key="chat_http_client_impl" value="ChatHTTPClientImpl" />
         <entry key="chat_manager" value="ChatManager" />
@@ -1151,7 +1274,9 @@
         <entry key="delete_estimate_reply" value="DeleteEstimateReply" />
         <entry key="delete_estimate_request" value="DeleteEstimateRequest" />
         <entry key="drug_client" value="drugClient" />
+        <entry key="drug_document" value="DrugDocument" />
         <entry key="drug_http_client_impl" value="DrugHTTPClientImpl" />
+        <entry key="drug_info" value="DrugInfo" />
         <entry key="drug_repo" value="drugRepo" />
         <entry key="drug_service" value="DrugService" />
         <entry key="estimate_client" value="estimateClient" />
@@ -1181,23 +1306,33 @@
         <entry key="guide_info" value="GuideInfo" />
         <entry key="hello_reply" value="HelloReply" />
         <entry key="hello_request" value="HelloRequest" />
+        <entry key="hot_item" value="HotItem" />
         <entry key="info_drug" value="InfoDrug" />
         <entry key="info_drugs" value="InfoDrugs" />
+        <entry key="inventory_update" value="InventoryUpdate" />
         <entry key="list_drug_estimate_reply" value="ListDrugEstimateReply" />
         <entry key="list_drug_estimate_request" value="ListDrugEstimateRequest" />
         <entry key="list_drug_reply" value="ListDrugReply" />
         <entry key="list_drug_request" value="ListDrugRequest" />
         <entry key="login_reply" value="LoginReply" />
         <entry key="login_request" value="LoginRequest" />
+        <entry key="manufacturer_facet" value="ManufacturerFacet" />
         <entry key="mt_chat_message" value="MtChatMessage" />
         <entry key="mt_chat_room" value="MtChatRoom" />
         <entry key="mt_drug" value="MtDrug" />
+        <entry key="mt_drug_inventory" value="MtDrugInventory" />
         <entry key="mt_estimate" value="MtEstimate" />
         <entry key="mt_explain" value="MtExplain" />
         <entry key="mt_guide" value="MtGuide" />
+        <entry key="mt_prescription" value="MtPrescription" />
         <entry key="mt_user" value="MtUser" />
+        <entry key="price_facet" value="PriceFacet" />
+        <entry key="price_range" value="PriceRange" />
         <entry key="save_chat_message_reply" value="SaveChatMessageReply" />
         <entry key="save_chat_message_request" value="SaveChatMessageRequest" />
+        <entry key="search_facets" value="SearchFacets" />
+        <entry key="search_request" value="SearchRequest" />
+        <entry key="search_response" value="SearchResponse" />
         <entry key="send_sms_reply" value="SendSmsReply" />
         <entry key="send_sms_request" value="SendSmsRequest" />
         <entry key="server" value="Server" />

@@ -19,10 +19,16 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Drug_GetDrug_FullMethodName    = "/drug.v1.Drug/GetDrug"
-	Drug_ListDrug_FullMethodName   = "/drug.v1.Drug/ListDrug"
-	Drug_GetExplain_FullMethodName = "/drug.v1.Drug/GetExplain"
-	Drug_GetGuide_FullMethodName   = "/drug.v1.Drug/GetGuide"
+	Drug_GetDrug_FullMethodName            = "/drug.v1.Drug/GetDrug"
+	Drug_ListDrug_FullMethodName           = "/drug.v1.Drug/ListDrug"
+	Drug_GetExplain_FullMethodName         = "/drug.v1.Drug/GetExplain"
+	Drug_GetGuide_FullMethodName           = "/drug.v1.Drug/GetGuide"
+	Drug_SearchDrugs_FullMethodName        = "/drug.v1.Drug/SearchDrugs"
+	Drug_GetHotSearch_FullMethodName       = "/drug.v1.Drug/GetHotSearch"
+	Drug_CreatePrescription_FullMethodName = "/drug.v1.Drug/CreatePrescription"
+	Drug_ListPrescriptions_FullMethodName  = "/drug.v1.Drug/ListPrescriptions"
+	Drug_GetInventory_FullMethodName       = "/drug.v1.Drug/GetInventory"
+	Drug_UpdateInventory_FullMethodName    = "/drug.v1.Drug/UpdateInventory"
 )
 
 // DrugClient is the client API for Drug service.
@@ -33,6 +39,16 @@ type DrugClient interface {
 	ListDrug(ctx context.Context, in *ListDrugRequest, opts ...grpc.CallOption) (*ListDrugReply, error)
 	GetExplain(ctx context.Context, in *GetExplainRequest, opts ...grpc.CallOption) (*GetExplainReply, error)
 	GetGuide(ctx context.Context, in *GetGuideRequest, opts ...grpc.CallOption) (*GetGuideReply, error)
+	// 搜索药品
+	SearchDrugs(ctx context.Context, in *SearchDrugsRequest, opts ...grpc.CallOption) (*SearchDrugsReply, error)
+	// 获取热门搜索
+	GetHotSearch(ctx context.Context, in *GetHotSearchRequest, opts ...grpc.CallOption) (*GetHotSearchReply, error)
+	// 处方药管理
+	CreatePrescription(ctx context.Context, in *CreatePrescriptionRequest, opts ...grpc.CallOption) (*CreatePrescriptionReply, error)
+	ListPrescriptions(ctx context.Context, in *ListPrescriptionsRequest, opts ...grpc.CallOption) (*ListPrescriptionsReply, error)
+	// 库存管理
+	GetInventory(ctx context.Context, in *GetInventoryRequest, opts ...grpc.CallOption) (*GetInventoryReply, error)
+	UpdateInventory(ctx context.Context, in *UpdateInventoryRequest, opts ...grpc.CallOption) (*UpdateInventoryReply, error)
 }
 
 type drugClient struct {
@@ -83,6 +99,66 @@ func (c *drugClient) GetGuide(ctx context.Context, in *GetGuideRequest, opts ...
 	return out, nil
 }
 
+func (c *drugClient) SearchDrugs(ctx context.Context, in *SearchDrugsRequest, opts ...grpc.CallOption) (*SearchDrugsReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SearchDrugsReply)
+	err := c.cc.Invoke(ctx, Drug_SearchDrugs_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *drugClient) GetHotSearch(ctx context.Context, in *GetHotSearchRequest, opts ...grpc.CallOption) (*GetHotSearchReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetHotSearchReply)
+	err := c.cc.Invoke(ctx, Drug_GetHotSearch_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *drugClient) CreatePrescription(ctx context.Context, in *CreatePrescriptionRequest, opts ...grpc.CallOption) (*CreatePrescriptionReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreatePrescriptionReply)
+	err := c.cc.Invoke(ctx, Drug_CreatePrescription_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *drugClient) ListPrescriptions(ctx context.Context, in *ListPrescriptionsRequest, opts ...grpc.CallOption) (*ListPrescriptionsReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListPrescriptionsReply)
+	err := c.cc.Invoke(ctx, Drug_ListPrescriptions_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *drugClient) GetInventory(ctx context.Context, in *GetInventoryRequest, opts ...grpc.CallOption) (*GetInventoryReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetInventoryReply)
+	err := c.cc.Invoke(ctx, Drug_GetInventory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *drugClient) UpdateInventory(ctx context.Context, in *UpdateInventoryRequest, opts ...grpc.CallOption) (*UpdateInventoryReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateInventoryReply)
+	err := c.cc.Invoke(ctx, Drug_UpdateInventory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DrugServer is the server API for Drug service.
 // All implementations must embed UnimplementedDrugServer
 // for forward compatibility.
@@ -91,6 +167,16 @@ type DrugServer interface {
 	ListDrug(context.Context, *ListDrugRequest) (*ListDrugReply, error)
 	GetExplain(context.Context, *GetExplainRequest) (*GetExplainReply, error)
 	GetGuide(context.Context, *GetGuideRequest) (*GetGuideReply, error)
+	// 搜索药品
+	SearchDrugs(context.Context, *SearchDrugsRequest) (*SearchDrugsReply, error)
+	// 获取热门搜索
+	GetHotSearch(context.Context, *GetHotSearchRequest) (*GetHotSearchReply, error)
+	// 处方药管理
+	CreatePrescription(context.Context, *CreatePrescriptionRequest) (*CreatePrescriptionReply, error)
+	ListPrescriptions(context.Context, *ListPrescriptionsRequest) (*ListPrescriptionsReply, error)
+	// 库存管理
+	GetInventory(context.Context, *GetInventoryRequest) (*GetInventoryReply, error)
+	UpdateInventory(context.Context, *UpdateInventoryRequest) (*UpdateInventoryReply, error)
 	mustEmbedUnimplementedDrugServer()
 }
 
@@ -112,6 +198,24 @@ func (UnimplementedDrugServer) GetExplain(context.Context, *GetExplainRequest) (
 }
 func (UnimplementedDrugServer) GetGuide(context.Context, *GetGuideRequest) (*GetGuideReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetGuide not implemented")
+}
+func (UnimplementedDrugServer) SearchDrugs(context.Context, *SearchDrugsRequest) (*SearchDrugsReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchDrugs not implemented")
+}
+func (UnimplementedDrugServer) GetHotSearch(context.Context, *GetHotSearchRequest) (*GetHotSearchReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetHotSearch not implemented")
+}
+func (UnimplementedDrugServer) CreatePrescription(context.Context, *CreatePrescriptionRequest) (*CreatePrescriptionReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreatePrescription not implemented")
+}
+func (UnimplementedDrugServer) ListPrescriptions(context.Context, *ListPrescriptionsRequest) (*ListPrescriptionsReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListPrescriptions not implemented")
+}
+func (UnimplementedDrugServer) GetInventory(context.Context, *GetInventoryRequest) (*GetInventoryReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetInventory not implemented")
+}
+func (UnimplementedDrugServer) UpdateInventory(context.Context, *UpdateInventoryRequest) (*UpdateInventoryReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateInventory not implemented")
 }
 func (UnimplementedDrugServer) mustEmbedUnimplementedDrugServer() {}
 func (UnimplementedDrugServer) testEmbeddedByValue()              {}
@@ -206,6 +310,114 @@ func _Drug_GetGuide_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Drug_SearchDrugs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchDrugsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DrugServer).SearchDrugs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Drug_SearchDrugs_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DrugServer).SearchDrugs(ctx, req.(*SearchDrugsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Drug_GetHotSearch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetHotSearchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DrugServer).GetHotSearch(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Drug_GetHotSearch_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DrugServer).GetHotSearch(ctx, req.(*GetHotSearchRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Drug_CreatePrescription_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreatePrescriptionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DrugServer).CreatePrescription(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Drug_CreatePrescription_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DrugServer).CreatePrescription(ctx, req.(*CreatePrescriptionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Drug_ListPrescriptions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListPrescriptionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DrugServer).ListPrescriptions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Drug_ListPrescriptions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DrugServer).ListPrescriptions(ctx, req.(*ListPrescriptionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Drug_GetInventory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetInventoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DrugServer).GetInventory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Drug_GetInventory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DrugServer).GetInventory(ctx, req.(*GetInventoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Drug_UpdateInventory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateInventoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DrugServer).UpdateInventory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Drug_UpdateInventory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DrugServer).UpdateInventory(ctx, req.(*UpdateInventoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Drug_ServiceDesc is the grpc.ServiceDesc for Drug service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -228,6 +440,30 @@ var Drug_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetGuide",
 			Handler:    _Drug_GetGuide_Handler,
+		},
+		{
+			MethodName: "SearchDrugs",
+			Handler:    _Drug_SearchDrugs_Handler,
+		},
+		{
+			MethodName: "GetHotSearch",
+			Handler:    _Drug_GetHotSearch_Handler,
+		},
+		{
+			MethodName: "CreatePrescription",
+			Handler:    _Drug_CreatePrescription_Handler,
+		},
+		{
+			MethodName: "ListPrescriptions",
+			Handler:    _Drug_ListPrescriptions_Handler,
+		},
+		{
+			MethodName: "GetInventory",
+			Handler:    _Drug_GetInventory_Handler,
+		},
+		{
+			MethodName: "UpdateInventory",
+			Handler:    _Drug_UpdateInventory_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

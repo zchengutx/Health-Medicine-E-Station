@@ -1,13 +1,13 @@
 package comment
 
 import (
-	"github.com/go-kratos/kratos/v2/transport/http"
-	"github.com/gorilla/websocket"
 	"log"
-	https "net/http"
+	"net/http"
 	"strconv"
 	"sync"
 	"time"
+
+	"github.com/gorilla/websocket"
 )
 
 // WebSocket升级器配置
@@ -100,11 +100,7 @@ func (cm *ChatManager) unregisterClient(client *Client) {
 	if _, exists := cm.clients[clientKey]; exists {
 		delete(cm.clients, clientKey)
 		close(client.Send)
-
-		// Kiro修改：用户断开连接时清理心跳状态
-		userIDStr := strconv.Itoa(int(client.ID))
-		RemoveUserHeartbeat(userIDStr)
-		log.Printf("Kiro修改：客户端 %d (%s) 断开连接，已清理心跳状态", client.ID, client.Name)
+		log.Printf("客户端 %d (%s) 断开连接", client.ID, client.Name)
 	}
 }
 
@@ -112,33 +108,6 @@ func (cm *ChatManager) unregisterClient(client *Client) {
 func (cm *ChatManager) handleMessage(message ChatMessage) {
 	cm.mutex.RLock()
 	defer cm.mutex.RUnlock()
-
-	// Kiro修改：检查目标用户是否在线
-	targetUserID := strconv.Itoa(int(message.ToID))
-	if !IsUserOnline(targetUserID) {
-		log.Printf("Kiro修改：目标用户 %d 不在线，消息发送失败", message.ToID)
-
-		// Kiro修改：向发送者返回错误消息
-		senderClientKey := message.RoomID + "_" + strconv.Itoa(int(message.FromID))
-		if senderClient, exists := cm.clients[senderClientKey]; exists {
-			errorMessage := ChatMessage{
-				Type:      "error",
-				Content:   "目标用户不在线，消息发送失败",
-				FromID:    0, // 系统消息
-				ToID:      message.FromID,
-				FromName:  "系统",
-				Timestamp: time.Now(),
-				RoomID:    message.RoomID,
-			}
-			select {
-			case senderClient.Send <- errorMessage:
-				log.Printf("Kiro修改：已向用户 %d 发送离线错误提示", message.FromID)
-			default:
-				log.Printf("Kiro修改：向用户 %d 发送离线错误提示失败", message.FromID)
-			}
-		}
-		return
-	}
 
 	// 找到目标用户的连接
 	targetClientKey := message.RoomID + "_" + strconv.Itoa(int(message.ToID))
@@ -163,36 +132,27 @@ func generateRoomID(userID1, userID2 int32) string {
 }
 
 // WebSocket连接处理器
-func HandleWebSocket(w http.ResponseWriter, r *http.Request, ctx http.Context) {
+func HandleWebSocket(w http.ResponseWriter, r *http.Request) {
 	// 从查询参数获取用户信息
-	req := ctx.Request()
-	value := req.Context().Value("user_id")
+	userIDStr := r.URL.Query().Get("user_id")
+	userName := r.URL.Query().Get("user_name")
 	userRole := r.URL.Query().Get("user_role") // "doctor" 或 "patient"
 	targetIDStr := r.URL.Query().Get("target_id")
 
-	if targetIDStr == "" {
-		https.Error(w, "缺少必要参数", https.StatusBadRequest)
+	if userIDStr == "" || userName == "" || targetIDStr == "" {
+		http.Error(w, "缺少必要参数", http.StatusBadRequest)
 		return
 	}
 
-	// 检查userID是否存在且有效
-	if value == nil {
-		https.Error(w, "Unauthorized", https.StatusUnauthorized)
+	userID, err := strconv.Atoi(userIDStr)
+	if err != nil {
+		http.Error(w, "无效的用户ID", http.StatusBadRequest)
 		return
 	}
-
-	userIDFloat, ok := value.(float64)
-	if !ok || userIDFloat == 0 {
-		https.Error(w, "无效的用户ID", https.StatusBadRequest)
-		return
-	}
-
-	userID := int32(userIDFloat)
-	userIDStr := strconv.Itoa(int(userID))
 
 	targetID, err := strconv.Atoi(targetIDStr)
 	if err != nil {
-		https.Error(w, "无效的目标用户ID", https.StatusBadRequest)
+		http.Error(w, "无效的目标用户ID", http.StatusBadRequest)
 		return
 	}
 
@@ -203,21 +163,17 @@ func HandleWebSocket(w http.ResponseWriter, r *http.Request, ctx http.Context) {
 		return
 	}
 
-	// Kiro修改：立即更新用户心跳状态，标记为在线
-	UpdateUserHeartbeat(userIDStr)
-	log.Printf("Kiro修改：用户 %s 连接WebSocket，已更新心跳状态", userIDStr)
-
 	// 生成房间ID
-	roomID := generateRoomID(userID, int32(targetID))
+	roomID := generateRoomID(int32(userID), int32(targetID))
 
 	// 创建客户端
 	client := &Client{
-		ID:     userID,
-		Name:   "用户" + userIDStr, // 可以从数据库获取真实姓名
+		ID:     int32(userID),
+		Name:   userName,
 		Role:   userRole,
 		Conn:   conn,
 		Send:   make(chan ChatMessage, 256),
-		RoomID: roomID, // Kiro修改：设置正确的房间ID
+		RoomID: roomID,
 	}
 
 	// 注册客户端
@@ -226,7 +182,6 @@ func HandleWebSocket(w http.ResponseWriter, r *http.Request, ctx http.Context) {
 	// 启动读写协程
 	go client.writePump()
 	go client.readPump(int32(targetID))
-
 }
 
 // 读取消息
@@ -244,38 +199,13 @@ func (c *Client) readPump(targetID int32) {
 	})
 
 	for {
-		var rawMessage map[string]interface{}
-		err := c.Conn.ReadJSON(&rawMessage)
+		var message ChatMessage
+		err := c.Conn.ReadJSON(&message)
 		if err != nil {
 			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
 				log.Printf("WebSocket错误: %v", err)
 			}
 			break
-		}
-
-		// Kiro修改：处理心跳消息
-		if msgType, ok := rawMessage["type"].(string); ok && msgType == "heartbeat" {
-			// 更新用户心跳时间
-			userIDStr := strconv.Itoa(int(c.ID))
-			UpdateUserHeartbeat(userIDStr)
-
-			// 发送心跳响应
-			heartbeatResponse := CreateHeartbeatResponse()
-			if err := c.Conn.WriteJSON(heartbeatResponse); err != nil {
-				log.Printf("Kiro修改：发送心跳响应失败: %v", err)
-				break
-			}
-			log.Printf("Kiro修改：处理用户 %d 的心跳消息", c.ID)
-			continue
-		}
-
-		// Kiro修改：处理普通聊天消息
-		var message ChatMessage
-		if content, ok := rawMessage["content"].(string); ok {
-			message.Type = "text"
-			message.Content = content
-		} else {
-			continue // 跳过无效消息
 		}
 
 		// 设置消息信息
@@ -284,10 +214,6 @@ func (c *Client) readPump(targetID int32) {
 		message.FromName = c.Name
 		message.Timestamp = time.Now()
 		message.RoomID = c.RoomID
-
-		// Kiro修改：每次收到消息时也更新心跳（表示用户活跃）
-		userIDStr := strconv.Itoa(int(c.ID))
-		UpdateUserHeartbeat(userIDStr)
 
 		// 发送消息给目标用户
 		chatManager.message <- message
@@ -323,7 +249,6 @@ func (c *Client) writePump() {
 			}
 		}
 	}
-
 }
 
 // 获取房间中的在线用户
@@ -398,19 +323,6 @@ func HandleTestWebSocket(w http.ResponseWriter, r *http.Request) {
 
 		log.Printf("收到消息: %+v", msg)
 
-		// Kiro修改：处理心跳消息
-		if msgType, ok := msg["type"].(string); ok && msgType == "heartbeat" {
-			// 更新心跳时间
-			UpdateUserHeartbeat("test_user")
-			// 发送心跳响应
-			heartbeatResponse := CreateHeartbeatResponse()
-			if err := conn.WriteJSON(heartbeatResponse); err != nil {
-				log.Printf("发送心跳响应失败: %v", err)
-				break
-			}
-			continue
-		}
-
 		// 回显消息
 		var content string
 		if msgContent, ok := msg["content"]; ok {
@@ -418,7 +330,7 @@ func HandleTestWebSocket(w http.ResponseWriter, r *http.Request) {
 		} else {
 			content = "收到你的消息"
 		}
-
+		
 		response := map[string]interface{}{
 			"type":     "echo",
 			"content":  content,

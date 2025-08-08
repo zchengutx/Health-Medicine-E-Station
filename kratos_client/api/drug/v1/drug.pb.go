@@ -902,6 +902,1362 @@ func (x *GetGuideReply) GetGuide() *GuideInfo {
 	return nil
 }
 
+// 搜索相关消息
+type SearchDrugsRequest struct {
+	state               protoimpl.MessageState `protogen:"open.v1"`
+	Keyword             string                 `protobuf:"bytes,1,opt,name=keyword,proto3" json:"keyword,omitempty"`
+	CategoryId          int32                  `protobuf:"varint,2,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
+	DrugStoreId         int32                  `protobuf:"varint,3,opt,name=drug_store_id,json=drugStoreId,proto3" json:"drug_store_id,omitempty"`
+	OnlyInStock         bool                   `protobuf:"varint,4,opt,name=only_in_stock,json=onlyInStock,proto3" json:"only_in_stock,omitempty"`
+	IncludePrescription bool                   `protobuf:"varint,5,opt,name=include_prescription,json=includePrescription,proto3" json:"include_prescription,omitempty"`
+	Page                int32                  `protobuf:"varint,6,opt,name=page,proto3" json:"page,omitempty"`
+	Size                int32                  `protobuf:"varint,7,opt,name=size,proto3" json:"size,omitempty"`
+	SortBy              string                 `protobuf:"bytes,8,opt,name=sort_by,json=sortBy,proto3" json:"sort_by,omitempty"`
+	PriceMin            float64                `protobuf:"fixed64,9,opt,name=price_min,json=priceMin,proto3" json:"price_min,omitempty"`
+	PriceMax            float64                `protobuf:"fixed64,10,opt,name=price_max,json=priceMax,proto3" json:"price_max,omitempty"`
+	unknownFields       protoimpl.UnknownFields
+	sizeCache           protoimpl.SizeCache
+}
+
+func (x *SearchDrugsRequest) Reset() {
+	*x = SearchDrugsRequest{}
+	mi := &file_drug_v1_drug_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SearchDrugsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchDrugsRequest) ProtoMessage() {}
+
+func (x *SearchDrugsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_drug_v1_drug_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchDrugsRequest.ProtoReflect.Descriptor instead.
+func (*SearchDrugsRequest) Descriptor() ([]byte, []int) {
+	return file_drug_v1_drug_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *SearchDrugsRequest) GetKeyword() string {
+	if x != nil {
+		return x.Keyword
+	}
+	return ""
+}
+
+func (x *SearchDrugsRequest) GetCategoryId() int32 {
+	if x != nil {
+		return x.CategoryId
+	}
+	return 0
+}
+
+func (x *SearchDrugsRequest) GetDrugStoreId() int32 {
+	if x != nil {
+		return x.DrugStoreId
+	}
+	return 0
+}
+
+func (x *SearchDrugsRequest) GetOnlyInStock() bool {
+	if x != nil {
+		return x.OnlyInStock
+	}
+	return false
+}
+
+func (x *SearchDrugsRequest) GetIncludePrescription() bool {
+	if x != nil {
+		return x.IncludePrescription
+	}
+	return false
+}
+
+func (x *SearchDrugsRequest) GetPage() int32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *SearchDrugsRequest) GetSize() int32 {
+	if x != nil {
+		return x.Size
+	}
+	return 0
+}
+
+func (x *SearchDrugsRequest) GetSortBy() string {
+	if x != nil {
+		return x.SortBy
+	}
+	return ""
+}
+
+func (x *SearchDrugsRequest) GetPriceMin() float64 {
+	if x != nil {
+		return x.PriceMin
+	}
+	return 0
+}
+
+func (x *SearchDrugsRequest) GetPriceMax() float64 {
+	if x != nil {
+		return x.PriceMax
+	}
+	return 0
+}
+
+type SearchDrugsReply struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Code          int64                  `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	Msg           string                 `protobuf:"bytes,2,opt,name=msg,proto3" json:"msg,omitempty"`
+	Drugs         []*SearchDrugInfo      `protobuf:"bytes,3,rep,name=drugs,proto3" json:"drugs,omitempty"`
+	Total         int64                  `protobuf:"varint,4,opt,name=total,proto3" json:"total,omitempty"`
+	Facets        *SearchFacets          `protobuf:"bytes,5,opt,name=facets,proto3" json:"facets,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SearchDrugsReply) Reset() {
+	*x = SearchDrugsReply{}
+	mi := &file_drug_v1_drug_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SearchDrugsReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchDrugsReply) ProtoMessage() {}
+
+func (x *SearchDrugsReply) ProtoReflect() protoreflect.Message {
+	mi := &file_drug_v1_drug_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchDrugsReply.ProtoReflect.Descriptor instead.
+func (*SearchDrugsReply) Descriptor() ([]byte, []int) {
+	return file_drug_v1_drug_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *SearchDrugsReply) GetCode() int64 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
+}
+
+func (x *SearchDrugsReply) GetMsg() string {
+	if x != nil {
+		return x.Msg
+	}
+	return ""
+}
+
+func (x *SearchDrugsReply) GetDrugs() []*SearchDrugInfo {
+	if x != nil {
+		return x.Drugs
+	}
+	return nil
+}
+
+func (x *SearchDrugsReply) GetTotal() int64 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+func (x *SearchDrugsReply) GetFacets() *SearchFacets {
+	if x != nil {
+		return x.Facets
+	}
+	return nil
+}
+
+type SearchDrugInfo struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Id             int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	DrugName       string                 `protobuf:"bytes,2,opt,name=drug_name,json=drugName,proto3" json:"drug_name,omitempty"`
+	Specification  string                 `protobuf:"bytes,3,opt,name=specification,proto3" json:"specification,omitempty"`
+	Price          float64                `protobuf:"fixed64,4,opt,name=price,proto3" json:"price,omitempty"`
+	Inventory      int64                  `protobuf:"varint,5,opt,name=inventory,proto3" json:"inventory,omitempty"`
+	Manufacturer   string                 `protobuf:"bytes,6,opt,name=manufacturer,proto3" json:"manufacturer,omitempty"`
+	IsPrescription bool                   `protobuf:"varint,7,opt,name=is_prescription,json=isPrescription,proto3" json:"is_prescription,omitempty"`
+	ExhibitionUrl  string                 `protobuf:"bytes,8,opt,name=exhibition_url,json=exhibitionUrl,proto3" json:"exhibition_url,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *SearchDrugInfo) Reset() {
+	*x = SearchDrugInfo{}
+	mi := &file_drug_v1_drug_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SearchDrugInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchDrugInfo) ProtoMessage() {}
+
+func (x *SearchDrugInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_drug_v1_drug_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchDrugInfo.ProtoReflect.Descriptor instead.
+func (*SearchDrugInfo) Descriptor() ([]byte, []int) {
+	return file_drug_v1_drug_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *SearchDrugInfo) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *SearchDrugInfo) GetDrugName() string {
+	if x != nil {
+		return x.DrugName
+	}
+	return ""
+}
+
+func (x *SearchDrugInfo) GetSpecification() string {
+	if x != nil {
+		return x.Specification
+	}
+	return ""
+}
+
+func (x *SearchDrugInfo) GetPrice() float64 {
+	if x != nil {
+		return x.Price
+	}
+	return 0
+}
+
+func (x *SearchDrugInfo) GetInventory() int64 {
+	if x != nil {
+		return x.Inventory
+	}
+	return 0
+}
+
+func (x *SearchDrugInfo) GetManufacturer() string {
+	if x != nil {
+		return x.Manufacturer
+	}
+	return ""
+}
+
+func (x *SearchDrugInfo) GetIsPrescription() bool {
+	if x != nil {
+		return x.IsPrescription
+	}
+	return false
+}
+
+func (x *SearchDrugInfo) GetExhibitionUrl() string {
+	if x != nil {
+		return x.ExhibitionUrl
+	}
+	return ""
+}
+
+type SearchFacets struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Categories    []*CategoryFacet       `protobuf:"bytes,1,rep,name=categories,proto3" json:"categories,omitempty"`
+	PriceRanges   []*PriceFacet          `protobuf:"bytes,2,rep,name=price_ranges,json=priceRanges,proto3" json:"price_ranges,omitempty"`
+	Manufacturers []*ManufacturerFacet   `protobuf:"bytes,3,rep,name=manufacturers,proto3" json:"manufacturers,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SearchFacets) Reset() {
+	*x = SearchFacets{}
+	mi := &file_drug_v1_drug_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SearchFacets) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchFacets) ProtoMessage() {}
+
+func (x *SearchFacets) ProtoReflect() protoreflect.Message {
+	mi := &file_drug_v1_drug_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchFacets.ProtoReflect.Descriptor instead.
+func (*SearchFacets) Descriptor() ([]byte, []int) {
+	return file_drug_v1_drug_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *SearchFacets) GetCategories() []*CategoryFacet {
+	if x != nil {
+		return x.Categories
+	}
+	return nil
+}
+
+func (x *SearchFacets) GetPriceRanges() []*PriceFacet {
+	if x != nil {
+		return x.PriceRanges
+	}
+	return nil
+}
+
+func (x *SearchFacets) GetManufacturers() []*ManufacturerFacet {
+	if x != nil {
+		return x.Manufacturers
+	}
+	return nil
+}
+
+type CategoryFacet struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Count         int64                  `protobuf:"varint,3,opt,name=count,proto3" json:"count,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CategoryFacet) Reset() {
+	*x = CategoryFacet{}
+	mi := &file_drug_v1_drug_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CategoryFacet) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CategoryFacet) ProtoMessage() {}
+
+func (x *CategoryFacet) ProtoReflect() protoreflect.Message {
+	mi := &file_drug_v1_drug_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CategoryFacet.ProtoReflect.Descriptor instead.
+func (*CategoryFacet) Descriptor() ([]byte, []int) {
+	return file_drug_v1_drug_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *CategoryFacet) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *CategoryFacet) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *CategoryFacet) GetCount() int64 {
+	if x != nil {
+		return x.Count
+	}
+	return 0
+}
+
+type PriceFacet struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Range         string                 `protobuf:"bytes,1,opt,name=range,proto3" json:"range,omitempty"`
+	Count         int64                  `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PriceFacet) Reset() {
+	*x = PriceFacet{}
+	mi := &file_drug_v1_drug_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PriceFacet) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PriceFacet) ProtoMessage() {}
+
+func (x *PriceFacet) ProtoReflect() protoreflect.Message {
+	mi := &file_drug_v1_drug_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PriceFacet.ProtoReflect.Descriptor instead.
+func (*PriceFacet) Descriptor() ([]byte, []int) {
+	return file_drug_v1_drug_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *PriceFacet) GetRange() string {
+	if x != nil {
+		return x.Range
+	}
+	return ""
+}
+
+func (x *PriceFacet) GetCount() int64 {
+	if x != nil {
+		return x.Count
+	}
+	return 0
+}
+
+type ManufacturerFacet struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Count         int64                  `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ManufacturerFacet) Reset() {
+	*x = ManufacturerFacet{}
+	mi := &file_drug_v1_drug_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ManufacturerFacet) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ManufacturerFacet) ProtoMessage() {}
+
+func (x *ManufacturerFacet) ProtoReflect() protoreflect.Message {
+	mi := &file_drug_v1_drug_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ManufacturerFacet.ProtoReflect.Descriptor instead.
+func (*ManufacturerFacet) Descriptor() ([]byte, []int) {
+	return file_drug_v1_drug_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *ManufacturerFacet) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *ManufacturerFacet) GetCount() int64 {
+	if x != nil {
+		return x.Count
+	}
+	return 0
+}
+
+// 热门搜索相关消息
+type GetHotSearchRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Limit         int32                  `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetHotSearchRequest) Reset() {
+	*x = GetHotSearchRequest{}
+	mi := &file_drug_v1_drug_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetHotSearchRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetHotSearchRequest) ProtoMessage() {}
+
+func (x *GetHotSearchRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_drug_v1_drug_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetHotSearchRequest.ProtoReflect.Descriptor instead.
+func (*GetHotSearchRequest) Descriptor() ([]byte, []int) {
+	return file_drug_v1_drug_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *GetHotSearchRequest) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+type GetHotSearchReply struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Code          int64                  `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	Msg           string                 `protobuf:"bytes,2,opt,name=msg,proto3" json:"msg,omitempty"`
+	HotKeywords   []*HotItem             `protobuf:"bytes,3,rep,name=hot_keywords,json=hotKeywords,proto3" json:"hot_keywords,omitempty"`
+	HotSymptoms   []*HotItem             `protobuf:"bytes,4,rep,name=hot_symptoms,json=hotSymptoms,proto3" json:"hot_symptoms,omitempty"`
+	HotQuestions  []*HotItem             `protobuf:"bytes,5,rep,name=hot_questions,json=hotQuestions,proto3" json:"hot_questions,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetHotSearchReply) Reset() {
+	*x = GetHotSearchReply{}
+	mi := &file_drug_v1_drug_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetHotSearchReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetHotSearchReply) ProtoMessage() {}
+
+func (x *GetHotSearchReply) ProtoReflect() protoreflect.Message {
+	mi := &file_drug_v1_drug_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetHotSearchReply.ProtoReflect.Descriptor instead.
+func (*GetHotSearchReply) Descriptor() ([]byte, []int) {
+	return file_drug_v1_drug_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *GetHotSearchReply) GetCode() int64 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
+}
+
+func (x *GetHotSearchReply) GetMsg() string {
+	if x != nil {
+		return x.Msg
+	}
+	return ""
+}
+
+func (x *GetHotSearchReply) GetHotKeywords() []*HotItem {
+	if x != nil {
+		return x.HotKeywords
+	}
+	return nil
+}
+
+func (x *GetHotSearchReply) GetHotSymptoms() []*HotItem {
+	if x != nil {
+		return x.HotSymptoms
+	}
+	return nil
+}
+
+func (x *GetHotSearchReply) GetHotQuestions() []*HotItem {
+	if x != nil {
+		return x.HotQuestions
+	}
+	return nil
+}
+
+type HotItem struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Content       string                 `protobuf:"bytes,1,opt,name=content,proto3" json:"content,omitempty"`
+	Count         int64                  `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
+	Score         float64                `protobuf:"fixed64,3,opt,name=score,proto3" json:"score,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *HotItem) Reset() {
+	*x = HotItem{}
+	mi := &file_drug_v1_drug_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HotItem) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HotItem) ProtoMessage() {}
+
+func (x *HotItem) ProtoReflect() protoreflect.Message {
+	mi := &file_drug_v1_drug_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HotItem.ProtoReflect.Descriptor instead.
+func (*HotItem) Descriptor() ([]byte, []int) {
+	return file_drug_v1_drug_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *HotItem) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+func (x *HotItem) GetCount() int64 {
+	if x != nil {
+		return x.Count
+	}
+	return 0
+}
+
+func (x *HotItem) GetScore() float64 {
+	if x != nil {
+		return x.Score
+	}
+	return 0
+}
+
+// 处方药相关消息
+type CreatePrescriptionRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	ImageUrl      string                 `protobuf:"bytes,2,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
+	ExpiryDate    string                 `protobuf:"bytes,3,opt,name=expiry_date,json=expiryDate,proto3" json:"expiry_date,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreatePrescriptionRequest) Reset() {
+	*x = CreatePrescriptionRequest{}
+	mi := &file_drug_v1_drug_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreatePrescriptionRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreatePrescriptionRequest) ProtoMessage() {}
+
+func (x *CreatePrescriptionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_drug_v1_drug_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreatePrescriptionRequest.ProtoReflect.Descriptor instead.
+func (*CreatePrescriptionRequest) Descriptor() ([]byte, []int) {
+	return file_drug_v1_drug_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *CreatePrescriptionRequest) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+func (x *CreatePrescriptionRequest) GetImageUrl() string {
+	if x != nil {
+		return x.ImageUrl
+	}
+	return ""
+}
+
+func (x *CreatePrescriptionRequest) GetExpiryDate() string {
+	if x != nil {
+		return x.ExpiryDate
+	}
+	return ""
+}
+
+type CreatePrescriptionReply struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Code           int64                  `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	Msg            string                 `protobuf:"bytes,2,opt,name=msg,proto3" json:"msg,omitempty"`
+	PrescriptionId int64                  `protobuf:"varint,3,opt,name=prescription_id,json=prescriptionId,proto3" json:"prescription_id,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *CreatePrescriptionReply) Reset() {
+	*x = CreatePrescriptionReply{}
+	mi := &file_drug_v1_drug_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreatePrescriptionReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreatePrescriptionReply) ProtoMessage() {}
+
+func (x *CreatePrescriptionReply) ProtoReflect() protoreflect.Message {
+	mi := &file_drug_v1_drug_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreatePrescriptionReply.ProtoReflect.Descriptor instead.
+func (*CreatePrescriptionReply) Descriptor() ([]byte, []int) {
+	return file_drug_v1_drug_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *CreatePrescriptionReply) GetCode() int64 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
+}
+
+func (x *CreatePrescriptionReply) GetMsg() string {
+	if x != nil {
+		return x.Msg
+	}
+	return ""
+}
+
+func (x *CreatePrescriptionReply) GetPrescriptionId() int64 {
+	if x != nil {
+		return x.PrescriptionId
+	}
+	return 0
+}
+
+type ListPrescriptionsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	Page          int32                  `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
+	Size          int32                  `protobuf:"varint,3,opt,name=size,proto3" json:"size,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListPrescriptionsRequest) Reset() {
+	*x = ListPrescriptionsRequest{}
+	mi := &file_drug_v1_drug_proto_msgTypes[24]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListPrescriptionsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListPrescriptionsRequest) ProtoMessage() {}
+
+func (x *ListPrescriptionsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_drug_v1_drug_proto_msgTypes[24]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListPrescriptionsRequest.ProtoReflect.Descriptor instead.
+func (*ListPrescriptionsRequest) Descriptor() ([]byte, []int) {
+	return file_drug_v1_drug_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *ListPrescriptionsRequest) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+func (x *ListPrescriptionsRequest) GetPage() int32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *ListPrescriptionsRequest) GetSize() int32 {
+	if x != nil {
+		return x.Size
+	}
+	return 0
+}
+
+type ListPrescriptionsReply struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Code          int64                  `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	Msg           string                 `protobuf:"bytes,2,opt,name=msg,proto3" json:"msg,omitempty"`
+	Prescriptions []*PrescriptionInfo    `protobuf:"bytes,3,rep,name=prescriptions,proto3" json:"prescriptions,omitempty"`
+	Total         int64                  `protobuf:"varint,4,opt,name=total,proto3" json:"total,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListPrescriptionsReply) Reset() {
+	*x = ListPrescriptionsReply{}
+	mi := &file_drug_v1_drug_proto_msgTypes[25]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListPrescriptionsReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListPrescriptionsReply) ProtoMessage() {}
+
+func (x *ListPrescriptionsReply) ProtoReflect() protoreflect.Message {
+	mi := &file_drug_v1_drug_proto_msgTypes[25]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListPrescriptionsReply.ProtoReflect.Descriptor instead.
+func (*ListPrescriptionsReply) Descriptor() ([]byte, []int) {
+	return file_drug_v1_drug_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *ListPrescriptionsReply) GetCode() int64 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
+}
+
+func (x *ListPrescriptionsReply) GetMsg() string {
+	if x != nil {
+		return x.Msg
+	}
+	return ""
+}
+
+func (x *ListPrescriptionsReply) GetPrescriptions() []*PrescriptionInfo {
+	if x != nil {
+		return x.Prescriptions
+	}
+	return nil
+}
+
+func (x *ListPrescriptionsReply) GetTotal() int64 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+type PrescriptionInfo struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	ImageUrl      string                 `protobuf:"bytes,2,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
+	Status        int32                  `protobuf:"varint,3,opt,name=status,proto3" json:"status,omitempty"`
+	StatusText    string                 `protobuf:"bytes,4,opt,name=status_text,json=statusText,proto3" json:"status_text,omitempty"`
+	RejectReason  string                 `protobuf:"bytes,5,opt,name=reject_reason,json=rejectReason,proto3" json:"reject_reason,omitempty"`
+	ExpiryDate    string                 `protobuf:"bytes,6,opt,name=expiry_date,json=expiryDate,proto3" json:"expiry_date,omitempty"`
+	CreatedAt     string                 `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PrescriptionInfo) Reset() {
+	*x = PrescriptionInfo{}
+	mi := &file_drug_v1_drug_proto_msgTypes[26]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PrescriptionInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PrescriptionInfo) ProtoMessage() {}
+
+func (x *PrescriptionInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_drug_v1_drug_proto_msgTypes[26]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PrescriptionInfo.ProtoReflect.Descriptor instead.
+func (*PrescriptionInfo) Descriptor() ([]byte, []int) {
+	return file_drug_v1_drug_proto_rawDescGZIP(), []int{26}
+}
+
+func (x *PrescriptionInfo) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *PrescriptionInfo) GetImageUrl() string {
+	if x != nil {
+		return x.ImageUrl
+	}
+	return ""
+}
+
+func (x *PrescriptionInfo) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (x *PrescriptionInfo) GetStatusText() string {
+	if x != nil {
+		return x.StatusText
+	}
+	return ""
+}
+
+func (x *PrescriptionInfo) GetRejectReason() string {
+	if x != nil {
+		return x.RejectReason
+	}
+	return ""
+}
+
+func (x *PrescriptionInfo) GetExpiryDate() string {
+	if x != nil {
+		return x.ExpiryDate
+	}
+	return ""
+}
+
+func (x *PrescriptionInfo) GetCreatedAt() string {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return ""
+}
+
+// 库存相关消息
+type GetInventoryRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	DrugId        int64                  `protobuf:"varint,1,opt,name=drug_id,json=drugId,proto3" json:"drug_id,omitempty"`
+	DrugStoreId   int32                  `protobuf:"varint,2,opt,name=drug_store_id,json=drugStoreId,proto3" json:"drug_store_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetInventoryRequest) Reset() {
+	*x = GetInventoryRequest{}
+	mi := &file_drug_v1_drug_proto_msgTypes[27]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetInventoryRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetInventoryRequest) ProtoMessage() {}
+
+func (x *GetInventoryRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_drug_v1_drug_proto_msgTypes[27]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetInventoryRequest.ProtoReflect.Descriptor instead.
+func (*GetInventoryRequest) Descriptor() ([]byte, []int) {
+	return file_drug_v1_drug_proto_rawDescGZIP(), []int{27}
+}
+
+func (x *GetInventoryRequest) GetDrugId() int64 {
+	if x != nil {
+		return x.DrugId
+	}
+	return 0
+}
+
+func (x *GetInventoryRequest) GetDrugStoreId() int32 {
+	if x != nil {
+		return x.DrugStoreId
+	}
+	return 0
+}
+
+type GetInventoryReply struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Code          int64                  `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	Msg           string                 `protobuf:"bytes,2,opt,name=msg,proto3" json:"msg,omitempty"`
+	Inventory     *InventoryInfo         `protobuf:"bytes,3,opt,name=inventory,proto3" json:"inventory,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetInventoryReply) Reset() {
+	*x = GetInventoryReply{}
+	mi := &file_drug_v1_drug_proto_msgTypes[28]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetInventoryReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetInventoryReply) ProtoMessage() {}
+
+func (x *GetInventoryReply) ProtoReflect() protoreflect.Message {
+	mi := &file_drug_v1_drug_proto_msgTypes[28]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetInventoryReply.ProtoReflect.Descriptor instead.
+func (*GetInventoryReply) Descriptor() ([]byte, []int) {
+	return file_drug_v1_drug_proto_rawDescGZIP(), []int{28}
+}
+
+func (x *GetInventoryReply) GetCode() int64 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
+}
+
+func (x *GetInventoryReply) GetMsg() string {
+	if x != nil {
+		return x.Msg
+	}
+	return ""
+}
+
+func (x *GetInventoryReply) GetInventory() *InventoryInfo {
+	if x != nil {
+		return x.Inventory
+	}
+	return nil
+}
+
+type InventoryInfo struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	DrugId         int64                  `protobuf:"varint,1,opt,name=drug_id,json=drugId,proto3" json:"drug_id,omitempty"`
+	DrugStoreId    int32                  `protobuf:"varint,2,opt,name=drug_store_id,json=drugStoreId,proto3" json:"drug_store_id,omitempty"`
+	Quantity       int64                  `protobuf:"varint,3,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	ReservedQty    int64                  `protobuf:"varint,4,opt,name=reserved_qty,json=reservedQty,proto3" json:"reserved_qty,omitempty"`
+	AlertThreshold int64                  `protobuf:"varint,5,opt,name=alert_threshold,json=alertThreshold,proto3" json:"alert_threshold,omitempty"`
+	Price          float64                `protobuf:"fixed64,6,opt,name=price,proto3" json:"price,omitempty"`
+	Status         int32                  `protobuf:"varint,7,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *InventoryInfo) Reset() {
+	*x = InventoryInfo{}
+	mi := &file_drug_v1_drug_proto_msgTypes[29]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InventoryInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InventoryInfo) ProtoMessage() {}
+
+func (x *InventoryInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_drug_v1_drug_proto_msgTypes[29]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InventoryInfo.ProtoReflect.Descriptor instead.
+func (*InventoryInfo) Descriptor() ([]byte, []int) {
+	return file_drug_v1_drug_proto_rawDescGZIP(), []int{29}
+}
+
+func (x *InventoryInfo) GetDrugId() int64 {
+	if x != nil {
+		return x.DrugId
+	}
+	return 0
+}
+
+func (x *InventoryInfo) GetDrugStoreId() int32 {
+	if x != nil {
+		return x.DrugStoreId
+	}
+	return 0
+}
+
+func (x *InventoryInfo) GetQuantity() int64 {
+	if x != nil {
+		return x.Quantity
+	}
+	return 0
+}
+
+func (x *InventoryInfo) GetReservedQty() int64 {
+	if x != nil {
+		return x.ReservedQty
+	}
+	return 0
+}
+
+func (x *InventoryInfo) GetAlertThreshold() int64 {
+	if x != nil {
+		return x.AlertThreshold
+	}
+	return 0
+}
+
+func (x *InventoryInfo) GetPrice() float64 {
+	if x != nil {
+		return x.Price
+	}
+	return 0
+}
+
+func (x *InventoryInfo) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+type UpdateInventoryRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	DrugId        int64                  `protobuf:"varint,1,opt,name=drug_id,json=drugId,proto3" json:"drug_id,omitempty"`
+	DrugStoreId   int32                  `protobuf:"varint,2,opt,name=drug_store_id,json=drugStoreId,proto3" json:"drug_store_id,omitempty"`
+	Quantity      int64                  `protobuf:"varint,3,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateInventoryRequest) Reset() {
+	*x = UpdateInventoryRequest{}
+	mi := &file_drug_v1_drug_proto_msgTypes[30]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateInventoryRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateInventoryRequest) ProtoMessage() {}
+
+func (x *UpdateInventoryRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_drug_v1_drug_proto_msgTypes[30]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateInventoryRequest.ProtoReflect.Descriptor instead.
+func (*UpdateInventoryRequest) Descriptor() ([]byte, []int) {
+	return file_drug_v1_drug_proto_rawDescGZIP(), []int{30}
+}
+
+func (x *UpdateInventoryRequest) GetDrugId() int64 {
+	if x != nil {
+		return x.DrugId
+	}
+	return 0
+}
+
+func (x *UpdateInventoryRequest) GetDrugStoreId() int32 {
+	if x != nil {
+		return x.DrugStoreId
+	}
+	return 0
+}
+
+func (x *UpdateInventoryRequest) GetQuantity() int64 {
+	if x != nil {
+		return x.Quantity
+	}
+	return 0
+}
+
+type UpdateInventoryReply struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Code          int64                  `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	Msg           string                 `protobuf:"bytes,2,opt,name=msg,proto3" json:"msg,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateInventoryReply) Reset() {
+	*x = UpdateInventoryReply{}
+	mi := &file_drug_v1_drug_proto_msgTypes[31]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateInventoryReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateInventoryReply) ProtoMessage() {}
+
+func (x *UpdateInventoryReply) ProtoReflect() protoreflect.Message {
+	mi := &file_drug_v1_drug_proto_msgTypes[31]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateInventoryReply.ProtoReflect.Descriptor instead.
+func (*UpdateInventoryReply) Descriptor() ([]byte, []int) {
+	return file_drug_v1_drug_proto_rawDescGZIP(), []int{31}
+}
+
+func (x *UpdateInventoryReply) GetCode() int64 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
+}
+
+func (x *UpdateInventoryReply) GetMsg() string {
+	if x != nil {
+		return x.Msg
+	}
+	return ""
+}
+
 var File_drug_v1_drug_proto protoreflect.FileDescriptor
 
 const file_drug_v1_drug_proto_rawDesc = "" +
@@ -979,13 +2335,127 @@ const file_drug_v1_drug_proto_rawDesc = "" +
 	"\rGetGuideReply\x12\x12\n" +
 	"\x04code\x18\x01 \x01(\x03R\x04code\x12\x10\n" +
 	"\x03msg\x18\x02 \x01(\tR\x03msg\x12(\n" +
-	"\x05guide\x18\x03 \x01(\v2\x12.drug.v1.GuideInfoR\x05guide2\xe8\x02\n" +
+	"\x05guide\x18\x03 \x01(\v2\x12.drug.v1.GuideInfoR\x05guide\"\xc5\x02\n" +
+	"\x12SearchDrugsRequest\x12\x18\n" +
+	"\akeyword\x18\x01 \x01(\tR\akeyword\x12\x1f\n" +
+	"\vcategory_id\x18\x02 \x01(\x05R\n" +
+	"categoryId\x12\"\n" +
+	"\rdrug_store_id\x18\x03 \x01(\x05R\vdrugStoreId\x12\"\n" +
+	"\ronly_in_stock\x18\x04 \x01(\bR\vonlyInStock\x121\n" +
+	"\x14include_prescription\x18\x05 \x01(\bR\x13includePrescription\x12\x12\n" +
+	"\x04page\x18\x06 \x01(\x05R\x04page\x12\x12\n" +
+	"\x04size\x18\a \x01(\x05R\x04size\x12\x17\n" +
+	"\asort_by\x18\b \x01(\tR\x06sortBy\x12\x1b\n" +
+	"\tprice_min\x18\t \x01(\x01R\bpriceMin\x12\x1b\n" +
+	"\tprice_max\x18\n" +
+	" \x01(\x01R\bpriceMax\"\xac\x01\n" +
+	"\x10SearchDrugsReply\x12\x12\n" +
+	"\x04code\x18\x01 \x01(\x03R\x04code\x12\x10\n" +
+	"\x03msg\x18\x02 \x01(\tR\x03msg\x12-\n" +
+	"\x05drugs\x18\x03 \x03(\v2\x17.drug.v1.SearchDrugInfoR\x05drugs\x12\x14\n" +
+	"\x05total\x18\x04 \x01(\x03R\x05total\x12-\n" +
+	"\x06facets\x18\x05 \x01(\v2\x15.drug.v1.SearchFacetsR\x06facets\"\x8b\x02\n" +
+	"\x0eSearchDrugInfo\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x1b\n" +
+	"\tdrug_name\x18\x02 \x01(\tR\bdrugName\x12$\n" +
+	"\rspecification\x18\x03 \x01(\tR\rspecification\x12\x14\n" +
+	"\x05price\x18\x04 \x01(\x01R\x05price\x12\x1c\n" +
+	"\tinventory\x18\x05 \x01(\x03R\tinventory\x12\"\n" +
+	"\fmanufacturer\x18\x06 \x01(\tR\fmanufacturer\x12'\n" +
+	"\x0fis_prescription\x18\a \x01(\bR\x0eisPrescription\x12%\n" +
+	"\x0eexhibition_url\x18\b \x01(\tR\rexhibitionUrl\"\xc0\x01\n" +
+	"\fSearchFacets\x126\n" +
+	"\n" +
+	"categories\x18\x01 \x03(\v2\x16.drug.v1.CategoryFacetR\n" +
+	"categories\x126\n" +
+	"\fprice_ranges\x18\x02 \x03(\v2\x13.drug.v1.PriceFacetR\vpriceRanges\x12@\n" +
+	"\rmanufacturers\x18\x03 \x03(\v2\x1a.drug.v1.ManufacturerFacetR\rmanufacturers\"I\n" +
+	"\rCategoryFacet\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n" +
+	"\x05count\x18\x03 \x01(\x03R\x05count\"8\n" +
+	"\n" +
+	"PriceFacet\x12\x14\n" +
+	"\x05range\x18\x01 \x01(\tR\x05range\x12\x14\n" +
+	"\x05count\x18\x02 \x01(\x03R\x05count\"=\n" +
+	"\x11ManufacturerFacet\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n" +
+	"\x05count\x18\x02 \x01(\x03R\x05count\"+\n" +
+	"\x13GetHotSearchRequest\x12\x14\n" +
+	"\x05limit\x18\x01 \x01(\x05R\x05limit\"\xda\x01\n" +
+	"\x11GetHotSearchReply\x12\x12\n" +
+	"\x04code\x18\x01 \x01(\x03R\x04code\x12\x10\n" +
+	"\x03msg\x18\x02 \x01(\tR\x03msg\x123\n" +
+	"\fhot_keywords\x18\x03 \x03(\v2\x10.drug.v1.HotItemR\vhotKeywords\x123\n" +
+	"\fhot_symptoms\x18\x04 \x03(\v2\x10.drug.v1.HotItemR\vhotSymptoms\x125\n" +
+	"\rhot_questions\x18\x05 \x03(\v2\x10.drug.v1.HotItemR\fhotQuestions\"O\n" +
+	"\aHotItem\x12\x18\n" +
+	"\acontent\x18\x01 \x01(\tR\acontent\x12\x14\n" +
+	"\x05count\x18\x02 \x01(\x03R\x05count\x12\x14\n" +
+	"\x05score\x18\x03 \x01(\x01R\x05score\"o\n" +
+	"\x19CreatePrescriptionRequest\x12\x14\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\x12\x1b\n" +
+	"\timage_url\x18\x02 \x01(\tR\bimageUrl\x12\x1f\n" +
+	"\vexpiry_date\x18\x03 \x01(\tR\n" +
+	"expiryDate\"h\n" +
+	"\x17CreatePrescriptionReply\x12\x12\n" +
+	"\x04code\x18\x01 \x01(\x03R\x04code\x12\x10\n" +
+	"\x03msg\x18\x02 \x01(\tR\x03msg\x12'\n" +
+	"\x0fprescription_id\x18\x03 \x01(\x03R\x0eprescriptionId\"X\n" +
+	"\x18ListPrescriptionsRequest\x12\x14\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\x12\x12\n" +
+	"\x04page\x18\x02 \x01(\x05R\x04page\x12\x12\n" +
+	"\x04size\x18\x03 \x01(\x05R\x04size\"\x95\x01\n" +
+	"\x16ListPrescriptionsReply\x12\x12\n" +
+	"\x04code\x18\x01 \x01(\x03R\x04code\x12\x10\n" +
+	"\x03msg\x18\x02 \x01(\tR\x03msg\x12?\n" +
+	"\rprescriptions\x18\x03 \x03(\v2\x19.drug.v1.PrescriptionInfoR\rprescriptions\x12\x14\n" +
+	"\x05total\x18\x04 \x01(\x03R\x05total\"\xdd\x01\n" +
+	"\x10PrescriptionInfo\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x1b\n" +
+	"\timage_url\x18\x02 \x01(\tR\bimageUrl\x12\x16\n" +
+	"\x06status\x18\x03 \x01(\x05R\x06status\x12\x1f\n" +
+	"\vstatus_text\x18\x04 \x01(\tR\n" +
+	"statusText\x12#\n" +
+	"\rreject_reason\x18\x05 \x01(\tR\frejectReason\x12\x1f\n" +
+	"\vexpiry_date\x18\x06 \x01(\tR\n" +
+	"expiryDate\x12\x1d\n" +
+	"\n" +
+	"created_at\x18\a \x01(\tR\tcreatedAt\"R\n" +
+	"\x13GetInventoryRequest\x12\x17\n" +
+	"\adrug_id\x18\x01 \x01(\x03R\x06drugId\x12\"\n" +
+	"\rdrug_store_id\x18\x02 \x01(\x05R\vdrugStoreId\"o\n" +
+	"\x11GetInventoryReply\x12\x12\n" +
+	"\x04code\x18\x01 \x01(\x03R\x04code\x12\x10\n" +
+	"\x03msg\x18\x02 \x01(\tR\x03msg\x124\n" +
+	"\tinventory\x18\x03 \x01(\v2\x16.drug.v1.InventoryInfoR\tinventory\"\xe2\x01\n" +
+	"\rInventoryInfo\x12\x17\n" +
+	"\adrug_id\x18\x01 \x01(\x03R\x06drugId\x12\"\n" +
+	"\rdrug_store_id\x18\x02 \x01(\x05R\vdrugStoreId\x12\x1a\n" +
+	"\bquantity\x18\x03 \x01(\x03R\bquantity\x12!\n" +
+	"\freserved_qty\x18\x04 \x01(\x03R\vreservedQty\x12'\n" +
+	"\x0falert_threshold\x18\x05 \x01(\x03R\x0ealertThreshold\x12\x14\n" +
+	"\x05price\x18\x06 \x01(\x01R\x05price\x12\x16\n" +
+	"\x06status\x18\a \x01(\x05R\x06status\"q\n" +
+	"\x16UpdateInventoryRequest\x12\x17\n" +
+	"\adrug_id\x18\x01 \x01(\x03R\x06drugId\x12\"\n" +
+	"\rdrug_store_id\x18\x02 \x01(\x05R\vdrugStoreId\x12\x1a\n" +
+	"\bquantity\x18\x03 \x01(\x03R\bquantity\"<\n" +
+	"\x14UpdateInventoryReply\x12\x12\n" +
+	"\x04code\x18\x01 \x01(\x03R\x04code\x12\x10\n" +
+	"\x03msg\x18\x02 \x01(\tR\x03msg2\x88\b\n" +
 	"\x04Drug\x12N\n" +
 	"\aGetDrug\x12\x17.drug.v1.GetDrugRequest\x1a\x15.drug.v1.GetDrugReply\"\x13\x82\xd3\xe4\x93\x02\r:\x01*\"\b/v1/drug\x12V\n" +
 	"\bListDrug\x12\x18.drug.v1.ListDrugRequest\x1a\x16.drug.v1.ListDrugReply\"\x18\x82\xd3\xe4\x93\x02\x12:\x01*\"\r/v1/drug/list\x12_\n" +
 	"\n" +
 	"GetExplain\x12\x1a.drug.v1.GetExplainRequest\x1a\x18.drug.v1.GetExplainReply\"\x1b\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/v1/drug/explain\x12W\n" +
-	"\bGetGuide\x12\x18.drug.v1.GetGuideRequest\x1a\x16.drug.v1.GetGuideReply\"\x19\x82\xd3\xe4\x93\x02\x13:\x01*\"\x0e/v1/drug/guideBE\n" +
+	"\bGetGuide\x12\x18.drug.v1.GetGuideRequest\x1a\x16.drug.v1.GetGuideReply\"\x19\x82\xd3\xe4\x93\x02\x13:\x01*\"\x0e/v1/drug/guide\x12a\n" +
+	"\vSearchDrugs\x12\x1b.drug.v1.SearchDrugsRequest\x1a\x19.drug.v1.SearchDrugsReply\"\x1a\x82\xd3\xe4\x93\x02\x14:\x01*\"\x0f/v1/drug/search\x12e\n" +
+	"\fGetHotSearch\x12\x1c.drug.v1.GetHotSearchRequest\x1a\x1a.drug.v1.GetHotSearchReply\"\x1b\x82\xd3\xe4\x93\x02\x15\x12\x13/v1/drug/hot-search\x12|\n" +
+	"\x12CreatePrescription\x12\".drug.v1.CreatePrescriptionRequest\x1a .drug.v1.CreatePrescriptionReply\" \x82\xd3\xe4\x93\x02\x1a:\x01*\"\x15/v1/drug/prescription\x12w\n" +
+	"\x11ListPrescriptions\x12!.drug.v1.ListPrescriptionsRequest\x1a\x1f.drug.v1.ListPrescriptionsReply\"\x1e\x82\xd3\xe4\x93\x02\x18\x12\x16/v1/drug/prescriptions\x12d\n" +
+	"\fGetInventory\x12\x1c.drug.v1.GetInventoryRequest\x1a\x1a.drug.v1.GetInventoryReply\"\x1a\x82\xd3\xe4\x93\x02\x14\x12\x12/v1/drug/inventory\x12w\n" +
+	"\x0fUpdateInventory\x12\x1f.drug.v1.UpdateInventoryRequest\x1a\x1d.drug.v1.UpdateInventoryReply\"$\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/v1/drug/inventory/updateBE\n" +
 	"\x16dev.kratos.api.drug.v1B\vdrugProtoV1P\x01Z\x1ckratos_client/api/drug/v1;v1b\x06proto3"
 
 var (
@@ -1000,20 +2470,40 @@ func file_drug_v1_drug_proto_rawDescGZIP() []byte {
 	return file_drug_v1_drug_proto_rawDescData
 }
 
-var file_drug_v1_drug_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_drug_v1_drug_proto_msgTypes = make([]protoimpl.MessageInfo, 32)
 var file_drug_v1_drug_proto_goTypes = []any{
-	(*GetDrugRequest)(nil),    // 0: drug.v1.GetDrugRequest
-	(*GetDrugReply)(nil),      // 1: drug.v1.GetDrugReply
-	(*InfoDrug)(nil),          // 2: drug.v1.InfoDrug
-	(*GuideInfo)(nil),         // 3: drug.v1.GuideInfo
-	(*GetExplainRequest)(nil), // 4: drug.v1.GetExplainRequest
-	(*GetExplainReply)(nil),   // 5: drug.v1.GetExplainReply
-	(*ExplainInfo)(nil),       // 6: drug.v1.ExplainInfo
-	(*ListDrugRequest)(nil),   // 7: drug.v1.ListDrugRequest
-	(*ListDrugReply)(nil),     // 8: drug.v1.ListDrugReply
-	(*InfoDrugs)(nil),         // 9: drug.v1.InfoDrugs
-	(*GetGuideRequest)(nil),   // 10: drug.v1.GetGuideRequest
-	(*GetGuideReply)(nil),     // 11: drug.v1.GetGuideReply
+	(*GetDrugRequest)(nil),            // 0: drug.v1.GetDrugRequest
+	(*GetDrugReply)(nil),              // 1: drug.v1.GetDrugReply
+	(*InfoDrug)(nil),                  // 2: drug.v1.InfoDrug
+	(*GuideInfo)(nil),                 // 3: drug.v1.GuideInfo
+	(*GetExplainRequest)(nil),         // 4: drug.v1.GetExplainRequest
+	(*GetExplainReply)(nil),           // 5: drug.v1.GetExplainReply
+	(*ExplainInfo)(nil),               // 6: drug.v1.ExplainInfo
+	(*ListDrugRequest)(nil),           // 7: drug.v1.ListDrugRequest
+	(*ListDrugReply)(nil),             // 8: drug.v1.ListDrugReply
+	(*InfoDrugs)(nil),                 // 9: drug.v1.InfoDrugs
+	(*GetGuideRequest)(nil),           // 10: drug.v1.GetGuideRequest
+	(*GetGuideReply)(nil),             // 11: drug.v1.GetGuideReply
+	(*SearchDrugsRequest)(nil),        // 12: drug.v1.SearchDrugsRequest
+	(*SearchDrugsReply)(nil),          // 13: drug.v1.SearchDrugsReply
+	(*SearchDrugInfo)(nil),            // 14: drug.v1.SearchDrugInfo
+	(*SearchFacets)(nil),              // 15: drug.v1.SearchFacets
+	(*CategoryFacet)(nil),             // 16: drug.v1.CategoryFacet
+	(*PriceFacet)(nil),                // 17: drug.v1.PriceFacet
+	(*ManufacturerFacet)(nil),         // 18: drug.v1.ManufacturerFacet
+	(*GetHotSearchRequest)(nil),       // 19: drug.v1.GetHotSearchRequest
+	(*GetHotSearchReply)(nil),         // 20: drug.v1.GetHotSearchReply
+	(*HotItem)(nil),                   // 21: drug.v1.HotItem
+	(*CreatePrescriptionRequest)(nil), // 22: drug.v1.CreatePrescriptionRequest
+	(*CreatePrescriptionReply)(nil),   // 23: drug.v1.CreatePrescriptionReply
+	(*ListPrescriptionsRequest)(nil),  // 24: drug.v1.ListPrescriptionsRequest
+	(*ListPrescriptionsReply)(nil),    // 25: drug.v1.ListPrescriptionsReply
+	(*PrescriptionInfo)(nil),          // 26: drug.v1.PrescriptionInfo
+	(*GetInventoryRequest)(nil),       // 27: drug.v1.GetInventoryRequest
+	(*GetInventoryReply)(nil),         // 28: drug.v1.GetInventoryReply
+	(*InventoryInfo)(nil),             // 29: drug.v1.InventoryInfo
+	(*UpdateInventoryRequest)(nil),    // 30: drug.v1.UpdateInventoryRequest
+	(*UpdateInventoryReply)(nil),      // 31: drug.v1.UpdateInventoryReply
 }
 var file_drug_v1_drug_proto_depIdxs = []int32{
 	2,  // 0: drug.v1.GetDrugReply.drug:type_name -> drug.v1.InfoDrug
@@ -1021,19 +2511,41 @@ var file_drug_v1_drug_proto_depIdxs = []int32{
 	6,  // 2: drug.v1.GetExplainReply.explain:type_name -> drug.v1.ExplainInfo
 	9,  // 3: drug.v1.ListDrugReply.drug:type_name -> drug.v1.InfoDrugs
 	3,  // 4: drug.v1.GetGuideReply.guide:type_name -> drug.v1.GuideInfo
-	0,  // 5: drug.v1.Drug.GetDrug:input_type -> drug.v1.GetDrugRequest
-	7,  // 6: drug.v1.Drug.ListDrug:input_type -> drug.v1.ListDrugRequest
-	4,  // 7: drug.v1.Drug.GetExplain:input_type -> drug.v1.GetExplainRequest
-	10, // 8: drug.v1.Drug.GetGuide:input_type -> drug.v1.GetGuideRequest
-	1,  // 9: drug.v1.Drug.GetDrug:output_type -> drug.v1.GetDrugReply
-	8,  // 10: drug.v1.Drug.ListDrug:output_type -> drug.v1.ListDrugReply
-	5,  // 11: drug.v1.Drug.GetExplain:output_type -> drug.v1.GetExplainReply
-	11, // 12: drug.v1.Drug.GetGuide:output_type -> drug.v1.GetGuideReply
-	9,  // [9:13] is the sub-list for method output_type
-	5,  // [5:9] is the sub-list for method input_type
-	5,  // [5:5] is the sub-list for extension type_name
-	5,  // [5:5] is the sub-list for extension extendee
-	0,  // [0:5] is the sub-list for field type_name
+	14, // 5: drug.v1.SearchDrugsReply.drugs:type_name -> drug.v1.SearchDrugInfo
+	15, // 6: drug.v1.SearchDrugsReply.facets:type_name -> drug.v1.SearchFacets
+	16, // 7: drug.v1.SearchFacets.categories:type_name -> drug.v1.CategoryFacet
+	17, // 8: drug.v1.SearchFacets.price_ranges:type_name -> drug.v1.PriceFacet
+	18, // 9: drug.v1.SearchFacets.manufacturers:type_name -> drug.v1.ManufacturerFacet
+	21, // 10: drug.v1.GetHotSearchReply.hot_keywords:type_name -> drug.v1.HotItem
+	21, // 11: drug.v1.GetHotSearchReply.hot_symptoms:type_name -> drug.v1.HotItem
+	21, // 12: drug.v1.GetHotSearchReply.hot_questions:type_name -> drug.v1.HotItem
+	26, // 13: drug.v1.ListPrescriptionsReply.prescriptions:type_name -> drug.v1.PrescriptionInfo
+	29, // 14: drug.v1.GetInventoryReply.inventory:type_name -> drug.v1.InventoryInfo
+	0,  // 15: drug.v1.Drug.GetDrug:input_type -> drug.v1.GetDrugRequest
+	7,  // 16: drug.v1.Drug.ListDrug:input_type -> drug.v1.ListDrugRequest
+	4,  // 17: drug.v1.Drug.GetExplain:input_type -> drug.v1.GetExplainRequest
+	10, // 18: drug.v1.Drug.GetGuide:input_type -> drug.v1.GetGuideRequest
+	12, // 19: drug.v1.Drug.SearchDrugs:input_type -> drug.v1.SearchDrugsRequest
+	19, // 20: drug.v1.Drug.GetHotSearch:input_type -> drug.v1.GetHotSearchRequest
+	22, // 21: drug.v1.Drug.CreatePrescription:input_type -> drug.v1.CreatePrescriptionRequest
+	24, // 22: drug.v1.Drug.ListPrescriptions:input_type -> drug.v1.ListPrescriptionsRequest
+	27, // 23: drug.v1.Drug.GetInventory:input_type -> drug.v1.GetInventoryRequest
+	30, // 24: drug.v1.Drug.UpdateInventory:input_type -> drug.v1.UpdateInventoryRequest
+	1,  // 25: drug.v1.Drug.GetDrug:output_type -> drug.v1.GetDrugReply
+	8,  // 26: drug.v1.Drug.ListDrug:output_type -> drug.v1.ListDrugReply
+	5,  // 27: drug.v1.Drug.GetExplain:output_type -> drug.v1.GetExplainReply
+	11, // 28: drug.v1.Drug.GetGuide:output_type -> drug.v1.GetGuideReply
+	13, // 29: drug.v1.Drug.SearchDrugs:output_type -> drug.v1.SearchDrugsReply
+	20, // 30: drug.v1.Drug.GetHotSearch:output_type -> drug.v1.GetHotSearchReply
+	23, // 31: drug.v1.Drug.CreatePrescription:output_type -> drug.v1.CreatePrescriptionReply
+	25, // 32: drug.v1.Drug.ListPrescriptions:output_type -> drug.v1.ListPrescriptionsReply
+	28, // 33: drug.v1.Drug.GetInventory:output_type -> drug.v1.GetInventoryReply
+	31, // 34: drug.v1.Drug.UpdateInventory:output_type -> drug.v1.UpdateInventoryReply
+	25, // [25:35] is the sub-list for method output_type
+	15, // [15:25] is the sub-list for method input_type
+	15, // [15:15] is the sub-list for extension type_name
+	15, // [15:15] is the sub-list for extension extendee
+	0,  // [0:15] is the sub-list for field type_name
 }
 
 func init() { file_drug_v1_drug_proto_init() }
@@ -1047,7 +2559,7 @@ func file_drug_v1_drug_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_drug_v1_drug_proto_rawDesc), len(file_drug_v1_drug_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   12,
+			NumMessages:   32,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

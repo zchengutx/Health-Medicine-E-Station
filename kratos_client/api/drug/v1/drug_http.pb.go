@@ -19,16 +19,32 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
+const OperationDrugCreatePrescription = "/drug.v1.Drug/CreatePrescription"
 const OperationDrugGetDrug = "/drug.v1.Drug/GetDrug"
 const OperationDrugGetExplain = "/drug.v1.Drug/GetExplain"
 const OperationDrugGetGuide = "/drug.v1.Drug/GetGuide"
+const OperationDrugGetHotSearch = "/drug.v1.Drug/GetHotSearch"
+const OperationDrugGetInventory = "/drug.v1.Drug/GetInventory"
 const OperationDrugListDrug = "/drug.v1.Drug/ListDrug"
+const OperationDrugListPrescriptions = "/drug.v1.Drug/ListPrescriptions"
+const OperationDrugSearchDrugs = "/drug.v1.Drug/SearchDrugs"
+const OperationDrugUpdateInventory = "/drug.v1.Drug/UpdateInventory"
 
 type DrugHTTPServer interface {
+	// CreatePrescription 处方药管理
+	CreatePrescription(context.Context, *CreatePrescriptionRequest) (*CreatePrescriptionReply, error)
 	GetDrug(context.Context, *GetDrugRequest) (*GetDrugReply, error)
 	GetExplain(context.Context, *GetExplainRequest) (*GetExplainReply, error)
 	GetGuide(context.Context, *GetGuideRequest) (*GetGuideReply, error)
+	// GetHotSearch 获取热门搜索
+	GetHotSearch(context.Context, *GetHotSearchRequest) (*GetHotSearchReply, error)
+	// GetInventory 库存管理
+	GetInventory(context.Context, *GetInventoryRequest) (*GetInventoryReply, error)
 	ListDrug(context.Context, *ListDrugRequest) (*ListDrugReply, error)
+	ListPrescriptions(context.Context, *ListPrescriptionsRequest) (*ListPrescriptionsReply, error)
+	// SearchDrugs 搜索药品
+	SearchDrugs(context.Context, *SearchDrugsRequest) (*SearchDrugsReply, error)
+	UpdateInventory(context.Context, *UpdateInventoryRequest) (*UpdateInventoryReply, error)
 }
 
 func RegisterDrugHTTPServer(s *http.Server, srv DrugHTTPServer) {
@@ -37,6 +53,12 @@ func RegisterDrugHTTPServer(s *http.Server, srv DrugHTTPServer) {
 	r.POST("/v1/drug/list", _Drug_ListDrug0_HTTP_Handler(srv))
 	r.POST("/v1/drug/explain", _Drug_GetExplain0_HTTP_Handler(srv))
 	r.POST("/v1/drug/guide", _Drug_GetGuide0_HTTP_Handler(srv))
+	r.POST("/v1/drug/search", _Drug_SearchDrugs0_HTTP_Handler(srv))
+	r.GET("/v1/drug/hot-search", _Drug_GetHotSearch0_HTTP_Handler(srv))
+	r.POST("/v1/drug/prescription", _Drug_CreatePrescription0_HTTP_Handler(srv))
+	r.GET("/v1/drug/prescriptions", _Drug_ListPrescriptions0_HTTP_Handler(srv))
+	r.GET("/v1/drug/inventory", _Drug_GetInventory0_HTTP_Handler(srv))
+	r.POST("/v1/drug/inventory/update", _Drug_UpdateInventory0_HTTP_Handler(srv))
 }
 
 func _Drug_GetDrug0_HTTP_Handler(srv DrugHTTPServer) func(ctx http.Context) error {
@@ -127,11 +149,140 @@ func _Drug_GetGuide0_HTTP_Handler(srv DrugHTTPServer) func(ctx http.Context) err
 	}
 }
 
+func _Drug_SearchDrugs0_HTTP_Handler(srv DrugHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in SearchDrugsRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationDrugSearchDrugs)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.SearchDrugs(ctx, req.(*SearchDrugsRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*SearchDrugsReply)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Drug_GetHotSearch0_HTTP_Handler(srv DrugHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetHotSearchRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationDrugGetHotSearch)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetHotSearch(ctx, req.(*GetHotSearchRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetHotSearchReply)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Drug_CreatePrescription0_HTTP_Handler(srv DrugHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in CreatePrescriptionRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationDrugCreatePrescription)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CreatePrescription(ctx, req.(*CreatePrescriptionRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*CreatePrescriptionReply)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Drug_ListPrescriptions0_HTTP_Handler(srv DrugHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in ListPrescriptionsRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationDrugListPrescriptions)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListPrescriptions(ctx, req.(*ListPrescriptionsRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ListPrescriptionsReply)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Drug_GetInventory0_HTTP_Handler(srv DrugHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetInventoryRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationDrugGetInventory)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetInventory(ctx, req.(*GetInventoryRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetInventoryReply)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Drug_UpdateInventory0_HTTP_Handler(srv DrugHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in UpdateInventoryRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationDrugUpdateInventory)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdateInventory(ctx, req.(*UpdateInventoryRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*UpdateInventoryReply)
+		return ctx.Result(200, reply)
+	}
+}
+
 type DrugHTTPClient interface {
+	CreatePrescription(ctx context.Context, req *CreatePrescriptionRequest, opts ...http.CallOption) (rsp *CreatePrescriptionReply, err error)
 	GetDrug(ctx context.Context, req *GetDrugRequest, opts ...http.CallOption) (rsp *GetDrugReply, err error)
 	GetExplain(ctx context.Context, req *GetExplainRequest, opts ...http.CallOption) (rsp *GetExplainReply, err error)
 	GetGuide(ctx context.Context, req *GetGuideRequest, opts ...http.CallOption) (rsp *GetGuideReply, err error)
+	GetHotSearch(ctx context.Context, req *GetHotSearchRequest, opts ...http.CallOption) (rsp *GetHotSearchReply, err error)
+	GetInventory(ctx context.Context, req *GetInventoryRequest, opts ...http.CallOption) (rsp *GetInventoryReply, err error)
 	ListDrug(ctx context.Context, req *ListDrugRequest, opts ...http.CallOption) (rsp *ListDrugReply, err error)
+	ListPrescriptions(ctx context.Context, req *ListPrescriptionsRequest, opts ...http.CallOption) (rsp *ListPrescriptionsReply, err error)
+	SearchDrugs(ctx context.Context, req *SearchDrugsRequest, opts ...http.CallOption) (rsp *SearchDrugsReply, err error)
+	UpdateInventory(ctx context.Context, req *UpdateInventoryRequest, opts ...http.CallOption) (rsp *UpdateInventoryReply, err error)
 }
 
 type DrugHTTPClientImpl struct {
@@ -140,6 +291,19 @@ type DrugHTTPClientImpl struct {
 
 func NewDrugHTTPClient(client *http.Client) DrugHTTPClient {
 	return &DrugHTTPClientImpl{client}
+}
+
+func (c *DrugHTTPClientImpl) CreatePrescription(ctx context.Context, in *CreatePrescriptionRequest, opts ...http.CallOption) (*CreatePrescriptionReply, error) {
+	var out CreatePrescriptionReply
+	pattern := "/v1/drug/prescription"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationDrugCreatePrescription))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
 }
 
 func (c *DrugHTTPClientImpl) GetDrug(ctx context.Context, in *GetDrugRequest, opts ...http.CallOption) (*GetDrugReply, error) {
@@ -181,11 +345,76 @@ func (c *DrugHTTPClientImpl) GetGuide(ctx context.Context, in *GetGuideRequest, 
 	return &out, nil
 }
 
+func (c *DrugHTTPClientImpl) GetHotSearch(ctx context.Context, in *GetHotSearchRequest, opts ...http.CallOption) (*GetHotSearchReply, error) {
+	var out GetHotSearchReply
+	pattern := "/v1/drug/hot-search"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationDrugGetHotSearch))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *DrugHTTPClientImpl) GetInventory(ctx context.Context, in *GetInventoryRequest, opts ...http.CallOption) (*GetInventoryReply, error) {
+	var out GetInventoryReply
+	pattern := "/v1/drug/inventory"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationDrugGetInventory))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
 func (c *DrugHTTPClientImpl) ListDrug(ctx context.Context, in *ListDrugRequest, opts ...http.CallOption) (*ListDrugReply, error) {
 	var out ListDrugReply
 	pattern := "/v1/drug/list"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationDrugListDrug))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *DrugHTTPClientImpl) ListPrescriptions(ctx context.Context, in *ListPrescriptionsRequest, opts ...http.CallOption) (*ListPrescriptionsReply, error) {
+	var out ListPrescriptionsReply
+	pattern := "/v1/drug/prescriptions"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationDrugListPrescriptions))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *DrugHTTPClientImpl) SearchDrugs(ctx context.Context, in *SearchDrugsRequest, opts ...http.CallOption) (*SearchDrugsReply, error) {
+	var out SearchDrugsReply
+	pattern := "/v1/drug/search"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationDrugSearchDrugs))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *DrugHTTPClientImpl) UpdateInventory(ctx context.Context, in *UpdateInventoryRequest, opts ...http.CallOption) (*UpdateInventoryReply, error) {
+	var out UpdateInventoryReply
+	pattern := "/v1/drug/inventory/update"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationDrugUpdateInventory))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

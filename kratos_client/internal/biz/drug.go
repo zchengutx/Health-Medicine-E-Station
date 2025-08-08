@@ -75,12 +75,123 @@ func (c *MtExplain) TableName() string {
 	return "mt_explain"
 }
 
+// Elasticsearch文档模型
+type DrugDocument struct {
+	ID               int64     `json:"id"`
+	DrugName         string    `json:"drug_name"`
+	Specification    string    `json:"specification"`
+	FirstCategoryID  int32     `json:"first_category_id"`
+	SecondCategoryID int32     `json:"second_category_id"`
+	Price            float64   `json:"price"`
+	Inventory        int64     `json:"inventory"`
+	Manufacturer     string    `json:"manufacturer"`
+	Keywords         []string  `json:"keywords"`        // 搜索关键词
+	Symptoms         []string  `json:"symptoms"`        // 适应症状
+	DrugStoreID      int32     `json:"drug_store_id"`   // 药店ID
+	IsPrescription   bool      `json:"is_prescription"` // 是否处方药
+	CreatedAt        time.Time `json:"created_at"`
+	UpdatedAt        time.Time `json:"updated_at"`
+}
+
+// 处方药模型
+
+func (m *MtPrescription) TableName() string {
+	return "mt_prescription"
+}
+
+type PrescriptionStatus int
+
+// 药店库存模型
+type MtDrugInventory struct {
+	ID             int64           `gorm:"column:id;type:bigint;primaryKey;autoIncrement;" json:"id"`
+	DrugID         int64           `gorm:"column:drug_id;type:bigint;comment:药品ID;not null;" json:"drug_id"`
+	DrugStoreID    int32           `gorm:"column:drug_store_id;type:int;comment:药店ID;not null;" json:"drug_store_id"`
+	Quantity       int64           `gorm:"column:quantity;type:bigint;comment:库存数量;not null;default:0;" json:"quantity"`
+	ReservedQty    int64           `gorm:"column:reserved_qty;type:bigint;comment:预留库存;not null;default:0;" json:"reserved_qty"`
+	AlertThreshold int64           `gorm:"column:alert_threshold;type:bigint;comment:预警阈值;not null;default:10;" json:"alert_threshold"`
+	Price          float64         `gorm:"column:price;type:decimal(10,2);comment:药店特定价格;not null;" json:"price"`
+	Status         InventoryStatus `gorm:"column:status;type:tinyint;comment:库存状态;not null;default:0;" json:"status"`
+	UpdatedAt      time.Time       `gorm:"column:updated_at;type:datetime(3);not null;default:CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3);" json:"updated_at"`
+}
+
+func (m *MtDrugInventory) TableName() string {
+	return "mt_drug_inventory"
+}
+
+type InventoryStatus int
+
 type DrugRepo interface {
 	ListDrug(ctx context.Context, fristCategoryId int32, secondCategoryId int32, keyword string) ([]*MtDrug, error)
 	GetDrug(ctx context.Context, id int32) (*MtDrug, error)
 	GetExplain(ctx context.Context, id int32) (*MtExplain, error)
 	GetGuide(ctx context.Context, id int32) (*MtGuide, error)
 }
+
+// 搜索请求结构
+type SearchRequest struct {
+	Keyword             string      `json:"keyword"`
+	CategoryID          int32       `json:"category_id"`
+	PriceRange          *PriceRange `json:"price_range"`
+	DrugStoreID         int32       `json:"drug_store_id"`
+	OnlyInStock         bool        `json:"only_in_stock"`
+	IncludePrescription bool        `json:"include_prescription"`
+	Page                int         `json:"page"`
+	Size                int         `json:"size"`
+	SortBy              string      `json:"sort_by"` // price_asc, price_desc, sales_desc
+}
+
+type PriceRange struct {
+	Min float64 `json:"min"`
+	Max float64 `json:"max"`
+}
+
+// 搜索响应结构
+type SearchResponse struct {
+	Total  int64         `json:"total"`
+	Drugs  []*DrugInfo   `json:"drugs"`
+	Facets *SearchFacets `json:"facets"`
+}
+
+type DrugInfo struct {
+	ID             int64   `json:"id"`
+	DrugName       string  `json:"drug_name"`
+	Specification  string  `json:"specification"`
+	Price          float64 `json:"price"`
+	Inventory      int64   `json:"inventory"`
+	Manufacturer   string  `json:"manufacturer"`
+	IsPrescription bool    `json:"is_prescription"`
+}
+
+type SearchFacets struct {
+	Categories    []CategoryFacet     `json:"categories"`
+	PriceRanges   []PriceFacet        `json:"price_ranges"`
+	Manufacturers []ManufacturerFacet `json:"manufacturers"`
+}
+
+type CategoryFacet struct {
+	ID    int32  `json:"id"`
+	Name  string `json:"name"`
+	Count int64  `json:"count"`
+}
+
+type PriceFacet struct {
+	Range string `json:"range"`
+	Count int64  `json:"count"`
+}
+
+type ManufacturerFacet struct {
+	Name  string `json:"name"`
+	Count int64  `json:"count"`
+}
+
+// 热门搜索相关结构
+type HotItem struct {
+	Content string  `json:"content"`
+	Count   int64   `json:"count"`
+	Score   float64 `json:"score"`
+}
+
+type SearchType int
 
 type DrugService struct {
 	repo DrugRepo
@@ -108,4 +219,49 @@ func (uc *DrugService) GetExplain(ctx context.Context, id int32) (*MtExplain, er
 func (uc *DrugService) GetGuide(ctx context.Context, id int32) (*MtGuide, error) {
 	uc.log.WithContext(ctx).Infof("GetGuide: %v+v", id)
 	return uc.repo.GetGuide(ctx, id)
+}
+
+// 简化的搜索方法
+func (uc *DrugService) SearchDrugs(ctx context.Context, keyword string, categoryId int32, page, size int) ([]*MtDrug, int64, error) {
+	uc.log.WithContext(ctx).Infof("SearchDrugs: keyword=%s, categoryId=%d", keyword, categoryId)
+
+	// 如果没有关键词，使用原有的ListDrug方法
+	if keyword == "" {
+		drugs, err := uc.repo.ListDrug(ctx, categoryId, 0, "")
+		if err != nil {
+			return nil, 0, err
+		}
+		return drugs, int64(len(drugs)), nil
+	}
+
+	// 使用药品名称进行搜索
+	drugs, err := uc.repo.ListDrug(ctx, categoryId, 0, keyword)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	// 简单分页
+	total := int64(len(drugs))
+	start := (page - 1) * size
+	end := start + size
+
+	if start >= len(drugs) {
+		return []*MtDrug{}, total, nil
+	}
+	if end > len(drugs) {
+		end = len(drugs)
+	}
+
+	return drugs[start:end], total, nil
+}
+
+// 获取热门关键词（简化版）
+func (uc *DrugService) GetHotKeywords(ctx context.Context, limit int) ([]string, error) {
+	uc.log.WithContext(ctx).Infof("GetHotKeywords: limit=%d", limit)
+	// 返回一些默认的热门关键词
+	keywords := []string{"感冒药", "止痛药", "消炎药", "维生素", "降压药", "胃药", "咳嗽药", "退烧药"}
+	if limit > 0 && limit < len(keywords) {
+		keywords = keywords[:limit]
+	}
+	return keywords, nil
 }
