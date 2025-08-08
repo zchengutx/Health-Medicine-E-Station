@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健康医疗驿站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            color: white;
+            position: relative;
+        }
+        
+        .title {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            font-size: 24px;
+            opacity: 0.9;
+        }
+        
+        .login-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .login-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .content {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .welcome-text {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        
+        .welcome-desc {
+            font-size: 18px;
+            color: #666;
+            text-align: center;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-item {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .feature-title {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .feature-desc {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .status {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .status-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .status-text {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .tech-stack {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        
+        .tech-stack h3 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .tech-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="login.html" class="login-link">登录</a>
+            <h1 class="title">健康医疗驿站</h1>
+            <p class="subtitle">您的健康管理专家</p>
+        </div>
+        
+        <div class="content">
+            <h2 class="welcome-text">欢迎使用健康医疗驿站</h2>
+            <p class="welcome-desc">为您提供全方位的健康管理服务</p>
+            
+            <div class="feature-grid">
+                <div class="feature-item" onclick="showFeature('health')">
+                    <span class="feature-icon">🏥</span>
+                    <h3 class="feature-title">健康咨询</h3>
+                    <p class="feature-desc">专业医生在线咨询，解答您的健康问题</p>
+                </div>
+                <div class="feature-item" onclick="showFeature('medicine')">
+                    <span class="feature-icon">💊</span>
+                    <h3 class="feature-title">药品管理</h3>
+                    <p class="feature-desc">智能提醒用药时间，管理您的药品清单</p>
+                </div>
+                <div class="feature-item" onclick="showFeature('appointment')">
+                    <span class="feature-icon">📅</span>
+                    <h3 class="feature-title">预约挂号</h3>
+                    <p class="feature-desc">在线预约医院挂号，省去排队等待时间</p>
+                </div>
+                <div class="feature-item" onclick="showFeature('record')">
+                    <span class="feature-icon">📋</span>
+                    <h3 class="feature-title">健康档案</h3>
+                    <p class="feature-desc">完整的健康记录管理，随时查看历史数据</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="status">
+            <h3 class="status-title">项目状态</h3>
+            <p class="status-text">
+                这是一个基于 uni-app 框架开发的健康医疗应用。<br>
+                目前项目基础架构已完成，包含完整的页面配置和组件结构。<br>
+                要完整运行此项目，建议使用 HBuilderX 开发工具。
+            </p>
+        </div>
+        
+        <div class="tech-stack">
+            <h3>技术栈</h3>
+            <div class="tech-list">
+                <span class="tech-tag">uni-app</span>
+                <span class="tech-tag">Vue 3</span>
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">Vite</span>
+                <span class="tech-tag">H5</span>
+                <span class="tech-tag">微信小程序</span>
+                <span class="tech-tag">App</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showFeature(feature) {
+            const features = {
+                health: '健康咨询功能',
+                medicine: '药品管理功能',
+                appointment: '预约挂号功能',
+                record: '健康档案功能'
+            };
+            
+            alert(`功能开发中: ${features[feature]}\n\n这是一个演示页面，实际功能需要在 HBuilderX 中运行完整的 uni-app 项目。`);
+        }
+        
+        // 添加一些交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const featureItems = document.querySelectorAll('.feature-item');
+            
+            featureItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

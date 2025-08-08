@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>更改昵称 - 健康医疗驿站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .edit-nickname-page {
+            min-height: 100vh;
+        }
+        
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: #fff;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .nav-left, .nav-right {
+            width: 40px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-left {
+            justify-content: flex-start;
+        }
+        
+        .nav-right {
+            justify-content: flex-end;
+        }
+        
+        .back-icon, .more-icon {
+            font-size: 20px;
+            color: #333;
+            cursor: pointer;
+        }
+        
+        .nav-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .input-section {
+            background: #fff;
+            padding: 20px;
+            margin-top: 10px;
+        }
+        
+        .input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nickname-input {
+            flex: 1;
+            height: 40px;
+            font-size: 16px;
+            color: #333;
+            border: none;
+            outline: none;
+            background: transparent;
+        }
+        
+        .clear-btn {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        
+        .clear-icon {
+            font-size: 20px;
+            color: #999;
+        }
+        
+        .input-hint {
+            margin-top: 10px;
+        }
+        
+        .hint-text {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .save-section {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: #fff;
+            border-top: 1px solid #eee;
+        }
+        
+        .save-btn {
+            width: 100%;
+            height: 45px;
+            background: #ff4d4f;
+            border: none;
+            border-radius: 22px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .save-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="edit-nickname-page">
+        <!-- 顶部导航 -->
+        <div class="nav-header">
+            <div class="nav-left" onclick="goBack()">
+                <span class="back-icon">‹</span>
+            </div>
+            <div class="nav-title">更改昵称</div>
+            <div class="nav-right">
+                <span class="more-icon">⋯</span>
+            </div>
+        </div>
+
+        <!-- 昵称输入区域 -->
+        <div class="input-section">
+            <div class="input-container">
+                <input 
+                    class="nickname-input" 
+                    id="nicknameInput"
+                    placeholder="请输入昵称"
+                    maxlength="12"
+                    oninput="onInput()"
+                />
+                <div class="clear-btn" onclick="clearInput()" id="clearBtn" style="display: none;">
+                    <span class="clear-icon">×</span>
+                </div>
+            </div>
+            <div class="input-hint">
+                <span class="hint-text">2-12个字符,可输入汉字、数字、字母</span>
+            </div>
+        </div>
+
+        <!-- 保存按钮 -->
+        <div class="save-section">
+            <button class="save-btn" onclick="saveNickname()" id="saveBtn" disabled>
+                <span class="save-text">保存</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let originalNickname = '';
+        
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCurrentNickname();
+        });
+        
+        // 加载当前昵称
+        function loadCurrentNickname() {
+            const userInfo = localStorage.getItem('userInfo');
+            if (userInfo) {
+                const user = JSON.parse(userInfo);
+                if (user.username) {
+                    document.getElementById('nicknameInput').value = user.username;
+                    originalNickname = user.username;
+                    updateClearButton();
+                    updateSaveButton();
+                }
+            }
+        }
+        
+        // 返回上一页
+        function goBack() {
+            window.history.back();
+        }
+        
+        // 输入处理
+        function onInput() {
+            const input = document.getElementById('nicknameInput');
+            updateClearButton();
+            updateSaveButton();
+        }
+        
+        // 清空输入
+        function clearInput() {
+            document.getElementById('nicknameInput').value = '';
+            updateClearButton();
+            updateSaveButton();
+        }
+        
+        // 更新清空按钮显示状态
+        function updateClearButton() {
+            const input = document.getElementById('nicknameInput');
+            const clearBtn = document.getElementById('clearBtn');
+            if (input.value) {
+                clearBtn.style.display = 'flex';
+            } else {
+                clearBtn.style.display = 'none';
+            }
+        }
+        
+        // 更新保存按钮状态
+        function updateSaveButton() {
+            const input = document.getElementById('nicknameInput');
+            const saveBtn = document.getElementById('saveBtn');
+            const nickname = input.value.trim();
+            
+            if (nickname.length >= 2 && nickname !== originalNickname) {
+                saveBtn.disabled = false;
+            } else {
+                saveBtn.disabled = true;
+            }
+        }
+        
+        // 保存昵称
+        async function saveNickname() {
+            const input = document.getElementById('nicknameInput');
+            const newNickname = input.value.trim();
+            
+            if (newNickname.length < 2) {
+                alert('昵称至少需要2个字符');
+                return;
+            }
+            
+            if (newNickname.length > 12) {
+                alert('昵称不能超过12个字符');
+                return;
+            }
+            
+            // 显示加载提示
+            const saveBtn = document.getElementById('saveBtn');
+            const originalText = saveBtn.innerHTML;
+            saveBtn.innerHTML = '保存中...';
+            saveBtn.disabled = true;
+            
+            try {
+                // 获取token
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    alert('请先登录');
+                    saveBtn.innerHTML = originalText;
+                    saveBtn.disabled = false;
+                    return;
+                }
+
+                // 调用后端API修改昵称
+                const response = await fetch('http://localhost:8000/v1/updateNickName', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    },
+                    body: JSON.stringify({
+                        nickName: newNickname
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // 检查响应结果
+                if (response.ok) {
+                    if (data.success || data.code === 0 || (data.message && data.message.includes('success'))) {
+                        // 更新本地存储的用户信息
+                        const userInfo = localStorage.getItem('userInfo');
+                        if (userInfo) {
+                            const user = JSON.parse(userInfo);
+                            user.username = newNickname;
+                            localStorage.setItem('userInfo', JSON.stringify(user));
+                        }
+                        
+                        // 显示保存成功提示
+                        alert('昵称修改成功');
+                        
+                        // 返回上一页
+                        setTimeout(() => {
+                            window.history.back();
+                        }, 1000);
+                    } else {
+                        alert(data.message || '修改失败');
+                        saveBtn.innerHTML = originalText;
+                        saveBtn.disabled = false;
+                    }
+                } else {
+                    alert('网络错误');
+                    saveBtn.innerHTML = originalText;
+                    saveBtn.disabled = false;
+                }
+            } catch (error) {
+                console.error('修改昵称失败:', error);
+                alert('修改失败，请重试');
+                saveBtn.innerHTML = originalText;
+                saveBtn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,311 @@
+syntax = "proto3";
+
+package drug.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "kratos_client/api/drug/v1;v1";
+option java_multiple_files = true;
+option java_package = "dev.kratos.api.drug.v1";
+option java_outer_classname = "drugProtoV1";
+
+service Drug {
+	rpc GetDrug (GetDrugRequest) returns (GetDrugReply) {
+		option (google.api.http) = {
+			post: "/v1/drug"
+			body: "*"
+		};
+	}
+	rpc ListDrug (ListDrugRequest) returns (ListDrugReply){
+		option (google.api.http) = {
+			post: "/v1/drug/list"
+			body: "*"
+		};
+	}
+	rpc GetExplain (GetExplainRequest) returns (GetExplainReply){
+		option (google.api.http) = {
+			post: "/v1/drug/explain"
+			body: "*"
+		};
+	}
+	rpc GetGuide (GetGuideRequest) returns (GetGuideReply){
+		option (google.api.http) = {
+			post: "/v1/drug/guide"
+			body: "*"
+		};
+	}
+	
+	// 搜索药品
+	rpc SearchDrugs (SearchDrugsRequest) returns (SearchDrugsReply){
+		option (google.api.http) = {
+			post: "/v1/drug/search"
+			body: "*"
+		};
+	}
+	
+	// 获取热门搜索
+	rpc GetHotSearch (GetHotSearchRequest) returns (GetHotSearchReply){
+		option (google.api.http) = {
+			get: "/v1/drug/hot-search"
+		};
+	}
+	
+	// 处方药管理
+	rpc CreatePrescription (CreatePrescriptionRequest) returns (CreatePrescriptionReply){
+		option (google.api.http) = {
+			post: "/v1/drug/prescription"
+			body: "*"
+		};
+	}
+	
+	rpc ListPrescriptions (ListPrescriptionsRequest) returns (ListPrescriptionsReply){
+		option (google.api.http) = {
+			get: "/v1/drug/prescriptions"
+		};
+	}
+	
+	// 库存管理
+	rpc GetInventory (GetInventoryRequest) returns (GetInventoryReply){
+		option (google.api.http) = {
+			get: "/v1/drug/inventory"
+		};
+	}
+	
+	rpc UpdateInventory (UpdateInventoryRequest) returns (UpdateInventoryReply){
+		option (google.api.http) = {
+			post: "/v1/drug/inventory/update"
+			body: "*"
+		};
+	}
+}
+
+message GetDrugRequest {
+	int64 id = 1;
+}
+
+message GetDrugReply {
+	int64 code = 1;
+	string msg = 2;
+	InfoDrug drug = 3;
+}
+message InfoDrug {
+	string drug_name = 1;
+	string specification = 2;
+	double price = 3;
+	double sales_volume = 4;
+	int64 inventory = 5;
+	string exhibition_url = 6;
+	GuideInfo guide = 7;
+}
+message  GuideInfo {
+	string major_function = 1;
+	string usage_and_dosage = 2;
+	string taboos = 3;
+	string special_crowd = 4;
+	string condition = 5;
+}
+
+message GetExplainRequest {
+	int64 id = 1;
+}
+
+message GetExplainReply {
+	int64 code = 1;
+	string msg = 2;
+	ExplainInfo explain = 3;
+}
+message ExplainInfo {
+	string common_name = 1;
+	string goods_name = 2;
+	string component = 3;
+	string taboos = 4;
+	string function = 5;
+	string usage_and_dosage = 7;
+	string character = 8;
+	string packaging_specification = 9;
+	string badness_reaction = 10;
+	string condition = 11;
+	string valid_time = 12;
+	string notice = 13;
+	string interaction = 14;
+	string ratify_number = 15;
+	string manufacturer = 16;
+	string standard_number = 17;
+	string possessor = 18;
+	string address = 19;
+	string specification = 20;
+	string dosage_form = 21;
+}
+
+message ListDrugRequest {
+	int64 frist_category_id = 1;
+	int64 second_category_id = 2;
+	string keyword = 3;
+}
+
+message ListDrugReply {
+	int64 code = 1;
+	string msg = 2;
+	repeated InfoDrugs drug = 3;
+}
+message InfoDrugs {
+	string drug_name = 1;
+	string specification = 2;
+	double price = 3;
+	double sales_volume = 4;
+	int64 inventory = 5;
+	string exhibition_url = 6;
+}
+
+message GetGuideRequest {
+	int64 id = 1;
+}
+
+message GetGuideReply {
+	int64 code = 1;
+	string msg = 2;
+	GuideInfo guide = 3;
+}
+
+// 搜索相关消息
+message SearchDrugsRequest {
+	string keyword = 1;
+	int32 category_id = 2;
+	int32 drug_store_id = 3;
+	bool only_in_stock = 4;
+	bool include_prescription = 5;
+	int32 page = 6;
+	int32 size = 7;
+	string sort_by = 8;
+	double price_min = 9;
+	double price_max = 10;
+}
+
+message SearchDrugsReply {
+	int64 code = 1;
+	string msg = 2;
+	repeated SearchDrugInfo drugs = 3;
+	int64 total = 4;
+	SearchFacets facets = 5;
+}
+
+message SearchDrugInfo {
+	int64 id = 1;
+	string drug_name = 2;
+	string specification = 3;
+	double price = 4;
+	int64 inventory = 5;
+	string manufacturer = 6;
+	bool is_prescription = 7;
+	string exhibition_url = 8;
+}
+
+message SearchFacets {
+	repeated CategoryFacet categories = 1;
+	repeated PriceFacet price_ranges = 2;
+	repeated ManufacturerFacet manufacturers = 3;
+}
+
+message CategoryFacet {
+	int32 id = 1;
+	string name = 2;
+	int64 count = 3;
+}
+
+message PriceFacet {
+	string range = 1;
+	int64 count = 2;
+}
+
+message ManufacturerFacet {
+	string name = 1;
+	int64 count = 2;
+}
+
+// 热门搜索相关消息
+message GetHotSearchRequest {
+	int32 limit = 1;
+}
+
+message GetHotSearchReply {
+	int64 code = 1;
+	string msg = 2;
+	repeated HotItem hot_keywords = 3;
+	repeated HotItem hot_symptoms = 4;
+	repeated HotItem hot_questions = 5;
+}
+
+message HotItem {
+	string content = 1;
+	int64 count = 2;
+	double score = 3;
+}
+
+// 处方药相关消息
+message CreatePrescriptionRequest {
+	string token = 1;
+	string image_url = 2;
+	string expiry_date = 3;
+}
+
+message CreatePrescriptionReply {
+	int64 code = 1;
+	string msg = 2;
+	int64 prescription_id = 3;
+}
+
+message ListPrescriptionsRequest {
+	string token = 1;
+	int32 page = 2;
+	int32 size = 3;
+}
+
+message ListPrescriptionsReply {
+	int64 code = 1;
+	string msg = 2;
+	repeated PrescriptionInfo prescriptions = 3;
+	int64 total = 4;
+}
+
+message PrescriptionInfo {
+	int64 id = 1;
+	string image_url = 2;
+	int32 status = 3;
+	string status_text = 4;
+	string reject_reason = 5;
+	string expiry_date = 6;
+	string created_at = 7;
+}
+
+// 库存相关消息
+message GetInventoryRequest {
+	int64 drug_id = 1;
+	int32 drug_store_id = 2;
+}
+
+message GetInventoryReply {
+	int64 code = 1;
+	string msg = 2;
+	InventoryInfo inventory = 3;
+}
+
+message InventoryInfo {
+	int64 drug_id = 1;
+	int32 drug_store_id = 2;
+	int64 quantity = 3;
+	int64 reserved_qty = 4;
+	int64 alert_threshold = 5;
+	double price = 6;
+	int32 status = 7;
+}
+
+message UpdateInventoryRequest {
+	int64 drug_id = 1;
+	int32 drug_store_id = 2;
+	int64 quantity = 3;
+}
+
+message UpdateInventoryReply {
+	int64 code = 1;
+	string msg = 2;
+}

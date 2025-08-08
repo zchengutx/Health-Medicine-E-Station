@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的叮当 - 健康医疗驿站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .user-page {
+            min-height: 100vh;
+        }
+        
+        .user-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+                 .avatar {
+             width: 60px;
+             height: 60px;
+             border-radius: 30px;
+             background-color: #fff;
+             margin-right: 15px;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             font-size: 24px;
+             overflow: hidden;
+         }
+         
+         .avatar img {
+             width: 100%;
+             height: 100%;
+             object-fit: cover;
+             border-radius: 30px;
+         }
+        
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .username {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+        
+        .user-desc {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .guide-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 8px 15px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .member-section {
+            margin: 20px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .member-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #333;
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .member-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .crown {
+            font-size: 16px;
+            margin-right: 8px;
+        }
+        
+        .member-text {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .member-mall {
+            font-size: 12px;
+            color: #ccc;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .benefit-item {
+            text-align: center;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .benefit-number {
+            display: block;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .benefit-label {
+            display: block;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .benefit-tag {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4d4f;
+            color: #fff;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 5px;
+        }
+        
+        .quick-access {
+            margin: 20px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .quick-item {
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .quick-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin: 0 auto 8px;
+        }
+        
+        .quick-icon.signin {
+            background: #ff6b6b;
+        }
+        
+        .quick-icon.share {
+            background: #4ecdc4;
+        }
+        
+        .quick-icon.gift {
+            background: #45b7d1;
+        }
+        
+        .quick-icon.frequent {
+            background: #96ceb4;
+        }
+        
+        .quick-label {
+            font-size: 12px;
+            color: #333;
+        }
+        
+        .order-section {
+            margin: 20px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .section-more {
+            font-size: 12px;
+            color: #999;
+            cursor: pointer;
+        }
+        
+        .order-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .order-item {
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .order-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            margin: 0 auto 8px;
+        }
+        
+        .order-label {
+            font-size: 12px;
+            color: #333;
+        }
+        
+        .service-section {
+            margin: 20px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .service-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .service-item {
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .service-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            margin: 0 auto 8px;
+        }
+        
+        .service-label {
+            font-size: 12px;
+            color: #333;
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="user-page">
+        <button class="back-btn" onclick="goBack()">返回</button>
+        
+        <!-- 顶部用户信息 -->
+        <div class="user-header">
+                         <div class="user-info" onclick="goToProfile()">
+                 <div class="avatar" id="userAvatar">
+                     <img id="avatarImg" src="" alt="头像" style="display: none;">
+                     <span id="avatarPlaceholder">👤</span>
+                 </div>
+                 <div class="user-details">
+                     <div class="username" id="username">加载中...</div>
+                     <div class="user-desc" id="userPhone">加载中...</div>
+                 </div>
+             </div>
+            <button class="guide-btn">药师指导▶</button>
+        </div>
+
+        <!-- 会员信息 -->
+        <div class="member-section">
+            <div class="member-card">
+                <div class="member-info">
+                    <span class="crown">👑</span>
+                    <span class="member-text">注册会员</span>
+                </div>
+                <span class="member-mall">会员商城 ></span>
+            </div>
+            
+            <div class="benefits-grid">
+                <div class="benefit-item" onclick="handleBenefit('coupon')">
+                    <span class="benefit-number">11</span>
+                    <span class="benefit-label">优惠券</span>
+                    <span class="benefit-tag">领好券</span>
+                </div>
+                <div class="benefit-item" onclick="handleBenefit('coin')">
+                    <span class="benefit-number">10</span>
+                    <span class="benefit-label">叮当币</span>
+                    <span class="benefit-tag">赚币</span>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-number">0</span>
+                    <span class="benefit-label">成长值</span>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-number">0.00</span>
+                    <span class="benefit-label">健康卡(元)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 快捷功能 -->
+        <div class="quick-access">
+            <div class="quick-item" onclick="handleQuickAccess('signin')">
+                <div class="quick-icon signin">📅</div>
+                <div class="quick-label">签到有礼</div>
+            </div>
+            <div class="quick-item" onclick="handleQuickAccess('share')">
+                <div class="quick-icon share">🎁</div>
+                <div class="quick-label">分享领券</div>
+            </div>
+            <div class="quick-item" onclick="handleQuickAccess('gift')">
+                <div class="quick-icon gift">💌</div>
+                <div class="quick-label">省钱礼包</div>
+            </div>
+            <div class="quick-item" onclick="handleQuickAccess('frequent')">
+                <div class="quick-icon frequent">🛍️</div>
+                <div class="quick-label">常购清单</div>
+            </div>
+        </div>
+
+        <!-- 我的订单 -->
+        <div class="order-section">
+            <div class="section-header">
+                <div class="section-title">我的订单</div>
+                <div class="section-more" onclick="goToOrders()">全部订单 ></div>
+            </div>
+            <div class="order-grid">
+                <div class="order-item" onclick="goToOrderStatus('pending')">
+                    <div class="order-icon">💰</div>
+                    <div class="order-label">待付款</div>
+                </div>
+                <div class="order-item" onclick="goToOrderStatus('shipping')">
+                    <div class="order-icon">📦</div>
+                    <div class="order-label">待发货</div>
+                </div>
+                <div class="order-item" onclick="goToOrderStatus('receiving')">
+                    <div class="order-icon">🚚</div>
+                    <div class="order-label">待收货</div>
+                </div>
+                <div class="order-item" onclick="goToOrderStatus('review')">
+                    <div class="order-icon">💬</div>
+                    <div class="order-label">待评价</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 服务功能 -->
+        <div class="service-section">
+            <div class="service-grid">
+                <div class="service-item" onclick="handleService('consultation')">
+                    <div class="service-icon">👨‍⚕️</div>
+                    <div class="service-label">医生问诊</div>
+                </div>
+                <div class="service-item" onclick="handleService('prescription')">
+                    <div class="service-icon">📋</div>
+                    <div class="service-label">我的处方</div>
+                </div>
+                <div class="service-item" onclick="handleService('patient')">
+                    <div class="service-icon">👤</div>
+                    <div class="service-label">就诊人</div>
+                </div>
+                <div class="service-item" onclick="handleService('address')">
+                    <div class="service-icon">📍</div>
+                    <div class="service-label">地址管理</div>
+                </div>
+                <div class="service-item" onclick="handleService('turntable')">
+                    <div class="service-icon">🎡</div>
+                    <div class="service-label">大转盘</div>
+                </div>
+                <div class="service-item" onclick="handleService('slot')">
+                    <div class="service-icon">🐯</div>
+                    <div class="service-label">老虎机</div>
+                </div>
+                <div class="service-item" onclick="handleService('allergy')">
+                    <div class="service-icon">⚠️</div>
+                    <div class="service-label">过敏指数</div>
+                </div>
+                <div class="service-item" onclick="handleService('mall')">
+                    <div class="service-icon">🏪</div>
+                    <div class="service-label">叮当币商城</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 页面加载时检查登录状态并加载用户信息
+        document.addEventListener('DOMContentLoaded', function() {
+            checkLoginStatus();
+            loadUserInfo();
+        });
+        
+        // 页面显示时刷新用户信息（用于从其他页面返回时更新显示）
+        window.addEventListener('pageshow', function() {
+            loadUserInfo();
+        });
+
+        // 检查登录状态
+        function checkLoginStatus() {
+            const token = localStorage.getItem('token');
+            const userInfo = localStorage.getItem('userInfo');
+            
+            if (!token || !userInfo) {
+                // 未登录，跳转到登录页
+                window.location.href = 'login.html';
+            }
+        }
+        
+        // 加载用户信息
+        async function loadUserInfo() {
+            console.log('=== 开始加载用户信息 ===');
+            
+            // 先从本地存储加载（快速显示）
+            const userInfo = localStorage.getItem('userInfo');
+            console.log('本地存储的用户信息:', userInfo);
+            
+                         if (userInfo) {
+                 const user = JSON.parse(userInfo);
+                 console.log('解析后的本地用户信息:', user);
+                 document.getElementById('username').textContent = user.username || '未设置';
+                 document.getElementById('userPhone').textContent = user.phone || '未设置';
+                 updateAvatar(user.avatar);
+                 console.log('页面显示已更新为本地数据');
+             }
+            
+            // 然后从后端获取最新信息
+            try {
+                const token = localStorage.getItem('token');
+                console.log('当前token:', token);
+                
+                if (!token) {
+                    console.log('没有token，跳过后端请求');
+                    return;
+                }
+                
+                console.log('正在从后端获取用户信息...');
+                const response = await fetch('http://localhost:8000/v1/userInfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    },
+                    body: JSON.stringify({}) // 空的请求体
+                });
+                
+                console.log('后端响应状态:', response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('后端返回的完整数据:', data);
+                    
+                    if (data.success || data.code === 0 || (data.message && data.message.includes('success'))) {
+                        // 更新用户信息 - 优先使用服务器数据
+                        const serverUserInfo = data.data || data;
+                        console.log('提取的服务器用户信息:', serverUserInfo);
+                        
+                        if (serverUserInfo) {
+                            // 处理字段名映射 - 后端返回userName，前端期望username
+                            const mappedUserInfo = {
+                                username: serverUserInfo.userName || serverUserInfo.username,
+                                phone: serverUserInfo.mobile || serverUserInfo.phone,
+                                avatar: serverUserInfo.avatar
+                            };
+                            console.log('字段映射后的用户信息:', mappedUserInfo);
+                            
+                            // 优先使用服务器数据，本地数据作为补充
+                            const localUserInfo = localStorage.getItem('userInfo');
+                            const localUser = localUserInfo ? JSON.parse(localUserInfo) : {};
+                            const mergedUser = { ...localUser, ...mappedUserInfo };
+                            console.log('合并后的用户信息:', mergedUser);
+                            
+                            // 更新本地存储
+                            localStorage.setItem('userInfo', JSON.stringify(mergedUser));
+                            console.log('本地存储已更新');
+                            
+                                                         // 更新页面显示
+                             document.getElementById('username').textContent = mergedUser.username || '未设置';
+                             document.getElementById('userPhone').textContent = mergedUser.phone || '未设置';
+                             updateAvatar(mergedUser.avatar);
+                             console.log('页面显示已更新为服务器数据');
+                             console.log('最终显示的用户名:', mergedUser.username);
+                             console.log('最终显示的手机号:', mergedUser.phone);
+                             console.log('最终显示的头像:', mergedUser.avatar);
+                        }
+                    } else {
+                        console.log('后端返回错误:', data);
+                    }
+                } else {
+                    console.log('HTTP错误:', response.status);
+                    const errorText = await response.text();
+                    console.log('错误详情:', errorText);
+                }
+            } catch (error) {
+                console.error('获取用户信息失败:', error);
+                // 如果获取失败，继续使用本地数据
+            }
+            
+                     console.log('=== 用户信息加载完成 ===');
+     }
+     
+     // 更新头像显示
+     function updateAvatar(avatarUrl) {
+         const avatarImg = document.getElementById('avatarImg');
+         const avatarPlaceholder = document.getElementById('avatarPlaceholder');
+         
+         console.log('正在更新头像:', avatarUrl);
+         
+         if (avatarUrl && avatarUrl.trim() !== '') {
+             // 构建完整的头像URL
+             let fullAvatarUrl = avatarUrl;
+             
+             // 如果头像URL不是以http开头，则添加后端服务器地址
+             if (!avatarUrl.startsWith('http')) {
+                 fullAvatarUrl = `http://localhost:8000/uploads/${avatarUrl}`;
+             }
+             
+             console.log('完整头像URL:', fullAvatarUrl);
+             
+             // 设置图片源并显示
+             avatarImg.src = fullAvatarUrl;
+             avatarImg.style.display = 'block';
+             avatarPlaceholder.style.display = 'none';
+             
+             // 图片加载失败时显示默认头像
+             avatarImg.onerror = function() {
+                 console.log('头像加载失败，显示默认头像');
+                 avatarImg.style.display = 'none';
+                 avatarPlaceholder.style.display = 'block';
+             };
+             
+             // 图片加载成功时隐藏默认头像
+             avatarImg.onload = function() {
+                 console.log('头像加载成功');
+                 avatarPlaceholder.style.display = 'none';
+             };
+         } else {
+             // 没有头像时显示默认头像
+             console.log('没有头像，显示默认头像');
+             avatarImg.style.display = 'none';
+             avatarPlaceholder.style.display = 'block';
+         }
+     }
+
+        // 返回首页
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        // 跳转到用户信息管理页面
+        function goToProfile() {
+            window.location.href = 'profile.html';
+        }
+
+        // 处理会员福利
+        function handleBenefit(type) {
+            alert(`${type}功能开发中`);
+        }
+
+        // 处理快捷功能
+        function handleQuickAccess(type) {
+            alert(`${type}功能开发中`);
+        }
+
+        // 跳转到订单页面
+        function goToOrders() {
+            alert('订单页面开发中');
+        }
+
+        // 跳转到订单状态页面
+        function goToOrderStatus(status) {
+            alert(`${status}订单页面开发中`);
+        }
+
+        // 处理服务功能
+        function handleService(type) {
+            alert(`${type}功能开发中`);
+        }
+    </script>
+</body>
+</html>

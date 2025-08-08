@@ -1,0 +1,169 @@
+syntax = "proto3";
+
+package api.coupon.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "kratos_client/api/coupon/v1;v1";
+
+// 优惠券服务
+service CouponService {
+  // 获取优惠券列表
+  rpc ListCoupons(ListCouponsRequest) returns (ListCouponsReply) {
+    option (google.api.http) = {
+      get: "/api/v1/coupons"
+    };
+  }
+  
+  // 获取用户优惠券列表
+  rpc ListUserCoupons(ListUserCouponsRequest) returns (ListUserCouponsReply) {
+    option (google.api.http) = {
+      get: "/api/v1/users/{user_id}/coupons"
+    };
+  }
+  
+  // 获取优惠券详情和使用规则
+  rpc GetCouponDetail(GetCouponDetailRequest) returns (GetCouponDetailReply) {
+    option (google.api.http) = {
+      get: "/api/v1/coupons/{coupon_id}"
+    };
+  }
+  
+  // 领取优惠券
+  rpc ClaimCoupon(ClaimCouponRequest) returns (ClaimCouponReply) {
+    option (google.api.http) = {
+      post: "/api/v1/coupons/{coupon_id}/claim"
+      body: "*"
+    };
+  }
+  
+  // 计算订单可用优惠券
+  rpc CalculateAvailableCoupons(CalculateAvailableCouponsRequest) returns (CalculateAvailableCouponsReply) {
+    option (google.api.http) = {
+      post: "/api/v1/coupons/calculate"
+      body: "*"
+    };
+  }
+}
+
+// 获取优惠券列表请求
+message ListCouponsRequest {
+  int32 store_id = 1;
+  int32 page = 2;
+  int32 page_size = 3;
+}
+
+// 获取优惠券列表响应
+message ListCouponsReply {
+  repeated Coupon coupons = 1;
+  int64 total = 2;
+}
+
+// 获取用户优惠券列表请求
+message ListUserCouponsRequest {
+  int64 user_id = 1;
+  string status = 2; // available, used, expired
+  int32 page = 3;
+  int32 page_size = 4;
+}
+
+// 获取用户优惠券列表响应
+message ListUserCouponsReply {
+  repeated UserCoupon coupons = 1;
+  int64 total = 2;
+}
+
+// 获取优惠券详情请求
+message GetCouponDetailRequest {
+  int32 coupon_id = 1;
+}
+
+// 获取优惠券详情响应
+message GetCouponDetailReply {
+  Coupon coupon = 1;
+  repeated CouponRule rules = 2;
+}
+
+// 领取优惠券请求
+message ClaimCouponRequest {
+  int32 coupon_id = 1;
+  int64 user_id = 2;
+}
+
+// 领取优惠券响应
+message ClaimCouponReply {
+  bool success = 1;
+  string message = 2;
+  int64 user_coupon_id = 3;
+}
+
+// 计算可用优惠券请求
+message CalculateAvailableCouponsRequest {
+  int64 user_id = 1;
+  repeated OrderItem items = 2;
+  string total_amount = 3;
+  int32 store_id = 4;
+}
+
+// 计算可用优惠券响应
+message CalculateAvailableCouponsReply {
+  repeated AvailableCoupon available_coupons = 1;
+  string best_discount_amount = 2;
+  int64 best_coupon_id = 3;
+}
+
+// 优惠券信息
+message Coupon {
+  int32 id = 1;
+  string discount_name = 2;
+  string classify = 3;
+  int32 store_id = 4;
+  string discount_amount = 5;
+  string min_order_amount = 6;
+  string start_time = 7;
+  string end_time = 8;
+  int32 max_issue = 9;
+  int32 max_per_user = 10;
+  int32 issued_count = 11;
+  int32 used_count = 12;
+}
+
+// 用户优惠券
+message UserCoupon {
+  int64 id = 1;
+  int32 coupon_id = 2;
+  int64 user_id = 3;
+  string status = 4;
+  string claim_time = 5;
+  string use_time = 6;
+  string expire_time = 7;
+  Coupon coupon = 8;
+}
+
+// 优惠券规则
+message CouponRule {
+  int32 id = 1;
+  int32 discount_id = 2;
+  int32 rule_key = 3;
+  string rule_value = 4;
+  string platform = 5;
+  int32 drug_id = 6;
+  string astrict = 7;
+}
+
+// 订单项
+message OrderItem {
+  int64 drug_id = 1;
+  int32 quantity = 2;
+  string price = 3;
+}
+
+// 可用优惠券
+message AvailableCoupon {
+  int64 user_coupon_id = 1;
+  Coupon coupon = 2;
+  string discount_amount = 3;
+  string final_amount = 4;
+  bool can_use = 5;
+  string reason = 6;
+}
