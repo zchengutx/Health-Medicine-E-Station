@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>购物车 - 叮当商城</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* 顶部导航 */
+        .header {
+            background: white;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-icon {
+            width: 24px;
+            height: 24px;
+            background: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .header-icon:hover {
+            background: #e0e0e0;
+        }
+
+        /* 购物车内容 */
+        .cart-container {
+            padding: 20px;
+            padding-bottom: 120px;
+        }
+
+        /* 全选区域 */
+        .select-all {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .select-all-checkbox {
+            width: 20px;
+            height: 20px;
+            accent-color: #667eea;
+        }
+
+        .select-all-text {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .select-all-count {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* 商品项 */
+        .cart-item {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .item-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .item-checkbox {
+            width: 20px;
+            height: 20px;
+            accent-color: #667eea;
+        }
+
+        .item-store {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .store-icon {
+            width: 20px;
+            height: 20px;
+            background: #667eea;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        .store-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .item-content {
+            padding: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .item-image {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-name {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .item-specs {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .item-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .item-tag {
+            padding: 4px 8px;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .item-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+
+        .item-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8f9fa;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        .quantity-btn {
+            width: 24px;
+            height: 24px;
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            color: #666;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: #e9ecef;
+            color: #333;
+        }
+
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background: #f8f9fa;
+            color: #e74c3c;
+        }
+
+        /* 优惠券区域 */
+        .coupon-section {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .coupon-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .coupon-title {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .coupon-count {
+            color: #e74c3c;
+            font-size: 14px;
+        }
+
+        .coupon-list {
+            padding: 20px;
+        }
+
+        .coupon-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .coupon-item:hover {
+            border-color: #667eea;
+            background: #f8f9fa;
+        }
+
+        .coupon-item.selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .coupon-radio {
+            width: 18px;
+            height: 18px;
+            accent-color: #667eea;
+        }
+
+        .coupon-info {
+            flex: 1;
+        }
+
+        .coupon-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 5px;
+        }
+
+        .coupon-condition {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .coupon-expiry {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* 配送方式 */
+        .delivery-section {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .delivery-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .delivery-options {
+            padding: 20px;
+        }
+
+        .delivery-option {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .delivery-option:hover {
+            border-color: #667eea;
+            background: #f8f9fa;
+        }
+
+        .delivery-option.selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .delivery-radio {
+            width: 18px;
+            height: 18px;
+            accent-color: #667eea;
+        }
+
+        .delivery-info {
+            flex: 1;
+        }
+
+        .delivery-name {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .delivery-desc {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .delivery-price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        /* 底部结算栏 */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 15px 20px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .bottom-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .bottom-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .total-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .total-amount {
+            font-size: 20px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        .total-details {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .checkout-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background: #c0392b;
+            transform: translateY(-1px);
+        }
+
+        /* 空购物车状态 */
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-cart .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-cart .title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .empty-cart .desc {
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .go-shopping-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .go-shopping-btn:hover {
+            background: #5a6fd8;
+            transform: translateY(-1px);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .cart-container {
+                padding: 15px;
+            }
+
+            .item-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .item-image {
+                width: 100%;
+                height: 120px;
+            }
+
+            .bottom-content {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+
+            .checkout-btn {
+                width: 100%;
+            }
+        }
+
+        /* 动画效果 */
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <header class="header">
+        <div class="header-content">
+            <button class="back-btn" onclick="history.back()">←</button>
+            <h1 class="header-title">购物车</h1>
+            <div class="header-actions">
+                <div class="header-icon">⋯</div>
+                <div class="header-icon">─</div>
+                <div class="header-icon">●</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 购物车内容 -->
+    <div class="cart-container">
+        <!-- 全选区域 -->
+        <div class="select-all fade-in">
+            <input type="checkbox" class="select-all-checkbox" id="selectAll" onchange="toggleSelectAll()">
+            <span class="select-all-text">全选</span>
+            <span class="select-all-count">已选择 <span id="selectedCount">0</span> 件商品</span>
+        </div>
+
+        <!-- 购物车商品列表 -->
+        <div id="cartItems">
+            <!-- 商品项1 -->
+            <div class="cart-item fade-in">
+                <div class="item-header">
+                    <input type="checkbox" class="item-checkbox" onchange="updateSelection()">
+                    <div class="item-store">
+                        <div class="store-icon">🏪</div>
+                        <span class="store-name">叮当商城旗舰店</span>
+                    </div>
+                </div>
+                <div class="item-content">
+                    <div class="item-image">💊</div>
+                    <div class="item-details">
+                        <div class="item-name">OTC[仁和]藿香正气胶囊</div>
+                        <div class="item-specs">0.3gx12粒x2板</div>
+                        <div class="item-tags">
+                            <span class="item-tag">超值换购</span>
+                            <span class="item-tag">[999]医用外科口罩买赠</span>
+                        </div>
+                        <div class="item-price">¥15.6</div>
+                        <div class="item-actions">
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="changeQuantity(this, -1)">-</button>
+                                <input type="text" class="quantity-input" value="104" readonly>
+                                <button class="quantity-btn" onclick="changeQuantity(this, 1)">+</button>
+                            </div>
+                            <button class="delete-btn" onclick="deleteItem(this)">删除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 商品项2 -->
+            <div class="cart-item fade-in">
+                <div class="item-header">
+                    <input type="checkbox" class="item-checkbox" onchange="updateSelection()">
+                    <div class="item-store">
+                        <div class="store-icon">🏪</div>
+                        <span class="store-name">叮当商城旗舰店</span>
+                    </div>
+                </div>
+                <div class="item-content">
+                    <div class="item-image">🩹</div>
+                    <div class="item-details">
+                        <div class="item-name">云南白药创可贴 (轻巧护翼型)</div>
+                        <div class="item-specs">10片装</div>
+                        <div class="item-tags">
+                            <span class="item-tag">热销</span>
+                            <span class="item-tag">包邮</span>
+                        </div>
+                        <div class="item-price">¥8.10</div>
+                        <div class="item-actions">
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="changeQuantity(this, -1)">-</button>
+                                <input type="text" class="quantity-input" value="2" readonly>
+                                <button class="quantity-btn" onclick="changeQuantity(this, 1)">+</button>
+                            </div>
+                            <button class="delete-btn" onclick="deleteItem(this)">删除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 商品项3 -->
+            <div class="cart-item fade-in">
+                <div class="item-header">
+                    <input type="checkbox" class="item-checkbox" onchange="updateSelection()">
+                    <div class="item-store">
+                        <div class="store-icon">🏪</div>
+                        <span class="store-name">叮当商城旗舰店</span>
+                    </div>
+                </div>
+                <div class="item-content">
+                    <div class="item-image">🩺</div>
+                    <div class="item-details">
+                        <div class="item-name">[奇正]消痛贴膏 (OTC)</div>
+                        <div class="item-specs">5贴装</div>
+                        <div class="item-tags">
+                            <span class="item-tag">OTC</span>
+                            <span class="item-tag">热销</span>
+                        </div>
+                        <div class="item-price">¥52.00</div>
+                        <div class="item-actions">
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="changeQuantity(this, -1)">-</button>
+                                <input type="text" class="quantity-input" value="1" readonly>
+                                <button class="quantity-btn" onclick="changeQuantity(this, 1)">+</button>
+                            </div>
+                            <button class="delete-btn" onclick="deleteItem(this)">删除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 优惠券区域 -->
+        <div class="coupon-section fade-in">
+            <div class="coupon-header">
+                <span class="coupon-title">优惠券</span>
+                <span class="coupon-count">3张可用</span>
+            </div>
+            <div class="coupon-list">
+                <div class="coupon-item" onclick="selectCoupon(this)">
+                    <input type="radio" class="coupon-radio" name="coupon" value="5">
+                    <div class="coupon-info">
+                        <div class="coupon-value">¥5</div>
+                        <div class="coupon-condition">满30元可用</div>
+                        <div class="coupon-expiry">有效期至：2024-12-31</div>
+                    </div>
+                </div>
+                <div class="coupon-item" onclick="selectCoupon(this)">
+                    <input type="radio" class="coupon-radio" name="coupon" value="10">
+                    <div class="coupon-info">
+                        <div class="coupon-value">¥10</div>
+                        <div class="coupon-condition">满100元可用</div>
+                        <div class="coupon-expiry">有效期至：2024-12-31</div>
+                    </div>
+                </div>
+                <div class="coupon-item" onclick="selectCoupon(this)">
+                    <input type="radio" class="coupon-radio" name="coupon" value="15">
+                    <div class="coupon-info">
+                        <div class="coupon-value">¥15</div>
+                        <div class="coupon-condition">满150元可用</div>
+                        <div class="coupon-expiry">有效期至：2024-12-31</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 配送方式 -->
+        <div class="delivery-section fade-in">
+            <div class="delivery-header">配送方式</div>
+            <div class="delivery-options">
+                <div class="delivery-option" onclick="selectDelivery(this)">
+                    <input type="radio" class="delivery-radio" name="delivery" value="express" checked>
+                    <div class="delivery-info">
+                        <div class="delivery-name">快递配送</div>
+                        <div class="delivery-desc">2-3个工作日送达</div>
+                    </div>
+                    <div class="delivery-price">¥8</div>
+                </div>
+                <div class="delivery-option" onclick="selectDelivery(this)">
+                    <input type="radio" class="delivery-radio" name="delivery" value="standard">
+                    <div class="delivery-info">
+                        <div class="delivery-name">标准配送</div>
+                        <div class="delivery-desc">3-5个工作日送达</div>
+                    </div>
+                    <div class="delivery-price">¥5</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部结算栏 -->
+    <div class="bottom-bar">
+        <div class="bottom-content">
+            <div class="bottom-left">
+                <div class="total-info">
+                    <div class="total-amount">合计: ¥<span id="totalAmount">0.00</span></div>
+                    <div class="total-details">含运费 ¥<span id="deliveryFee">8</span></div>
+                </div>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">去结算</button>
+        </div>
+    </div>
+
+    <script>
+        // 购物车数据
+        let cartData = [
+            {
+                id: 1,
+                name: 'OTC[仁和]藿香正气胶囊',
+                specs: '0.3gx12粒x2板',
+                price: 15.6,
+                quantity: 104,
+                tags: ['超值换购', '[999]医用外科口罩买赠'],
+                image: '💊',
+                selected: false
+            },
+            {
+                id: 2,
+                name: '云南白药创可贴 (轻巧护翼型)',
+                specs: '10片装',
+                price: 8.10,
+                quantity: 2,
+                tags: ['热销', '包邮'],
+                image: '🩹',
+                selected: false
+            },
+            {
+                id: 3,
+                name: '[奇正]消痛贴膏 (OTC)',
+                specs: '5贴装',
+                price: 52.00,
+                quantity: 1,
+                tags: ['OTC', '热销'],
+                image: '🩺',
+                selected: false
+            }
+        ];
+
+        let selectedCoupon = null;
+        let selectedDelivery = 'express';
+        let deliveryFee = 8;
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTotalAmount();
+            updateSelection();
+        });
+
+        // 切换全选
+        function toggleSelectAll() {
+            const selectAllCheckbox = document.getElementById('selectAll');
+            const itemCheckboxes = document.querySelectorAll('.item-checkbox');
+            
+            itemCheckboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+                const itemId = parseInt(checkbox.closest('.cart-item').dataset.id);
+                const item = cartData.find(item => item.id === itemId);
+                if (item) {
+                    item.selected = selectAllCheckbox.checked;
+                }
+            });
+            
+            updateSelection();
+            updateTotalAmount();
+        }
+
+        // 更新选择状态
+        function updateSelection() {
+            const itemCheckboxes = document.querySelectorAll('.item-checkbox');
+            const selectAllCheckbox = document.getElementById('selectAll');
+            let selectedCount = 0;
+            let allSelected = true;
+            
+            itemCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    selectedCount++;
+                    const itemId = parseInt(checkbox.closest('.cart-item').dataset.id);
+                    const item = cartData.find(item => item.id === itemId);
+                    if (item) {
+                        item.selected = true;
+                    }
+                } else {
+                    allSelected = false;
+                    const itemId = parseInt(checkbox.closest('.cart-item').dataset.id);
+                    const item = cartData.find(item => item.id === itemId);
+                    if (item) {
+                        item.selected = false;
+                    }
+                }
+            });
+            
+            selectAllCheckbox.checked = allSelected;
+            document.getElementById('selectedCount').textContent = selectedCount;
+            updateTotalAmount();
+        }
+
+        // 改变数量
+        function changeQuantity(btn, delta) {
+            const input = btn.parentNode.querySelector('.quantity-input');
+            let currentValue = parseInt(input.value);
+            let newValue = currentValue + delta;
+            
+            if (newValue < 1) newValue = 1;
+            if (newValue > 999) newValue = 999;
+            
+            input.value = newValue;
+            
+            // 更新购物车数据
+            const itemId = parseInt(btn.closest('.cart-item').dataset.id);
+            const item = cartData.find(item => item.id === itemId);
+            if (item) {
+                item.quantity = newValue;
+            }
+            
+            updateTotalAmount();
+        }
+
+        // 删除商品
+        function deleteItem(btn) {
+            if (confirm('确定要删除这个商品吗？')) {
+                const cartItem = btn.closest('.cart-item');
+                const itemId = parseInt(cartItem.dataset.id);
+                
+                // 从数据中移除
+                cartData = cartData.filter(item => item.id !== itemId);
+                
+                // 从DOM中移除
+                cartItem.remove();
+                
+                updateSelection();
+                updateTotalAmount();
+                
+                // 检查是否为空购物车
+                if (cartData.length === 0) {
+                    showEmptyCart();
+                }
+            }
+        }
+
+        // 选择优惠券
+        function selectCoupon(couponItem) {
+            // 移除其他选中状态
+            document.querySelectorAll('.coupon-item').forEach(item => {
+                item.classList.remove('selected');
+                item.querySelector('.coupon-radio').checked = false;
+            });
+            
+            // 设置当前选中状态
+            couponItem.classList.add('selected');
+            couponItem.querySelector('.coupon-radio').checked = true;
+            selectedCoupon = parseInt(couponItem.querySelector('.coupon-radio').value);
+            
+            updateTotalAmount();
+        }
+
+        // 选择配送方式
+        function selectDelivery(deliveryOption) {
+            // 移除其他选中状态
+            document.querySelectorAll('.delivery-option').forEach(option => {
+                option.classList.remove('selected');
+                option.querySelector('.delivery-radio').checked = false;
+            });
+            
+            // 设置当前选中状态
+            deliveryOption.classList.add('selected');
+            deliveryOption.querySelector('.delivery-radio').checked = true;
+            selectedDelivery = deliveryOption.querySelector('.delivery-radio').value;
+            
+            // 更新运费
+            if (selectedDelivery === 'express') {
+                deliveryFee = 8;
+            } else {
+                deliveryFee = 5;
+            }
+            
+            document.getElementById('deliveryFee').textContent = deliveryFee;
+            updateTotalAmount();
+        }
+
+        // 更新总金额
+        function updateTotalAmount() {
+            let subtotal = 0;
+            
+            cartData.forEach(item => {
+                if (item.selected) {
+                    subtotal += item.price * item.quantity;
+                }
+            });
+            
+            // 应用优惠券
+            let discount = 0;
+            if (selectedCoupon && subtotal >= getCouponMinAmount(selectedCoupon)) {
+                discount = selectedCoupon;
+            }
+            
+            const total = subtotal - discount + deliveryFee;
+            
+            document.getElementById('totalAmount').textContent = total.toFixed(2);
+        }
+
+        // 获取优惠券最低使用金额
+        function getCouponMinAmount(couponValue) {
+            switch (couponValue) {
+                case 5: return 30;
+                case 10: return 100;
+                case 15: return 150;
+                default: return 0;
+            }
+        }
+
+        // 显示空购物车
+        function showEmptyCart() {
+            const cartContainer = document.querySelector('.cart-container');
+            cartContainer.innerHTML = `
+                <div class="empty-cart fade-in">
+                    <div class="icon">🛒</div>
+                    <div class="title">购物车是空的</div>
+                    <div class="desc">快去添加一些商品吧~</div>
+                    <button class="go-shopping-btn" onclick="goShopping()">去购物</button>
+                </div>
+            `;
+        }
+
+        // 去购物
+        function goShopping() {
+            window.location.href = 'mall.html';
+        }
+
+        // 结算
+        function checkout() {
+            const selectedItems = cartData.filter(item => item.selected);
+            
+            if (selectedItems.length === 0) {
+                alert('请选择要结算的商品');
+                return;
+            }
+            
+            const total = parseFloat(document.getElementById('totalAmount').textContent);
+            
+            alert(`订单提交成功！\n\n已选择商品：${selectedItems.length}件\n总金额：¥${total.toFixed(2)}\n\n正在跳转到支付页面...`);
+            
+            // 这里可以跳转到支付页面
+            // window.location.href = 'payment.html';
+        }
+
+        // 初始化购物车项的数据属性
+        document.querySelectorAll('.cart-item').forEach((item, index) => {
+            item.dataset.id = cartData[index].id;
+        });
+    </script>
+</body>
+</html>

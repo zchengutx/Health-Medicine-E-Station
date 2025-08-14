@@ -14,7 +14,9 @@ const API_CONFIG = {
     // 获取用户信息
     GET_USER_INFO: '/v1/userInfo',
     // 修改头像
-    UPDATE_AVATAR: '/upload'
+    UPDATE_AVATAR: '/upload',
+    // 获取医生列表
+    DOCTORS_LIST: '/v1/DoctorsList'
   }
 }
 
@@ -120,6 +122,14 @@ export const api = {
     }
     
     return await response.json()
+  },
+
+  // 获取医生列表
+  getDoctorsList: async () => {
+    return request(API_CONFIG.ENDPOINTS.DOCTORS_LIST, {
+      method: 'POST',
+      body: JSON.stringify({}) // 空的请求体
+    })
   }
 }
 

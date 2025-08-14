@@ -4,8 +4,6 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/transport/http"
-	//cartv1 "kratos_client/api/cart/v1"
-	chatv1 "kratos_client/api/chat/v1"
 	doctorsv1 "kratos_client/api/doctors/v1"
 	drug "kratos_client/api/drug/v1"
 	estimate "kratos_client/api/estimate/v1"
@@ -16,7 +14,7 @@ import (
 )
 
 // NewHTTPServer new an HTTP server.
-func NewHTTPServer(c *conf.Server, doctors *service.DoctorsService, drugs *service.DrugService, estimates *service.EstimateService, chat *service.ChatService, user *service.UserService, logger log.Logger) *http.Server {
+func NewHTTPServer(c *conf.Server, doctors *service.DoctorsService, drugs *service.DrugService, estimates *service.EstimateService, user *service.UserService, logger log.Logger) *http.Server {
 	var opts = []http.ServerOption{
 		// Kiro修改：使用HTTP过滤器处理跨域，移除中间件方式
 		http.Filter(comment.CorsFilter()), // Kiro修改：添加跨域过滤器
@@ -40,7 +38,7 @@ func NewHTTPServer(c *conf.Server, doctors *service.DoctorsService, drugs *servi
 	doctorsv1.RegisterDoctorsHTTPServer(srv, doctors)
 	drug.RegisterDrugHTTPServer(srv, drugs)
 	estimate.RegisterEstimateHTTPServer(srv, estimates)
-	chatv1.RegisterChatHTTPServer(srv, chat)
+	//chatv1.RegisterChatHTTPServer(srv, chat)
 	//cartv1.RegisterCartHTTPServer(srv, cart)
 	// Kiro修改：注册用户相关的HTTP路由
 	userv1.RegisterUserHTTPServer(srv, user)

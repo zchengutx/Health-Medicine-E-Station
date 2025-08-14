@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import API_CONFIG from '@/src/config/api.js'
 export default {
   name: 'EditNickname',
   data() {
@@ -116,7 +117,7 @@ export default {
 
         // 调用后端API修改昵称
         const res = await uni.request({
-          url: 'http://localhost:8000/v1/updateNickName',
+          url: `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.UPDATE_NICKNAME}`,
           method: 'POST',
           header: {
             'Content-Type': 'application/json',

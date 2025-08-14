@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>叮当商城 - 功能导航</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* 顶部标题 */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .header-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .header-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+        }
+
+        /* 主要内容 */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        /* 功能分类 */
+        .category-section {
+            margin-bottom: 40px;
+        }
+
+        .category-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* 功能卡片 */
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            background: rgba(255,255,255,0.2);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .feature-description {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .feature-status {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(76, 175, 80, 0.8);
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .feature-status.developing {
+            background: rgba(255, 152, 0, 0.8);
+        }
+
+        .feature-status.planned {
+            background: rgba(158, 158, 158, 0.8);
+        }
+
+        /* 快速导航 */
+        .quick-nav {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .quick-nav-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .quick-nav-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .quick-nav-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .quick-nav-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* 项目信息 */
+        .project-info {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .project-info-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .project-info-text {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 24px;
+            }
+
+            .header-subtitle {
+                font-size: 16px;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .quick-nav-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* 动画效果 */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .bounce-in {
+            animation: bounceIn 1s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 1; transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.3);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部标题 -->
+    <header class="header">
+        <h1 class="header-title">🏥 叮当商城</h1>
+        <p class="header-subtitle">健康医疗驿站 - 功能导航中心</p>
+    </header>
+
+    <!-- 主要内容 -->
+    <div class="main-content">
+        <!-- 快速导航 -->
+        <div class="quick-nav fade-in">
+            <h2 class="quick-nav-title">🚀 快速开始</h2>
+            <div class="quick-nav-buttons">
+                <a href="dingdang-mall.html" class="quick-nav-btn">🏪 进入商城</a>
+                <a href="shopping-cart.html" class="quick-nav-btn">🛒 购物车</a>
+                <a href="product-detail.html" class="quick-nav-btn">💊 产品详情</a>
+            </div>
+        </div>
+
+        <!-- 核心功能 -->
+        <div class="category-section">
+            <h2 class="category-title slide-in-left">⭐ 核心功能</h2>
+            <div class="category-grid">
+                <div class="feature-card bounce-in" onclick="openPage('dingdang-mall.html')">
+                    <span class="feature-icon">🏪</span>
+                    <h3 class="feature-title">商城首页</h3>
+                    <p class="feature-description">完整的叮当商城首页，包含分类浏览、促销活动、服务功能等</p>
+                    <span class="feature-status">已完成</span>
+                </div>
+
+                <div class="feature-card bounce-in" onclick="openPage('shopping-cart.html')">
+                    <span class="feature-icon">🛒</span>
+                    <h3 class="feature-title">购物车</h3>
+                    <p class="feature-description">功能完整的购物车，支持商品管理、优惠券、配送方式选择</p>
+                    <span class="feature-status">已完成</span>
+                </div>
+
+                <div class="feature-card bounce-in" onclick="openPage('product-detail.html')">
+                    <span class="feature-icon">💊</span>
+                    <h3 class="feature-title">产品详情</h3>
+                    <p class="feature-description">详细的产品展示页面，包含规格选择、数量调整、购买功能</p>
+                    <span class="feature-status">已完成</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 现有功能 -->
+        <div class="category-section">
+            <h2 class="category-title slide-in-right">🔧 现有功能</h2>
+            <div class="category-grid">
+                <div class="feature-card bounce-in" onclick="openPage('index.html')">
+                    <span class="feature-icon">🏠</span>
+                    <h3 class="feature-title">健康驿站首页</h3>
+                    <p class="feature-description">原有的健康医疗驿站主页面，包含基础功能模块</p>
+                    <span class="feature-status">已完成</span>
+                </div>
+
+                <div class="feature-card bounce-in" onclick="openPage('user.html')">
+                    <span class="feature-icon">👤</span>
+                    <h3 class="feature-title">用户中心</h3>
+                    <p class="feature-description">用户信息管理、个人资料设置等功能</p>
+                    <span class="feature-status">已完成</span>
+                </div>
+
+                <div class="feature-card bounce-in" onclick="openPage('doctor-list.html')">
+                    <span class="feature-icon">👨‍⚕️</span>
+                    <h3 class="feature-title">医生列表</h3>
+                    <p class="feature-description">医生信息展示、咨询功能等</p>
+                    <span class="feature-status">已完成</span>
+                </div>
+
+                <div class="feature-card bounce-in" onclick="openPage('login.html')">
+                    <span class="feature-icon">🔐</span>
+                    <h3 class="feature-title">用户登录</h3>
+                    <p class="feature-description">用户登录认证、注册等功能</p>
+                    <span class="feature-status">已完成</span>
+                </div>
+
+                <div class="feature-card bounce-in" onclick="openPage('profile.html')">
+                    <span class="feature-icon">📋</span>
+                    <h3 class="feature-title">个人资料</h3>
+                    <p class="feature-description">个人信息编辑、头像上传等功能</p>
+                    <span class="feature-status">已完成</span>
+                </div>
+
+                <div class="feature-card bounce-in" onclick="openPage('edit-nickname.html')">
+                    <span class="feature-icon">✏️</span>
+                    <h3 class="feature-title">昵称编辑</h3>
+                    <p class="feature-description">用户昵称修改功能</p>
+                    <span class="feature-status">已完成</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 测试功能 -->
+        <div class="category-section">
+            <h2 class="category-title slide-in-left">🧪 测试功能</h2>
+            <div class="category-grid">
+                <div class="feature-card bounce-in" onclick="openPage('test-avatar-upload.html')">
+                    <span class="feature-icon">📸</span>
+                    <h3 class="feature-title">头像上传测试</h3>
+                    <p class="feature-description">头像上传功能的测试页面</p>
+                    <span class="feature-status">已完成</span>
+                </div>
+
+                <div class="feature-card bounce-in" onclick="openPage('test-chat.html')">
+                    <span class="feature-icon">💬</span>
+                    <h3 class="feature-title">聊天功能测试</h3>
+                    <p class="feature-description">聊天功能的测试页面</p>
+                    <span class="feature-status">已完成</span>
+                </div>
+
+                <div class="feature-card bounce-in" onclick="openPage('test-doctors-api.html')">
+                    <span class="feature-icon">🔌</span>
+                    <h3 class="feature-title">医生API测试</h3>
+                    <p class="feature-description">医生相关API接口的测试页面</p>
+                    <span class="feature-status">已完成</span>
+                </div>
+
+                <div class="feature-card bounce-in" onclick="openPage('test-userinfo.html')">
+                    <span class="feature-icon">👤</span>
+                    <h3 class="feature-title">用户信息测试</h3>
+                    <p class="feature-description">用户信息相关功能的测试页面</p>
+                    <span class="feature-status">已完成</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 开发中功能 -->
+        <div class="category-section">
+            <h2 class="category-title slide-in-right">🚧 开发中功能</h2>
+            <div class="category-grid">
+                <div class="feature-card bounce-in">
+                    <span class="feature-icon">💳</span>
+                    <h3 class="feature-title">订单管理</h3>
+                    <p class="feature-description">订单查询、状态跟踪、历史记录等功能</p>
+                    <span class="feature-status developing">开发中</span>
+                </div>
+
+                <div class="feature-card bounce-in">
+                    <span class="feature-icon">⭐</span>
+                    <h3 class="feature-title">评价系统</h3>
+                    <p class="feature-description">商品评价、用户反馈、评分系统等</p>
+                    <span class="feature-status developing">开发中</span>
+                </div>
+
+                <div class="feature-card bounce-in">
+                    <span class="feature-icon">🎁</span>
+                    <h3 class="feature-title">优惠券系统</h3>
+                    <p class="feature-description">优惠券发放、使用、管理等功能</p>
+                    <span class="feature-status developing">开发中</span>
+                </div>
+
+                <div class="feature-card bounce-in">
+                    <span class="feature-icon">📱</span>
+                    <h3 class="feature-title">移动端适配</h3>
+                    <p class="feature-description">更好的移动端体验和响应式设计</p>
+                    <span class="feature-status developing">开发中</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 计划功能 -->
+        <div class="category-section">
+            <h2 class="category-title slide-in-left">📋 计划功能</h2>
+            <div class="category-grid">
+                <div class="feature-card bounce-in">
+                    <span class="feature-icon">🤖</span>
+                    <h3 class="feature-title">AI智能推荐</h3>
+                    <p class="feature-description">基于用户行为的智能商品推荐系统</p>
+                    <span class="feature-status planned">计划中</span>
+                </div>
+
+                <div class="feature-card bounce-in">
+                    <span class="feature-icon">📊</span>
+                    <h3 class="feature-title">数据分析</h3>
+                    <p class="feature-description">销售数据统计、用户行为分析等</p>
+                    <span class="feature-status planned">计划中</span>
+                </div>
+
+                <div class="feature-card bounce-in">
+                    <span class="feature-icon">🌐</span>
+                    <h3 class="feature-title">多语言支持</h3>
+                    <p class="feature-description">支持多种语言的国际化功能</p>
+                    <span class="feature-status planned">计划中</span>
+                </div>
+
+                <div class="feature-card bounce-in">
+                    <span class="feature-icon">🔒</span>
+                    <h3 class="feature-title">安全增强</h3>
+                    <p class="feature-description">支付安全、数据加密、防欺诈等</p>
+                    <span class="feature-status planned">计划中</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 项目信息 -->
+        <div class="project-info fade-in">
+            <h2 class="project-info-title">📚 项目信息</h2>
+            <p class="project-info-text">
+                叮当商城是一个基于uni-app框架开发的健康医疗电商平台，专注于为用户提供优质的医疗健康产品和服务。
+                项目采用现代化的前端技术栈，具备良好的用户体验和响应式设计。目前已完成核心商城功能，包括商品展示、
+                购物车管理、产品详情等模块，为用户提供完整的购物体验。
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('叮当商城导航页面加载完成！');
+            
+            // 添加滚动动画
+            addScrollAnimations();
+        });
+
+        // 打开页面
+        function openPage(url) {
+            window.open(url, '_blank');
+        }
+
+        // 添加滚动动画
+        function addScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // 观察所有功能卡片
+            const cards = document.querySelectorAll('.feature-card');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.6s ease';
+                observer.observe(card);
+            });
+        }
+
+        // 添加触摸支持（移动端）
+        if ('ontouchstart' in window) {
+            document.addEventListener('touchstart', function() {}, {passive: true});
+        }
+
+        // 性能优化：防抖函数
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // 优化滚动事件
+        const optimizedScrollHandler = debounce(function() {
+            // 滚动相关的优化逻辑
+        }, 16);
+
+        window.addEventListener('scroll', optimizedScrollHandler);
+
+        // 添加键盘导航支持
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                // ESC键返回上一页
+                if (history.length > 1) {
+                    history.back();
+                }
+            }
+        });
+
+        // 添加页面可见性检测
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                console.log('页面已隐藏');
+            } else {
+                console.log('页面已显示');
+            }
+        });
+    </script>
+</body>
+</html>

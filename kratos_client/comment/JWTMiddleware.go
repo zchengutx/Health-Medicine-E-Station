@@ -12,11 +12,15 @@ func JWTMiddleware() func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			// 1. 获取Authorization头
-			authHeader := r.Header.Get("Authorization")
-			if authHeader == "" {
-				http.Error(w, "缺少Authorization头", http.StatusUnauthorized)
-				return
-			}
+            authHeader := r.Header.Get("Authorization")
+            // 兼容WebSocket等无法自定义Header的场景：支持从查询参数获取token
+            if authHeader == "" {
+                authHeader = r.URL.Query().Get("token")
+            }
+            if authHeader == "" {
+                http.Error(w, "缺少Authorization或token参数", http.StatusUnauthorized)
+                return
+            }
 
 			//// 2. 解析Bearer token
 			//parts := strings.SplitN(authHeader, " ", 2)
@@ -27,13 +31,13 @@ func JWTMiddleware() func(http.Handler) http.Handler {
 
 			token, s := GetToken(authHeader)
 
-			if token == nil || s != "" {
-				http.Error(w, "无效的Token", http.StatusUnauthorized)
-				return
-			}
+            if token == nil || s != "" {
+                http.Error(w, "无效的Token", http.StatusUnauthorized)
+                return
+            }
 
 			// 将用户ID存入请求上下文
-			ctx := context.WithValue(r.Context(), "user_id", token["user"])
+            ctx := context.WithValue(r.Context(), "user_id", token["user"])
 			r = r.WithContext(ctx)
 
 			// 5. 继续处理请求

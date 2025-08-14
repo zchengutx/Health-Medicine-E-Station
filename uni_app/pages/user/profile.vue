@@ -119,6 +119,7 @@
 </template>
 
 <script>
+import API_CONFIG from '@/config/api.js'
 export default {
   name: 'UserProfile',
   data() {
@@ -156,7 +157,7 @@ export default {
         
         console.log('正在从后端获取用户信息...')
         const res = await uni.request({
-          url: 'http://localhost:8000/v1/userInfo',
+          url: `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.GET_USER_INFO}`,
           method: 'POST',
           header: {
             'Content-Type': 'application/json',
@@ -261,7 +262,7 @@ export default {
         // 上传文件
         const uploadResult = await new Promise((resolve, reject) => {
           uni.uploadFile({
-            url: 'http://localhost:8000/upload',
+            url: `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.UPDATE_AVATAR}`,
             filePath: filePath,
             name: 'file',
             header: {
@@ -336,7 +337,7 @@ export default {
       
       // 如果头像URL不是以http开头，则添加后端服务器地址
       if (!avatarUrl.startsWith('http')) {
-        return `http://localhost:8000/uploads/${avatarUrl}`
+        return `${API_CONFIG.BASE_URL}/uploads/${avatarUrl}`
       }
       
       return avatarUrl

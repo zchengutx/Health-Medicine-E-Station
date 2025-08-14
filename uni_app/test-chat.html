@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>一对一聊天测试</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; }
+    .row { display: flex; gap: 10px; margin-bottom: 10px; }
+    input, select { padding: 6px 8px; }
+    button { padding: 6px 10px; }
+    #log { border: 1px solid #ddd; border-radius: 6px; padding: 10px; height: 280px; overflow-y: auto; background: #fafafa; }
+    .msg { margin: 4px 0; }
+    .sys { color: #999; }
+    .me { color: #0b8457; }
+    .other { color: #1b73e8; }
+    .error { color: #d93025; }
+    .success { color: #188038; }
+    .flex-1 { flex: 1; }
+    .col { display: flex; flex-direction: column; gap: 8px; }
+  </style>
+  <script>
+    const API_BASE_URL = 'http://localhost:8000'
+
+    function getQueryParam(key) {
+      const params = new URLSearchParams(window.location.search)
+      return params.get(key) || ''
+    }
+
+    function appendLog(text, cls) {
+      const log = document.getElementById('log')
+      const p = document.createElement('div')
+      p.className = `msg ${cls || ''}`
+      p.textContent = `[${new Date().toLocaleTimeString()}] ${text}`
+      log.appendChild(p)
+      log.scrollTop = log.scrollHeight
+    }
+
+    function getToken() {
+      const t = localStorage.getItem('token') || document.getElementById('token').value.trim()
+      return t
+    }
+
+    let ws
+    function connect() {
+      const token = getToken()
+      const userId = document.getElementById('userId').value.trim()
+      const userName = document.getElementById('userName').value.trim()
+      const userRole = document.getElementById('userRole').value
+      const targetId = document.getElementById('targetId').value.trim()
+      if (!token) return appendLog('缺少token，请先登录或填写token', 'error')
+      if (!userId || !userName || !targetId) return appendLog('请填写完整的连接参数', 'error')
+
+      const url = `${API_BASE_URL.replace('http', 'ws')}/ws/chat?user_name=${encodeURIComponent(userName)}&user_role=${encodeURIComponent(userRole)}&target_id=${encodeURIComponent(targetId)}&token=${encodeURIComponent(token)}`
+      appendLog(`连接: ${url}`, 'sys')
+      ws = new WebSocket(url)
+      ws.onopen = () => appendLog('WebSocket 已连接', 'success')
+      ws.onclose = () => appendLog('WebSocket 已关闭', 'sys')
+      ws.onerror = (e) => appendLog('WebSocket 错误', 'error')
+      ws.onmessage = (ev) => {
+        try {
+          const data = JSON.parse(ev.data)
+          appendLog(`收到: ${JSON.stringify(data)}`, 'other')
+        } catch (e) {
+          appendLog(`收到: ${ev.data}`, 'other')
+        }
+      }
+    }
+
+    function sendMessage() {
+      if (!ws || ws.readyState !== WebSocket.OPEN) return appendLog('未连接WebSocket', 'error')
+      const content = document.getElementById('content').value.trim()
+      if (!content) return
+      const payload = { type: 'text', content }
+      ws.send(JSON.stringify(payload))
+      appendLog(`发送: ${content}`, 'me')
+      document.getElementById('content').value = ''
+    }
+
+    async function getRooms() {
+      const userId = document.getElementById('userId').value.trim()
+      const url = `${API_BASE_URL}/v1/chat/rooms?userId=${encodeURIComponent(userId)}`
+      try {
+        const res = await fetch(url)
+        const data = await res.json()
+        appendLog(`房间: ${JSON.stringify(data)}`)
+      } catch (e) {
+        appendLog(`获取房间失败: ${e.message}`, 'error')
+      }
+    }
+
+    async function getHistory() {
+      const userId = document.getElementById('userId').value.trim()
+      const targetId = document.getElementById('targetId').value.trim()
+      const url = `${API_BASE_URL}/v1/chat/history?userId=${encodeURIComponent(userId)}&targetId=${encodeURIComponent(targetId)}&page=1&pageSize=20`
+      try {
+        const res = await fetch(url)
+        const data = await res.json()
+        appendLog(`历史: ${JSON.stringify(data)}`)
+      } catch (e) {
+        appendLog(`获取历史失败: ${e.message}`, 'error')
+      }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      // 预填参数
+      const qUserId = getQueryParam('userId')
+      const qUserName = getQueryParam('userName')
+      const qRole = getQueryParam('userRole')
+      const qTargetId = getQueryParam('targetId')
+      const qToken = getQueryParam('token')
+      const auto = getQueryParam('autoconnect')
+
+      if (qUserId) document.getElementById('userId').value = qUserId
+      if (qUserName) document.getElementById('userName').value = decodeURIComponent(qUserName)
+      if (qRole) document.getElementById('userRole').value = qRole
+      if (qTargetId) document.getElementById('targetId').value = qTargetId
+      if (qToken) document.getElementById('token').value = qToken
+
+      if (auto === '1') {
+        connect()
+      }
+    })
+  </script>
+</head>
+<body>
+  <h1>一对一聊天测试</h1>
+  <div class="col">
+    <div class="row">
+      <input id="userId" placeholder="当前用户ID" value="1" />
+      <input id="userName" placeholder="用户名" value="测试用户1" />
+      <select id="userRole">
+        <option value="patient">patient</option>
+        <option value="doctor">doctor</option>
+      </select>
+      <input id="targetId" placeholder="目标用户ID" value="2" />
+    </div>
+    <div class="row">
+      <input id="token" class="flex-1" placeholder="JWT Token（可留空，使用localStorage.token）" />
+      <button onclick="connect()">连接</button>
+      <button onclick="getRooms()">房间</button>
+      <button onclick="getHistory()">历史</button>
+    </div>
+    <div id="log"></div>
+    <div class="row">
+      <input id="content" class="flex-1" placeholder="输入消息..." />
+      <button onclick="sendMessage()">发送</button>
+    </div>
+  </div>
+</body>
+</html>
+
+

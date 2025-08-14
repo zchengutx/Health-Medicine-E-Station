@@ -1,6 +1,7 @@
 package comment
 
 import (
+	kratoshttp "github.com/go-kratos/kratos/v2/transport/http"
 	"log"
 	"net/http"
 	"strconv"
@@ -132,56 +133,80 @@ func generateRoomID(userID1, userID2 int32) string {
 }
 
 // WebSocket连接处理器
-func HandleWebSocket(w http.ResponseWriter, r *http.Request) {
-	// 从查询参数获取用户信息
-	userIDStr := r.URL.Query().Get("user_id")
-	userName := r.URL.Query().Get("user_name")
-	userRole := r.URL.Query().Get("user_role") // "doctor" 或 "patient"
-	targetIDStr := r.URL.Query().Get("target_id")
+func HandleWebSocket(w http.ResponseWriter, r *http.Request, ctx kratoshttp.Context) {
+    // 从上下文和查询参数抽取用户与目标信息
+    req := ctx.Request()
 
-	if userIDStr == "" || userName == "" || targetIDStr == "" {
-		http.Error(w, "缺少必要参数", http.StatusBadRequest)
-		return
-	}
+    // 读取 user_id：优先从中间件设置的上下文，其次从查询参数
+    var userID int
+    if val := req.Context().Value("user_id"); val != nil {
+        switch v := val.(type) {
+        case string:
+            if v != "" {
+                if id, err := strconv.Atoi(v); err == nil {
+                    userID = id
+                }
+            }
+        case int:
+            userID = v
+        case int32:
+            userID = int(v)
+        case int64:
+            userID = int(v)
+        case float64:
+            userID = int(v)
+        }
+    }
+    if userID == 0 {
+        if q := r.URL.Query().Get("user_id"); q != "" {
+            if id, err := strconv.Atoi(q); err == nil {
+                userID = id
+            }
+        }
+    }
 
-	userID, err := strconv.Atoi(userIDStr)
-	if err != nil {
-		http.Error(w, "无效的用户ID", http.StatusBadRequest)
-		return
-	}
+    userName := r.URL.Query().Get("user_name")
+    userRole := r.URL.Query().Get("user_role") // "doctor" 或 "patient"
+    targetIDStr := r.URL.Query().Get("target_id")
 
-	targetID, err := strconv.Atoi(targetIDStr)
-	if err != nil {
-		http.Error(w, "无效的目标用户ID", http.StatusBadRequest)
-		return
-	}
+    // 校验必要参数
+    if userID == 0 || userName == "" || targetIDStr == "" {
+        http.Error(w, "缺少必要参数", http.StatusBadRequest)
+        return
+    }
 
-	// 升级HTTP连接为WebSocket
-	conn, err := upgrader.Upgrade(w, r, nil)
-	if err != nil {
-		log.Printf("WebSocket升级失败: %v", err)
-		return
-	}
+    targetID, err := strconv.Atoi(targetIDStr)
+    if err != nil {
+        http.Error(w, "无效的目标用户ID", http.StatusBadRequest)
+        return
+    }
 
-	// 生成房间ID
-	roomID := generateRoomID(int32(userID), int32(targetID))
+    // 升级HTTP连接为WebSocket
+    conn, err := upgrader.Upgrade(w, r, nil)
+    if err != nil {
+        log.Printf("WebSocket升级失败: %v", err)
+        return
+    }
 
-	// 创建客户端
-	client := &Client{
-		ID:     int32(userID),
-		Name:   userName,
-		Role:   userRole,
-		Conn:   conn,
-		Send:   make(chan ChatMessage, 256),
-		RoomID: roomID,
-	}
+    // 生成房间ID
+    roomID := generateRoomID(int32(userID), int32(targetID))
 
-	// 注册客户端
-	chatManager.register <- client
+    // 创建客户端
+    client := &Client{
+        ID:     int32(userID),
+        Name:   userName,
+        Role:   userRole,
+        Conn:   conn,
+        Send:   make(chan ChatMessage, 256),
+        RoomID: roomID,
+    }
 
-	// 启动读写协程
-	go client.writePump()
-	go client.readPump(int32(targetID))
+    // 注册客户端
+    chatManager.register <- client
+
+    // 启动读写协程
+    go client.writePump()
+    go client.readPump(int32(targetID))
 }
 
 // 读取消息
@@ -330,7 +355,7 @@ func HandleTestWebSocket(w http.ResponseWriter, r *http.Request) {
 		} else {
 			content = "收到你的消息"
 		}
-		
+
 		response := map[string]interface{}{
 			"type":     "echo",
 			"content":  content,

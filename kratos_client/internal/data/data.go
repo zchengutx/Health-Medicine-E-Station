@@ -3,10 +3,10 @@ package data
 import (
 	"context"
 	"fmt"
-	"net/http"
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-redis/redis/v8"
+	"net/http"
 
 	"github.com/google/wire"
 	"gorm.io/driver/mysql"
@@ -15,7 +15,7 @@ import (
 )
 
 // ProviderSet is data providers.
-var ProviderSet = wire.NewSet(NewData, NewDb, NewUserRepo, NewCityRepo, NewDoctorsRepo, NewDrugRepo, NewEstimateRepo, NewChatRepo, NewCartRepo, NewOrderRepo, NewDrugInventoryRepo, NewCouponRepo, NewPaymentRepo, NewPrescriptionRepo)
+var ProviderSet = wire.NewSet(NewData, NewDb, NewUserRepo, NewCityRepo, NewDoctorsRepo, NewDrugRepo, NewEstimateRepo, NewCartRepo, NewOrderRepo, NewDrugInventoryRepo, NewCouponRepo, NewPaymentRepo, NewPrescriptionRepo)
 
 // Data .
 type Data struct {
