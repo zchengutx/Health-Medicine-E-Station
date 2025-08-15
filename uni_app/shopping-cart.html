@@ -640,57 +640,169 @@
     </div>
 
     <script>
+        // API配置
+        const API_BASE_URL = 'http://localhost:8888';
+        
         // 购物车数据
-        let cartItems = [
-            {
-                id: 1,
-                name: '[仁和]藿香正气胶囊 24粒装',
-                spec: '24粒装/盒装',
-                price: 15.60,
-                originalPrice: 25.80,
-                quantity: 2,
-                image: '💊',
-                selected: true
-            },
-            {
-                id: 2,
-                name: '[同仁堂]六味地黄丸 200丸',
-                spec: '200丸/瓶装',
-                price: 28.80,
-                originalPrice: 38.00,
-                quantity: 1,
-                image: '💊',
-                selected: true
-            },
-            {
-                id: 3,
-                name: '[云南白药]创可贴 100片',
-                spec: '100片/盒装',
-                price: 12.50,
-                originalPrice: 15.00,
-                quantity: 3,
-                image: '🩹',
-                selected: true
-            }
-        ];
-
+        let cartItems = [];
         let selectedCoupon = null;
         let selectedDelivery = 0;
         let isEditMode = false;
+        let userInfo = {};
 
         // 页面加载完成后执行
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('购物车页面加载完成！');
+            
             // 添加页面加载动画
             document.body.classList.add('fade-in');
             
-            // 渲染购物车
-            renderCart();
+            // 检查用户登录状态
+            checkUserLoginStatus();
             
-            // 计算价格
-            calculatePrices();
-            
-            console.log('购物车页面加载完成！');
+            // 加载购物车数据
+            loadCartItems();
         });
+
+        // 检查用户登录状态
+        function checkUserLoginStatus() {
+            const userInfoStr = localStorage.getItem('userInfo');
+            const token = localStorage.getItem('token');
+            
+            console.log('=== 检查用户登录状态 ===');
+            console.log('用户信息字符串:', userInfoStr);
+            console.log('Token:', token);
+            
+            if (userInfoStr && token) {
+                try {
+                    userInfo = JSON.parse(userInfoStr);
+                    userInfo.token = token;
+                    console.log('✅ 用户已登录:', userInfo);
+                } catch (error) {
+                    console.error('❌ 解析用户信息失败:', error);
+                    redirectToLogin();
+                }
+            } else {
+                console.log('❌ 用户未登录');
+                redirectToLogin();
+            }
+        }
+
+        // 跳转到登录页面
+        function redirectToLogin() {
+            showToast('请先登录');
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 1500);
+        }
+
+        // 加载购物车商品列表
+        async function loadCartItems() {
+            if (!userInfo.phone) {
+                console.log('用户信息不完整，无法加载购物车');
+                return;
+            }
+
+            try {
+                showLoading('正在加载购物车...');
+                
+                const response = await fetch(`${API_BASE_URL}/v1/cart/list`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${userInfo.token}`
+                    },
+                    body: JSON.stringify({
+                        user_id: userInfo.phone
+                    })
+                });
+
+                console.log('购物车API响应状态:', response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('购物车API返回数据:', data);
+                    
+                    if (data.success || data.code === 0 || (data.message && data.message.includes('成功'))) {
+                        // 处理返回的购物车数据
+                        const cartData = data.data || data.cart_items || data.items || [];
+                        cartItems = cartData.map(item => ({
+                            id: item.id || item.drug_id,
+                            name: item.name || item.drug_name || '未知商品',
+                            spec: item.spec || item.specification || '规格未知',
+                            price: parseFloat(item.price || item.unit_price || 0),
+                            originalPrice: parseFloat(item.original_price || item.price || 0),
+                            quantity: parseInt(item.quantity || 1),
+                            image: '💊', // 默认图标，实际应该从item.image获取
+                            selected: true
+                        }));
+                        
+                        console.log('处理后的购物车数据:', cartItems);
+                        
+                        hideLoading();
+                        renderCart();
+                        calculatePrices();
+                        
+                        if (cartItems.length === 0) {
+                            showToast('购物车为空');
+                        }
+                    } else {
+                        throw new Error(data.message || '获取购物车失败');
+                    }
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+            } catch (error) {
+                console.error('加载购物车失败:', error);
+                hideLoading();
+                showToast('加载购物车失败: ' + error.message);
+                
+                // 如果API失败，使用模拟数据（用于开发测试）
+                if (window.location.hostname === 'localhost') {
+                    console.log('使用模拟数据');
+                    cartItems = getMockCartData();
+                    renderCart();
+                    calculatePrices();
+                }
+            }
+        }
+
+        // 获取模拟购物车数据（用于开发测试）
+        function getMockCartData() {
+            return [
+                {
+                    id: 1,
+                    name: '[仁和]藿香正气胶囊 24粒装',
+                    spec: '24粒装/盒装',
+                    price: 15.60,
+                    originalPrice: 25.80,
+                    quantity: 2,
+                    image: '💊',
+                    selected: true
+                },
+                {
+                    id: 2,
+                    name: '[同仁堂]六味地黄丸 200丸',
+                    spec: '200丸/瓶装',
+                    price: 28.80,
+                    originalPrice: 38.00,
+                    quantity: 1,
+                    image: '💊',
+                    selected: true
+                },
+                {
+                    id: 3,
+                    name: '[云南白药]创可贴 100片',
+                    spec: '100片/盒装',
+                    price: 12.50,
+                    originalPrice: 15.00,
+                    quantity: 3,
+                    image: '🩹',
+                    selected: true
+                }
+            ];
+        }
 
         // 渲染购物车
         function renderCart() {
@@ -774,44 +886,113 @@
         }
 
         // 改变商品数量
-        function changeItemQuantity(itemId, delta) {
+        async function changeItemQuantity(itemId, delta) {
             const item = cartItems.find(item => item.id === itemId);
             if (item) {
                 const newQuantity = item.quantity + delta;
                 if (newQuantity >= 1 && newQuantity <= 99) {
-                    item.quantity = newQuantity;
-                    renderCart();
-                    calculatePrices();
+                    await updateCartItemQuantity(itemId, newQuantity);
                 }
             }
         }
 
         // 更新商品数量
-        function updateItemQuantity(itemId, newQuantity) {
-            const item = cartItems.find(item => item.id === itemId);
-            if (item) {
-                newQuantity = parseInt(newQuantity) || 1;
-                newQuantity = Math.max(1, Math.min(99, newQuantity));
-                item.quantity = newQuantity;
-                renderCart();
-                calculatePrices();
+        async function updateItemQuantity(itemId, newQuantity) {
+            newQuantity = parseInt(newQuantity) || 1;
+            newQuantity = Math.max(1, Math.min(99, newQuantity));
+            await updateCartItemQuantity(itemId, newQuantity);
+        }
+
+        // 调用API更新商品数量
+        async function updateCartItemQuantity(itemId, newQuantity) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/v1/cart/update`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${userInfo.token}`
+                    },
+                    body: JSON.stringify({
+                        user_id: userInfo.phone,
+                        drug_id: itemId,
+                        quantity: newQuantity
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('更新购物车数量成功:', data);
+                    
+                    // 更新本地数据
+                    const item = cartItems.find(item => item.id === itemId);
+                    if (item) {
+                        item.quantity = newQuantity;
+                        renderCart();
+                        calculatePrices();
+                    }
+                } else {
+                    throw new Error('更新购物车数量失败');
+                }
+            } catch (error) {
+                console.error('更新购物车数量失败:', error);
+                showToast('更新数量失败: ' + error.message);
+                
+                // 如果API失败，回退到本地更新（开发模式）
+                if (window.location.hostname === 'localhost') {
+                    const item = cartItems.find(item => item.id === itemId);
+                    if (item) {
+                        item.quantity = newQuantity;
+                        renderCart();
+                        calculatePrices();
+                    }
+                }
             }
         }
 
         // 删除商品
-        function deleteItem(itemId) {
+        async function deleteItem(itemId) {
             if (confirm('确定要删除这个商品吗？')) {
-                cartItems = cartItems.filter(item => item.id !== itemId);
-                renderCart();
-                calculatePrices();
+                await deleteCartItem(itemId);
+            }
+        }
+
+        // 调用API删除购物车商品
+        async function deleteCartItem(itemId) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/v1/cart/remove`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${userInfo.token}`
+                    },
+                    body: JSON.stringify({
+                        user_id: userInfo.phone,
+                        drug_id: itemId
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('删除购物车商品成功:', data);
+                    
+                    // 更新本地数据
+                    cartItems = cartItems.filter(item => item.id !== itemId);
+                    renderCart();
+                    calculatePrices();
+                    showToast('商品已删除');
+                } else {
+                    throw new Error('删除购物车商品失败');
+                }
+            } catch (error) {
+                console.error('删除购物车商品失败:', error);
+                showToast('删除失败: ' + error.message);
                 
-                // 添加删除动画
-                const deletedItem = document.querySelector(`[data-id="${itemId}"]`);
-                if (deletedItem) {
-                    deletedItem.classList.add('slide-in');
-                    setTimeout(() => {
-                        deletedItem.remove();
-                    }, 300);
+                // 如果API失败，回退到本地删除（开发模式）
+                if (window.location.hostname === 'localhost') {
+                    cartItems = cartItems.filter(item => item.id !== itemId);
+                    renderCart();
+                    calculatePrices();
+                    showToast('商品已删除（本地模式）');
                 }
             }
         }
@@ -940,6 +1121,66 @@
             // 这里可以添加实际的结算逻辑
         }
 
+        // 显示加载提示
+        function showLoading(message = '加载中...') {
+            const loading = document.createElement('div');
+            loading.id = 'loadingOverlay';
+            loading.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 10000;
+                    flex-direction: column;
+                ">
+                    <div style="
+                        background: white;
+                        padding: 30px;
+                        border-radius: 15px;
+                        text-align: center;
+                        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                    ">
+                        <div style="
+                            width: 40px;
+                            height: 40px;
+                            border: 4px solid #f3f3f3;
+                            border-top: 4px solid #667eea;
+                            border-radius: 50%;
+                            animation: spin 1s linear infinite;
+                            margin: 0 auto 20px;
+                        "></div>
+                        <div style="font-size: 16px; color: #333;">${message}</div>
+                    </div>
+                </div>
+            `;
+            
+            // 添加旋转动画
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(loading);
+        }
+
+        // 隐藏加载提示
+        function hideLoading() {
+            const loading = document.getElementById('loadingOverlay');
+            if (loading) {
+                document.body.removeChild(loading);
+            }
+        }
+
         // 显示提示信息
         function showToast(message) {
             const toast = document.createElement('div');
@@ -970,7 +1211,9 @@
             document.body.appendChild(toast);
             
             setTimeout(() => {
-                document.body.removeChild(toast);
+                if (document.body.contains(toast)) {
+                    document.body.removeChild(toast);
+                }
             }, 2000);
         }
 

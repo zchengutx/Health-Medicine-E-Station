@@ -134,45 +134,36 @@ func generateRoomID(userID1, userID2 int32) string {
 
 // WebSocket连接处理器
 func HandleWebSocket(w http.ResponseWriter, r *http.Request, ctx kratoshttp.Context) {
-    // 从上下文和查询参数抽取用户与目标信息
-    req := ctx.Request()
-
-    // 读取 user_id：优先从中间件设置的上下文，其次从查询参数
-    var userID int
-    if val := req.Context().Value("user_id"); val != nil {
-        switch v := val.(type) {
-        case string:
-            if v != "" {
-                if id, err := strconv.Atoi(v); err == nil {
-                    userID = id
-                }
-            }
-        case int:
-            userID = v
-        case int32:
-            userID = int(v)
-        case int64:
-            userID = int(v)
-        case float64:
-            userID = int(v)
-        }
-    }
-    if userID == 0 {
-        if q := r.URL.Query().Get("user_id"); q != "" {
-            if id, err := strconv.Atoi(q); err == nil {
-                userID = id
-            }
-        }
-    }
-
+    // 从查询参数获取用户信息
     userName := r.URL.Query().Get("user_name")
     userRole := r.URL.Query().Get("user_role") // "doctor" 或 "patient"
     targetIDStr := r.URL.Query().Get("target_id")
+    token := r.URL.Query().Get("token")
 
     // 校验必要参数
-    if userID == 0 || userName == "" || targetIDStr == "" {
+    if userName == "" || targetIDStr == "" || token == "" {
         http.Error(w, "缺少必要参数", http.StatusBadRequest)
         return
+    }
+
+    // 简单的token验证（实际应用中应该验证JWT）
+    if token == "" {
+        http.Error(w, "无效的token", http.StatusUnauthorized)
+        return
+    }
+
+    // 从token中提取用户ID（这里简化处理，实际应该解析JWT）
+    // 假设token格式为 "token_1755161387423"，我们提取数字部分作为用户ID
+    var userID int
+    if len(token) > 6 && token[:6] == "token_" {
+        if id, err := strconv.Atoi(token[6:]); err == nil {
+            userID = id % 10000 // 取模避免ID过大
+        }
+    }
+    
+    // 如果无法从token提取ID，使用默认值
+    if userID == 0 {
+        userID = 1
     }
 
     targetID, err := strconv.Atoi(targetIDStr)

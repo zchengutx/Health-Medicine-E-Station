@@ -552,7 +552,7 @@
                 }
                 
                 console.log('正在从后端获取用户信息...');
-                const response = await fetch('http://localhost:8000/v1/userInfo', {
+                const response = await fetch('http://localhost:8888/v1/userInfo', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -629,7 +629,7 @@
              
              // 如果头像URL不是以http开头，则添加后端服务器地址
              if (!avatarUrl.startsWith('http')) {
-                 fullAvatarUrl = `http://localhost:8000/uploads/${avatarUrl}`;
+                 fullAvatarUrl = `http://localhost:8888/uploads/${avatarUrl}`;
              }
              
              console.log('完整头像URL:', fullAvatarUrl);

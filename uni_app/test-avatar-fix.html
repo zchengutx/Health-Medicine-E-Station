@@ -48,7 +48,7 @@
     <div class="test-section info">
         <h3>当前状态</h3>
         <p>Token: <span id="tokenStatus">检查中...</span></p>
-        <p>后端地址: http://localhost:8000</p>
+        <p>后端地址: http://localhost:8888</p>
     </div>
 
     <div class="test-section">
@@ -94,7 +94,7 @@
             debugInfo.innerHTML += '<p>正在测试连接...</p>';
             
             try {
-                const response = await fetch('http://localhost:8000/v1/userInfo', {
+                const response = await fetch('http://localhost:8888/v1/userInfo', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -143,7 +143,7 @@
                 console.log('FormData创建完成');
 
                 // 上传文件 - 注意：不设置Content-Type头
-                const response = await fetch('http://localhost:8000/upload', {
+                const response = await fetch('http://localhost:8888/upload', {
                     method: 'POST',
                     headers: {
                         'Authorization': token

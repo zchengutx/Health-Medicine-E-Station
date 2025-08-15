@@ -177,7 +177,7 @@
             
             try {
                 console.log('测试不带Bearer前缀的Token');
-                const response = await fetch('http://localhost:8000/v1/userInfo', {
+                const response = await fetch('http://localhost:8888/v1/userInfo', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -232,7 +232,7 @@
             
             try {
                 console.log('测试带Bearer前缀的Token');
-                const response = await fetch('http://localhost:8000/v1/userInfo', {
+                const response = await fetch('http://localhost:8888/v1/userInfo', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -287,7 +287,7 @@
             
             try {
                 console.log('测试GET方法');
-                const response = await fetch('http://localhost:8000/v1/userInfo', {
+                const response = await fetch('http://localhost:8888/v1/userInfo', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -335,7 +335,7 @@
             
             try {
                 console.log('检查后端健康状态');
-                const response = await fetch('http://localhost:8000/health', {
+                const response = await fetch('http://localhost:8888/health', {
                     method: 'GET'
                 });
                 
@@ -366,7 +366,7 @@
                         <strong>无法连接到后端</strong><br>
                         错误信息: ${error.message}<br>
                         <div class="warning">
-                            请检查后端服务是否正在运行在 http://localhost:8000
+                            请检查后端服务是否正在运行在 http://localhost:8888
                         </div>
                     </div>
                 `;

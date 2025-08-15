@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医生咨询 - 叮当快药</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background: #fff;
+        }
+
+        /* 顶部导航栏 */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #333;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+        }
+
+        .back-btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        .page-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .action-icon {
+            font-size: 16px;
+            color: #666;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+        }
+
+        .action-icon:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* 聊天内容区域 */
+        .chat-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            background: #f8f9fa;
+        }
+
+        .pull-down-hint {
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+
+        .message.doctor {
+            flex-direction: row;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0 12px;
+            flex-shrink: 0;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            position: relative;
+            word-wrap: break-word;
+        }
+
+        .message.doctor .message-content {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.user .message-content {
+            background: #007AFF;
+            color: #fff;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message-info {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .message.doctor .message-info {
+            text-align: left;
+            margin-left: 64px;
+        }
+
+        .message.user .message-info {
+            text-align: right;
+            margin-right: 64px;
+        }
+
+        /* 底部操作栏 */
+        .bottom-actions {
+            padding: 12px 16px;
+            background: #fff;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .quick-action-btn {
+            flex: 1;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-action-btn:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+        }
+
+        /* 输入区域 */
+        .input-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fff;
+            border-radius: 24px;
+            padding: 8px 16px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .message-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            padding: 8px 0;
+            background: transparent;
+        }
+
+        .emoji-btn, .attach-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #666;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+        }
+
+        .emoji-btn:hover, .attach-btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* 连接状态提示 */
+        .connection-status {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            padding: 16px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            z-index: 1000;
+            display: none;
+        }
+
+        .connection-status.show {
+            display: block;
+        }
+
+        /* 加载状态 */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        /* 错误提示 */
+        .error-message {
+            text-align: center;
+            padding: 40px;
+            color: #d93025;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 480px) {
+            .message-content {
+                max-width: 85%;
+            }
+            
+            .quick-actions {
+                gap: 8px;
+            }
+            
+            .quick-action-btn {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <!-- 顶部导航栏 -->
+        <div class="header">
+            <button class="back-btn" onclick="goBack()">←</button>
+            <div class="page-title">叮当快药</div>
+            <div class="header-actions">
+                <span class="action-icon">⋯</span>
+                <span class="action-icon">−</span>
+                <span class="action-icon">◎</span>
+            </div>
+        </div>
+
+        <!-- 聊天内容区域 -->
+        <div class="chat-content" id="chatContent">
+            <div class="pull-down-hint">下拉显示更多</div>
+            
+            <!-- 医生欢迎消息 -->
+            <div class="message doctor">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiM0Mjg1RjQiLz4KPHBhdGggZD0iTTIwIDEwQzIyLjA3NjEgMTAgMjQgMTEuOTIzOSAyNCAxNEMyNCAxNi4wNzYxIDIyLjA3NjEgMTggMjAgMThDMTcuOTIzOSAxOCAxNiAxNi4wNzYxIDE2IDE0QzE2IDExLjkyMzkgMTcuOTIzOSAxMCAyMCAxMFoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0yOCAzMEMyOCAzMi4yMDkxIDI2LjIwOTEgMzQgMjQgMzRIMTZDMTMuNzkwOSAzNCAxMiAzMi4yMDkxIDEyIDMwVjI2QzEyIDIzLjc5MDkgMTMuNzkwOSAyMiAxNiAyMkgyNEMyNi4yMDkxIDIyIDI4IDIzLjc5MDkgMjggMjZWMzBaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K" alt="医生头像" class="avatar">
+                <div class="message-content">
+                    <div>您好！很高兴为您服务！</div>
+                </div>
+            </div>
+            <div class="message-info">今天 17:51</div>
+        </div>
+
+        <!-- 底部操作栏 -->
+        <div class="bottom-actions">
+            <div class="quick-actions">
+                <button class="quick-action-btn" onclick="showEvaluation()">评价</button>
+                <button class="quick-action-btn" onclick="showPrescriptions()">我的处方</button>
+                <button class="quick-action-btn" onclick="showCoupons()">我的优惠券</button>
+                <button class="quick-action-btn" onclick="queryOrders()">查询订单</button>
+            </div>
+            
+            <div class="input-area">
+                <input type="text" class="message-input" id="messageInput" placeholder="请反馈您的问题" onkeypress="handleKeyPress(event)">
+                <button class="emoji-btn" onclick="showEmojis()">😊</button>
+                <button class="attach-btn" onclick="showAttachments()">+</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 连接状态提示 -->
+    <div class="connection-status" id="connectionStatus">
+        <div id="statusText">正在连接...</div>
+    </div>
+
+    <script>
+        // 全局变量
+        let ws = null;
+        let isConnected = false;
+        let userInfo = {};
+        let doctorInfo = {
+            id: '1',
+            name: '王医师01',
+            avatar: '👨‍⚕️',
+            specialty: '全科医生'
+        };
+
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('医生咨询页面加载完成');
+            
+            // 获取URL参数
+            loadUrlParams();
+            
+            // 检查用户登录状态
+            checkUserLoginStatus();
+            
+            // 自动连接WebSocket
+            setTimeout(() => {
+                connectWebSocket();
+            }, 1000);
+        });
+
+        // 加载URL参数
+        function loadUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            userInfo = {
+                userId: urlParams.get('userId') || '',
+                userName: urlParams.get('userName') || '患者',
+                userRole: urlParams.get('userRole') || 'patient',
+                token: urlParams.get('token') || ''
+            };
+            
+            console.log('加载的用户信息:', userInfo);
+        }
+
+        // 检查用户登录状态
+        function checkUserLoginStatus() {
+            const userInfoStr = localStorage.getItem('userInfo');
+            const token = localStorage.getItem('token');
+            
+            if (userInfoStr && token) {
+                try {
+                    const localUserInfo = JSON.parse(userInfoStr);
+                    // 合并本地存储的用户信息
+                    userInfo = { ...userInfo, ...localUserInfo };
+                    console.log('✅ 用户已登录:', userInfo);
+                } catch (error) {
+                    console.error('❌ 解析用户信息失败:', error);
+                }
+            } else {
+                console.log('❌ 用户未登录');
+            }
+        }
+
+        // 连接WebSocket
+        function connectWebSocket() {
+            if (!userInfo.token) {
+                showStatus('请先登录', 'error');
+                return;
+            }
+
+            showStatus('正在连接...', 'connecting');
+            
+            const wsUrl = `ws://localhost:8888/ws/chat?user_name=${encodeURIComponent(userInfo.userName)}&user_role=${encodeURIComponent(userInfo.userRole)}&target_id=${encodeURIComponent(doctorInfo.id)}&token=${encodeURIComponent(userInfo.token)}`;
+            
+            console.log('连接WebSocket:', wsUrl);
+            
+            try {
+                ws = new WebSocket(wsUrl);
+                
+                ws.onopen = function() {
+                    console.log('WebSocket连接成功');
+                    isConnected = true;
+                    showStatus('连接成功', 'success');
+                    setTimeout(() => hideStatus(), 2000);
+                    
+                    // 发送用户上线消息
+                    sendSystemMessage('用户已上线');
+                };
+                
+                ws.onclose = function() {
+                    console.log('WebSocket连接关闭');
+                    isConnected = false;
+                    showStatus('连接已断开', 'error');
+                };
+                
+                ws.onerror = function(error) {
+                    console.error('WebSocket连接错误:', error);
+                    showStatus('连接失败', 'error');
+                };
+                
+                ws.onmessage = function(event) {
+                    console.log('收到消息:', event.data);
+                    handleIncomingMessage(event.data);
+                };
+                
+            } catch (error) {
+                console.error('创建WebSocket失败:', error);
+                showStatus('连接失败: ' + error.message, 'error');
+            }
+        }
+
+        // 处理接收到的消息
+        function handleIncomingMessage(data) {
+            try {
+                const message = JSON.parse(data);
+                
+                if (message.type === 'text') {
+                    // 显示医生消息
+                    addMessage('doctor', message.content, message.timestamp);
+                } else if (message.type === 'system') {
+                    // 显示系统消息
+                    addSystemMessage(message.content);
+                }
+                
+            } catch (error) {
+                console.error('解析消息失败:', error);
+                // 如果解析失败，当作普通文本显示
+                addMessage('doctor', data);
+            }
+        }
+
+        // 添加消息到聊天界面
+        function addMessage(sender, content, timestamp = null) {
+            const chatContent = document.getElementById('chatContent');
+            const messageDiv = document.createElement('div');
+            
+            if (timestamp) {
+                messageDiv.innerHTML = `
+                    <div class="message ${sender}">
+                        <img src="${sender === 'doctor' ? 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiM0Mjg1RjQiLz4KPHBhdGggZD0iTTIwIDEwQzIyLjA3NjEgMTAgMjQgMTEuOTIzOSAyNCAxNEMyNCAxNi4wNzYxIDIyLjA3NjEgMTggMjAgMThDMTcuOTIzOSAxOCAxNiAxNi4wNzYxIDE2IDE0QzE2IDExLjkyMzkgMTcuOTIzOSAxMCAyMCAxMFoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0yOCAzMEMyOCAzMi4yMDkxIDI2LjIwOTEgMzQgMjQgMzRIMTZDMTMuNzkwOSAzNCAxMiAzMi4yMDkxIDEyIDMwVjI2QzEyIDIzLjc5MDkgMTMuNzkwOSAyMiAxNiAyMkgyNEMyNi4yMDkxIDIyIDI4IDIzLjc5MDkgMjggMjZWMzBaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K' : 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiM0MDQwNDAiLz4KPHBhdGggZD0iTTIwIDEwQzIyLjA3NjEgMTAgMjQgMTEuOTIzOSAyNCAxNEMyNCAxNi4wNzYxIDIyLjA3NjEgMTggMjAgMThDMTcuOTIzOSAxOCAxNiAxNi4wNzYxIDE2IDE0QzE2IDExLjkyMzkgMTcuOTIzOSAxMCAyMCAxMFoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0yOCAzMEMyOCAzMi4yMDkxIDI2LjIwOTEgMzQgMjQgMzRIMTZDMTMuNzkwOSAzNCAxMiAzMi4yMDkxIDEyIDMwVjI2QzEyIDIzLjc5MDkgMTMuNzkwOSAyMiAxNiAyMkgyNEMyNi4yMDkxIDIyIDI4IDIzLjc5MDkgMjggMjZWMzBaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K'}" alt="${sender === 'doctor' ? '医生头像' : '用户头像'}" class="avatar">
+                        <div class="message-content">
+                            <div>${content}</div>
+                        </div>
+                    </div>
+                    <div class="message-info">${timestamp || getCurrentTime()}</div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="message ${sender}">
+                        <img src="${sender === 'doctor' ? 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiM0Mjg1RjQiLz4KPHBhdGggZD0iTTIwIDEwQzIyLjA3NjEgMTAgMjQgMTEuOTIzOSAyNCAxNEMyNCAxNi4wNzYxIDIyLjA3NjEgMTggMjAgMThDMTcuOTIzOSAxOCAxNiAxNi4wNzYxIDE2IDE0QzE2IDExLjkyMzkgMTcuOTIzOSAxMCAyMCAxMFoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0yOCAzMEMyOCAzMi4yMDkxIDI2LjIwOTEgMzQgMjQgMzRIMTZDMTMuNzkwOSAzNCAxMiAzMi4yMDkxIDEyIDMwVjI2QzEyIDIzLjc5MDkgMTMuNzkwOSAyMiAxNiAyMkgyNEMyNi4yMDkxIDIyIDI4IDIzLjc5MDkgMjggMjZWMzBaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K' : 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiM0MDQwNDAiLz4KPHBhdGggZD0iTTIwIDEwQzIyLjA3NjEgMTAgMjQgMTEuOTIzOSAyNCAxNEMyNCAxNi4wNzYxIDIyLjA3NjEgMTggMjAgMThDMTcuOTIzOSAxOCAxNiAxNi4wNzYxIDE2IDE0QzE2IDExLjkyMzkgMTcuOTIzOSAxMCAyMCAxMFoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0yOCAzMEMyOCAzMi4yMDkxIDI2LjIwOTEgMzQgMjQgMzRIMTZDMTMuNzkwOSAzNCAxMiAzMi4yMDkxIDEyIDMwVjI2QzEyIDIzLjc5MDkgMTMuNzkwOSAyMiAxNiAyMkgyNEMyNi4yMDkxIDIyIDI4IDIzLjc5MDkgMjggMjZWMzBaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K'}" alt="${sender === 'doctor' ? '医生头像' : '用户头像'}" class="avatar">
+                        <div class="message-content">
+                            <div>${content}</div>
+                        </div>
+                    </div>
+                    <div class="message-info">${getCurrentTime()}</div>
+                `;
+            }
+            
+            chatContent.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        // 添加系统消息
+        function addSystemMessage(content) {
+            const chatContent = document.getElementById('chatContent');
+            const messageDiv = document.createElement('div');
+            messageDiv.innerHTML = `
+                <div style="text-align: center; margin: 20px 0;">
+                    <span style="background: #f0f0f0; padding: 8px 16px; border-radius: 12px; font-size: 12px; color: #666;">
+                        ${content}
+                    </span>
+                </div>
+            `;
+            chatContent.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        // 发送系统消息
+        function sendSystemMessage(content) {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                const message = {
+                    type: 'system',
+                    content: content,
+                    timestamp: new Date().toISOString()
+                };
+                ws.send(JSON.stringify(message));
+            }
+        }
+
+        // 处理键盘事件
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // 发送消息
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const content = messageInput.value.trim();
+            
+            if (!content) return;
+            
+            if (!isConnected) {
+                showStatus('未连接到服务器，请稍后重试', 'error');
+                return;
+            }
+            
+            // 显示用户消息
+            addMessage('user', content);
+            
+            // 发送到WebSocket
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                const message = {
+                    type: 'text',
+                    content: content,
+                    timestamp: new Date().toISOString()
+                };
+                ws.send(JSON.stringify(message));
+                console.log('发送消息:', message);
+            }
+            
+            // 清空输入框
+            messageInput.value = '';
+            
+            // 模拟医生回复（实际应用中应该由后端处理）
+            setTimeout(() => {
+                simulateDoctorReply(content);
+            }, 1000 + Math.random() * 2000);
+        }
+
+        // 模拟医生回复（仅用于演示）
+        function simulateDoctorReply(userMessage) {
+            const replies = [
+                '我理解您的问题，让我为您详细解答。',
+                '这是一个很好的问题，根据您的描述，我建议...',
+                '您的情况我了解了，建议您...',
+                '感谢您的咨询，关于这个问题...',
+                '根据您的症状，我推荐您...'
+            ];
+            
+            const randomReply = replies[Math.floor(Math.random() * replies.length)];
+            addMessage('doctor', randomReply);
+        }
+
+        // 滚动到底部
+        function scrollToBottom() {
+            const chatContent = document.getElementById('chatContent');
+            chatContent.scrollTop = chatContent.scrollHeight;
+        }
+
+        // 获取当前时间
+        function getCurrentTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            return `${hours}:${minutes}`;
+        }
+
+        // 显示状态提示
+        function showStatus(text, type = 'info') {
+            const statusDiv = document.getElementById('connectionStatus');
+            const statusText = document.getElementById('statusText');
+            
+            statusText.textContent = text;
+            statusDiv.className = `connection-status show ${type}`;
+        }
+
+        // 隐藏状态提示
+        function hideStatus() {
+            const statusDiv = document.getElementById('connectionStatus');
+            statusDiv.classList.remove('show');
+        }
+
+        // 返回上一页
+        function goBack() {
+            if (ws) {
+                ws.close();
+            }
+            window.history.back();
+        }
+
+        // 快速操作功能
+        function showEvaluation() {
+            alert('评价功能开发中');
+        }
+
+        function showPrescriptions() {
+            alert('我的处方功能开发中');
+        }
+
+        function showCoupons() {
+            alert('我的优惠券功能开发中');
+        }
+
+        function queryOrders() {
+            alert('查询订单功能开发中');
+        }
+
+        function showEmojis() {
+            alert('表情功能开发中');
+        }
+
+        function showAttachments() {
+            alert('附件功能开发中');
+        }
+
+        // 页面卸载时关闭WebSocket
+        window.addEventListener('beforeunload', function() {
+            if (ws) {
+                ws.close();
+            }
+        });
+    </script>
+</body>
+</html>

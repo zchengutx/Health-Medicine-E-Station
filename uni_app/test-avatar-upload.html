@@ -245,7 +245,7 @@
                 log('创建 FormData 完成', 'info');
                 log(`文件信息: ${file.name}, ${file.size} bytes, ${file.type}`, 'info');
 
-                const response = await fetch('http://localhost:8000/v1/updateAvatar', {
+                const response = await fetch('http://localhost:8888/v1/updateAvatar', {
                     method: 'POST',
                     headers: {
                         'Authorization': token
@@ -307,7 +307,7 @@
             try {
                 log('获取用户信息...', 'info');
                 
-                const response = await fetch('http://localhost:8000/v1/userInfo', {
+                const response = await fetch('http://localhost:8888/v1/userInfo', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

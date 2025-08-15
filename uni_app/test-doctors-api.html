@@ -99,7 +99,7 @@
             try {
                 console.log('开始调用医生列表API...');
                 
-                const response = await fetch('http://localhost:8000/v1/DoctorsList', {
+                const response = await fetch('http://localhost:8888/v1/DoctorsList', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -133,7 +133,7 @@
             resultDiv.textContent = '正在测试连接...';
             
             try {
-                const response = await fetch('http://localhost:8000/', {
+                const response = await fetch('http://localhost:8888/', {
                     method: 'GET'
                 });
                 
@@ -141,7 +141,7 @@
                 resultDiv.textContent = `✅ 后端服务连接正常!\n\n状态码: ${response.status}`;
             } catch (error) {
                 resultDiv.className = 'result error';
-                resultDiv.textContent = `❌ 后端服务连接失败!\n\n错误信息: ${error.message}\n\n请确保后端服务正在运行在 http://localhost:8000`;
+                resultDiv.textContent = `❌ 后端服务连接失败!\n\n错误信息: ${error.message}\n\n请确保后端服务正在运行在 http://localhost:8888`;
             }
         }
         

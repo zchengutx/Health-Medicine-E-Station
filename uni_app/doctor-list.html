@@ -364,8 +364,38 @@
         // 页面加载完成后执行
         document.addEventListener('DOMContentLoaded', function() {
             console.log('医生列表页面加载完成');
+            
+            // 检查用户登录状态
+            checkUserLoginStatus();
+            
+            // 加载医生列表
             loadDoctorsList();
         });
+
+        // 检查用户登录状态
+        function checkUserLoginStatus() {
+            const userInfoStr = localStorage.getItem('userInfo');
+            const token = localStorage.getItem('token');
+            
+            console.log('=== 检查用户登录状态 ===');
+            console.log('用户信息字符串:', userInfoStr);
+            console.log('Token:', token);
+            
+            if (userInfoStr && token) {
+                try {
+                    const userInfo = JSON.parse(userInfoStr);
+                    console.log('✅ 用户已登录:', userInfo);
+                    console.log('用户名:', userInfo.username);
+                    console.log('手机号:', userInfo.phone);
+                    console.log('Token:', token);
+                } catch (error) {
+                    console.error('❌ 解析用户信息失败:', error);
+                }
+            } else {
+                console.log('❌ 用户未登录');
+                console.log('建议: 请先登录后再使用医生咨询功能');
+            }
+        }
 
         // 加载医生列表
         async function loadDoctorsList() {
@@ -377,8 +407,8 @@
                 // 显示加载状态
                 doctorList.innerHTML = '<div class="loading"><div class="loading-text">正在加载医生列表...</div></div>';
                 
-                // 调用后端API获取医生列表
-                const response = await fetch('http://localhost:8000/v1/DoctorsList', {
+                // 调用后端API获取医生列表 - 修复端口为8888
+                const response = await fetch('http://localhost:8888/v1/DoctorsList', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -392,13 +422,18 @@
                     const data = await response.json();
                     console.log('API返回数据:', data);
                     
-                    if (data.success || data.code === 0 || (data.message && data.message.includes('success'))) {
-                        // 保存所有医生数据
-                        allDoctors = data.data || data.doctors || [];
+                    // 修复：正确处理后端返回的数据结构
+                    if (data.success || data.code === 0 || (data.message && data.message.includes('成功'))) {
+                        // 保存所有医生数据 - 修复数据字段名
+                        allDoctors = data.data || data.doctors || data.doctorsList || [];
                         console.log('医生数据:', allDoctors);
                         
-                        // 渲染医生列表
-                        renderDoctorsList(allDoctors);
+                        if (allDoctors && allDoctors.length > 0) {
+                            // 渲染医生列表
+                            renderDoctorsList(allDoctors);
+                        } else {
+                            showError('暂无医生数据');
+                        }
                         return;
                     } else {
                         throw new Error(data.message || '获取医生列表失败');
@@ -515,21 +550,44 @@
         
         // 咨询医生 - 跳转到聊天页面
         function consultDoctor(doctorName) {
-            // 获取当前用户信息（从localStorage或sessionStorage）
-            const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-            const userId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
-            const userName = localStorage.getItem('userName') || sessionStorage.getItem('userName') || '患者';
+            console.log('=== 开始咨询医生 ===');
+            console.log('医生姓名:', doctorName);
             
-            if (!token || !userId) {
+            // 获取当前用户信息（从localStorage）
+            const userInfoStr = localStorage.getItem('userInfo');
+            const token = localStorage.getItem('token');
+            
+            console.log('用户信息字符串:', userInfoStr);
+            console.log('Token:', token);
+            
+            if (!userInfoStr || !token) {
+                console.log('❌ 缺少用户信息或token');
                 alert('请先登录后再咨询医生');
                 return;
             }
             
-            // 构造聊天页面的URL，自动填充参数
-            const chatUrl = `test-chat.html?userId=${userId}&userName=${encodeURIComponent(userName)}&userRole=patient&targetId=1&token=${token}&autoconnect=1`;
-            
-            // 跳转到聊天页面
-            window.location.href = chatUrl;
+            try {
+                const userInfo = JSON.parse(userInfoStr);
+                console.log('✅ 当前用户信息:', userInfo);
+                
+                if (!userInfo.username || !userInfo.phone) {
+                    console.log('❌ 用户信息不完整');
+                    alert('用户信息不完整，请重新登录');
+                    return;
+                }
+                
+                // 构造聊天页面的URL，自动填充参数
+                const chatUrl = `doctor-consultation.html?userId=${userInfo.phone}&userName=${encodeURIComponent(userInfo.username)}&userRole=patient&targetId=1&token=${token}&autoconnect=1`;
+                
+                console.log('🚀 准备跳转到聊天页面:', chatUrl);
+                
+                // 跳转到聊天页面
+                window.location.href = chatUrl;
+                
+            } catch (error) {
+                console.error('❌ 解析用户信息失败:', error);
+                alert('用户信息解析失败，请重新登录');
+            }
         }
     </script>
 </body>
