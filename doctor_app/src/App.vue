@@ -1,11 +1,13 @@
 <template>
   <div id="app">
-    <router-view />
+    <ErrorBoundary>
+      <router-view />
+    </ErrorBoundary>
   </div>
 </template>
 
 <script setup lang="ts">
-// App根组件
+import ErrorBoundary from '@/components/ErrorBoundary.vue'
 </script>
 
 <style lang="scss">

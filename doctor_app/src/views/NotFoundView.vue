@@ -2,26 +2,23 @@
   <div class="not-found-view">
     <div class="not-found-content">
       <div class="error-icon">
-        <van-icon name="warning-o" size="80" color="#CCCCCC" />
+        ⚠️
       </div>
       <h2 class="error-title">页面不存在</h2>
       <p class="error-message">抱歉，您访问的页面不存在或已被删除</p>
       <div class="error-actions">
-        <van-button 
-          type="primary" 
-          size="large" 
+        <button 
           @click="goHome"
-          class="action-button"
+          class="action-button primary"
         >
           返回首页
-        </van-button>
-        <van-button 
-          size="large" 
+        </button>
+        <button 
           @click="goBack"
           class="action-button"
         >
           返回上页
-        </van-button>
+        </button>
       </div>
     </div>
   </div>
@@ -50,40 +47,58 @@ const goBack = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: $bg-primary;
+  background-color: #f8f9fa;
 }
 
 .not-found-content {
   text-align: center;
-  padding: $spacing-xl;
+  padding: 32px;
 }
 
 .error-icon {
-  margin-bottom: $spacing-lg;
+  margin-bottom: 24px;
+  font-size: 64px;
 }
 
 .error-title {
-  font-size: $font-size-xl;
-  color: $text-primary;
-  margin-bottom: $spacing-md;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 16px;
   font-weight: 500;
 }
 
 .error-message {
-  font-size: $font-size-md;
-  color: $text-secondary;
-  margin-bottom: $spacing-xl;
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 32px;
   line-height: 1.6;
 }
 
 .error-actions {
   display: flex;
   flex-direction: column;
-  gap: $spacing-md;
+  gap: 16px;
   
   .action-button {
     width: 200px;
     margin: 0 auto;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    background-color: #f0f0f0;
+    color: #333;
+    
+    &.primary {
+      background-color: #007AFF;
+      color: white;
+    }
+    
+    &:hover {
+      opacity: 0.8;
+    }
   }
 }
 </style>

@@ -14,7 +14,8 @@
           </svg>
         </div>
       </div>
-      <div class="mine-profile" @click="goDoctorAuth">
+      <!-- 医生信息展示区域 - 仅展示，不可点击 -->
+      <div class="mine-profile">
         <img class="avatar" :src="doctorAvatar" alt="头像" />
         <div class="profile-info">
           <div class="name-title">
@@ -23,7 +24,6 @@
           </div>
           <div class="hospital">{{ doctorHospital }}</div>
         </div>
-        <i class="iconfont icon-arrow-right"></i>
       </div>
       <div class="edit-profile-btn-wrapper">
         <FeedbackButton text="编辑个人信息" type="primary" block @click="goEditProfile" />
@@ -55,10 +55,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import FeedbackButton from '@/components/FeedbackButton.vue';
+
 const tab = ref('mine');
 const router = useRouter();
 const menuList = [
@@ -69,25 +70,46 @@ const menuList = [
   { icon: 'iconfont icon-setting', text: '服务设置' },
   { icon: 'iconfont icon-help', text: '帮助中心' }
 ];
+
 const authStore = useAuthStore();
+
+// 医院列表映射 - 与ProfileView保持一致
+const hospitals = [
+  { id: 1, name: '协和医院' },
+  { id: 2, name: '同济医院' },
+  { id: 3, name: '人民医院' }
+];
+
 const doctorName = authStore.doctorName || '未登录';
 const doctorTitle = authStore.doctorInfo?.Title || '医师';
-const doctorHospital = authStore.doctorInfo?.Speciality || '暂无医院信息';
+
+// 计算医院名称
+const doctorHospital = computed(() => {
+  if (!authStore.doctorInfo?.HospitalId) {
+    return '暂无医院信息';
+  }
+  
+  const hospital = hospitals.find(h => h.id === authStore.doctorInfo.HospitalId);
+  return hospital ? hospital.name : '暂无医院信息';
+});
+
 const doctorAvatar = authStore.doctorAvatar && /^data:image/.test(authStore.doctorAvatar) ? authStore.doctorAvatar : '/default-avatar.svg';
+
 const goSetting = () => {
   router.push('/setting');
 };
+
 const goHome = () => {
   tab.value = 'home';
   router.push('/');
 };
+
 const goPatient = () => {
   tab.value = 'patient';
   router.push('/patient');
 };
-const goDoctorAuth = () => {
-  router.push('/doctor-auth');
-};
+
+// 跳转到统一的个人信息页面
 const goEditProfile = () => {
   router.push('/profile');
 };

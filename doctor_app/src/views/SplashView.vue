@@ -77,6 +77,7 @@ import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useNavigationUtils } from '@/router'
 import CountdownTimer from '@/components/CountdownTimer.vue'
+import { log } from '@/utils/logger'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -86,26 +87,26 @@ let timer: NodeJS.Timeout | null = null
 
 // 跳转逻辑
 const navigateToNextPage = () => {
-  console.log('开始执行跳转逻辑...')
+  log.debug('开始执行启动页跳转逻辑')
   
   // 初始化认证状态
   authStore.initAuth()
-  console.log('认证状态初始化完成，isLoggedIn:', authStore.isLoggedIn)
+  log.debug('认证状态初始化完成', { isLoggedIn: authStore.isLoggedIn })
   
   // 检查登录状态并跳转
   if (authStore.isLoggedIn) {
-    console.log('用户已登录，检查token有效性...')
+    log.debug('用户已登录，检查token有效性')
     // 如果已登录，检查token是否有效
     if (authStore.checkTokenExpiry()) {
-      console.log('token有效，跳转到首页')
+      log.debug('token有效，跳转到首页')
       navigationUtils.toHome()
     } else {
-      console.log('token过期，跳转到登录页')
+      log.debug('token过期，跳转到登录页')
       // token过期，跳转到登录页
       navigationUtils.safePush('/login')
     }
   } else {
-    console.log('用户未登录，跳转到登录页')
+    log.debug('用户未登录，跳转到登录页')
     // 未登录，跳转到登录页
     navigationUtils.safePush('/login')
   }
@@ -123,12 +124,12 @@ const skipSplash = () => {
 
 // 启动倒计时
 const startCountdown = () => {
-  console.log('开始启动倒计时，初始值:', countdown.value)
+  log.debug('开始启动倒计时', { initialValue: countdown.value })
   timer = setInterval(() => {
     countdown.value--
-    console.log('倒计时:', countdown.value)
+    log.debug('倒计时更新', { countdown: countdown.value })
     if (countdown.value <= 0) {
-      console.log('倒计时结束，准备跳转')
+      log.debug('倒计时结束，准备跳转')
       clearInterval(timer!)
       timer = null
       navigateToNextPage()

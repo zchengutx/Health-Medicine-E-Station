@@ -158,6 +158,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useNavigationUtils } from '@/router'
 import { showToast } from 'vant'
+import { log } from '@/utils/logger'
 
 const authStore = useAuthStore()
 const navigationUtils = useNavigationUtils()
@@ -172,7 +173,7 @@ const isVerified = computed(() => {
   try {
     return authStore.doctorInfo?.LicenseNumber && authStore.doctorInfo.LicenseNumber.trim() !== ''
   } catch (error) {
-    console.error('Error checking verification status:', error)
+    log.error('检查认证状态失败', error)
     return false
   }
 })
@@ -234,23 +235,23 @@ const acceptOrder = () => {
 
 onMounted(() => {
   try {
-    console.log('HomeView mounted, checking auth state...')
-    console.log('Auth store state:', {
+    log.debug('首页组件挂载，检查认证状态')
+    log.debug('认证状态', {
       isLoggedIn: authStore.isLoggedIn,
-      doctorInfo: authStore.doctorInfo,
-      token: !!authStore.token
+      hasUserInfo: !!authStore.doctorInfo,
+      hasToken: !!authStore.token
     })
     
     // 检查登录状态
     if (!authStore.isLoggedIn) {
-      console.log('User not logged in, redirecting to login')
+      log.debug('用户未登录，重定向到登录页')
       navigationUtils.toLogin()
       return
     }
     
     // 检查token有效性
     if (!authStore.checkTokenExpiry()) {
-      console.log('Token expired, redirecting to login')
+      log.debug('Token已过期，重定向到登录页')
       showToast({
         message: '登录已过期，请重新登录',
         type: 'fail'
@@ -259,9 +260,9 @@ onMounted(() => {
       return
     }
     
-    console.log('Auth check passed, user is authenticated')
+    log.debug('认证检查通过，用户已认证')
   } catch (error) {
-    console.error('Error in HomeView onMounted:', error)
+    log.error('首页组件挂载时发生错误', error)
     // 如果出现错误，重定向到登录页
     navigationUtils.toLogin()
   }

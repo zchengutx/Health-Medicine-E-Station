@@ -40,8 +40,6 @@ func NewDoctorData(data *Data, logger log.Logger) biz.DoctorRepo {
 	}
 }
 
-// Redis 验证码相关操作
-
 // SaveVerificationCode 保存验证码到Redis，失败时使用内存存储
 func (d *DoctorData) SaveVerificationCode(ctx context.Context, phone, code string, expireTime time.Duration) error {
 	key := fmt.Sprintf("sms_code:%s", phone)
@@ -123,8 +121,6 @@ func (d *DoctorData) DeleteVerificationCode(ctx context.Context, phone string) e
 	return nil
 }
 
-// 数据库相关操作
-
 // CreateDoctor 创建医生记录
 func (d *DoctorData) CreateDoctor(ctx context.Context, doctor *biz.Doctor) error {
 	doctorModel := &model.Doctors{
@@ -159,12 +155,12 @@ func (d *DoctorData) CreateDoctor(ctx context.Context, doctor *biz.Doctor) error
 		doctorModel.HospitalId = uint64(*doctor.HospitalID)
 	}
 
-	// 处理指针类型的时间字段
-	if doctor.BirthDate != nil {
-		doctorModel.BirthDate = *doctor.BirthDate
+	// 处理字符串类型的时间字段
+	if doctor.BirthDate != "" {
+		doctorModel.BirthDate = doctor.BirthDate
 	}
-	if doctor.LastLoginTime != nil {
-		doctorModel.LastLoginTime = *doctor.LastLoginTime
+	if doctor.LastLoginTime != "" {
+		doctorModel.LastLoginTime = doctor.LastLoginTime
 	}
 
 	err := d.data.db.WithContext(ctx).Create(doctorModel).Error
@@ -219,47 +215,54 @@ func (d *DoctorData) GetDoctorByID(ctx context.Context, id uint) (*biz.Doctor, e
 
 // UpdateDoctor 更新医生信息
 func (d *DoctorData) UpdateDoctor(ctx context.Context, doctor *biz.Doctor) error {
-	doctorModel := &model.Doctors{
-		Id:            uint64(doctor.ID),
-		Phone:         doctor.Phone,
-		Password:      doctor.Password,
-		Name:          doctor.Name,
-		Gender:        doctor.Gender,
-		Email:         doctor.Email,
-		Avatar:        doctor.Avatar,
-		LicenseNumber: doctor.LicenseNumber,
-		// DepartmentId和HospitalId在下面单独处理
-		Title:         doctor.Title,
-		Speciality:    doctor.Speciality,
-		PracticeScope: doctor.PracticeScope,
-		Status:        doctor.Status,
-		LastLoginIp:   doctor.LastLoginIP,
-		UpdatedAt:     time.Now(),
+	updateData := map[string]any{
+		"phone":          doctor.Phone,
+		"password":       doctor.Password,
+		"name":           doctor.Name,
+		"gender":         doctor.Gender,
+		"email":          doctor.Email,
+		"avatar":         doctor.Avatar,
+		"license_number": doctor.LicenseNumber,
+		"title":          doctor.Title,
+		"speciality":     doctor.Speciality,
+		"practice_scope": doctor.PracticeScope,
+		"status":         doctor.Status,
+		"last_login_ip":  doctor.LastLoginIP,
+		"updated_at":     time.Now(),
 	}
 
-	// 处理指针类型的ID字段
+	// 处理可选的ID字段
 	if doctor.DepartmentID != nil {
-		doctorModel.DepartmentId = uint64(*doctor.DepartmentID)
+		updateData["department_id"] = uint64(*doctor.DepartmentID)
+	} else {
+		updateData["department_id"] = nil
 	}
+
 	if doctor.HospitalID != nil {
-		doctorModel.HospitalId = uint64(*doctor.HospitalID)
+		updateData["hospital_id"] = uint64(*doctor.HospitalID)
+	} else {
+		updateData["hospital_id"] = nil
 	}
 
-	// 处理指针类型的时间字段
-	if doctor.BirthDate != nil {
-		doctorModel.BirthDate = *doctor.BirthDate
-	}
-	if doctor.LastLoginTime != nil {
-		doctorModel.LastLoginTime = *doctor.LastLoginTime
+	// 处理出生日期字段（字符串格式）
+	if doctor.BirthDate != "" {
+		updateData["birth_date"] = doctor.BirthDate
+	} else {
+		updateData["birth_date"] = nil
 	}
 
-	err := d.data.db.WithContext(ctx).Save(doctorModel).Error
+	// 处理最后登录时间（字符串格式）
+	if doctor.LastLoginTime != "" {
+		updateData["last_login_time"] = doctor.LastLoginTime
+	}
+
+	err := d.data.db.WithContext(ctx).Model(&model.Doctors{}).Where("id = ?", doctor.ID).Updates(updateData).Error
 	if err != nil {
 		d.logger.WithContext(ctx).Errorf("更新医生信息失败: id=%d, error=%v", doctor.ID, err)
 		return fmt.Errorf("更新医生信息失败: %w", err)
 	}
 
-	doctor.UpdatedAt = doctorModel.UpdatedAt
+	doctor.UpdatedAt = updateData["updated_at"].(time.Time)
 	d.logger.WithContext(ctx).Infof("医生信息更新成功: id=%d", doctor.ID)
 	return nil
 }
@@ -280,11 +283,11 @@ func (d *DoctorData) modelToEntity(doctorModel *model.Doctors) *biz.Doctor {
 	return &biz.Doctor{
 		ID:            uint(doctorModel.Id),
 		DoctorCode:    doctorModel.DoctorCode,
-		Phone:         doctorModel.Phone,
-		Password:      doctorModel.Password,
 		Name:          doctorModel.Name,
 		Gender:        doctorModel.Gender,
-		BirthDate:     &doctorModel.BirthDate,
+		BirthDate:     doctorModel.BirthDate, // 直接使用字符串
+		Phone:         doctorModel.Phone,
+		Password:      doctorModel.Password,
 		Email:         doctorModel.Email,
 		Avatar:        doctorModel.Avatar,
 		LicenseNumber: doctorModel.LicenseNumber,
@@ -294,7 +297,7 @@ func (d *DoctorData) modelToEntity(doctorModel *model.Doctors) *biz.Doctor {
 		Speciality:    doctorModel.Speciality,
 		PracticeScope: doctorModel.PracticeScope,
 		Status:        doctorModel.Status,
-		LastLoginTime: &doctorModel.LastLoginTime,
+		LastLoginTime: doctorModel.LastLoginTime, // 直接使用字符串
 		LastLoginIP:   doctorModel.LastLoginIp,
 		CreatedAt:     doctorModel.CreatedAt,
 		UpdatedAt:     doctorModel.UpdatedAt,

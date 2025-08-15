@@ -1,6 +1,7 @@
 import axios from 'axios'
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { errorHandler, ErrorType } from '@/utils/errorHandler'
+import { log } from '@/utils/logger'
 
 // API响应接口
 export interface ApiResponse<T = any> {
@@ -35,11 +36,15 @@ request.interceptors.request.use(
       }
     }
     
-    console.log('Request:', config.method?.toUpperCase(), config.url, config.data || config.params)
+    log.debug('API请求', {
+      method: config.method?.toUpperCase(),
+      url: config.url,
+      hasData: !!(config.data || config.params)
+    })
     return config
   },
   (error) => {
-    console.error('Request interceptor error:', error)
+    log.error('请求拦截器错误', error)
     return Promise.reject(error)
   }
 )
@@ -49,7 +54,12 @@ request.interceptors.response.use(
   (response: AxiosResponse<ApiResponse>) => {
     const { data } = response
     
-    console.log('Response:', response.config.url, data)
+    log.debug('API响应', {
+      url: response.config.url,
+      status: response.status,
+      code: data.Code,
+      message: data.Message
+    })
     
     // 检查业务状态码（支持字符串和数字类型）
     const code = typeof data.Code === 'string' ? parseInt(data.Code) : data.Code
@@ -63,7 +73,7 @@ request.interceptors.response.use(
     }
   },
   (error) => {
-    console.error('Response interceptor error:', error)
+    log.error('响应拦截器错误', error)
     
     // 使用全局错误处理器
     const errorMessage = errorHandler.handleApiError(error)

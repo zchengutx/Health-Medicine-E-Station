@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { TokenStorage, UserInfoStorage, Storage, STORAGE_KEYS } from '@/utils/storage'
 import { doctorApi } from '@/api/doctor'
+import { log } from '@/utils/logger'
 
 export interface DoctorInfo {
   DId: number
@@ -25,9 +26,11 @@ export interface DoctorInfo {
 
 export interface LoginState {
   isLoading: boolean
+  isInitialized: boolean
   lastLoginTime: number | null
   rememberPhone: boolean
   savedPhone: string
+  doctorId?: number
 }
 
 export const useAuthStore = defineStore('auth', () => {
@@ -36,9 +39,11 @@ export const useAuthStore = defineStore('auth', () => {
   const doctorInfo = ref<DoctorInfo | null>(UserInfoStorage.getUserInfo<DoctorInfo>())
   const loginState = ref<LoginState>({
     isLoading: false,
+    isInitialized: false,
     lastLoginTime: Storage.get<number>(STORAGE_KEYS.LAST_LOGIN_TIME),
     rememberPhone: Storage.get<boolean>(STORAGE_KEYS.REMEMBER_PHONE) || false,
-    savedPhone: Storage.get<string>('saved_phone') || ''
+    savedPhone: Storage.get<string>('saved_phone') || '',
+    doctorId: doctorInfo.value?.DId
   })
 
   // 计算属性
@@ -90,27 +95,24 @@ export const useAuthStore = defineStore('auth', () => {
 
   const login = (newToken: string, info: DoctorInfo, phone?: string, rememberPhone: boolean = false) => {
     try {
-      console.log('开始保存登录状态到store...')
-      
+      log.debug('开始保存登录状态到store')
       // 验证必要的参数
       if (!newToken || !info || !info.DId) {
         throw new Error('登录参数不完整')
       }
-      
       setToken(newToken)
       setDoctorInfo(info)
       setLoginState({
         lastLoginTime: Date.now(),
-        isLoading: false
+        isLoading: false,
+        doctorId: info.DId
       })
-      
       if (phone) {
         savePhone(phone, rememberPhone)
       }
-      
-      console.log('登录状态保存成功')
+      log.info('登录状态保存成功')
     } catch (error) {
-      console.error('保存登录状态失败:', error)
+      log.error('保存登录状态失败', error)
       throw error
     }
   }
@@ -121,10 +123,12 @@ export const useAuthStore = defineStore('auth', () => {
     TokenStorage.removeToken()
     UserInfoStorage.removeUserInfo()
     
-    // 保留记住手机号的设置
+    // 保留记住手机号的设置，但重置初始化状态
     setLoginState({
       isLoading: false,
-      lastLoginTime: null
+      isInitialized: false,
+      lastLoginTime: null,
+      doctorId: undefined
     })
   }
 
@@ -136,46 +140,63 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   const initAuth = () => {
-    console.log('初始化认证状态...')
+    log.debug('开始初始化认证状态')
     
-    // 清理过期数据
-    Storage.cleanExpired()
-    
-    const savedToken = TokenStorage.getToken()
-    const savedInfo = UserInfoStorage.getUserInfo<DoctorInfo>()
-    
-    console.log('从存储中获取的token:', !!savedToken)
-    console.log('从存储中获取的用户信息:', !!savedInfo)
-    
-    if (savedToken) {
-      token.value = savedToken
+    try {
+      // 清理过期数据
+      Storage.cleanExpired()
+      
+      const savedToken = TokenStorage.getToken()
+      const savedInfo = UserInfoStorage.getUserInfo<DoctorInfo>()
+      
+      log.debug('从存储中获取数据', {
+        hasToken: !!savedToken,
+        hasUserInfo: !!savedInfo,
+        savedInfoDId: savedInfo?.DId
+      })
+      
+      if (savedToken) {
+        token.value = savedToken
+      }
+      
+      if (savedInfo) {
+        doctorInfo.value = savedInfo
+      }
+      
+      // 确保doctorId正确设置
+      let doctorId: number | undefined
+      if (savedInfo && savedInfo.DId) {
+        doctorId = savedInfo.DId
+      }
+      
+      // 初始化登录状态
+      loginState.value = {
+        isLoading: false,
+        isInitialized: true,
+        lastLoginTime: Storage.get<number>(STORAGE_KEYS.LAST_LOGIN_TIME),
+        rememberPhone: Storage.get<boolean>(STORAGE_KEYS.REMEMBER_PHONE) || false,
+        savedPhone: Storage.get<string>('saved_phone') || '',
+        doctorId: doctorId
+      }
+      
+      log.info('认证状态初始化完成', {
+        isLoggedIn: !!token.value,
+        hasUserInfo: !!doctorInfo.value,
+        doctorId: doctorId,
+        hasDoctorId: !!doctorId
+      })
+    } catch (error) {
+      log.error('认证状态初始化失败', error)
+      // 即使初始化失败，也要设置为已初始化状态，避免无限等待
+      loginState.value.isInitialized = true
     }
-    
-    if (savedInfo) {
-      doctorInfo.value = savedInfo
-    }
-    
-    // 初始化登录状态
-    loginState.value = {
-      isLoading: false,
-      lastLoginTime: Storage.get<number>(STORAGE_KEYS.LAST_LOGIN_TIME),
-      rememberPhone: Storage.get<boolean>(STORAGE_KEYS.REMEMBER_PHONE) || false,
-      savedPhone: Storage.get<string>('saved_phone') || ''
-    }
-    
-    console.log('认证状态初始化完成')
-    console.log('当前token:', !!token.value)
-    console.log('当前用户信息:', !!doctorInfo.value)
-    console.log('lastLoginTime:', loginState.value.lastLoginTime)
   }
 
   const checkTokenExpiry = (): boolean => {
-    console.log('检查token有效性...')
-    console.log('token存在:', !!token.value)
-    console.log('lastLoginTime存在:', !!loginState.value.lastLoginTime)
+    log.debug('检查token有效性')
     
     if (!token.value || !loginState.value.lastLoginTime) {
-      console.log('token或lastLoginTime不存在，返回false')
+      log.debug('token或lastLoginTime不存在')
       return false
     }
     
@@ -184,17 +205,19 @@ export const useAuthStore = defineStore('auth', () => {
     const timeSinceLogin = Date.now() - loginState.value.lastLoginTime
     const isExpired = timeSinceLogin > expiryTime
     
-    console.log('距离上次登录时间:', timeSinceLogin, 'ms')
-    console.log('过期时间:', expiryTime, 'ms')
-    console.log('是否过期:', isExpired)
+    log.debug('token过期检查', {
+      timeSinceLogin: Math.floor(timeSinceLogin / 1000 / 60), // 转换为分钟
+      expiryTimeMinutes: Math.floor(expiryTime / 1000 / 60), // 转换为分钟
+      isExpired
+    })
     
     if (isExpired) {
-      console.log('token已过期，执行登出操作')
+      log.info('token已过期，执行登出操作')
       logout()
       return false
     }
     
-    console.log('token有效')
+    log.debug('token有效')
     return true
   }
 
@@ -209,9 +232,38 @@ export const useAuthStore = defineStore('auth', () => {
       // setDoctorInfo(updatedInfo)
       return true
     } catch (error) {
-      console.error('Failed to refresh user info:', error)
+      log.error('刷新用户信息失败', error)
       return false
     }
+  }
+
+  const waitForInitialization = (): Promise<void> => {
+    return new Promise((resolve) => {
+      if (loginState.value.isInitialized) {
+        resolve()
+        return
+      }
+      
+      // 使用轮询检查初始化状态，但设置最大等待时间
+      let attempts = 0
+      const maxAttempts = 100 // 最多等待5秒(100 * 50ms)
+      
+      const checkInitialized = () => {
+        if (loginState.value.isInitialized || attempts >= maxAttempts) {
+          // 如果超过最大尝试次数，强制设置为已初始化
+          if (attempts >= maxAttempts && !loginState.value.isInitialized) {
+            log.warn('等待初始化超时，强制设置为已初始化')
+            loginState.value.isInitialized = true
+          }
+          resolve()
+        } else {
+          attempts++
+          setTimeout(checkInitialized, 50) // 每50ms检查一次
+        }
+      }
+      
+      checkInitialized()
+    })
   }
 
   const deleteAccount = async () => {
@@ -243,6 +295,7 @@ export const useAuthStore = defineStore('auth', () => {
     initAuth,
     checkTokenExpiry,
     refreshUserInfo,
+    waitForInitialization,
     deleteAccount
   }
 })

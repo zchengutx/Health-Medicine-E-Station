@@ -127,6 +127,7 @@ import { useNavigationUtils } from '@/router'
 import { doctorApi } from '@/api/doctor'
 import { validatePhone, getPhoneValidationMessage } from '@/utils/validation'
 import { showToast } from 'vant'
+import { log } from '@/utils/logger'
 // import FeedbackButton from '@/components/FeedbackButton.vue' // 已替换为原生button
 
 const router = useRouter()
@@ -135,7 +136,7 @@ const navigationUtils = useNavigationUtils()
 
 // 表单数据
 const formData = reactive({
-  phone: authStore.loginState.savedPhone || '',
+  phone: '',
   smsCode: ''
 })
 
@@ -164,18 +165,15 @@ const canLogin = computed(() => {
   const codeValid = formData.smsCode.length >= 4
   const result = phoneValid && codeValid && !isLoading.value
   
-  // 调试信息（生产环境可移除）
-  if (process.env.NODE_ENV === 'development') {
-    console.log('canLogin 计算:', {
-      phone: formData.phone,
-      phoneValid,
-      smsCode: formData.smsCode,
-      codeLength: formData.smsCode.length,
-      codeValid,
-      isLoading: isLoading.value,
-      result
-    })
-  }
+  // 调试信息
+  log.debug('登录按钮状态计算', {
+    hasPhone: !!formData.phone,
+    phoneValid,
+    codeLength: formData.smsCode.length,
+    codeValid,
+    isLoading: isLoading.value,
+    result
+  })
   
   return result
 })
@@ -230,13 +228,11 @@ const onSmsCodeInput = () => {
     smsStatusMessage.value = ''
   }
   
-  // 调试信息（生产环境可移除）
-  if (process.env.NODE_ENV === 'development') {
-    console.log('验证码输入:', {
-      smsCode: formData.smsCode,
-      length: formData.smsCode.length
-    })
-  }
+  // 调试信息
+  log.debug('验证码输入状态', {
+    hasCode: !!formData.smsCode,
+    codeLength: formData.smsCode.length
+  })
 }
 
 const sendSmsCode = async () => {
@@ -311,9 +307,9 @@ const startCountdown = () => {
 }
 
 const handleLogin = async () => {
-  console.log('登录按钮被点击了！', {
-    phone: formData.phone,
-    smsCode: formData.smsCode,
+  log.debug('开始执行登录流程', {
+    hasPhone: !!formData.phone,
+    hasCode: !!formData.smsCode,
     canLogin: canLogin.value
   })
   
@@ -341,7 +337,7 @@ const handleLogin = async () => {
     // 设置加载状态
     isLoading.value = true
     
-    console.log('开始调用登录API...')
+    log.debug('开始调用登录API')
     
     // 调用登录API
     const response = await doctorApi.login({
@@ -350,7 +346,7 @@ const handleLogin = async () => {
       SendSmsCode: formData.smsCode
     })
     
-    console.log('登录API调用成功:', response)
+    log.info('登录API调用成功')
     
     // 构建医生信息对象
     const doctorInfo = {
@@ -365,7 +361,7 @@ const handleLogin = async () => {
     // 保存登录状态到store
     authStore.login('temp_token', doctorInfo, formData.phone, true)
     
-    console.log('登录状态已保存到store')
+    log.info('登录状态已保存到store')
     
     // 显示成功提示
     showToast({
@@ -380,7 +376,7 @@ const handleLogin = async () => {
     }, 800)
     
   } catch (error: any) {
-    console.error('登录失败:', error)
+    log.error('登录失败', error)
     
     // 处理不同类型的错误
     let errorMessage = '登录失败，请重试'
@@ -432,18 +428,18 @@ const goToRegister = () => {
 // 处理登录成功后的跳转
 const handleLoginSuccess = (userData?: any) => {
   try {
-    console.log('开始处理登录成功跳转', userData)
+    log.debug('开始处理登录成功跳转')
     
     // 如果有用户数据，更新到store（已经在login方法中处理了）
     if (userData) {
-      console.log('用户数据已保存到store')
+      log.debug('用户数据已保存到store')
     }
     
     // 执行页面跳转，使用多重备用方案
     performNavigation()
     
   } catch (error) {
-    console.error('登录成功处理出错:', error)
+    log.error('登录成功处理出错', error)
     // 最后的备用方法
     window.location.href = '/home'
   }
@@ -451,24 +447,24 @@ const handleLoginSuccess = (userData?: any) => {
 
 // 执行页面跳转的方法
 const performNavigation = () => {
-  console.log('开始执行页面跳转')
+  log.debug('开始执行页面跳转')
   
   try {
     // 方案1: 使用导航工具
     navigationUtils.forceToHome()
-    console.log('使用导航工具跳转成功')
+    log.debug('使用导航工具跳转成功')
   } catch (error) {
-    console.error('导航工具跳转失败:', error)
+    log.error('导航工具跳转失败', error)
     
     try {
       // 方案2: 使用路由器直接跳转
       router.push('/home')
-      console.log('使用路由器跳转成功')
+      log.debug('使用路由器跳转成功')
     } catch (routerError) {
-      console.error('路由器跳转失败:', routerError)
+      log.error('路由器跳转失败', routerError)
       
       // 方案3: 使用window.location强制跳转
-      console.log('使用window.location强制跳转')
+      log.debug('使用window.location强制跳转')
       window.location.href = '/home'
     }
   }

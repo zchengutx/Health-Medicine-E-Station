@@ -1,0 +1,49 @@
+Index: .idea/modules.xml
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+deleted file mode 100644
+--- a/.idea/modules.xml	(revision 5ac91d19d63d48a641e97f7fedf11a4732f3652b)
++++ /dev/null	(revision 5ac91d19d63d48a641e97f7fedf11a4732f3652b)
+@@ -1,8 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="ProjectModuleManager">
+-    <modules>
+-      <module fileurl="file://$PROJECT_DIR$/.idea/Health-Medicine-E-Station.iml" filepath="$PROJECT_DIR$/.idea/Health-Medicine-E-Station.iml" />
+-    </modules>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/.gitignore
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+deleted file mode 100644
+--- a/.idea/.gitignore	(revision 5ac91d19d63d48a641e97f7fedf11a4732f3652b)
++++ /dev/null	(revision 5ac91d19d63d48a641e97f7fedf11a4732f3652b)
+@@ -1,8 +0,0 @@
+-# 默认忽略的文件
+-/shelf/
+-/workspace.xml
+-# 基于编辑器的 HTTP 客户端请求
+-/httpRequests/
+-# Datasource local storage ignored files
+-/dataSources/
+-/dataSources.local.xml
+Index: .idea/migrateChatHistory.xml
+===================================================================
+diff --git a/.idea/migrateChatHistory.xml b/.idea/migrateChatHistory.xml
+deleted file mode 100644
+--- a/.idea/migrateChatHistory.xml	(revision 5ac91d19d63d48a641e97f7fedf11a4732f3652b)
++++ /dev/null	(revision 5ac91d19d63d48a641e97f7fedf11a4732f3652b)
+@@ -1,10 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="MigrateChatHistoryStorage">
+-    <option name="migratedHistories">
+-      <list>
+-        <option value="455009e524a2061f0aa5b8d92008045a" />
+-      </list>
+-    </option>
+-  </component>
+-</project>
+\ No newline at end of file

@@ -1,0 +1,2729 @@
+Index: .idea/GOHCache.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GoORMHelperCache\">\r\n    <option name=\"schemaMapping\">\r\n      <map>\r\n        <entry key=\"Bootstrap\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/conf/conf.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"CategoryFacet\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"ChatHTTPClientImpl\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat_http.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"ChatManager\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/comment/chat.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"ChatMessage\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/comment/chat.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"ChatMessageInfo\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"ChatRoomInfo\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"ChatService\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/chat.go\" />\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/service/chat.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"Client\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/comment/chat.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"CreateEstimateReply\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"CreateEstimateRequest\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"Data\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/conf/conf.pb.go\" />\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/data/data.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"Data_Database\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/conf/conf.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"Data_Redis\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/conf/conf.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"DeleteEstimateReply\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"DeleteEstimateRequest\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"DrugDocument\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"DrugHTTPClientImpl\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug_http.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"DrugInfo\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"DrugService\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go\" />\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/service/drug.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"EstimateHTTPClientImpl\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate_http.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"EstimateInfo\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"EstimateService\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/estimate.go\" />\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/service/estimate.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"ExplainInfo\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"GetChatHistoryReply\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"GetChatHistoryRequest\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"GetDrugReply\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"GetDrugRequest\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"GetEstimateReply\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"GetEstimateRequest\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"GetExplainReply\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"GetExplainRequest\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"GetGuideReply\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"GetGuideRequest\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"GetUserChatRoomsReply\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"GetUserChatRoomsRequest\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"Greeter\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/greeter.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"GreeterHTTPClientImpl\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/greeter_http.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"GreeterService\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/service/greeter.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"GreeterUsecase\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/greeter.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"GuideInfo\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"HelloReply\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/greeter.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"HelloRequest\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/greeter.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"HotItem\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"InfoDrug\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"InfoDrugs\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go\" />\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"InventoryUpdate\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"ListDrugEstimateReply\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"ListDrugEstimateRequest\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"ListDrugReply\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"ListDrugRequest\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"LoginReply\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"LoginRequest\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"ManufacturerFacet\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"MtChatMessage\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/chat.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"MtChatRoom\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/chat.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"MtDrug\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"MtDrugInventory\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"MtEstimate\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/estimate.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"MtExplain\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"MtGuide\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"MtPrescription\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"MtUser\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/user.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"PriceFacet\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"PriceRange\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"SaveChatMessageReply\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"SaveChatMessageRequest\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"SearchFacets\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"SearchRequest\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"SearchResponse\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"SendSmsReply\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"SendSmsRequest\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"Server\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/conf/conf.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"Server_GRPC\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/conf/conf.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"Server_HTTP\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/conf/conf.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"UnimplementedChatServer\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat_grpc.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"UnimplementedDrugServer\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug_grpc.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"UnimplementedEstimateServer\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate_grpc.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"UnimplementedGreeterServer\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/greeter_grpc.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"UnimplementedUserServer\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/user/v1/user_grpc.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"UserHTTPClientImpl\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/user/v1/user_http.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"UserService\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/biz/user.go\" />\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/service/user.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"cartRepo\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/data/cart.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"chatClient\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat_grpc.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"chatRepo\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/data/chat.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"drugClient\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug_grpc.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"drugRepo\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/data/drug.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"estimateClient\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate_grpc.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"estimateRepo\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/data/estimate.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"greeterClient\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/greeter_grpc.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"greeterRepo\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/data/greeter.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"userClient\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/user/v1/user_grpc.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"userRepo\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/data/user.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"x\">\r\n          <value>\r\n            <set>\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat.pb.go\" />\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go\" />\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate.pb.go\" />\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/error_reason.pb.go\" />\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/greeter.pb.go\" />\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go\" />\r\n              <option value=\"file://$PROJECT_DIR$/kratos_client/internal/conf/conf.pb.go\" />\r\n            </set>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"scannedPathMapping\">\r\n      <map>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat.pb.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754384036384\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"GetChatHistoryRequest\" />\r\n                  <option value=\"GetChatHistoryReply\" />\r\n                  <option value=\"SaveChatMessageRequest\" />\r\n                  <option value=\"SaveChatMessageReply\" />\r\n                  <option value=\"GetUserChatRoomsRequest\" />\r\n                  <option value=\"GetUserChatRoomsReply\" />\r\n                  <option value=\"ChatMessageInfo\" />\r\n                  <option value=\"ChatRoomInfo\" />\r\n                  <option value=\"x\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat_grpc.pb.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754384036384\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"chatClient\" />\r\n                  <option value=\"UnimplementedChatServer\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat_http.pb.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754384036385\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"ChatHTTPClientImpl\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754384036386\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"GetDrugRequest\" />\r\n                  <option value=\"GetDrugReply\" />\r\n                  <option value=\"InfoDrug\" />\r\n                  <option value=\"GuideInfo\" />\r\n                  <option value=\"GetExplainRequest\" />\r\n                  <option value=\"GetExplainReply\" />\r\n                  <option value=\"ExplainInfo\" />\r\n                  <option value=\"ListDrugRequest\" />\r\n                  <option value=\"ListDrugReply\" />\r\n                  <option value=\"InfoDrugs\" />\r\n                  <option value=\"GetGuideRequest\" />\r\n                  <option value=\"GetGuideReply\" />\r\n                  <option value=\"x\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug_grpc.pb.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754384036387\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"drugClient\" />\r\n                  <option value=\"UnimplementedDrugServer\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug_http.pb.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754384036388\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"DrugHTTPClientImpl\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate.pb.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754384036389\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"CreateEstimateRequest\" />\r\n                  <option value=\"CreateEstimateReply\" />\r\n                  <option value=\"DeleteEstimateRequest\" />\r\n                  <option value=\"DeleteEstimateReply\" />\r\n                  <option value=\"GetEstimateRequest\" />\r\n                  <option value=\"GetEstimateReply\" />\r\n                  <option value=\"EstimateInfo\" />\r\n                  <option value=\"ListDrugEstimateRequest\" />\r\n                  <option value=\"ListDrugEstimateReply\" />\r\n                  <option value=\"InfoDrugs\" />\r\n                  <option value=\"x\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate_grpc.pb.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754384036389\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"estimateClient\" />\r\n                  <option value=\"UnimplementedEstimateServer\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate_http.pb.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754384036390\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"EstimateHTTPClientImpl\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/error_reason.pb.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754384036391\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"x\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/greeter.pb.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754384036392\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"HelloRequest\" />\r\n                  <option value=\"HelloReply\" />\r\n                  <option value=\"x\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/greeter_grpc.pb.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754384036393\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"greeterClient\" />\r\n                  <option value=\"UnimplementedGreeterServer\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/greeter_http.pb.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754384036394\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"GreeterHTTPClientImpl\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754384036395\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"SendSmsRequest\" />\r\n                  <option value=\"SendSmsReply\" />\r\n                  <option value=\"LoginRequest\" />\r\n                  <option value=\"LoginReply\" />\r\n                  <option value=\"x\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/api/user/v1/user_grpc.pb.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754384036396\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"userClient\" />\r\n                  <option value=\"UnimplementedUserServer\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/api/user/v1/user_http.pb.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754384036396\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"UserHTTPClientImpl\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/cmd/kratos_client/main.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754046203113\" />\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/cmd/kratos_client/wire.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754046203116\" />\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/cmd/kratos_client/wire_gen.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754384975828\" />\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/comment/CheckMobile.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754046203118\" />\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/comment/JWTMiddleware.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754046203118\" />\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/comment/chat.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754534390842\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"ChatMessage\" />\r\n                  <option value=\"Client\" />\r\n                  <option value=\"ChatManager\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/comment/jwt.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754046203118\" />\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/comment/minio.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754046203119\" />\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/biz/biz.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754384090631\" />\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/biz/chat.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754462219016\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"MtChatMessage\" />\r\n                  <option value=\"MtChatRoom\" />\r\n                  <option value=\"ChatService\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754651659052\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"MtDrug\" />\r\n                  <option value=\"MtGuide\" />\r\n                  <option value=\"MtExplain\" />\r\n                  <option value=\"DrugDocument\" />\r\n                  <option value=\"MtDrugInventory\" />\r\n                  <option value=\"SearchRequest\" />\r\n                  <option value=\"PriceRange\" />\r\n                  <option value=\"SearchResponse\" />\r\n                  <option value=\"DrugInfo\" />\r\n                  <option value=\"SearchFacets\" />\r\n                  <option value=\"CategoryFacet\" />\r\n                  <option value=\"PriceFacet\" />\r\n                  <option value=\"ManufacturerFacet\" />\r\n                  <option value=\"HotItem\" />\r\n                  <option value=\"DrugService\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/biz/estimate.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754382777900\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"MtEstimate\" />\r\n                  <option value=\"EstimateService\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/biz/greeter.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754046203123\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"Greeter\" />\r\n                  <option value=\"GreeterUsecase\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/biz/user.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754046203123\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"MtUser\" />\r\n                  <option value=\"UserService\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/conf/conf.pb.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754046203124\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"Bootstrap\" />\r\n                  <option value=\"Server\" />\r\n                  <option value=\"Data\" />\r\n                  <option value=\"Server_HTTP\" />\r\n                  <option value=\"Server_GRPC\" />\r\n                  <option value=\"Data_Database\" />\r\n                  <option value=\"Data_Redis\" />\r\n                  <option value=\"x\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/data/cart.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754539700899\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"cartRepo\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/data/chat.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754394715444\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"chatRepo\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/data/data.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754394661759\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"Data\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/data/drug.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754057892587\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"drugRepo\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/data/estimate.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754366146217\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"estimateRepo\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/data/greeter.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754046203127\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"greeterRepo\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/data/user.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754046203127\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"userRepo\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/server/grpc.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754535446395\" />\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/server/http.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754394847697\" />\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/server/server.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754046203129\" />\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/service/chat.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754384067015\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"ChatService\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/service/drug.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754051843911\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"DrugService\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/service/estimate.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754366146090\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"EstimateService\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/service/greeter.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754046203129\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"GreeterService\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/service/service.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754384100882\" />\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"file://$PROJECT_DIR$/kratos_client/internal/service/user.go\">\r\n          <value>\r\n            <ScannedPath>\r\n              <option name=\"lastModified\" value=\"1754046203132\" />\r\n              <option name=\"schema\">\r\n                <list>\r\n                  <option value=\"UserService\" />\r\n                </list>\r\n              </option>\r\n            </ScannedPath>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"tableStructMapping\">\r\n      <map>\r\n        <entry key=\"bootstrap\" value=\"Bootstrap\" />\r\n        <entry key=\"cart_repo\" value=\"cartRepo\" />\r\n        <entry key=\"category_facet\" value=\"CategoryFacet\" />\r\n        <entry key=\"chat_client\" value=\"chatClient\" />\r\n        <entry key=\"chat_http_client_impl\" value=\"ChatHTTPClientImpl\" />\r\n        <entry key=\"chat_manager\" value=\"ChatManager\" />\r\n        <entry key=\"chat_message\" value=\"ChatMessage\" />\r\n        <entry key=\"chat_message_info\" value=\"ChatMessageInfo\" />\r\n        <entry key=\"chat_repo\" value=\"chatRepo\" />\r\n        <entry key=\"chat_room_info\" value=\"ChatRoomInfo\" />\r\n        <entry key=\"chat_service\" value=\"ChatService\" />\r\n        <entry key=\"client\" value=\"Client\" />\r\n        <entry key=\"create_estimate_reply\" value=\"CreateEstimateReply\" />\r\n        <entry key=\"create_estimate_request\" value=\"CreateEstimateRequest\" />\r\n        <entry key=\"data\" value=\"Data\" />\r\n        <entry key=\"data__database\" value=\"Data_Database\" />\r\n        <entry key=\"data__redis\" value=\"Data_Redis\" />\r\n        <entry key=\"delete_estimate_reply\" value=\"DeleteEstimateReply\" />\r\n        <entry key=\"delete_estimate_request\" value=\"DeleteEstimateRequest\" />\r\n        <entry key=\"drug_client\" value=\"drugClient\" />\r\n        <entry key=\"drug_document\" value=\"DrugDocument\" />\r\n        <entry key=\"drug_http_client_impl\" value=\"DrugHTTPClientImpl\" />\r\n        <entry key=\"drug_info\" value=\"DrugInfo\" />\r\n        <entry key=\"drug_repo\" value=\"drugRepo\" />\r\n        <entry key=\"drug_service\" value=\"DrugService\" />\r\n        <entry key=\"estimate_client\" value=\"estimateClient\" />\r\n        <entry key=\"estimate_http_client_impl\" value=\"EstimateHTTPClientImpl\" />\r\n        <entry key=\"estimate_info\" value=\"EstimateInfo\" />\r\n        <entry key=\"estimate_repo\" value=\"estimateRepo\" />\r\n        <entry key=\"estimate_service\" value=\"EstimateService\" />\r\n        <entry key=\"explain_info\" value=\"ExplainInfo\" />\r\n        <entry key=\"get_chat_history_reply\" value=\"GetChatHistoryReply\" />\r\n        <entry key=\"get_chat_history_request\" value=\"GetChatHistoryRequest\" />\r\n        <entry key=\"get_drug_reply\" value=\"GetDrugReply\" />\r\n        <entry key=\"get_drug_request\" value=\"GetDrugRequest\" />\r\n        <entry key=\"get_estimate_reply\" value=\"GetEstimateReply\" />\r\n        <entry key=\"get_estimate_request\" value=\"GetEstimateRequest\" />\r\n        <entry key=\"get_explain_reply\" value=\"GetExplainReply\" />\r\n        <entry key=\"get_explain_request\" value=\"GetExplainRequest\" />\r\n        <entry key=\"get_guide_reply\" value=\"GetGuideReply\" />\r\n        <entry key=\"get_guide_request\" value=\"GetGuideRequest\" />\r\n        <entry key=\"get_user_chat_rooms_reply\" value=\"GetUserChatRoomsReply\" />\r\n        <entry key=\"get_user_chat_rooms_request\" value=\"GetUserChatRoomsRequest\" />\r\n        <entry key=\"greeter\" value=\"Greeter\" />\r\n        <entry key=\"greeter_client\" value=\"greeterClient\" />\r\n        <entry key=\"greeter_http_client_impl\" value=\"GreeterHTTPClientImpl\" />\r\n        <entry key=\"greeter_repo\" value=\"greeterRepo\" />\r\n        <entry key=\"greeter_service\" value=\"GreeterService\" />\r\n        <entry key=\"greeter_usecase\" value=\"GreeterUsecase\" />\r\n        <entry key=\"guide_info\" value=\"GuideInfo\" />\r\n        <entry key=\"hello_reply\" value=\"HelloReply\" />\r\n        <entry key=\"hello_request\" value=\"HelloRequest\" />\r\n        <entry key=\"hot_item\" value=\"HotItem\" />\r\n        <entry key=\"info_drug\" value=\"InfoDrug\" />\r\n        <entry key=\"info_drugs\" value=\"InfoDrugs\" />\r\n        <entry key=\"inventory_update\" value=\"InventoryUpdate\" />\r\n        <entry key=\"list_drug_estimate_reply\" value=\"ListDrugEstimateReply\" />\r\n        <entry key=\"list_drug_estimate_request\" value=\"ListDrugEstimateRequest\" />\r\n        <entry key=\"list_drug_reply\" value=\"ListDrugReply\" />\r\n        <entry key=\"list_drug_request\" value=\"ListDrugRequest\" />\r\n        <entry key=\"login_reply\" value=\"LoginReply\" />\r\n        <entry key=\"login_request\" value=\"LoginRequest\" />\r\n        <entry key=\"manufacturer_facet\" value=\"ManufacturerFacet\" />\r\n        <entry key=\"mt_chat_message\" value=\"MtChatMessage\" />\r\n        <entry key=\"mt_chat_room\" value=\"MtChatRoom\" />\r\n        <entry key=\"mt_drug\" value=\"MtDrug\" />\r\n        <entry key=\"mt_drug_inventory\" value=\"MtDrugInventory\" />\r\n        <entry key=\"mt_estimate\" value=\"MtEstimate\" />\r\n        <entry key=\"mt_explain\" value=\"MtExplain\" />\r\n        <entry key=\"mt_guide\" value=\"MtGuide\" />\r\n        <entry key=\"mt_prescription\" value=\"MtPrescription\" />\r\n        <entry key=\"mt_user\" value=\"MtUser\" />\r\n        <entry key=\"price_facet\" value=\"PriceFacet\" />\r\n        <entry key=\"price_range\" value=\"PriceRange\" />\r\n        <entry key=\"save_chat_message_reply\" value=\"SaveChatMessageReply\" />\r\n        <entry key=\"save_chat_message_request\" value=\"SaveChatMessageRequest\" />\r\n        <entry key=\"search_facets\" value=\"SearchFacets\" />\r\n        <entry key=\"search_request\" value=\"SearchRequest\" />\r\n        <entry key=\"search_response\" value=\"SearchResponse\" />\r\n        <entry key=\"send_sms_reply\" value=\"SendSmsReply\" />\r\n        <entry key=\"send_sms_request\" value=\"SendSmsRequest\" />\r\n        <entry key=\"server\" value=\"Server\" />\r\n        <entry key=\"server_grpc\" value=\"Server_GRPC\" />\r\n        <entry key=\"server_http\" value=\"Server_HTTP\" />\r\n        <entry key=\"unimplemented_chat_server\" value=\"UnimplementedChatServer\" />\r\n        <entry key=\"unimplemented_drug_server\" value=\"UnimplementedDrugServer\" />\r\n        <entry key=\"unimplemented_estimate_server\" value=\"UnimplementedEstimateServer\" />\r\n        <entry key=\"unimplemented_greeter_server\" value=\"UnimplementedGreeterServer\" />\r\n        <entry key=\"unimplemented_user_server\" value=\"UnimplementedUserServer\" />\r\n        <entry key=\"user_client\" value=\"userClient\" />\r\n        <entry key=\"user_http_client_impl\" value=\"UserHTTPClientImpl\" />\r\n        <entry key=\"user_repo\" value=\"userRepo\" />\r\n        <entry key=\"user_service\" value=\"UserService\" />\r\n        <entry key=\"x\" value=\"x\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"lastTimeChecked\" value=\"1754528564534\" />\r\n  </component>\r\n</project>
+===================================================================
+diff --git a/.idea/GOHCache.xml b/.idea/GOHCache.xml
+--- a/.idea/GOHCache.xml	(revision 5ac91d19d63d48a641e97f7fedf11a4732f3652b)
++++ b/.idea/GOHCache.xml	(date 1754707650752)
+@@ -3,16 +3,68 @@
+   <component name="GoORMHelperCache">
+     <option name="schemaMapping">
+       <map>
++        <entry key="AlipayConfig">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/comment/alipay.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="AvailableCoupon">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/coupon.go" />
++            </set>
++          </value>
++        </entry>
+         <entry key="Bootstrap">
+           <value>
+             <set>
+               <option value="file://$PROJECT_DIR$/kratos_client/internal/conf/conf.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CalculateAvailableCouponsReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CalculateAvailableCouponsRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CartHTTPClientImpl">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/cart/v1/cart_http.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CartItem">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/cart.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CartService">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/cart.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/service/cart.go" />
+             </set>
+           </value>
+         </entry>
+         <entry key="CategoryFacet">
+           <value>
+             <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
+               <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go" />
+             </set>
+           </value>
+@@ -55,11 +107,38 @@
+         <entry key="ChatService">
+           <value>
+             <set>
+-              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/chat.go" />
+               <option value="file://$PROJECT_DIR$/kratos_client/internal/service/chat.go" />
+             </set>
+           </value>
+         </entry>
++        <entry key="CityList">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CityService">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/city.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="ClaimCouponReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="ClaimCouponRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon.pb.go" />
++            </set>
++          </value>
++        </entry>
+         <entry key="Client">
+           <value>
+             <set>
+@@ -67,6 +146,97 @@
+             </set>
+           </value>
+         </entry>
++        <entry key="Coupon">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CouponCalculateItem">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/coupon.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CouponCalculateRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/coupon.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CouponDetail">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/coupon.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CouponManager">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/comment/coupon.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CouponRule">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CouponService">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/service/coupon.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CouponServiceHTTPClientImpl">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon_http.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CouponUsecase">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/coupon.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CreateAddressReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CreateAddressRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CreateCartReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/cart/v1/cart.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CreateCartRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/cart/v1/cart.pb.go" />
++            </set>
++          </value>
++        </entry>
+         <entry key="CreateEstimateReply">
+           <value>
+             <set>
+@@ -81,6 +251,56 @@
+             </set>
+           </value>
+         </entry>
++        <entry key="CreateOrderItem">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/order.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CreateOrderReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/order/v1/order.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CreateOrderRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/order/v1/order.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/order.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CreatePaymentReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/payment/v1/payment.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CreatePaymentRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/payment/v1/payment.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CreatePrescriptionReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="CreatePrescriptionRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
++            </set>
++          </value>
++        </entry>
+         <entry key="Data">
+           <value>
+             <set>
+@@ -96,10 +316,31 @@
+             </set>
+           </value>
+         </entry>
++        <entry key="Data_Elasticsearch">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/conf/conf.pb.go" />
++            </set>
++          </value>
++        </entry>
+         <entry key="Data_Redis">
+           <value>
+             <set>
+               <option value="file://$PROJECT_DIR$/kratos_client/internal/conf/conf.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="DeleteCartReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/cart/v1/cart.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="DeleteCartRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/cart/v1/cart.pb.go" />
+             </set>
+           </value>
+         </entry>
+@@ -117,6 +358,42 @@
+             </set>
+           </value>
+         </entry>
++        <entry key="DoctorsHTTPClientImpl">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/doctors/v1/doctors_http.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="DoctorsList">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/doctors/v1/doctors.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="DoctorsListReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/doctors/v1/doctors.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="DoctorsListRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/doctors/v1/doctors.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="DoctorsService">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/dockors.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/service/dockors.go" />
++            </set>
++          </value>
++        </entry>
+         <entry key="DrugDocument">
+           <value>
+             <set>
+@@ -175,6 +452,13 @@
+             </set>
+           </value>
+         </entry>
++        <entry key="GetCartRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/cart/v1/cart.pb.go" />
++            </set>
++          </value>
++        </entry>
+         <entry key="GetChatHistoryReply">
+           <value>
+             <set>
+@@ -189,6 +473,20 @@
+             </set>
+           </value>
+         </entry>
++        <entry key="GetCouponDetailReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="GetCouponDetailRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon.pb.go" />
++            </set>
++          </value>
++        </entry>
+         <entry key="GetDrugReply">
+           <value>
+             <set>
+@@ -245,73 +543,102 @@
+             </set>
+           </value>
+         </entry>
+-        <entry key="GetUserChatRoomsReply">
++        <entry key="GetHotSearchReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="GetHotSearchRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="GetInventoryReply">
+           <value>
+             <set>
+-              <option value="file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
+             </set>
+           </value>
+         </entry>
+-        <entry key="GetUserChatRoomsRequest">
++        <entry key="GetInventoryRequest">
+           <value>
+             <set>
+-              <option value="file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
+             </set>
+           </value>
+         </entry>
+-        <entry key="Greeter">
++        <entry key="GetOrderReply">
+           <value>
+             <set>
+-              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/greeter.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/api/order/v1/order.pb.go" />
+             </set>
+           </value>
+         </entry>
+-        <entry key="GreeterHTTPClientImpl">
++        <entry key="GetOrderRequest">
+           <value>
+             <set>
+-              <option value="file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/greeter_http.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/api/order/v1/order.pb.go" />
+             </set>
+           </value>
+         </entry>
+-        <entry key="GreeterService">
++        <entry key="GetPrescriptionDetailReply">
+           <value>
+             <set>
+-              <option value="file://$PROJECT_DIR$/kratos_client/internal/service/greeter.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/api/prescription/v1/prescription.pb.go" />
+             </set>
+           </value>
+         </entry>
+-        <entry key="GreeterUsecase">
++        <entry key="GetPrescriptionDetailRequest">
+           <value>
+             <set>
+-              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/greeter.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/api/prescription/v1/prescription.pb.go" />
+             </set>
+           </value>
+         </entry>
+-        <entry key="GuideInfo">
++        <entry key="GetUserChatRoomsReply">
+           <value>
+             <set>
+-              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="GetUserChatRoomsRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat.pb.go" />
+             </set>
+           </value>
+         </entry>
+-        <entry key="HelloReply">
++        <entry key="GuideInfo">
+           <value>
+             <set>
+-              <option value="file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/greeter.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
+             </set>
+           </value>
+         </entry>
+-        <entry key="HelloRequest">
++        <entry key="HeartbeatManager">
+           <value>
+             <set>
+-              <option value="file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/greeter.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/comment/heartbeat.go" />
+             </set>
+           </value>
+         </entry>
+         <entry key="HotItem">
+           <value>
+             <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
+               <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="InfoCart">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/cart/v1/cart.pb.go" />
+             </set>
+           </value>
+         </entry>
+@@ -330,10 +657,53 @@
+             </set>
+           </value>
+         </entry>
+-        <entry key="InventoryUpdate">
++        <entry key="InventoryInfo">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="ListCartReply">
+           <value>
+             <set>
+-              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/api/cart/v1/cart.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="ListCartRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/cart/v1/cart.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="ListCouponsReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="ListCouponsRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="ListDoctorPrescriptionsReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/prescription/v1/prescription.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="ListDoctorPrescriptionsRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/prescription/v1/prescription.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/prescription.go" />
+             </set>
+           </value>
+         </entry>
+@@ -365,6 +735,73 @@
+             </set>
+           </value>
+         </entry>
++        <entry key="ListPatientPrescriptionsReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/prescription/v1/prescription.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="ListPatientPrescriptionsRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/prescription/v1/prescription.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/prescription.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="ListPrescriptionsReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/api/prescription/v1/prescription.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="ListPrescriptionsRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/api/prescription/v1/prescription.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/prescription.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="ListUserCouponsReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="ListUserCouponsRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="ListUserOrdersReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/order/v1/order.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="ListUserOrdersRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/order/v1/order.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="LocationResponse">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/service/user.go" />
++            </set>
++          </value>
++        </entry>
+         <entry key="LoginReply">
+           <value>
+             <set>
+@@ -382,21 +819,53 @@
+         <entry key="ManufacturerFacet">
+           <value>
+             <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
+               <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go" />
+             </set>
+           </value>
+         </entry>
+-        <entry key="MtChatMessage">
++        <entry key="MtAddress">
+           <value>
+             <set>
+-              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/chat.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/city.go" />
+             </set>
+           </value>
+         </entry>
+-        <entry key="MtChatRoom">
++        <entry key="MtCity">
+           <value>
+             <set>
+-              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/chat.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/city.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="MtCouponRule">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/coupon.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/data/coupon.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="MtDiscount">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/coupon.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/data/coupon.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="MtDiscountUser">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/coupon.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/data/coupon.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="MtDoctors">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/dockors.go" />
+             </set>
+           </value>
+         </entry>
+@@ -435,10 +904,43 @@
+             </set>
+           </value>
+         </entry>
++        <entry key="MtOrder">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/order.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/data/order.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="MtOrderCoupon">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/coupon.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/data/coupon.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="MtOrderItem">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/order.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/data/order.go" />
++            </set>
++          </value>
++        </entry>
+         <entry key="MtPrescription">
+           <value>
+             <set>
+-              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/prescription.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/data/prescription.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="MtPrescriptionMedicine">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/prescription.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/data/prescription.go" />
+             </set>
+           </value>
+         </entry>
+@@ -449,9 +951,196 @@
+             </set>
+           </value>
+         </entry>
++        <entry key="Order">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/order/v1/order.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="OrderCouponInfo">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/comment/coupon.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="OrderDetail">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/order.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="OrderItem">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/api/order/v1/order.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="OrderItemDetail">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/order/v1/order.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="OrderService">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/service/order.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="OrderServiceHTTPClientImpl">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/order/v1/order_http.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="OrderSummary">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/order/v1/order.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/order.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="OrderUsecase">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/order.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="PaymentHTTPClientImpl">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/payment/v1/payment_http.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="PaymentInfo">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/payment/v1/payment.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/order.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="PaymentNotifyReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/payment/v1/payment.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="PaymentNotifyRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/payment/v1/payment.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="PaymentOrder">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/payment.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/data/payment.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="PaymentResult">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/comment/alipay.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="PaymentReturnReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/payment/v1/payment.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="PaymentReturnRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/payment/v1/payment.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="PaymentService">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/service/payment.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="PaymentUsecase">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/payment.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="Prescription">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/prescription/v1/prescription.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="PrescriptionDetail">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/prescription.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="PrescriptionInfo">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="PrescriptionMedicine">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/prescription/v1/prescription.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="PrescriptionService">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/service/prescription.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="PrescriptionServiceHTTPClientImpl">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/prescription/v1/prescription_http.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="PrescriptionUsecase">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/prescription.go" />
++            </set>
++          </value>
++        </entry>
+         <entry key="PriceFacet">
+           <value>
+             <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
+               <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go" />
+             </set>
+           </value>
+@@ -463,6 +1152,42 @@
+             </set>
+           </value>
+         </entry>
++        <entry key="ProcessPaymentReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/order/v1/order.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="ProcessPaymentRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/order/v1/order.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="QueryPaymentReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/payment/v1/payment.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="QueryPaymentRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/payment/v1/payment.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="RefundRecord">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/payment.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/data/payment.go" />
++            </set>
++          </value>
++        </entry>
+         <entry key="SaveChatMessageReply">
+           <value>
+             <set>
+@@ -477,13 +1202,49 @@
+             </set>
+           </value>
+         </entry>
++        <entry key="SearchDrugInfo">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="SearchDrugsReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="SearchDrugsRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
++            </set>
++          </value>
++        </entry>
+         <entry key="SearchFacets">
+           <value>
+             <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
+               <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go" />
+             </set>
+           </value>
+         </entry>
++        <entry key="SearchForCitiesReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="SearchForCitiesRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go" />
++            </set>
++          </value>
++        </entry>
+         <entry key="SearchRequest">
+           <value>
+             <set>
+@@ -498,6 +1259,20 @@
+             </set>
+           </value>
+         </entry>
++        <entry key="SelectTheCityReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="SelectTheCityRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go" />
++            </set>
++          </value>
++        </entry>
+         <entry key="SendSmsReply">
+           <value>
+             <set>
+@@ -530,6 +1305,13 @@
+           <value>
+             <set>
+               <option value="file://$PROJECT_DIR$/kratos_client/internal/conf/conf.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="UnimplementedCartServer">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/cart/v1/cart_grpc.pb.go" />
+             </set>
+           </value>
+         </entry>
+@@ -540,6 +1322,20 @@
+             </set>
+           </value>
+         </entry>
++        <entry key="UnimplementedCouponServiceServer">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon_grpc.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="UnimplementedDoctorsServer">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/doctors/v1/doctors_grpc.pb.go" />
++            </set>
++          </value>
++        </entry>
+         <entry key="UnimplementedDrugServer">
+           <value>
+             <set>
+@@ -554,10 +1350,24 @@
+             </set>
+           </value>
+         </entry>
+-        <entry key="UnimplementedGreeterServer">
++        <entry key="UnimplementedOrderServiceServer">
+           <value>
+             <set>
+-              <option value="file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/greeter_grpc.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/api/order/v1/order_grpc.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="UnimplementedPaymentServer">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/payment/v1/payment_grpc.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="UnimplementedPrescriptionServiceServer">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/prescription/v1/prescription_grpc.pb.go" />
+             </set>
+           </value>
+         </entry>
+@@ -568,6 +1378,76 @@
+             </set>
+           </value>
+         </entry>
++        <entry key="UpdateCartReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/cart/v1/cart.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="UpdateCartRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/cart/v1/cart.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="UpdateInventoryReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="UpdateInventoryRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="UpdateMobileReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="UpdateMobileRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="UpdateNickNameReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="UpdateNickNameRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="UserCoupon">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="UserCouponDetail">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/coupon.go" />
++            </set>
++          </value>
++        </entry>
+         <entry key="UserHTTPClientImpl">
+           <value>
+             <set>
+@@ -575,6 +1455,20 @@
+             </set>
+           </value>
+         </entry>
++        <entry key="UserInfoReply">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="UserInfoRequest">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go" />
++            </set>
++          </value>
++        </entry>
+         <entry key="UserService">
+           <value>
+             <set>
+@@ -583,6 +1477,13 @@
+             </set>
+           </value>
+         </entry>
++        <entry key="cartClient">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/cart/v1/cart_grpc.pb.go" />
++            </set>
++          </value>
++        </entry>
+         <entry key="cartRepo">
+           <value>
+             <set>
+@@ -597,10 +1498,38 @@
+             </set>
+           </value>
+         </entry>
+-        <entry key="chatRepo">
++        <entry key="cityRepo">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/data/city.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="couponRepo">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/data/coupon.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="couponServiceClient">
+           <value>
+             <set>
+-              <option value="file://$PROJECT_DIR$/kratos_client/internal/data/chat.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon_grpc.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="doctorsClient">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/doctors/v1/doctors_grpc.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="doctorsRepo">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/data/doctors.go" />
+             </set>
+           </value>
+         </entry>
+@@ -608,6 +1537,13 @@
+           <value>
+             <set>
+               <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug_grpc.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="drugInventoryRepo">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/data/inventory.go" />
+             </set>
+           </value>
+         </entry>
+@@ -632,17 +1568,45 @@
+             </set>
+           </value>
+         </entry>
+-        <entry key="greeterClient">
++        <entry key="orderRepo">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/data/order.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="orderServiceClient">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/order/v1/order_grpc.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="paymentClient">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/payment/v1/payment_grpc.pb.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="paymentRepo">
++          <value>
++            <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/data/payment.go" />
++            </set>
++          </value>
++        </entry>
++        <entry key="prescriptionRepo">
+           <value>
+             <set>
+-              <option value="file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/greeter_grpc.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/internal/data/prescription.go" />
+             </set>
+           </value>
+         </entry>
+-        <entry key="greeterRepo">
++        <entry key="prescriptionServiceClient">
+           <value>
+             <set>
+-              <option value="file://$PROJECT_DIR$/kratos_client/internal/data/greeter.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/api/prescription/v1/prescription_grpc.pb.go" />
+             </set>
+           </value>
+         </entry>
+@@ -663,11 +1627,15 @@
+         <entry key="x">
+           <value>
+             <set>
++              <option value="file://$PROJECT_DIR$/kratos_client/api/cart/v1/cart.pb.go" />
+               <option value="file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/api/doctors/v1/doctors.pb.go" />
+               <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
+               <option value="file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate.pb.go" />
+-              <option value="file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/error_reason.pb.go" />
+-              <option value="file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/greeter.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/api/order/v1/order.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/api/payment/v1/payment.pb.go" />
++              <option value="file://$PROJECT_DIR$/kratos_client/api/prescription/v1/prescription.pb.go" />
+               <option value="file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go" />
+               <option value="file://$PROJECT_DIR$/kratos_client/internal/conf/conf.pb.go" />
+             </set>
+@@ -677,10 +1645,57 @@
+     </option>
+     <option name="scannedPathMapping">
+       <map>
++        <entry key="file://$PROJECT_DIR$/kratos_client/api/cart/v1/cart.pb.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471592" />
++              <option name="schema">
++                <list>
++                  <option value="CreateCartRequest" />
++                  <option value="CreateCartReply" />
++                  <option value="UpdateCartRequest" />
++                  <option value="UpdateCartReply" />
++                  <option value="DeleteCartRequest" />
++                  <option value="DeleteCartReply" />
++                  <option value="GetCartRequest" />
++                  <option value="ListCartRequest" />
++                  <option value="ListCartReply" />
++                  <option value="InfoCart" />
++                  <option value="x" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/api/cart/v1/cart_grpc.pb.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471592" />
++              <option name="schema">
++                <list>
++                  <option value="cartClient" />
++                  <option value="UnimplementedCartServer" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/api/cart/v1/cart_http.pb.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471593" />
++              <option name="schema">
++                <list>
++                  <option value="CartHTTPClientImpl" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
+         <entry key="file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat.pb.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754384036384" />
++              <option name="lastModified" value="1754663471594" />
+               <option name="schema">
+                 <list>
+                   <option value="GetChatHistoryRequest" />
+@@ -700,7 +1715,7 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat_grpc.pb.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754384036384" />
++              <option name="lastModified" value="1754663471594" />
+               <option name="schema">
+                 <list>
+                   <option value="chatClient" />
+@@ -713,7 +1728,7 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat_http.pb.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754384036385" />
++              <option name="lastModified" value="1754663471595" />
+               <option name="schema">
+                 <list>
+                   <option value="ChatHTTPClientImpl" />
+@@ -722,10 +1737,102 @@
+             </ScannedPath>
+           </value>
+         </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon.pb.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471596" />
++              <option name="schema">
++                <list>
++                  <option value="ListCouponsRequest" />
++                  <option value="ListCouponsReply" />
++                  <option value="ListUserCouponsRequest" />
++                  <option value="ListUserCouponsReply" />
++                  <option value="GetCouponDetailRequest" />
++                  <option value="GetCouponDetailReply" />
++                  <option value="ClaimCouponRequest" />
++                  <option value="ClaimCouponReply" />
++                  <option value="CalculateAvailableCouponsRequest" />
++                  <option value="CalculateAvailableCouponsReply" />
++                  <option value="Coupon" />
++                  <option value="UserCoupon" />
++                  <option value="CouponRule" />
++                  <option value="OrderItem" />
++                  <option value="AvailableCoupon" />
++                  <option value="x" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon_grpc.pb.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471597" />
++              <option name="schema">
++                <list>
++                  <option value="couponServiceClient" />
++                  <option value="UnimplementedCouponServiceServer" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon_http.pb.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471597" />
++              <option name="schema">
++                <list>
++                  <option value="CouponServiceHTTPClientImpl" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/api/doctors/v1/doctors.pb.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471598" />
++              <option name="schema">
++                <list>
++                  <option value="DoctorsListRequest" />
++                  <option value="DoctorsListReply" />
++                  <option value="DoctorsList" />
++                  <option value="x" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/api/doctors/v1/doctors_grpc.pb.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471598" />
++              <option name="schema">
++                <list>
++                  <option value="doctorsClient" />
++                  <option value="UnimplementedDoctorsServer" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/api/doctors/v1/doctors_http.pb.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471599" />
++              <option name="schema">
++                <list>
++                  <option value="DoctorsHTTPClientImpl" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
+         <entry key="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754384036386" />
++              <option name="lastModified" value="1754663471600" />
+               <option name="schema">
+                 <list>
+                   <option value="GetDrugRequest" />
+@@ -740,6 +1847,26 @@
+                   <option value="InfoDrugs" />
+                   <option value="GetGuideRequest" />
+                   <option value="GetGuideReply" />
++                  <option value="SearchDrugsRequest" />
++                  <option value="SearchDrugsReply" />
++                  <option value="SearchDrugInfo" />
++                  <option value="SearchFacets" />
++                  <option value="CategoryFacet" />
++                  <option value="PriceFacet" />
++                  <option value="ManufacturerFacet" />
++                  <option value="GetHotSearchRequest" />
++                  <option value="GetHotSearchReply" />
++                  <option value="HotItem" />
++                  <option value="CreatePrescriptionRequest" />
++                  <option value="CreatePrescriptionReply" />
++                  <option value="ListPrescriptionsRequest" />
++                  <option value="ListPrescriptionsReply" />
++                  <option value="PrescriptionInfo" />
++                  <option value="GetInventoryRequest" />
++                  <option value="GetInventoryReply" />
++                  <option value="InventoryInfo" />
++                  <option value="UpdateInventoryRequest" />
++                  <option value="UpdateInventoryReply" />
+                   <option value="x" />
+                 </list>
+               </option>
+@@ -749,7 +1876,7 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug_grpc.pb.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754384036387" />
++              <option name="lastModified" value="1754663471601" />
+               <option name="schema">
+                 <list>
+                   <option value="drugClient" />
+@@ -762,7 +1889,7 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug_http.pb.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754384036388" />
++              <option name="lastModified" value="1754663471601" />
+               <option name="schema">
+                 <list>
+                   <option value="DrugHTTPClientImpl" />
+@@ -774,7 +1901,7 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate.pb.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754384036389" />
++              <option name="lastModified" value="1754663471603" />
+               <option name="schema">
+                 <list>
+                   <option value="CreateEstimateRequest" />
+@@ -796,7 +1923,7 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate_grpc.pb.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754384036389" />
++              <option name="lastModified" value="1754663471604" />
+               <option name="schema">
+                 <list>
+                   <option value="estimateClient" />
+@@ -809,7 +1936,7 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate_http.pb.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754384036390" />
++              <option name="lastModified" value="1754663471604" />
+               <option name="schema">
+                 <list>
+                   <option value="EstimateHTTPClientImpl" />
+@@ -818,52 +1945,143 @@
+             </ScannedPath>
+           </value>
+         </entry>
+-        <entry key="file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/error_reason.pb.go">
++        <entry key="file://$PROJECT_DIR$/kratos_client/api/order/v1/order.pb.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754384036391" />
++              <option name="lastModified" value="1754663471605" />
+               <option name="schema">
+                 <list>
++                  <option value="CreateOrderRequest" />
++                  <option value="OrderItem" />
++                  <option value="CreateOrderReply" />
++                  <option value="GetOrderRequest" />
++                  <option value="GetOrderReply" />
++                  <option value="Order" />
++                  <option value="OrderItemDetail" />
++                  <option value="ListUserOrdersRequest" />
++                  <option value="ListUserOrdersReply" />
++                  <option value="OrderSummary" />
++                  <option value="ProcessPaymentRequest" />
++                  <option value="ProcessPaymentReply" />
+                   <option value="x" />
+                 </list>
+               </option>
+             </ScannedPath>
+           </value>
+         </entry>
+-        <entry key="file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/greeter.pb.go">
++        <entry key="file://$PROJECT_DIR$/kratos_client/api/order/v1/order_grpc.pb.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471606" />
++              <option name="schema">
++                <list>
++                  <option value="orderServiceClient" />
++                  <option value="UnimplementedOrderServiceServer" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/api/order/v1/order_http.pb.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471606" />
++              <option name="schema">
++                <list>
++                  <option value="OrderServiceHTTPClientImpl" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/api/payment/v1/payment.pb.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471608" />
++              <option name="schema">
++                <list>
++                  <option value="CreatePaymentRequest" />
++                  <option value="CreatePaymentReply" />
++                  <option value="PaymentNotifyRequest" />
++                  <option value="PaymentNotifyReply" />
++                  <option value="QueryPaymentRequest" />
++                  <option value="QueryPaymentReply" />
++                  <option value="PaymentReturnRequest" />
++                  <option value="PaymentReturnReply" />
++                  <option value="PaymentInfo" />
++                  <option value="x" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/api/payment/v1/payment_grpc.pb.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471608" />
++              <option name="schema">
++                <list>
++                  <option value="paymentClient" />
++                  <option value="UnimplementedPaymentServer" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/api/payment/v1/payment_http.pb.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471609" />
++              <option name="schema">
++                <list>
++                  <option value="PaymentHTTPClientImpl" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/api/prescription/v1/prescription.pb.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754384036392" />
++              <option name="lastModified" value="1754663471610" />
+               <option name="schema">
+                 <list>
+-                  <option value="HelloRequest" />
+-                  <option value="HelloReply" />
++                  <option value="ListPrescriptionsRequest" />
++                  <option value="ListPrescriptionsReply" />
++                  <option value="ListPatientPrescriptionsRequest" />
++                  <option value="ListPatientPrescriptionsReply" />
++                  <option value="ListDoctorPrescriptionsRequest" />
++                  <option value="ListDoctorPrescriptionsReply" />
++                  <option value="GetPrescriptionDetailRequest" />
++                  <option value="GetPrescriptionDetailReply" />
++                  <option value="Prescription" />
++                  <option value="PrescriptionMedicine" />
+                   <option value="x" />
+                 </list>
+               </option>
+             </ScannedPath>
+           </value>
+         </entry>
+-        <entry key="file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/greeter_grpc.pb.go">
++        <entry key="file://$PROJECT_DIR$/kratos_client/api/prescription/v1/prescription_grpc.pb.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754384036393" />
++              <option name="lastModified" value="1754663471610" />
+               <option name="schema">
+                 <list>
+-                  <option value="greeterClient" />
+-                  <option value="UnimplementedGreeterServer" />
++                  <option value="prescriptionServiceClient" />
++                  <option value="UnimplementedPrescriptionServiceServer" />
+                 </list>
+               </option>
+             </ScannedPath>
+           </value>
+         </entry>
+-        <entry key="file://$PROJECT_DIR$/kratos_client/api/helloworld/v1/greeter_http.pb.go">
++        <entry key="file://$PROJECT_DIR$/kratos_client/api/prescription/v1/prescription_http.pb.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754384036394" />
++              <option name="lastModified" value="1754663471611" />
+               <option name="schema">
+                 <list>
+-                  <option value="GreeterHTTPClientImpl" />
++                  <option value="PrescriptionServiceHTTPClientImpl" />
+                 </list>
+               </option>
+             </ScannedPath>
+@@ -872,13 +2090,26 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754384036395" />
++              <option name="lastModified" value="1754663471611" />
+               <option name="schema">
+                 <list>
+                   <option value="SendSmsRequest" />
+                   <option value="SendSmsReply" />
+                   <option value="LoginRequest" />
+                   <option value="LoginReply" />
++                  <option value="UpdateNickNameRequest" />
++                  <option value="UpdateNickNameReply" />
++                  <option value="UpdateMobileRequest" />
++                  <option value="UpdateMobileReply" />
++                  <option value="SelectTheCityRequest" />
++                  <option value="SelectTheCityReply" />
++                  <option value="CityList" />
++                  <option value="SearchForCitiesRequest" />
++                  <option value="SearchForCitiesReply" />
++                  <option value="CreateAddressRequest" />
++                  <option value="CreateAddressReply" />
++                  <option value="UserInfoRequest" />
++                  <option value="UserInfoReply" />
+                   <option value="x" />
+                 </list>
+               </option>
+@@ -888,7 +2119,7 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/api/user/v1/user_grpc.pb.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754384036396" />
++              <option name="lastModified" value="1754663471613" />
+               <option name="schema">
+                 <list>
+                   <option value="userClient" />
+@@ -901,7 +2132,7 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/api/user/v1/user_http.pb.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754384036396" />
++              <option name="lastModified" value="1754663471613" />
+               <option name="schema">
+                 <list>
+                   <option value="UserHTTPClientImpl" />
+@@ -913,42 +2144,69 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/cmd/kratos_client/main.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754046203113" />
++              <option name="lastModified" value="1754663471613" />
+             </ScannedPath>
+           </value>
+         </entry>
+         <entry key="file://$PROJECT_DIR$/kratos_client/cmd/kratos_client/wire.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754046203116" />
++              <option name="lastModified" value="1754663471614" />
+             </ScannedPath>
+           </value>
+         </entry>
+         <entry key="file://$PROJECT_DIR$/kratos_client/cmd/kratos_client/wire_gen.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754384975828" />
++              <option name="lastModified" value="1754663471614" />
+             </ScannedPath>
+           </value>
+         </entry>
+         <entry key="file://$PROJECT_DIR$/kratos_client/comment/CheckMobile.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754046203118" />
++              <option name="lastModified" value="1754663471614" />
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/comment/GetPublicIP.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471615" />
+             </ScannedPath>
+           </value>
+         </entry>
+         <entry key="file://$PROJECT_DIR$/kratos_client/comment/JWTMiddleware.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754046203118" />
++              <option name="lastModified" value="1754663471615" />
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/comment/alipay.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471615" />
++              <option name="schema">
++                <list>
++                  <option value="AlipayConfig" />
++                  <option value="PaymentResult" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/comment/alipay_config.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471616" />
+             </ScannedPath>
+           </value>
+         </entry>
+         <entry key="file://$PROJECT_DIR$/kratos_client/comment/chat.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754534390842" />
++              <option name="lastModified" value="1754663471616" />
+               <option name="schema">
+                 <list>
+                   <option value="ChatMessage" />
+@@ -959,36 +2217,115 @@
+             </ScannedPath>
+           </value>
+         </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/comment/cors.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471617" />
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/comment/coupon.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471617" />
++              <option name="schema">
++                <list>
++                  <option value="CouponManager" />
++                  <option value="OrderCouponInfo" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/comment/heartbeat.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471618" />
++              <option name="schema">
++                <list>
++                  <option value="HeartbeatManager" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
+         <entry key="file://$PROJECT_DIR$/kratos_client/comment/jwt.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754046203118" />
++              <option name="lastModified" value="1754663471618" />
+             </ScannedPath>
+           </value>
+         </entry>
+         <entry key="file://$PROJECT_DIR$/kratos_client/comment/minio.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754046203119" />
++              <option name="lastModified" value="1754663471618" />
+             </ScannedPath>
+           </value>
+         </entry>
+         <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/biz.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754384090631" />
++              <option name="lastModified" value="1754663471620" />
+             </ScannedPath>
+           </value>
+         </entry>
+-        <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/chat.go">
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/cart.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754462219016" />
++              <option name="lastModified" value="1754663471621" />
+               <option name="schema">
+                 <list>
+-                  <option value="MtChatMessage" />
+-                  <option value="MtChatRoom" />
+-                  <option value="ChatService" />
++                  <option value="CartItem" />
++                  <option value="CartService" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/city.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471621" />
++              <option name="schema">
++                <list>
++                  <option value="MtCity" />
++                  <option value="MtAddress" />
++                  <option value="CityService" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/coupon.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471622" />
++              <option name="schema">
++                <list>
++                  <option value="MtDiscount" />
++                  <option value="MtCouponRule" />
++                  <option value="MtDiscountUser" />
++                  <option value="MtOrderCoupon" />
++                  <option value="CouponDetail" />
++                  <option value="UserCouponDetail" />
++                  <option value="AvailableCoupon" />
++                  <option value="CouponCalculateRequest" />
++                  <option value="CouponCalculateItem" />
++                  <option value="CouponUsecase" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/dockors.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471622" />
++              <option name="schema">
++                <list>
++                  <option value="MtDoctors" />
++                  <option value="DoctorsService" />
+                 </list>
+               </option>
+             </ScannedPath>
+@@ -997,7 +2334,7 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754651659052" />
++              <option name="lastModified" value="1754663471622" />
+               <option name="schema">
+                 <list>
+                   <option value="MtDrug" />
+@@ -1017,13 +2354,20 @@
+                   <option value="DrugService" />
+                 </list>
+               </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/errors.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471623" />
+             </ScannedPath>
+           </value>
+         </entry>
+         <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/estimate.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754382777900" />
++              <option name="lastModified" value="1754663471623" />
+               <option name="schema">
+                 <list>
+                   <option value="MtEstimate" />
+@@ -1033,14 +2377,52 @@
+             </ScannedPath>
+           </value>
+         </entry>
+-        <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/greeter.go">
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/order.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754046203123" />
++              <option name="lastModified" value="1754663471623" />
+               <option name="schema">
+                 <list>
+-                  <option value="Greeter" />
+-                  <option value="GreeterUsecase" />
++                  <option value="MtOrder" />
++                  <option value="MtOrderItem" />
++                  <option value="CreateOrderRequest" />
++                  <option value="CreateOrderItem" />
++                  <option value="PaymentInfo" />
++                  <option value="OrderDetail" />
++                  <option value="OrderSummary" />
++                  <option value="OrderUsecase" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/payment.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471623" />
++              <option name="schema">
++                <list>
++                  <option value="PaymentOrder" />
++                  <option value="RefundRecord" />
++                  <option value="PaymentUsecase" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/prescription.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471625" />
++              <option name="schema">
++                <list>
++                  <option value="MtPrescription" />
++                  <option value="MtPrescriptionMedicine" />
++                  <option value="PrescriptionDetail" />
++                  <option value="ListPrescriptionsRequest" />
++                  <option value="ListPatientPrescriptionsRequest" />
++                  <option value="ListDoctorPrescriptionsRequest" />
++                  <option value="PrescriptionUsecase" />
+                 </list>
+               </option>
+             </ScannedPath>
+@@ -1049,7 +2431,7 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/user.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754046203123" />
++              <option name="lastModified" value="1754663471625" />
+               <option name="schema">
+                 <list>
+                   <option value="MtUser" />
+@@ -1062,7 +2444,7 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/internal/conf/conf.pb.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754046203124" />
++              <option name="lastModified" value="1754663471625" />
+               <option name="schema">
+                 <list>
+                   <option value="Bootstrap" />
+@@ -1072,6 +2454,7 @@
+                   <option value="Server_GRPC" />
+                   <option value="Data_Database" />
+                   <option value="Data_Redis" />
++                  <option value="Data_Elasticsearch" />
+                   <option value="x" />
+                 </list>
+               </option>
+@@ -1081,7 +2464,7 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/cart.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754539700899" />
++              <option name="lastModified" value="1754663471626" />
+               <option name="schema">
+                 <list>
+                   <option value="cartRepo" />
+@@ -1090,13 +2473,29 @@
+             </ScannedPath>
+           </value>
+         </entry>
+-        <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/chat.go">
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/city.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471626" />
++              <option name="schema">
++                <list>
++                  <option value="cityRepo" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/coupon.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754394715444" />
++              <option name="lastModified" value="1754663471627" />
+               <option name="schema">
+                 <list>
+-                  <option value="chatRepo" />
++                  <option value="MtDiscount" />
++                  <option value="MtCouponRule" />
++                  <option value="MtDiscountUser" />
++                  <option value="MtOrderCoupon" />
++                  <option value="couponRepo" />
+                 </list>
+               </option>
+             </ScannedPath>
+@@ -1105,10 +2504,22 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/data.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754394661759" />
++              <option name="lastModified" value="1754663471627" />
+               <option name="schema">
+                 <list>
+                   <option value="Data" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/doctors.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471627" />
++              <option name="schema">
++                <list>
++                  <option value="doctorsRepo" />
+                 </list>
+               </option>
+             </ScannedPath>
+@@ -1117,7 +2528,7 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/drug.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754057892587" />
++              <option name="lastModified" value="1754663471627" />
+               <option name="schema">
+                 <list>
+                   <option value="drugRepo" />
+@@ -1129,7 +2540,7 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/estimate.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754366146217" />
++              <option name="lastModified" value="1754663471629" />
+               <option name="schema">
+                 <list>
+                   <option value="estimateRepo" />
+@@ -1138,13 +2549,62 @@
+             </ScannedPath>
+           </value>
+         </entry>
+-        <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/greeter.go">
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/inventory.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471629" />
++              <option name="schema">
++                <list>
++                  <option value="drugInventoryRepo" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/order.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471630" />
++              <option name="schema">
++                <list>
++                  <option value="MtOrder" />
++                  <option value="MtOrderItem" />
++                  <option value="orderRepo" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/order_test.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754046203127" />
++              <option name="lastModified" value="1754663471630" />
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/payment.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471630" />
+               <option name="schema">
+                 <list>
+-                  <option value="greeterRepo" />
++                  <option value="PaymentOrder" />
++                  <option value="RefundRecord" />
++                  <option value="paymentRepo" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/prescription.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471631" />
++              <option name="schema">
++                <list>
++                  <option value="MtPrescription" />
++                  <option value="MtPrescriptionMedicine" />
++                  <option value="prescriptionRepo" />
+                 </list>
+               </option>
+             </ScannedPath>
+@@ -1153,7 +2613,7 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/user.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754046203127" />
++              <option name="lastModified" value="1754663471631" />
+               <option name="schema">
+                 <list>
+                   <option value="userRepo" />
+@@ -1165,28 +2625,40 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/internal/server/grpc.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754535446395" />
++              <option name="lastModified" value="1754663471631" />
+             </ScannedPath>
+           </value>
+         </entry>
+         <entry key="file://$PROJECT_DIR$/kratos_client/internal/server/http.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754394847697" />
++              <option name="lastModified" value="1754663471632" />
+             </ScannedPath>
+           </value>
+         </entry>
+         <entry key="file://$PROJECT_DIR$/kratos_client/internal/server/server.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754046203129" />
++              <option name="lastModified" value="1754663471632" />
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/cart.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471633" />
++              <option name="schema">
++                <list>
++                  <option value="CartService" />
++                </list>
++              </option>
+             </ScannedPath>
+           </value>
+         </entry>
+         <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/chat.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754384067015" />
++              <option name="lastModified" value="1754663471633" />
+               <option name="schema">
+                 <list>
+                   <option value="ChatService" />
+@@ -1195,10 +2667,34 @@
+             </ScannedPath>
+           </value>
+         </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/coupon.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471634" />
++              <option name="schema">
++                <list>
++                  <option value="CouponService" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/dockors.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471634" />
++              <option name="schema">
++                <list>
++                  <option value="DoctorsService" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
+         <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/drug.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754051843911" />
++              <option name="lastModified" value="1754663471634" />
+               <option name="schema">
+                 <list>
+                   <option value="DrugService" />
+@@ -1210,7 +2706,7 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/estimate.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754366146090" />
++              <option name="lastModified" value="1754663471634" />
+               <option name="schema">
+                 <list>
+                   <option value="EstimateService" />
+@@ -1219,13 +2715,37 @@
+             </ScannedPath>
+           </value>
+         </entry>
+-        <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/greeter.go">
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/order.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471635" />
++              <option name="schema">
++                <list>
++                  <option value="OrderService" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/payment.go">
++          <value>
++            <ScannedPath>
++              <option name="lastModified" value="1754663471636" />
++              <option name="schema">
++                <list>
++                  <option value="PaymentService" />
++                </list>
++              </option>
++            </ScannedPath>
++          </value>
++        </entry>
++        <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/prescription.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754046203129" />
++              <option name="lastModified" value="1754663471636" />
+               <option name="schema">
+                 <list>
+-                  <option value="GreeterService" />
++                  <option value="PrescriptionService" />
+                 </list>
+               </option>
+             </ScannedPath>
+@@ -1234,17 +2754,18 @@
+         <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/service.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754384100882" />
++              <option name="lastModified" value="1754663471636" />
+             </ScannedPath>
+           </value>
+         </entry>
+         <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/user.go">
+           <value>
+             <ScannedPath>
+-              <option name="lastModified" value="1754046203132" />
++              <option name="lastModified" value="1754663471637" />
+               <option name="schema">
+                 <list>
+                   <option value="UserService" />
++                  <option value="LocationResponse" />
+                 </list>
+               </option>
+             </ScannedPath>
+@@ -1254,29 +2775,74 @@
+     </option>
+     <option name="tableStructMapping">
+       <map>
++        <entry key="alipay_config" value="AlipayConfig" />
++        <entry key="available_coupon" value="AvailableCoupon" />
+         <entry key="bootstrap" value="Bootstrap" />
++        <entry key="calculate_available_coupons_reply" value="CalculateAvailableCouponsReply" />
++        <entry key="calculate_available_coupons_request" value="CalculateAvailableCouponsRequest" />
++        <entry key="cart_client" value="cartClient" />
++        <entry key="cart_http_client_impl" value="CartHTTPClientImpl" />
++        <entry key="cart_item" value="CartItem" />
+         <entry key="cart_repo" value="cartRepo" />
++        <entry key="cart_service" value="CartService" />
+         <entry key="category_facet" value="CategoryFacet" />
+         <entry key="chat_client" value="chatClient" />
+         <entry key="chat_http_client_impl" value="ChatHTTPClientImpl" />
+         <entry key="chat_manager" value="ChatManager" />
+         <entry key="chat_message" value="ChatMessage" />
+         <entry key="chat_message_info" value="ChatMessageInfo" />
+-        <entry key="chat_repo" value="chatRepo" />
+         <entry key="chat_room_info" value="ChatRoomInfo" />
+         <entry key="chat_service" value="ChatService" />
++        <entry key="city_list" value="CityList" />
++        <entry key="city_repo" value="cityRepo" />
++        <entry key="city_service" value="CityService" />
++        <entry key="claim_coupon_reply" value="ClaimCouponReply" />
++        <entry key="claim_coupon_request" value="ClaimCouponRequest" />
+         <entry key="client" value="Client" />
++        <entry key="coupon" value="Coupon" />
++        <entry key="coupon_calculate_item" value="CouponCalculateItem" />
++        <entry key="coupon_calculate_request" value="CouponCalculateRequest" />
++        <entry key="coupon_detail" value="CouponDetail" />
++        <entry key="coupon_manager" value="CouponManager" />
++        <entry key="coupon_repo" value="couponRepo" />
++        <entry key="coupon_rule" value="CouponRule" />
++        <entry key="coupon_service" value="CouponService" />
++        <entry key="coupon_service_client" value="couponServiceClient" />
++        <entry key="coupon_service_http_client_impl" value="CouponServiceHTTPClientImpl" />
++        <entry key="coupon_usecase" value="CouponUsecase" />
++        <entry key="create_address_reply" value="CreateAddressReply" />
++        <entry key="create_address_request" value="CreateAddressRequest" />
++        <entry key="create_cart_reply" value="CreateCartReply" />
++        <entry key="create_cart_request" value="CreateCartRequest" />
+         <entry key="create_estimate_reply" value="CreateEstimateReply" />
+         <entry key="create_estimate_request" value="CreateEstimateRequest" />
++        <entry key="create_order_item" value="CreateOrderItem" />
++        <entry key="create_order_reply" value="CreateOrderReply" />
++        <entry key="create_order_request" value="CreateOrderRequest" />
++        <entry key="create_payment_reply" value="CreatePaymentReply" />
++        <entry key="create_payment_request" value="CreatePaymentRequest" />
++        <entry key="create_prescription_reply" value="CreatePrescriptionReply" />
++        <entry key="create_prescription_request" value="CreatePrescriptionRequest" />
+         <entry key="data" value="Data" />
+         <entry key="data__database" value="Data_Database" />
++        <entry key="data__elasticsearch" value="Data_Elasticsearch" />
+         <entry key="data__redis" value="Data_Redis" />
++        <entry key="delete_cart_reply" value="DeleteCartReply" />
++        <entry key="delete_cart_request" value="DeleteCartRequest" />
+         <entry key="delete_estimate_reply" value="DeleteEstimateReply" />
+         <entry key="delete_estimate_request" value="DeleteEstimateRequest" />
++        <entry key="doctors_client" value="doctorsClient" />
++        <entry key="doctors_http_client_impl" value="DoctorsHTTPClientImpl" />
++        <entry key="doctors_list" value="DoctorsList" />
++        <entry key="doctors_list_reply" value="DoctorsListReply" />
++        <entry key="doctors_list_request" value="DoctorsListRequest" />
++        <entry key="doctors_repo" value="doctorsRepo" />
++        <entry key="doctors_service" value="DoctorsService" />
+         <entry key="drug_client" value="drugClient" />
+         <entry key="drug_document" value="DrugDocument" />
+         <entry key="drug_http_client_impl" value="DrugHTTPClientImpl" />
+         <entry key="drug_info" value="DrugInfo" />
++        <entry key="drug_inventory_repo" value="drugInventoryRepo" />
+         <entry key="drug_repo" value="drugRepo" />
+         <entry key="drug_service" value="DrugService" />
+         <entry key="estimate_client" value="estimateClient" />
+@@ -1285,8 +2851,11 @@
+         <entry key="estimate_repo" value="estimateRepo" />
+         <entry key="estimate_service" value="EstimateService" />
+         <entry key="explain_info" value="ExplainInfo" />
++        <entry key="get_cart_request" value="GetCartRequest" />
+         <entry key="get_chat_history_reply" value="GetChatHistoryReply" />
+         <entry key="get_chat_history_request" value="GetChatHistoryRequest" />
++        <entry key="get_coupon_detail_reply" value="GetCouponDetailReply" />
++        <entry key="get_coupon_detail_request" value="GetCouponDetailRequest" />
+         <entry key="get_drug_reply" value="GetDrugReply" />
+         <entry key="get_drug_request" value="GetDrugRequest" />
+         <entry key="get_estimate_reply" value="GetEstimateReply" />
+@@ -1295,61 +2864,147 @@
+         <entry key="get_explain_request" value="GetExplainRequest" />
+         <entry key="get_guide_reply" value="GetGuideReply" />
+         <entry key="get_guide_request" value="GetGuideRequest" />
++        <entry key="get_hot_search_reply" value="GetHotSearchReply" />
++        <entry key="get_hot_search_request" value="GetHotSearchRequest" />
++        <entry key="get_inventory_reply" value="GetInventoryReply" />
++        <entry key="get_inventory_request" value="GetInventoryRequest" />
++        <entry key="get_order_reply" value="GetOrderReply" />
++        <entry key="get_order_request" value="GetOrderRequest" />
++        <entry key="get_prescription_detail_reply" value="GetPrescriptionDetailReply" />
++        <entry key="get_prescription_detail_request" value="GetPrescriptionDetailRequest" />
+         <entry key="get_user_chat_rooms_reply" value="GetUserChatRoomsReply" />
+         <entry key="get_user_chat_rooms_request" value="GetUserChatRoomsRequest" />
+-        <entry key="greeter" value="Greeter" />
+-        <entry key="greeter_client" value="greeterClient" />
+-        <entry key="greeter_http_client_impl" value="GreeterHTTPClientImpl" />
+-        <entry key="greeter_repo" value="greeterRepo" />
+-        <entry key="greeter_service" value="GreeterService" />
+-        <entry key="greeter_usecase" value="GreeterUsecase" />
+         <entry key="guide_info" value="GuideInfo" />
+-        <entry key="hello_reply" value="HelloReply" />
+-        <entry key="hello_request" value="HelloRequest" />
++        <entry key="heartbeat_manager" value="HeartbeatManager" />
+         <entry key="hot_item" value="HotItem" />
++        <entry key="info_cart" value="InfoCart" />
+         <entry key="info_drug" value="InfoDrug" />
+         <entry key="info_drugs" value="InfoDrugs" />
+-        <entry key="inventory_update" value="InventoryUpdate" />
++        <entry key="inventory_info" value="InventoryInfo" />
++        <entry key="list_cart_reply" value="ListCartReply" />
++        <entry key="list_cart_request" value="ListCartRequest" />
++        <entry key="list_coupons_reply" value="ListCouponsReply" />
++        <entry key="list_coupons_request" value="ListCouponsRequest" />
++        <entry key="list_doctor_prescriptions_reply" value="ListDoctorPrescriptionsReply" />
++        <entry key="list_doctor_prescriptions_request" value="ListDoctorPrescriptionsRequest" />
+         <entry key="list_drug_estimate_reply" value="ListDrugEstimateReply" />
+         <entry key="list_drug_estimate_request" value="ListDrugEstimateRequest" />
+         <entry key="list_drug_reply" value="ListDrugReply" />
+         <entry key="list_drug_request" value="ListDrugRequest" />
++        <entry key="list_patient_prescriptions_reply" value="ListPatientPrescriptionsReply" />
++        <entry key="list_patient_prescriptions_request" value="ListPatientPrescriptionsRequest" />
++        <entry key="list_prescriptions_reply" value="ListPrescriptionsReply" />
++        <entry key="list_prescriptions_request" value="ListPrescriptionsRequest" />
++        <entry key="list_user_coupons_reply" value="ListUserCouponsReply" />
++        <entry key="list_user_coupons_request" value="ListUserCouponsRequest" />
++        <entry key="list_user_orders_reply" value="ListUserOrdersReply" />
++        <entry key="list_user_orders_request" value="ListUserOrdersRequest" />
++        <entry key="location_response" value="LocationResponse" />
+         <entry key="login_reply" value="LoginReply" />
+         <entry key="login_request" value="LoginRequest" />
+         <entry key="manufacturer_facet" value="ManufacturerFacet" />
+-        <entry key="mt_chat_message" value="MtChatMessage" />
+-        <entry key="mt_chat_room" value="MtChatRoom" />
++        <entry key="mt_address" value="MtAddress" />
++        <entry key="mt_city" value="MtCity" />
++        <entry key="mt_coupon_rule" value="MtCouponRule" />
++        <entry key="mt_discount" value="MtDiscount" />
++        <entry key="mt_discount_user" value="MtDiscountUser" />
++        <entry key="mt_doctors" value="MtDoctors" />
+         <entry key="mt_drug" value="MtDrug" />
+         <entry key="mt_drug_inventory" value="MtDrugInventory" />
+         <entry key="mt_estimate" value="MtEstimate" />
+         <entry key="mt_explain" value="MtExplain" />
+         <entry key="mt_guide" value="MtGuide" />
++        <entry key="mt_order" value="MtOrder" />
++        <entry key="mt_order_coupon" value="MtOrderCoupon" />
++        <entry key="mt_order_item" value="MtOrderItem" />
+         <entry key="mt_prescription" value="MtPrescription" />
++        <entry key="mt_prescription_medicine" value="MtPrescriptionMedicine" />
+         <entry key="mt_user" value="MtUser" />
++        <entry key="order" value="Order" />
++        <entry key="order_coupon_info" value="OrderCouponInfo" />
++        <entry key="order_detail" value="OrderDetail" />
++        <entry key="order_item" value="OrderItem" />
++        <entry key="order_item_detail" value="OrderItemDetail" />
++        <entry key="order_repo" value="orderRepo" />
++        <entry key="order_service" value="OrderService" />
++        <entry key="order_service_client" value="orderServiceClient" />
++        <entry key="order_service_http_client_impl" value="OrderServiceHTTPClientImpl" />
++        <entry key="order_summary" value="OrderSummary" />
++        <entry key="order_usecase" value="OrderUsecase" />
++        <entry key="payment_client" value="paymentClient" />
++        <entry key="payment_http_client_impl" value="PaymentHTTPClientImpl" />
++        <entry key="payment_info" value="PaymentInfo" />
++        <entry key="payment_notify_reply" value="PaymentNotifyReply" />
++        <entry key="payment_notify_request" value="PaymentNotifyRequest" />
++        <entry key="payment_order" value="PaymentOrder" />
++        <entry key="payment_repo" value="paymentRepo" />
++        <entry key="payment_result" value="PaymentResult" />
++        <entry key="payment_return_reply" value="PaymentReturnReply" />
++        <entry key="payment_return_request" value="PaymentReturnRequest" />
++        <entry key="payment_service" value="PaymentService" />
++        <entry key="payment_usecase" value="PaymentUsecase" />
++        <entry key="prescription" value="Prescription" />
++        <entry key="prescription_detail" value="PrescriptionDetail" />
++        <entry key="prescription_info" value="PrescriptionInfo" />
++        <entry key="prescription_medicine" value="PrescriptionMedicine" />
++        <entry key="prescription_repo" value="prescriptionRepo" />
++        <entry key="prescription_service" value="PrescriptionService" />
++        <entry key="prescription_service_client" value="prescriptionServiceClient" />
++        <entry key="prescription_service_http_client_impl" value="PrescriptionServiceHTTPClientImpl" />
++        <entry key="prescription_usecase" value="PrescriptionUsecase" />
+         <entry key="price_facet" value="PriceFacet" />
+         <entry key="price_range" value="PriceRange" />
++        <entry key="process_payment_reply" value="ProcessPaymentReply" />
++        <entry key="process_payment_request" value="ProcessPaymentRequest" />
++        <entry key="query_payment_reply" value="QueryPaymentReply" />
++        <entry key="query_payment_request" value="QueryPaymentRequest" />
++        <entry key="refund_record" value="RefundRecord" />
+         <entry key="save_chat_message_reply" value="SaveChatMessageReply" />
+         <entry key="save_chat_message_request" value="SaveChatMessageRequest" />
++        <entry key="search_drug_info" value="SearchDrugInfo" />
++        <entry key="search_drugs_reply" value="SearchDrugsReply" />
++        <entry key="search_drugs_request" value="SearchDrugsRequest" />
+         <entry key="search_facets" value="SearchFacets" />
++        <entry key="search_for_cities_reply" value="SearchForCitiesReply" />
++        <entry key="search_for_cities_request" value="SearchForCitiesRequest" />
+         <entry key="search_request" value="SearchRequest" />
+         <entry key="search_response" value="SearchResponse" />
++        <entry key="select_the_city_reply" value="SelectTheCityReply" />
++        <entry key="select_the_city_request" value="SelectTheCityRequest" />
+         <entry key="send_sms_reply" value="SendSmsReply" />
+         <entry key="send_sms_request" value="SendSmsRequest" />
+         <entry key="server" value="Server" />
+         <entry key="server_grpc" value="Server_GRPC" />
+         <entry key="server_http" value="Server_HTTP" />
++        <entry key="unimplemented_cart_server" value="UnimplementedCartServer" />
+         <entry key="unimplemented_chat_server" value="UnimplementedChatServer" />
++        <entry key="unimplemented_coupon_service_server" value="UnimplementedCouponServiceServer" />
++        <entry key="unimplemented_doctors_server" value="UnimplementedDoctorsServer" />
+         <entry key="unimplemented_drug_server" value="UnimplementedDrugServer" />
+         <entry key="unimplemented_estimate_server" value="UnimplementedEstimateServer" />
+-        <entry key="unimplemented_greeter_server" value="UnimplementedGreeterServer" />
++        <entry key="unimplemented_order_service_server" value="UnimplementedOrderServiceServer" />
++        <entry key="unimplemented_payment_server" value="UnimplementedPaymentServer" />
++        <entry key="unimplemented_prescription_service_server" value="UnimplementedPrescriptionServiceServer" />
+         <entry key="unimplemented_user_server" value="UnimplementedUserServer" />
++        <entry key="update_cart_reply" value="UpdateCartReply" />
++        <entry key="update_cart_request" value="UpdateCartRequest" />
++        <entry key="update_inventory_reply" value="UpdateInventoryReply" />
++        <entry key="update_inventory_request" value="UpdateInventoryRequest" />
++        <entry key="update_mobile_reply" value="UpdateMobileReply" />
++        <entry key="update_mobile_request" value="UpdateMobileRequest" />
++        <entry key="update_nick_name_reply" value="UpdateNickNameReply" />
++        <entry key="update_nick_name_request" value="UpdateNickNameRequest" />
+         <entry key="user_client" value="userClient" />
++        <entry key="user_coupon" value="UserCoupon" />
++        <entry key="user_coupon_detail" value="UserCouponDetail" />
+         <entry key="user_http_client_impl" value="UserHTTPClientImpl" />
++        <entry key="user_info_reply" value="UserInfoReply" />
++        <entry key="user_info_request" value="UserInfoRequest" />
+         <entry key="user_repo" value="userRepo" />
+         <entry key="user_service" value="UserService" />
+         <entry key="x" value="x" />
+       </map>
+     </option>
+-    <option name="lastTimeChecked" value="1754528564534" />
++    <option name="lastTimeChecked" value="1754707590008" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/Health-Medicine-E-Station.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"WEB_MODULE\" version=\"4\">\r\n  <component name=\"Go\" enabled=\"true\" />\r\n  <component name=\"NewModuleRootManager\">\r\n    <content url=\"file://$MODULE_DIR$\" />\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n  </component>\r\n</module>
+===================================================================
+diff --git a/.idea/Health-Medicine-E-Station.iml b/.idea/Health-Medicine-E-Station.iml
+--- a/.idea/Health-Medicine-E-Station.iml	(revision 5ac91d19d63d48a641e97f7fedf11a4732f3652b)
++++ b/.idea/Health-Medicine-E-Station.iml	(date 1754707650700)
+@@ -1,9 +1,4 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+-<module type="WEB_MODULE" version="4">
++<module version="4">
+   <component name="Go" enabled="true" />
+-  <component name="NewModuleRootManager">
+-    <content url="file://$MODULE_DIR$" />
+-    <orderEntry type="inheritedJdk" />
+-    <orderEntry type="sourceFolder" forTests="false" />
+-  </component>
+ </module>
+\ No newline at end of file
+Index: .idea/MarsCodeWorkspaceAppSettings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"com.codeverse.userSettings.MarscodeWorkspaceAppSettingsState\">\r\n    <option name=\"ckgOperationStatus\" value=\"SUCCESS\" />\r\n    <option name=\"progress\" value=\"1.0\" />\r\n  </component>\r\n</project>
+===================================================================
+diff --git a/.idea/MarsCodeWorkspaceAppSettings.xml b/.idea/MarsCodeWorkspaceAppSettings.xml
+--- a/.idea/MarsCodeWorkspaceAppSettings.xml	(revision 5ac91d19d63d48a641e97f7fedf11a4732f3652b)
++++ b/.idea/MarsCodeWorkspaceAppSettings.xml	(date 1754707650767)
+@@ -2,6 +2,6 @@
+ <project version="4">
+   <component name="com.codeverse.userSettings.MarscodeWorkspaceAppSettingsState">
+     <option name="ckgOperationStatus" value="SUCCESS" />
+-    <option name="progress" value="1.0" />
++    <option name="progress" value="0.46" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"VcsDirectoryMappings\">\r\n    <mapping directory=\"\" vcs=\"Git\" />\r\n  </component>\r\n</project>
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+--- a/.idea/vcs.xml	(revision 5ac91d19d63d48a641e97f7fedf11a4732f3652b)
++++ b/.idea/vcs.xml	(date 1754707650758)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="VcsDirectoryMappings">
+-    <mapping directory="" vcs="Git" />
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+   </component>
+ </project>
+\ No newline at end of file

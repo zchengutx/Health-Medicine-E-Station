@@ -52,6 +52,7 @@ export interface UpdateProfileParams {
   Gender: string
   BirthDate: string
   Email: string
+  Avatar: string
   Title: string
   Speciality: string
   PracticeScope: string
@@ -65,6 +66,7 @@ export interface GetProfileParams {
 // 登录响应数据
 export interface LoginResponse extends ApiResponse {
   DId: number
+  Token: string
 }
 
 // 医生个人信息
@@ -254,8 +256,7 @@ export type {
   GetProfileParams,
   LoginResponse,
   DoctorProfile,
-  GetProfileResponse,
-  DeleteAccountParams
+  GetProfileResponse
 }
 
 export default DoctorApiService;

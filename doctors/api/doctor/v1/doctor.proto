@@ -87,6 +87,7 @@ message  LoginDoctorResp{
 	string Message = 1;
 	int64 Code = 2;
 	int64 DId = 3;
+	string Token = 4;
 }
 //个人资料认证
 message AuthenticationReq{

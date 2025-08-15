@@ -4,6 +4,7 @@ import (
 	"context"
 	pb "doctors/api/doctor/v1"
 	"doctors/internal/biz"
+	"doctors/utils"
 	"time"
 
 	"github.com/go-kratos/kratos/v2/errors"
@@ -142,10 +143,21 @@ func (s *DoctorService) LoginDoctor(ctx context.Context, req *pb.LoginDoctorReq)
 		}, nil
 	}
 
+	// 登录成功后生成 JWT token
+	token, err := utils.TokenHandler(int64(doctor.ID))
+	if err != nil {
+		s.log.WithContext(ctx).Errorf("生成JWT失败: %v", err)
+		return &pb.LoginDoctorResp{
+			Message: "登录失败",
+			Code:    500,
+		}, nil
+	}
+
 	return &pb.LoginDoctorResp{
 		Message: "登录成功",
 		Code:    200,
 		DId:     int64(doctor.ID),
+		Token:   token,
 	}, nil
 }
 
@@ -172,10 +184,14 @@ func (s *DoctorService) Authentication(ctx context.Context, req *pb.Authenticati
 	if req.DepartmentId > 0 {
 		departmentId := uint(req.DepartmentId)
 		doctor.DepartmentID = &departmentId
+	} else {
+		doctor.DepartmentID = nil
 	}
 	if req.HospitalId > 0 {
 		hospitalId := uint(req.HospitalId)
 		doctor.HospitalID = &hospitalId
+	} else {
+		doctor.HospitalID = nil
 	}
 
 	doctor.Title = req.Title
@@ -203,9 +219,15 @@ func (s *DoctorService) GetDoctorProfile(ctx context.Context, req *pb.GetDoctorP
 	doctor, err := s.uc.GetDoctorByID(ctx, uint(req.DoctorId))
 	if err != nil {
 		s.log.WithContext(ctx).Errorf("获取医生信息失败: %v", err)
+		if err.Error() == "医生不存在" || err.Error() == "查询医生失败: 医生不存在" {
+			return &pb.GetDoctorProfileResp{
+				Message: "医生不存在",
+				Code:    404,
+			}, nil
+		}
 		return &pb.GetDoctorProfileResp{
-			Message: "医生不存在",
-			Code:    404,
+			Message: "查询医生信息失败，请稍后重试",
+			Code:    500,
 		}, nil
 	}
 
@@ -228,8 +250,8 @@ func (s *DoctorService) GetDoctorProfile(ctx context.Context, req *pb.GetDoctorP
 	}
 
 	// 处理可选字段
-	if doctor.BirthDate != nil {
-		profile.BirthDate = doctor.BirthDate.Format("2006-01-02")
+	if doctor.BirthDate != "" {
+		profile.BirthDate = doctor.BirthDate
 	}
 	if doctor.DepartmentID != nil {
 		profile.DepartmentId = int64(*doctor.DepartmentID)
@@ -247,25 +269,52 @@ func (s *DoctorService) GetDoctorProfile(ctx context.Context, req *pb.GetDoctorP
 
 // UpdateDoctorProfile 更新医生个人信息
 func (s *DoctorService) UpdateDoctorProfile(ctx context.Context, req *pb.UpdateDoctorProfileReq) (*pb.UpdateDoctorProfileResp, error) {
-	doctor := &biz.Doctor{
-		ID:            uint(req.DId),
-		Name:          req.Name,
-		Gender:        req.Gender,
-		Email:         req.Email,
-		Avatar:        req.Avatar,
-		Title:         req.Title,
-		Speciality:    req.Speciality,
-		PracticeScope: req.PracticeScope,
+	doctor, err := s.uc.GetDoctorByID(ctx, uint(req.DId))
+	if err != nil {
+		s.log.WithContext(ctx).Errorf("获取医生信息失败: %v", err)
+		return &pb.UpdateDoctorProfileResp{
+			Message: "医生不存在",
+			Code:    404,
+		}, nil
 	}
 
-	// 处理生日字段
+	// 合并新参数
+	if req.Name != "" {
+		doctor.Name = req.Name
+	}
+	if req.Gender != "" {
+		doctor.Gender = req.Gender
+	}
+	if req.Email != "" {
+		doctor.Email = req.Email
+	}
+	if req.Avatar != "" {
+		doctor.Avatar = req.Avatar
+	}
+	if req.Title != "" {
+		doctor.Title = req.Title
+	}
+	if req.Speciality != "" {
+		doctor.Speciality = req.Speciality
+	}
+	if req.PracticeScope != "" {
+		doctor.PracticeScope = req.PracticeScope
+	}
 	if req.BirthDate != "" {
-		if birthDate, err := time.Parse("2006-01-02", req.BirthDate); err == nil {
-			doctor.BirthDate = &birthDate
+		if req.BirthDate == "0000-00-00" || req.BirthDate == "0001/01/01" || req.BirthDate == "0001-01-01" {
+			doctor.BirthDate = ""
+		} else if _, err := time.Parse("2006-01-02", req.BirthDate); err == nil {
+			doctor.BirthDate = req.BirthDate
+		} else {
+			// 解析失败时也设置为空字符串
+			doctor.BirthDate = ""
 		}
+	} else {
+		// 空字符串时保持为空字符串
+		doctor.BirthDate = ""
 	}
 
-	err := s.uc.UpdateDoctorProfile(ctx, doctor)
+	err = s.uc.UpdateDoctorProfile(ctx, doctor)
 	if err != nil {
 		s.log.WithContext(ctx).Errorf("更新医生信息失败: %v", err)
 

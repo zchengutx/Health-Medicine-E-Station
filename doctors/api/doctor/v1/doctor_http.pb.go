@@ -21,6 +21,7 @@ const _ = http.SupportPackageIsVersion1
 
 const OperationDoctorAuthentication = "/api.doctor.v1.Doctor/Authentication"
 const OperationDoctorChangePassword = "/api.doctor.v1.Doctor/ChangePassword"
+const OperationDoctorDeleteAccount = "/api.doctor.v1.Doctor/DeleteAccount"
 const OperationDoctorGetDoctorProfile = "/api.doctor.v1.Doctor/GetDoctorProfile"
 const OperationDoctorLoginDoctor = "/api.doctor.v1.Doctor/LoginDoctor"
 const OperationDoctorRegisterDoctor = "/api.doctor.v1.Doctor/RegisterDoctor"
@@ -30,6 +31,7 @@ const OperationDoctorUpdateDoctorProfile = "/api.doctor.v1.Doctor/UpdateDoctorPr
 type DoctorHTTPServer interface {
 	Authentication(context.Context, *AuthenticationReq) (*AuthenticationResp, error)
 	ChangePassword(context.Context, *ChangePasswordReq) (*ChangePasswordResp, error)
+	DeleteAccount(context.Context, *DeleteAccountReq) (*DeleteAccountResp, error)
 	GetDoctorProfile(context.Context, *GetDoctorProfileReq) (*GetDoctorProfileResp, error)
 	LoginDoctor(context.Context, *LoginDoctorReq) (*LoginDoctorResp, error)
 	RegisterDoctor(context.Context, *RegisterDoctorReq) (*RegisterDoctorResp, error)
@@ -46,6 +48,7 @@ func RegisterDoctorHTTPServer(s *http.Server, srv DoctorHTTPServer) {
 	r.POST("/api/v1/doctor/GetDoctorProfile", _Doctor_GetDoctorProfile0_HTTP_Handler(srv))
 	r.POST("/api/v1/doctor/UpdateDoctorProfile", _Doctor_UpdateDoctorProfile0_HTTP_Handler(srv))
 	r.POST("/api/v1/doctor/ChangePassword", _Doctor_ChangePassword0_HTTP_Handler(srv))
+	r.POST("/api/v1/doctor/DeleteAccount", _Doctor_DeleteAccount0_HTTP_Handler(srv))
 }
 
 func _Doctor_SendSms0_HTTP_Handler(srv DoctorHTTPServer) func(ctx http.Context) error {
@@ -202,9 +205,32 @@ func _Doctor_ChangePassword0_HTTP_Handler(srv DoctorHTTPServer) func(ctx http.Co
 	}
 }
 
+func _Doctor_DeleteAccount0_HTTP_Handler(srv DoctorHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in DeleteAccountReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationDoctorDeleteAccount)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.DeleteAccount(ctx, req.(*DeleteAccountReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*DeleteAccountResp)
+		return ctx.Result(200, reply)
+	}
+}
+
 type DoctorHTTPClient interface {
 	Authentication(ctx context.Context, req *AuthenticationReq, opts ...http.CallOption) (rsp *AuthenticationResp, err error)
 	ChangePassword(ctx context.Context, req *ChangePasswordReq, opts ...http.CallOption) (rsp *ChangePasswordResp, err error)
+	DeleteAccount(ctx context.Context, req *DeleteAccountReq, opts ...http.CallOption) (rsp *DeleteAccountResp, err error)
 	GetDoctorProfile(ctx context.Context, req *GetDoctorProfileReq, opts ...http.CallOption) (rsp *GetDoctorProfileResp, err error)
 	LoginDoctor(ctx context.Context, req *LoginDoctorReq, opts ...http.CallOption) (rsp *LoginDoctorResp, err error)
 	RegisterDoctor(ctx context.Context, req *RegisterDoctorReq, opts ...http.CallOption) (rsp *RegisterDoctorResp, err error)
@@ -238,6 +264,19 @@ func (c *DoctorHTTPClientImpl) ChangePassword(ctx context.Context, in *ChangePas
 	pattern := "/api/v1/doctor/ChangePassword"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationDoctorChangePassword))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *DoctorHTTPClientImpl) DeleteAccount(ctx context.Context, in *DeleteAccountReq, opts ...http.CallOption) (*DeleteAccountResp, error) {
+	var out DeleteAccountResp
+	pattern := "/api/v1/doctor/DeleteAccount"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationDoctorDeleteAccount))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

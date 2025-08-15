@@ -1,337 +1,310 @@
-import { showToast, showDialog } from 'vant'
+import { log } from './logger'
 
 // 错误类型枚举
 export enum ErrorType {
-  NETWORK = 'NETWORK',
-  API = 'API',
-  VALIDATION = 'VALIDATION',
-  AUTH = 'AUTH',
-  UNKNOWN = 'UNKNOWN'
+  NETWORK = 'network',
+  AUTHENTICATION = 'authentication',
+  VALIDATION = 'validation',
+  SERVER = 'server',
+  UNKNOWN = 'unknown'
 }
 
-// 错误级别枚举
-export enum ErrorLevel {
-  INFO = 'INFO',
-  WARNING = 'WARNING',
-  ERROR = 'ERROR',
-  CRITICAL = 'CRITICAL'
+// 错误严重程度
+export enum ErrorSeverity {
+  LOW = 'low',
+  MEDIUM = 'medium',
+  HIGH = 'high',
+  CRITICAL = 'critical'
 }
 
 // 错误信息接口
 export interface ErrorInfo {
   type: ErrorType
-  level: ErrorLevel
+  severity: ErrorSeverity
   message: string
+  userMessage: string
   code?: string | number
   details?: any
   timestamp: number
-  stack?: string
+  retryable: boolean
+  fallbackAvailable: boolean
 }
 
-// 错误处理器类
-export class GlobalErrorHandler {
-  private static instance: GlobalErrorHandler
-  private errorLog: ErrorInfo[] = []
-  private maxLogSize = 100
+// 错误处理配置
+interface ErrorHandlerConfig {
+  maxRetries: number
+  retryDelay: number
+  enableFallback: boolean
+  enableDiagnostics: boolean
+}
 
-  private constructor() {
-    this.setupGlobalHandlers()
+// 默认配置
+const defaultConfig: ErrorHandlerConfig = {
+  maxRetries: 3,
+  retryDelay: 1000,
+  enableFallback: true,
+  enableDiagnostics: true
+}
+
+/**
+ * 统一错误处理类
+ */
+export class ErrorHandler {
+  private config: ErrorHandlerConfig
+  private retryCount: Map<string, number> = new Map()
+
+  constructor(config: Partial<ErrorHandlerConfig> = {}) {
+    this.config = { ...defaultConfig, ...config }
   }
 
-  static getInstance(): GlobalErrorHandler {
-    if (!GlobalErrorHandler.instance) {
-      GlobalErrorHandler.instance = new GlobalErrorHandler()
-    }
-    return GlobalErrorHandler.instance
-  }
-
-  // 设置全局错误处理器
-  private setupGlobalHandlers() {
-    // 捕获未处理的Promise错误
-    window.addEventListener('unhandledrejection', (event) => {
-      console.error('Unhandled promise rejection:', event.reason)
-      this.handleError({
-        type: ErrorType.UNKNOWN,
-        level: ErrorLevel.ERROR,
-        message: '系统发生未知错误',
-        details: event.reason,
-        timestamp: Date.now(),
-        stack: event.reason?.stack
-      })
-      event.preventDefault()
-    })
-
-    // 捕获JavaScript运行时错误
-    window.addEventListener('error', (event) => {
-      console.error('JavaScript error:', event.error)
-      this.handleError({
-        type: ErrorType.UNKNOWN,
-        level: ErrorLevel.ERROR,
-        message: event.message || '脚本执行错误',
-        details: {
-          filename: event.filename,
-          lineno: event.lineno,
-          colno: event.colno
-        },
-        timestamp: Date.now(),
-        stack: event.error?.stack
-      })
-    })
-
-    // 捕获资源加载错误
-    window.addEventListener('error', (event) => {
-      if (event.target !== window) {
-        console.error('Resource loading error:', event.target)
-        this.handleError({
-          type: ErrorType.NETWORK,
-          level: ErrorLevel.WARNING,
-          message: '资源加载失败',
-          details: {
-            tagName: (event.target as any)?.tagName,
-            src: (event.target as any)?.src || (event.target as any)?.href
-          },
-          timestamp: Date.now()
-        })
-      }
-    }, true)
-  }
-
-  // 处理错误
-  handleError(errorInfo: ErrorInfo) {
-    // 添加到错误日志
-    this.addToLog(errorInfo)
-
-    // 根据错误级别和类型决定处理方式
-    switch (errorInfo.level) {
-      case ErrorLevel.INFO:
-        this.showInfoMessage(errorInfo.message)
-        break
-      case ErrorLevel.WARNING:
-        this.showWarningMessage(errorInfo.message)
-        break
-      case ErrorLevel.ERROR:
-        this.showErrorMessage(errorInfo.message)
-        break
-      case ErrorLevel.CRITICAL:
-        this.showCriticalError(errorInfo)
-        break
-    }
-
-    // 上报错误（在生产环境中）
-    if (process.env.NODE_ENV === 'production') {
-      this.reportError(errorInfo)
-    }
-  }
-
-  // 处理API错误
-  handleApiError(error: any): string {
+  /**
+   * 分析错误并返回错误信息
+   */
+  analyzeError(error: any, context?: string): ErrorInfo {
+    const timestamp = Date.now()
     let errorInfo: ErrorInfo
 
-    if (error.response) {
-      // HTTP错误响应
-      const { status, data } = error.response
-      errorInfo = {
-        type: ErrorType.API,
-        level: this.getErrorLevelByStatus(status),
-        message: this.getApiErrorMessage(status, data?.Message),
-        code: status,
-        details: data,
-        timestamp: Date.now()
-      }
-    } else if (error.request) {
-      // 网络错误
+    // 网络错误
+    if (this.isNetworkError(error)) {
       errorInfo = {
         type: ErrorType.NETWORK,
-        level: ErrorLevel.ERROR,
-        message: '网络连接失败，请检查网络设置',
-        details: error.request,
-        timestamp: Date.now()
+        severity: ErrorSeverity.MEDIUM,
+        message: error.message || '网络连接失败',
+        userMessage: '网络连接不稳定，请检查网络设置后重试',
+        timestamp,
+        retryable: true,
+        fallbackAvailable: true
       }
-    } else {
-      // 其他错误
+    }
+    // 认证错误
+    else if (this.isAuthenticationError(error)) {
+      errorInfo = {
+        type: ErrorType.AUTHENTICATION,
+        severity: ErrorSeverity.HIGH,
+        message: error.message || '认证失败',
+        userMessage: '登录状态已过期，请重新登录',
+        timestamp,
+        retryable: false,
+        fallbackAvailable: false
+      }
+    }
+    // 验证错误
+    else if (this.isValidationError(error)) {
+      errorInfo = {
+        type: ErrorType.VALIDATION,
+        severity: ErrorSeverity.LOW,
+        message: error.message || '数据验证失败',
+        userMessage: error.message || '请检查输入的信息是否正确',
+        timestamp,
+        retryable: false,
+        fallbackAvailable: false
+      }
+    }
+    // 服务器错误
+    else if (this.isServerError(error)) {
+      errorInfo = {
+        type: ErrorType.SERVER,
+        severity: ErrorSeverity.HIGH,
+        message: error.message || '服务器内部错误',
+        userMessage: '服务器暂时不可用，请稍后重试',
+        code: error.status || error.code,
+        timestamp,
+        retryable: true,
+        fallbackAvailable: true
+      }
+    }
+    // 未知错误
+    else {
       errorInfo = {
         type: ErrorType.UNKNOWN,
-        level: ErrorLevel.ERROR,
-        message: error.message || '请求失败，请稍后重试',
-        details: error,
-        timestamp: Date.now(),
-        stack: error.stack
+        severity: ErrorSeverity.MEDIUM,
+        message: error.message || '未知错误',
+        userMessage: '操作失败，请重试',
+        timestamp,
+        retryable: true,
+        fallbackAvailable: true
       }
     }
 
-    this.handleError(errorInfo)
-    return errorInfo.message
-  }
-
-  // 处理验证错误
-  handleValidationError(field: string, message: string) {
-    const errorInfo: ErrorInfo = {
-      type: ErrorType.VALIDATION,
-      level: ErrorLevel.WARNING,
-      message: `${field}: ${message}`,
-      timestamp: Date.now()
+    // 添加上下文信息
+    if (context) {
+      errorInfo.details = { context, originalError: error }
     }
-    
-    this.handleError(errorInfo)
+
+    // 记录错误日志
+    this.logError(errorInfo, context)
+
+    return errorInfo
   }
 
-  // 处理认证错误
-  handleAuthError(message: string = '登录已过期，请重新登录') {
-    const errorInfo: ErrorInfo = {
-      type: ErrorType.AUTH,
-      level: ErrorLevel.ERROR,
-      message,
-      timestamp: Date.now()
+  /**
+   * 自动重试机制
+   */
+  async retryWithBackoff<T>(
+    operation: () => Promise<T>,
+    operationId: string,
+    maxRetries?: number
+  ): Promise<T> {
+    const retries = maxRetries || this.config.maxRetries
+    let lastError: any
+
+    for (let attempt = 0; attempt <= retries; attempt++) {
+      try {
+        const result = await operation()
+        // 成功后清除重试计数
+        this.retryCount.delete(operationId)
+        return result
+      } catch (error) {
+        lastError = error
+        
+        if (attempt === retries) {
+          // 达到最大重试次数
+          this.retryCount.delete(operationId)
+          throw error
+        }
+
+        const errorInfo = this.analyzeError(error)
+        if (!errorInfo.retryable) {
+          // 不可重试的错误
+          throw error
+        }
+
+        // 记录重试次数
+        this.retryCount.set(operationId, attempt + 1)
+        
+        // 指数退避延迟
+        const delay = this.config.retryDelay * Math.pow(2, attempt)
+        log.warn(`操作失败，${delay}ms后进行第${attempt + 1}次重试`, {
+          operationId,
+          attempt: attempt + 1,
+          maxRetries: retries,
+          error: error.message
+        })
+        
+        await this.delay(delay)
+      }
     }
-    
-    this.handleError(errorInfo)
-    
-    // 清除登录状态并跳转到登录页
-    setTimeout(() => {
-      localStorage.removeItem('doctor_token')
-      localStorage.removeItem('doctor_info')
-      window.location.href = '/login'
-    }, 1500)
+
+    throw lastError
   }
 
-  // 根据HTTP状态码获取错误级别
-  private getErrorLevelByStatus(status: number): ErrorLevel {
-    if (status >= 500) return ErrorLevel.CRITICAL
-    if (status >= 400) return ErrorLevel.ERROR
-    if (status >= 300) return ErrorLevel.WARNING
-    return ErrorLevel.INFO
+  /**
+   * 获取用户友好的错误消息
+   */
+  getUserMessage(error: any, context?: string): string {
+    const errorInfo = this.analyzeError(error, context)
+    return errorInfo.userMessage
   }
 
-  // 获取API错误消息
-  private getApiErrorMessage(status: number, message?: string): string {
-    const defaultMessages: Record<number, string> = {
-      400: '请求参数错误',
-      401: '登录已过期，请重新登录',
-      403: '没有权限访问',
-      404: '请求的资源不存在',
-      408: '请求超时',
-      429: '请求过于频繁，请稍后再试',
-      500: '服务器内部错误',
-      502: '网关错误',
-      503: '服务暂不可用',
-      504: '网关超时'
+  /**
+   * 检查是否可以重试
+   */
+  canRetry(error: any): boolean {
+    const errorInfo = this.analyzeError(error)
+    return errorInfo.retryable
+  }
+
+  /**
+   * 检查是否有备用方案
+   */
+  hasFallback(error: any): boolean {
+    const errorInfo = this.analyzeError(error)
+    return errorInfo.fallbackAvailable
+  }
+
+  /**
+   * 获取重试次数
+   */
+  getRetryCount(operationId: string): number {
+    return this.retryCount.get(operationId) || 0
+  }
+
+  // 私有方法
+
+  private isNetworkError(error: any): boolean {
+    return (
+      error.code === 'NETWORK_ERROR' ||
+      error.message?.includes('网络') ||
+      error.message?.includes('network') ||
+      error.message?.includes('timeout') ||
+      error.name === 'NetworkError'
+    )
+  }
+
+  private isAuthenticationError(error: any): boolean {
+    return (
+      error.status === 401 ||
+      error.code === 401 ||
+      error.message?.includes('unauthorized') ||
+      error.message?.includes('认证') ||
+      error.message?.includes('登录')
+    )
+  }
+
+  private isValidationError(error: any): boolean {
+    return (
+      error.status === 400 ||
+      error.code === 400 ||
+      error.message?.includes('validation') ||
+      error.message?.includes('验证') ||
+      error.name === 'ValidationError'
+    )
+  }
+
+  private isServerError(error: any): boolean {
+    return (
+      (error.status >= 500 && error.status < 600) ||
+      (error.code >= 500 && error.code < 600) ||
+      error.message?.includes('服务器') ||
+      error.message?.includes('server')
+    )
+  }
+
+  private logError(errorInfo: ErrorInfo, context?: string): void {
+    const logData = {
+      type: errorInfo.type,
+      severity: errorInfo.severity,
+      message: errorInfo.message,
+      code: errorInfo.code,
+      context,
+      timestamp: errorInfo.timestamp,
+      retryable: errorInfo.retryable,
+      fallbackAvailable: errorInfo.fallbackAvailable
     }
-    
-    return message || defaultMessages[status] || `请求失败 (${status})`
-  }
 
-  // 显示信息消息
-  private showInfoMessage(message: string) {
-    showToast({
-      message,
-      type: 'success',
-      duration: 2000
-    })
-  }
-
-  // 显示警告消息
-  private showWarningMessage(message: string) {
-    showToast({
-      message,
-      type: 'fail',
-      duration: 3000
-    })
-  }
-
-  // 显示错误消息
-  private showErrorMessage(message: string) {
-    showToast({
-      message,
-      type: 'fail',
-      duration: 4000
-    })
-  }
-
-  // 显示严重错误
-  private showCriticalError(errorInfo: ErrorInfo) {
-    showDialog({
-      title: '系统错误',
-      message: `${errorInfo.message}\n\n如果问题持续存在，请联系技术支持。`,
-      confirmButtonText: '确定',
-      showCancelButton: false
-    })
-  }
-
-  // 添加到错误日志
-  private addToLog(errorInfo: ErrorInfo) {
-    this.errorLog.unshift(errorInfo)
-    
-    // 限制日志大小
-    if (this.errorLog.length > this.maxLogSize) {
-      this.errorLog = this.errorLog.slice(0, this.maxLogSize)
-    }
-    
-    // 存储到本地（用于调试）
-    if (process.env.NODE_ENV === 'development') {
-      localStorage.setItem('error_log', JSON.stringify(this.errorLog.slice(0, 10)))
+    switch (errorInfo.severity) {
+      case ErrorSeverity.CRITICAL:
+        log.error('严重错误', logData)
+        break
+      case ErrorSeverity.HIGH:
+        log.error('高级错误', logData)
+        break
+      case ErrorSeverity.MEDIUM:
+        log.warn('中级错误', logData)
+        break
+      case ErrorSeverity.LOW:
+        log.info('低级错误', logData)
+        break
     }
   }
 
-  // 上报错误到服务器
-  private async reportError(errorInfo: ErrorInfo) {
-    try {
-      // 这里可以调用错误上报API
-      // await fetch('/api/error-report', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(errorInfo)
-      // })
-      console.log('Error reported:', errorInfo)
-    } catch (error) {
-      console.error('Failed to report error:', error)
-    }
-  }
-
-  // 获取错误日志
-  getErrorLog(): ErrorInfo[] {
-    return [...this.errorLog]
-  }
-
-  // 清除错误日志
-  clearErrorLog() {
-    this.errorLog = []
-    localStorage.removeItem('error_log')
-  }
-
-  // 导出错误日志
-  exportErrorLog(): string {
-    return JSON.stringify(this.errorLog, null, 2)
+  private delay(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms))
   }
 }
 
-// 导出单例实例
-export const errorHandler = GlobalErrorHandler.getInstance()
+// 导出默认实例
+export const errorHandler = new ErrorHandler()
 
-// 便捷方法
-export const handleError = (error: any, type: ErrorType = ErrorType.UNKNOWN) => {
-  if (type === ErrorType.API) {
-    return errorHandler.handleApiError(error)
-  } else {
-    errorHandler.handleError({
-      type,
-      level: ErrorLevel.ERROR,
-      message: error.message || '发生未知错误',
-      details: error,
-      timestamp: Date.now(),
-      stack: error.stack
-    })
-    return error.message || '发生未知错误'
-  }
-}
+// 导出便捷函数
+export const analyzeError = (error: any, context?: string) => 
+  errorHandler.analyzeError(error, context)
 
-export const handleApiError = (error: any) => {
-  return errorHandler.handleApiError(error)
-}
+export const getUserMessage = (error: any, context?: string) => 
+  errorHandler.getUserMessage(error, context)
 
-export const handleValidationError = (field: string, message: string) => {
-  errorHandler.handleValidationError(field, message)
-}
-
-export const handleAuthError = (message?: string) => {
-  errorHandler.handleAuthError(message)
-}
+export const retryWithBackoff = <T>(
+  operation: () => Promise<T>,
+  operationId: string,
+  maxRetries?: number
+) => errorHandler.retryWithBackoff(operation, operationId, maxRetries)

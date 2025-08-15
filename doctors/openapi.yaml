@@ -43,6 +43,24 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.doctor.v1.ChangePasswordResp'
+    /api/v1/doctor/DeleteAccount:
+        post:
+            tags:
+                - Doctor
+            operationId: Doctor_DeleteAccount
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.doctor.v1.DeleteAccountReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.doctor.v1.DeleteAccountResp'
     /api/v1/doctor/GetDoctorProfile:
         post:
             tags:
@@ -189,6 +207,19 @@ components:
                     type: string
                 Code:
                     type: string
+        api.doctor.v1.DeleteAccountReq:
+            type: object
+            properties:
+                DId:
+                    type: string
+            description: 注销账号
+        api.doctor.v1.DeleteAccountResp:
+            type: object
+            properties:
+                Message:
+                    type: string
+                Code:
+                    type: string
         api.doctor.v1.DoctorProfile:
             type: object
             properties:
@@ -259,6 +290,8 @@ components:
                 Code:
                     type: string
                 DId:
+                    type: string
+                Token:
                     type: string
         api.doctor.v1.RegisterDoctorReq:
             type: object

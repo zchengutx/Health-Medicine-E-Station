@@ -25,26 +25,26 @@ var (
 
 // Doctor 医生业务实体
 type Doctor struct {
-	ID            uint       `json:"id"`
-	DoctorCode    string     `json:"doctor_code"`
-	Phone         string     `json:"phone"`
-	Password      string     `json:"password"`
-	Name          string     `json:"name"`
-	Gender        string     `json:"gender"`
-	BirthDate     *time.Time `json:"birth_date"`
-	Email         string     `json:"email"`
-	Avatar        string     `json:"avatar"`
-	LicenseNumber string     `json:"license_number"`
-	DepartmentID  *uint      `json:"department_id"`
-	HospitalID    *uint      `json:"hospital_id"`
-	Title         string     `json:"title"`
-	Speciality    string     `json:"speciality"`
-	PracticeScope string     `json:"practice_scope"`
-	Status        string     `json:"status"`
-	LastLoginTime *time.Time `json:"last_login_time"`
-	LastLoginIP   string     `json:"last_login_ip"`
-	CreatedAt     time.Time  `json:"created_at"`
-	UpdatedAt     time.Time  `json:"updated_at"`
+	ID            uint      `json:"id"`
+	DoctorCode    string    `json:"doctor_code"`
+	Name          string    `json:"name"`
+	Gender        string    `json:"gender"`
+	BirthDate     string    `json:"birth_date"` // 改为字符串类型，格式：YYYY-MM-DD
+	Phone         string    `json:"phone"`
+	Password      string    `json:"password"`
+	Email         string    `json:"email"`
+	Avatar        string    `json:"avatar"`
+	LicenseNumber string    `json:"license_number"`
+	DepartmentID  *uint     `json:"department_id"`
+	HospitalID    *uint     `json:"hospital_id"`
+	Title         string    `json:"title"`
+	Speciality    string    `json:"speciality"`
+	PracticeScope string    `json:"practice_scope"`
+	Status        string    `json:"status"`
+	LastLoginTime string    `json:"last_login_time"` // 改为字符串类型
+	LastLoginIP   string    `json:"last_login_ip"`
+	CreatedAt     time.Time `json:"created_at"`
+	UpdatedAt     time.Time `json:"updated_at"`
 }
 
 // DoctorRepo 医生数据访问接口
@@ -160,7 +160,7 @@ func (uc *DoctorUsecase) LoginDoctor(ctx context.Context, phone, password string
 
 	// 更新登录信息
 	now := time.Now()
-	doctor.LastLoginTime = &now
+	doctor.LastLoginTime = now.Format("2006-01-02 15:04:05")
 	// doctor.LastLoginIP = 获取IP地址
 
 	// 更新医生信息

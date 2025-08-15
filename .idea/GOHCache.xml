@@ -1,0 +1,2285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GoORMHelperCache">
+    <option name="schemaMapping">
+      <map>
+        <entry key="AddConsultationRecordReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="AddConsultationRecordResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Appointment">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/prescription.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Appointments">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/appointments.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="AuthenticationReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="AuthenticationResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Bootstrap">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/conf/conf.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CancelPrescriptionReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CancelPrescriptionResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ChangePasswordReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ChangePasswordResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ChargeDetails">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/charge_details.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ChargeItem">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/prescription.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ChargeItems">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/charge_items.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CheckDrugInteractionsReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CheckDrugInteractionsResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ConfirmPrescriptionReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ConfirmPrescriptionResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Consultation">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/consultation.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ConsultationData">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/consultation.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ConsultationDetail">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ConsultationHTTPClientImpl">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation_http.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ConsultationListQuery">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/consultation.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ConsultationListResult">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/consultation.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ConsultationMessage">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/consultation.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ConsultationMessages">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/consultation_messages.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ConsultationRecord">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/consultation.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ConsultationRecords">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/consultation_records.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ConsultationReport">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ConsultationService">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/service/consultation.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ConsultationUsecase">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/consultation.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Consultations">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/consultations.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CreatePatientReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/patient/v1/patient.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CreatePatientResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/patient/v1/patient.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CreatePrescriptionMedicineReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CreatePrescriptionReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CreatePrescriptionResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Data">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/conf/conf.pb.go" />
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/data.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Data_AliYun">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/conf/conf.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Data_Database">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/conf/conf.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Data_Redis">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/conf/conf.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="DeleteAccountReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="DeleteAccountResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Departments">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/departments.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Doctor">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/doctor.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="DoctorData">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/doctor.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="DoctorHTTPClientImpl">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor_http.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="DoctorPatients">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/doctor_patients.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="DoctorProfile">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="DoctorRoles">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/doctor_roles.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="DoctorService">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/service/doctor.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="DoctorUsecase">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/doctor.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Doctors">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/doctors.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="DrugInteraction">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/prescription.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="DrugInteractionInfo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="EndConsultationReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="EndConsultationResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ExampleUserRepo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/example.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="FollowUpPlans">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/follow_up_plans.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="FollowUpRecords">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/follow_up_records.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetConsultationDetailReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetConsultationDetailResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetConsultationHistoryReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetConsultationHistoryResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetConsultationRecordsReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetConsultationRecordsResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetConsultationReportReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetConsultationReportResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetConsultationsByTypeReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetConsultationsByTypeResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetDoctorProfileReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetDoctorProfileResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetMessagesReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetMessagesResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetPatientListReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/patient/v1/patient.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetPatientListResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/patient/v1/patient.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetPatientProfileReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/patient/v1/patient.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetPatientProfileResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/patient/v1/patient.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetPatientsByCategoryReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/patient/v1/patient.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetPatientsByCategoryResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/patient/v1/patient.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetPrescriptionReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GetPrescriptionResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Greeter">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/greeter.go" />
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/greeter.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GreeterHTTPClientImpl">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/helloworld/v1/greeter_http.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GreeterService">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/service/greeter.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GreeterUsecase">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/greeter.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="HelloReply">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/helloworld/v1/greeter.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="HelloRequest">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/helloworld/v1/greeter.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Hospitals">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/hospitals.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ListPrescriptionsReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ListPrescriptionsResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="LoginDoctorReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="LoginDoctorResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="LoginLogs">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/login_logs.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MarkMessageReadReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MarkMessageReadResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MedicalRecords">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/medical_records.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Medicine">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/prescription.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MedicineInfo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MedicineInventory">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/medicine_inventory.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Medicines">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/medicines.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MessageListQuery">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/consultation.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MessageListResult">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/consultation.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="OperationLogs">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/operation_logs.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Patient">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/patient.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="PatientData">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/patient.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="PatientHTTPClientImpl">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/patient/v1/patient_http.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="PatientListQuery">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/patient.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="PatientListResult">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/patient.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="PatientProfile">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/patient/v1/patient.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="PatientService">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/service/patient.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="PatientUsecase">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/patient.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Patients">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/patients.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Permissions">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/permissions.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Prescription">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/prescription.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="PrescriptionData">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/prescription.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="PrescriptionHTTPClientImpl">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription_http.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="PrescriptionInfo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="PrescriptionMedicine">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/prescription.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="PrescriptionMedicineInfo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="PrescriptionMedicines">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/prescription_medicines.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="PrescriptionUsecase">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/biz/prescription.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Prescriptions">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/prescriptions.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="RegisterDoctorReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="RegisterDoctorResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="RolePermissions">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/role_permissions.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Roles">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/roles.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="RouteInfo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/server/routes.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="SearchMedicinesReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="SearchMedicinesResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="SendMessageReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="SendMessageResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="SendSmsReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="SendSmsResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Server">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/conf/conf.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Server_GRPC">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/conf/conf.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Server_HTTP">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/conf/conf.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="StartConsultationReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="StartConsultationResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="SystemConfigs">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/model/system_configs.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="UnimplementedConsultationServer">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation_grpc.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="UnimplementedDoctorServer">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor_grpc.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="UnimplementedGreeterServer">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/helloworld/v1/greeter_grpc.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="UnimplementedPatientServer">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/patient/v1/patient_grpc.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="UnimplementedPrescriptionServer">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription_grpc.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="UpdateConsultationStatusReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="UpdateConsultationStatusResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="UpdateDoctorProfileReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="UpdateDoctorProfileResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="UpdatePatientCategoryReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/patient/v1/patient.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="UpdatePatientCategoryResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/patient/v1/patient.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="UpdatePatientProfileReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/patient/v1/patient.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="UpdatePatientProfileResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/patient/v1/patient.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="UpdatePrescriptionMedicineReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="UpdatePrescriptionReq">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="UpdatePrescriptionResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="WSConnection">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/service/consultation.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="WSHub">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/service/consultation.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="WSMessage">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/service/consultation.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="consultationClient">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation_grpc.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="doctorClient">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor_grpc.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="greeterClient">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/helloworld/v1/greeter_grpc.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="greeterRepo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/greeter.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="patientClient">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/patient/v1/patient_grpc.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="prescriptionClient">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription_grpc.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="smsCodeData">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/internal/data/doctor.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="x">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go" />
+              <option value="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor.pb.go" />
+              <option value="file://$PROJECT_DIR$/doctors/api/helloworld/v1/error_reason.pb.go" />
+              <option value="file://$PROJECT_DIR$/doctors/api/helloworld/v1/greeter.pb.go" />
+              <option value="file://$PROJECT_DIR$/doctors/api/patient/v1/patient.pb.go" />
+              <option value="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go" />
+              <option value="file://$PROJECT_DIR$/doctors/internal/conf/conf.pb.go" />
+            </set>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="scannedPathMapping">
+      <map>
+        <entry key="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation.pb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694423" />
+              <option name="schema">
+                <list>
+                  <option value="StartConsultationReq" />
+                  <option value="StartConsultationResp" />
+                  <option value="GetConsultationDetailReq" />
+                  <option value="GetConsultationDetailResp" />
+                  <option value="ConsultationDetail" />
+                  <option value="UpdateConsultationStatusReq" />
+                  <option value="UpdateConsultationStatusResp" />
+                  <option value="EndConsultationReq" />
+                  <option value="EndConsultationResp" />
+                  <option value="GetConsultationHistoryReq" />
+                  <option value="GetConsultationHistoryResp" />
+                  <option value="AddConsultationRecordReq" />
+                  <option value="AddConsultationRecordResp" />
+                  <option value="GetConsultationRecordsReq" />
+                  <option value="GetConsultationRecordsResp" />
+                  <option value="ConsultationRecord" />
+                  <option value="GetConsultationReportReq" />
+                  <option value="GetConsultationReportResp" />
+                  <option value="ConsultationReport" />
+                  <option value="GetConsultationsByTypeReq" />
+                  <option value="GetConsultationsByTypeResp" />
+                  <option value="SendMessageReq" />
+                  <option value="SendMessageResp" />
+                  <option value="GetMessagesReq" />
+                  <option value="GetMessagesResp" />
+                  <option value="ConsultationMessage" />
+                  <option value="MarkMessageReadReq" />
+                  <option value="MarkMessageReadResp" />
+                  <option value="x" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation_grpc.pb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694424" />
+              <option name="schema">
+                <list>
+                  <option value="consultationClient" />
+                  <option value="UnimplementedConsultationServer" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/api/consultation/v1/consultation_http.pb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694424" />
+              <option name="schema">
+                <list>
+                  <option value="ConsultationHTTPClientImpl" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor.pb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754710052787" />
+              <option name="schema">
+                <list>
+                  <option value="SendSmsReq" />
+                  <option value="SendSmsResp" />
+                  <option value="RegisterDoctorReq" />
+                  <option value="RegisterDoctorResp" />
+                  <option value="LoginDoctorReq" />
+                  <option value="LoginDoctorResp" />
+                  <option value="AuthenticationReq" />
+                  <option value="AuthenticationResp" />
+                  <option value="GetDoctorProfileReq" />
+                  <option value="GetDoctorProfileResp" />
+                  <option value="DoctorProfile" />
+                  <option value="UpdateDoctorProfileReq" />
+                  <option value="UpdateDoctorProfileResp" />
+                  <option value="ChangePasswordReq" />
+                  <option value="ChangePasswordResp" />
+                  <option value="DeleteAccountReq" />
+                  <option value="DeleteAccountResp" />
+                  <option value="x" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor_grpc.pb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754710052787" />
+              <option name="schema">
+                <list>
+                  <option value="doctorClient" />
+                  <option value="UnimplementedDoctorServer" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/api/doctor/v1/doctor_http.pb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754710052792" />
+              <option name="schema">
+                <list>
+                  <option value="DoctorHTTPClientImpl" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/api/helloworld/v1/error_reason.pb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694426" />
+              <option name="schema">
+                <list>
+                  <option value="x" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/api/helloworld/v1/greeter.pb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694427" />
+              <option name="schema">
+                <list>
+                  <option value="HelloRequest" />
+                  <option value="HelloReply" />
+                  <option value="x" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/api/helloworld/v1/greeter_grpc.pb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694427" />
+              <option name="schema">
+                <list>
+                  <option value="greeterClient" />
+                  <option value="UnimplementedGreeterServer" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/api/helloworld/v1/greeter_http.pb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694428" />
+              <option name="schema">
+                <list>
+                  <option value="GreeterHTTPClientImpl" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/api/patient/v1/patient.pb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694428" />
+              <option name="schema">
+                <list>
+                  <option value="CreatePatientReq" />
+                  <option value="CreatePatientResp" />
+                  <option value="GetPatientProfileReq" />
+                  <option value="GetPatientProfileResp" />
+                  <option value="PatientProfile" />
+                  <option value="UpdatePatientProfileReq" />
+                  <option value="UpdatePatientProfileResp" />
+                  <option value="GetPatientListReq" />
+                  <option value="GetPatientListResp" />
+                  <option value="GetPatientsByCategoryReq" />
+                  <option value="GetPatientsByCategoryResp" />
+                  <option value="UpdatePatientCategoryReq" />
+                  <option value="UpdatePatientCategoryResp" />
+                  <option value="x" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/api/patient/v1/patient_grpc.pb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694429" />
+              <option name="schema">
+                <list>
+                  <option value="patientClient" />
+                  <option value="UnimplementedPatientServer" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/api/patient/v1/patient_http.pb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694429" />
+              <option name="schema">
+                <list>
+                  <option value="PatientHTTPClientImpl" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription.pb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694430" />
+              <option name="schema">
+                <list>
+                  <option value="PrescriptionInfo" />
+                  <option value="PrescriptionMedicineInfo" />
+                  <option value="MedicineInfo" />
+                  <option value="DrugInteractionInfo" />
+                  <option value="CreatePrescriptionReq" />
+                  <option value="CreatePrescriptionMedicineReq" />
+                  <option value="CreatePrescriptionResp" />
+                  <option value="UpdatePrescriptionReq" />
+                  <option value="UpdatePrescriptionMedicineReq" />
+                  <option value="UpdatePrescriptionResp" />
+                  <option value="ConfirmPrescriptionReq" />
+                  <option value="ConfirmPrescriptionResp" />
+                  <option value="CancelPrescriptionReq" />
+                  <option value="CancelPrescriptionResp" />
+                  <option value="GetPrescriptionReq" />
+                  <option value="GetPrescriptionResp" />
+                  <option value="ListPrescriptionsReq" />
+                  <option value="ListPrescriptionsResp" />
+                  <option value="SearchMedicinesReq" />
+                  <option value="SearchMedicinesResp" />
+                  <option value="CheckDrugInteractionsReq" />
+                  <option value="CheckDrugInteractionsResp" />
+                  <option value="x" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription_grpc.pb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694430" />
+              <option name="schema">
+                <list>
+                  <option value="prescriptionClient" />
+                  <option value="UnimplementedPrescriptionServer" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/api/prescription/v1/prescription_http.pb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694430" />
+              <option name="schema">
+                <list>
+                  <option value="PrescriptionHTTPClientImpl" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/cmd/doctors/main.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694431" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/cmd/doctors/wire.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694431" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/cmd/doctors/wire_gen.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754711648185" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/biz/biz.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694435" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/biz/consultation.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694435" />
+              <option name="schema">
+                <list>
+                  <option value="Consultation" />
+                  <option value="ConsultationMessage" />
+                  <option value="ConsultationRecord" />
+                  <option value="ConsultationListQuery" />
+                  <option value="ConsultationListResult" />
+                  <option value="MessageListQuery" />
+                  <option value="MessageListResult" />
+                  <option value="ConsultationUsecase" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/biz/doctor.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694435" />
+              <option name="schema">
+                <list>
+                  <option value="Doctor" />
+                  <option value="DoctorUsecase" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/biz/greeter.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694436" />
+              <option name="schema">
+                <list>
+                  <option value="Greeter" />
+                  <option value="GreeterUsecase" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/biz/patient.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694436" />
+              <option name="schema">
+                <list>
+                  <option value="Patient" />
+                  <option value="PatientListQuery" />
+                  <option value="PatientListResult" />
+                  <option value="PatientUsecase" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/biz/prescription.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694436" />
+              <option name="schema">
+                <list>
+                  <option value="Prescription" />
+                  <option value="PrescriptionMedicine" />
+                  <option value="Medicine" />
+                  <option value="DrugInteraction" />
+                  <option value="ChargeItem" />
+                  <option value="Appointment" />
+                  <option value="PrescriptionUsecase" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/conf/conf.pb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694437" />
+              <option name="schema">
+                <list>
+                  <option value="Bootstrap" />
+                  <option value="Server" />
+                  <option value="Data" />
+                  <option value="Server_HTTP" />
+                  <option value="Server_GRPC" />
+                  <option value="Data_Database" />
+                  <option value="Data_Redis" />
+                  <option value="Data_AliYun" />
+                  <option value="x" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/consultation.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754710274819" />
+              <option name="schema">
+                <list>
+                  <option value="ConsultationData" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/data.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694438" />
+              <option name="schema">
+                <list>
+                  <option value="Data" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/doctor.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754710374140" />
+              <option name="schema">
+                <list>
+                  <option value="smsCodeData" />
+                  <option value="DoctorData" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/example.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694438" />
+              <option name="schema">
+                <list>
+                  <option value="ExampleUserRepo" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/greeter.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694438" />
+              <option name="schema">
+                <list>
+                  <option value="greeterRepo" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/appointments.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694439" />
+              <option name="schema">
+                <list>
+                  <option value="Appointments" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/charge_details.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694439" />
+              <option name="schema">
+                <list>
+                  <option value="ChargeDetails" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/charge_items.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694439" />
+              <option name="schema">
+                <list>
+                  <option value="ChargeItems" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/consultation_messages.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694439" />
+              <option name="schema">
+                <list>
+                  <option value="ConsultationMessages" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/consultation_records.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694440" />
+              <option name="schema">
+                <list>
+                  <option value="ConsultationRecords" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/consultations.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694440" />
+              <option name="schema">
+                <list>
+                  <option value="Consultations" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/departments.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694440" />
+              <option name="schema">
+                <list>
+                  <option value="Departments" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/doctor_patients.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694440" />
+              <option name="schema">
+                <list>
+                  <option value="DoctorPatients" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/doctor_roles.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694440" />
+              <option name="schema">
+                <list>
+                  <option value="DoctorRoles" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/doctors.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754898315498" />
+              <option name="schema">
+                <list>
+                  <option value="Doctors" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/follow_up_plans.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694441" />
+              <option name="schema">
+                <list>
+                  <option value="FollowUpPlans" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/follow_up_records.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694441" />
+              <option name="schema">
+                <list>
+                  <option value="FollowUpRecords" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/greeter.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694441" />
+              <option name="schema">
+                <list>
+                  <option value="Greeter" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/hospitals.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694441" />
+              <option name="schema">
+                <list>
+                  <option value="Hospitals" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/login_logs.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694442" />
+              <option name="schema">
+                <list>
+                  <option value="LoginLogs" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/medical_records.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694442" />
+              <option name="schema">
+                <list>
+                  <option value="MedicalRecords" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/medicine_inventory.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694442" />
+              <option name="schema">
+                <list>
+                  <option value="MedicineInventory" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/medicines.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694442" />
+              <option name="schema">
+                <list>
+                  <option value="Medicines" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/operation_logs.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694442" />
+              <option name="schema">
+                <list>
+                  <option value="OperationLogs" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/patients.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694443" />
+              <option name="schema">
+                <list>
+                  <option value="Patients" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/permissions.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694443" />
+              <option name="schema">
+                <list>
+                  <option value="Permissions" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/prescription_medicines.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694443" />
+              <option name="schema">
+                <list>
+                  <option value="PrescriptionMedicines" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/prescriptions.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694443" />
+              <option name="schema">
+                <list>
+                  <option value="Prescriptions" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/role_permissions.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694443" />
+              <option name="schema">
+                <list>
+                  <option value="RolePermissions" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/roles.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694443" />
+              <option name="schema">
+                <list>
+                  <option value="Roles" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/model/system_configs.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694443" />
+              <option name="schema">
+                <list>
+                  <option value="SystemConfigs" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/patient.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694444" />
+              <option name="schema">
+                <list>
+                  <option value="PatientData" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/data/prescription.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694444" />
+              <option name="schema">
+                <list>
+                  <option value="PrescriptionData" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/server/grpc.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694444" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/server/http.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694444" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/server/routes.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694445" />
+              <option name="schema">
+                <list>
+                  <option value="RouteInfo" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/server/server.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694445" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/service/consultation.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694446" />
+              <option name="schema">
+                <list>
+                  <option value="WSConnection" />
+                  <option value="WSMessage" />
+                  <option value="WSHub" />
+                  <option value="ConsultationService" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/service/doctor.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754712203325" />
+              <option name="schema">
+                <list>
+                  <option value="DoctorService" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/service/greeter.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694446" />
+              <option name="schema">
+                <list>
+                  <option value="GreeterService" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/service/patient.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694446" />
+              <option name="schema">
+                <list>
+                  <option value="PatientService" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/internal/service/service.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694446" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/utils/aes.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694454" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/utils/hash.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694455" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/utils/jwt.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694455" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/doctors/utils/jwtMiddleware.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754707694455" />
+            </ScannedPath>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="tableStructMapping">
+      <map>
+        <entry key="add_consultation_record_req" value="AddConsultationRecordReq" />
+        <entry key="add_consultation_record_resp" value="AddConsultationRecordResp" />
+        <entry key="appointment" value="Appointment" />
+        <entry key="appointments" value="Appointments" />
+        <entry key="authentication_req" value="AuthenticationReq" />
+        <entry key="authentication_resp" value="AuthenticationResp" />
+        <entry key="bootstrap" value="Bootstrap" />
+        <entry key="cancel_prescription_req" value="CancelPrescriptionReq" />
+        <entry key="cancel_prescription_resp" value="CancelPrescriptionResp" />
+        <entry key="change_password_req" value="ChangePasswordReq" />
+        <entry key="change_password_resp" value="ChangePasswordResp" />
+        <entry key="charge_details" value="ChargeDetails" />
+        <entry key="charge_item" value="ChargeItem" />
+        <entry key="charge_items" value="ChargeItems" />
+        <entry key="check_drug_interactions_req" value="CheckDrugInteractionsReq" />
+        <entry key="check_drug_interactions_resp" value="CheckDrugInteractionsResp" />
+        <entry key="confirm_prescription_req" value="ConfirmPrescriptionReq" />
+        <entry key="confirm_prescription_resp" value="ConfirmPrescriptionResp" />
+        <entry key="consultation" value="Consultation" />
+        <entry key="consultation_client" value="consultationClient" />
+        <entry key="consultation_data" value="ConsultationData" />
+        <entry key="consultation_detail" value="ConsultationDetail" />
+        <entry key="consultation_http_client_impl" value="ConsultationHTTPClientImpl" />
+        <entry key="consultation_list_query" value="ConsultationListQuery" />
+        <entry key="consultation_list_result" value="ConsultationListResult" />
+        <entry key="consultation_message" value="ConsultationMessage" />
+        <entry key="consultation_messages" value="ConsultationMessages" />
+        <entry key="consultation_record" value="ConsultationRecord" />
+        <entry key="consultation_records" value="ConsultationRecords" />
+        <entry key="consultation_report" value="ConsultationReport" />
+        <entry key="consultation_service" value="ConsultationService" />
+        <entry key="consultation_usecase" value="ConsultationUsecase" />
+        <entry key="consultations" value="Consultations" />
+        <entry key="create_patient_req" value="CreatePatientReq" />
+        <entry key="create_patient_resp" value="CreatePatientResp" />
+        <entry key="create_prescription_medicine_req" value="CreatePrescriptionMedicineReq" />
+        <entry key="create_prescription_req" value="CreatePrescriptionReq" />
+        <entry key="create_prescription_resp" value="CreatePrescriptionResp" />
+        <entry key="data" value="Data" />
+        <entry key="data__ali_yun" value="Data_AliYun" />
+        <entry key="data__database" value="Data_Database" />
+        <entry key="data__redis" value="Data_Redis" />
+        <entry key="delete_account_req" value="DeleteAccountReq" />
+        <entry key="delete_account_resp" value="DeleteAccountResp" />
+        <entry key="departments" value="Departments" />
+        <entry key="doctor" value="Doctor" />
+        <entry key="doctor_client" value="doctorClient" />
+        <entry key="doctor_data" value="DoctorData" />
+        <entry key="doctor_http_client_impl" value="DoctorHTTPClientImpl" />
+        <entry key="doctor_patients" value="DoctorPatients" />
+        <entry key="doctor_profile" value="DoctorProfile" />
+        <entry key="doctor_roles" value="DoctorRoles" />
+        <entry key="doctor_service" value="DoctorService" />
+        <entry key="doctor_usecase" value="DoctorUsecase" />
+        <entry key="doctors" value="Doctors" />
+        <entry key="drug_interaction" value="DrugInteraction" />
+        <entry key="drug_interaction_info" value="DrugInteractionInfo" />
+        <entry key="end_consultation_req" value="EndConsultationReq" />
+        <entry key="end_consultation_resp" value="EndConsultationResp" />
+        <entry key="example_user_repo" value="ExampleUserRepo" />
+        <entry key="follow_up_plans" value="FollowUpPlans" />
+        <entry key="follow_up_records" value="FollowUpRecords" />
+        <entry key="get_consultation_detail_req" value="GetConsultationDetailReq" />
+        <entry key="get_consultation_detail_resp" value="GetConsultationDetailResp" />
+        <entry key="get_consultation_history_req" value="GetConsultationHistoryReq" />
+        <entry key="get_consultation_history_resp" value="GetConsultationHistoryResp" />
+        <entry key="get_consultation_records_req" value="GetConsultationRecordsReq" />
+        <entry key="get_consultation_records_resp" value="GetConsultationRecordsResp" />
+        <entry key="get_consultation_report_req" value="GetConsultationReportReq" />
+        <entry key="get_consultation_report_resp" value="GetConsultationReportResp" />
+        <entry key="get_consultations_by_type_req" value="GetConsultationsByTypeReq" />
+        <entry key="get_consultations_by_type_resp" value="GetConsultationsByTypeResp" />
+        <entry key="get_doctor_profile_req" value="GetDoctorProfileReq" />
+        <entry key="get_doctor_profile_resp" value="GetDoctorProfileResp" />
+        <entry key="get_messages_req" value="GetMessagesReq" />
+        <entry key="get_messages_resp" value="GetMessagesResp" />
+        <entry key="get_patient_list_req" value="GetPatientListReq" />
+        <entry key="get_patient_list_resp" value="GetPatientListResp" />
+        <entry key="get_patient_profile_req" value="GetPatientProfileReq" />
+        <entry key="get_patient_profile_resp" value="GetPatientProfileResp" />
+        <entry key="get_patients_by_category_req" value="GetPatientsByCategoryReq" />
+        <entry key="get_patients_by_category_resp" value="GetPatientsByCategoryResp" />
+        <entry key="get_prescription_req" value="GetPrescriptionReq" />
+        <entry key="get_prescription_resp" value="GetPrescriptionResp" />
+        <entry key="greeter" value="Greeter" />
+        <entry key="greeter_client" value="greeterClient" />
+        <entry key="greeter_http_client_impl" value="GreeterHTTPClientImpl" />
+        <entry key="greeter_repo" value="greeterRepo" />
+        <entry key="greeter_service" value="GreeterService" />
+        <entry key="greeter_usecase" value="GreeterUsecase" />
+        <entry key="hello_reply" value="HelloReply" />
+        <entry key="hello_request" value="HelloRequest" />
+        <entry key="hospitals" value="Hospitals" />
+        <entry key="list_prescriptions_req" value="ListPrescriptionsReq" />
+        <entry key="list_prescriptions_resp" value="ListPrescriptionsResp" />
+        <entry key="login_doctor_req" value="LoginDoctorReq" />
+        <entry key="login_doctor_resp" value="LoginDoctorResp" />
+        <entry key="login_logs" value="LoginLogs" />
+        <entry key="mark_message_read_req" value="MarkMessageReadReq" />
+        <entry key="mark_message_read_resp" value="MarkMessageReadResp" />
+        <entry key="medical_records" value="MedicalRecords" />
+        <entry key="medicine" value="Medicine" />
+        <entry key="medicine_info" value="MedicineInfo" />
+        <entry key="medicine_inventory" value="MedicineInventory" />
+        <entry key="medicines" value="Medicines" />
+        <entry key="message_list_query" value="MessageListQuery" />
+        <entry key="message_list_result" value="MessageListResult" />
+        <entry key="operation_logs" value="OperationLogs" />
+        <entry key="patient" value="Patient" />
+        <entry key="patient_client" value="patientClient" />
+        <entry key="patient_data" value="PatientData" />
+        <entry key="patient_http_client_impl" value="PatientHTTPClientImpl" />
+        <entry key="patient_list_query" value="PatientListQuery" />
+        <entry key="patient_list_result" value="PatientListResult" />
+        <entry key="patient_profile" value="PatientProfile" />
+        <entry key="patient_service" value="PatientService" />
+        <entry key="patient_usecase" value="PatientUsecase" />
+        <entry key="patients" value="Patients" />
+        <entry key="permissions" value="Permissions" />
+        <entry key="prescription" value="Prescription" />
+        <entry key="prescription_client" value="prescriptionClient" />
+        <entry key="prescription_data" value="PrescriptionData" />
+        <entry key="prescription_http_client_impl" value="PrescriptionHTTPClientImpl" />
+        <entry key="prescription_info" value="PrescriptionInfo" />
+        <entry key="prescription_medicine" value="PrescriptionMedicine" />
+        <entry key="prescription_medicine_info" value="PrescriptionMedicineInfo" />
+        <entry key="prescription_medicines" value="PrescriptionMedicines" />
+        <entry key="prescription_usecase" value="PrescriptionUsecase" />
+        <entry key="prescriptions" value="Prescriptions" />
+        <entry key="register_doctor_req" value="RegisterDoctorReq" />
+        <entry key="register_doctor_resp" value="RegisterDoctorResp" />
+        <entry key="role_permissions" value="RolePermissions" />
+        <entry key="roles" value="Roles" />
+        <entry key="route_info" value="RouteInfo" />
+        <entry key="search_medicines_req" value="SearchMedicinesReq" />
+        <entry key="search_medicines_resp" value="SearchMedicinesResp" />
+        <entry key="send_message_req" value="SendMessageReq" />
+        <entry key="send_message_resp" value="SendMessageResp" />
+        <entry key="send_sms_req" value="SendSmsReq" />
+        <entry key="send_sms_resp" value="SendSmsResp" />
+        <entry key="server" value="Server" />
+        <entry key="server_grpc" value="Server_GRPC" />
+        <entry key="server_http" value="Server_HTTP" />
+        <entry key="sms_code_data" value="smsCodeData" />
+        <entry key="start_consultation_req" value="StartConsultationReq" />
+        <entry key="start_consultation_resp" value="StartConsultationResp" />
+        <entry key="system_configs" value="SystemConfigs" />
+        <entry key="unimplemented_consultation_server" value="UnimplementedConsultationServer" />
+        <entry key="unimplemented_doctor_server" value="UnimplementedDoctorServer" />
+        <entry key="unimplemented_greeter_server" value="UnimplementedGreeterServer" />
+        <entry key="unimplemented_patient_server" value="UnimplementedPatientServer" />
+        <entry key="unimplemented_prescription_server" value="UnimplementedPrescriptionServer" />
+        <entry key="update_consultation_status_req" value="UpdateConsultationStatusReq" />
+        <entry key="update_consultation_status_resp" value="UpdateConsultationStatusResp" />
+        <entry key="update_doctor_profile_req" value="UpdateDoctorProfileReq" />
+        <entry key="update_doctor_profile_resp" value="UpdateDoctorProfileResp" />
+        <entry key="update_patient_category_req" value="UpdatePatientCategoryReq" />
+        <entry key="update_patient_category_resp" value="UpdatePatientCategoryResp" />
+        <entry key="update_patient_profile_req" value="UpdatePatientProfileReq" />
+        <entry key="update_patient_profile_resp" value="UpdatePatientProfileResp" />
+        <entry key="update_prescription_medicine_req" value="UpdatePrescriptionMedicineReq" />
+        <entry key="update_prescription_req" value="UpdatePrescriptionReq" />
+        <entry key="update_prescription_resp" value="UpdatePrescriptionResp" />
+        <entry key="ws_connection" value="WSConnection" />
+        <entry key="ws_hub" value="WSHub" />
+        <entry key="ws_message" value="WSMessage" />
+        <entry key="x" value="x" />
+      </map>
+    </option>
+    <option name="lastTimeChecked" value="1754823928687" />
+  </component>
+</project>
