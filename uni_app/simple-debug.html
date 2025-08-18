@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简单调试 - 药品API</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .debug-info { background: #f0f0f0; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .error { background: #ffe6e6; }
+        .success { background: #e6ffe6; }
+        button { padding: 10px 20px; margin: 10px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🔍 药品API简单调试</h1>
+    
+    <button onclick="quickTest()">快速测试API</button>
+    
+    <div id="output"></div>
+
+    <script>
+        function addOutput(message, type = 'info') {
+            const output = document.getElementById('output');
+            const div = document.createElement('div');
+            div.className = `debug-info ${type}`;
+            
+            if (typeof message === 'object') {
+                div.innerHTML = `<pre>${JSON.stringify(message, null, 2)}</pre>`;
+            } else {
+                div.textContent = message;
+            }
+            
+            output.appendChild(div);
+        }
+
+        async function quickTest() {
+            document.getElementById('output').innerHTML = '';
+            addOutput('开始快速测试...', 'info');
+
+            try {
+                addOutput('步骤1: 发送API请求');
+                
+                const response = await fetch('http://localhost:8888/v1/drug/list', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        frist_category_id: 0,
+                        second_category_id: 0,
+                        keyword: ''
+                    })
+                });
+
+                addOutput(`步骤2: 收到响应 - 状态码: ${response.status}`);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                addOutput('步骤3: 解析JSON响应');
+                addOutput(data, 'success');
+
+                addOutput('步骤4: 分析数据结构');
+                addOutput(`- code: ${data.code} (${typeof data.code})`);
+                addOutput(`- msg: ${data.msg}`);
+                addOutput(`- drug: ${Array.isArray(data.drug) ? `数组，长度${data.drug.length}` : typeof data.drug}`);
+
+                if (data.drug && data.drug.length > 0) {
+                    addOutput('步骤5: 检查第一个药品数据');
+                    const firstDrug = data.drug[0];
+                    addOutput(firstDrug, 'success');
+                    
+                    addOutput('步骤6: 检查字段');
+                    addOutput(`- drug_name: "${firstDrug.drug_name}"`);
+                    addOutput(`- drugName: "${firstDrug.drugName}"`);
+                    addOutput(`- specification: "${firstDrug.specification}"`);
+                    addOutput(`- price: ${firstDrug.price}`);
+                    addOutput(`- 所有字段: ${Object.keys(firstDrug).join(', ')}`);
+
+                    // 检查多种可能的字段名
+                    const possibleNames = ['drug_name', 'drugName', 'DrugName', 'name'];
+                    let foundName = null;
+                    
+                    for (let fieldName of possibleNames) {
+                        if (firstDrug[fieldName]) {
+                            foundName = fieldName;
+                            addOutput(`✅ 找到药品名称字段: ${fieldName} = "${firstDrug[fieldName]}"`, 'success');
+                            break;
+                        }
+                    }
+                    
+                    if (!foundName) {
+                        addOutput('❌ 发现问题: 找不到药品名称字段!', 'error');
+                        addOutput('完整的药品数据:', 'error');
+                        addOutput(firstDrug, 'error');
+                    }
+                } else {
+                    addOutput('❌ 没有药品数据!', 'error');
+                }
+
+            } catch (error) {
+                addOutput(`❌ 错误: ${error.message}`, 'error');
+            }
+        }
+    </script>
+</body>
+</html>

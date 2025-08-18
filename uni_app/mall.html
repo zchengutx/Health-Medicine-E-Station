@@ -529,6 +529,97 @@
         .stagger-2 { animation-delay: 0.2s; }
         .stagger-3 { animation-delay: 0.3s; }
         .stagger-4 { animation-delay: 0.4s; }
+
+        /* 加载和错误状态样式 */
+        .loading-state, .error-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            grid-column: 1 / -1; /* 占满整个网格 */
+        }
+
+        .loading-spinner {
+            font-size: 24px;
+            margin-bottom: 10px;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-text, .error-text {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .error-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #e74c3c;
+        }
+
+        .retry-button {
+            margin-top: 15px;
+            padding: 8px 20px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .retry-button:hover {
+            background-color: #764ba2;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 药品卡片增强样式 */
+        .drug-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .add-to-cart-btn {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .promo-card:hover .add-to-cart-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .add-to-cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .add-to-cart-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        /* 调整卡片内容布局以容纳按钮 */
+        .promo-content {
+            padding-bottom: 60px; /* 为按钮留出空间 */
+        }
     </style>
 </head>
 <body>
@@ -640,45 +731,25 @@
             <section class="main-promo fade-in-up">
                 <div class="promo-header">
                     <h2 class="section-title">🔥 热门推荐</h2>
-                    <a href="product-detail.html" class="view-more">查看更多 ></a>
+                    <a href="index.html" class="view-more">查看更多 ></a>
                 </div>
                 
-                <div class="promo-grid">
-                    <a href="product-detail.html" class="promo-card stagger-1">
-                        <div class="promo-image">💊</div>
-                        <div class="promo-content">
-                            <h3 class="promo-card-title">阿司匹林肠溶片</h3>
-                            <p class="promo-card-desc">预防心脑血管疾病，德国拜耳原研药</p>
-                            <div class="promo-price">
-                                <span class="price">¥28.8</span>
-                                <span class="original-price">¥36.0</span>
-                            </div>
-                        </div>
-                    </a>
-                    
-                    <a href="product-detail.html" class="promo-card stagger-2">
-                        <div class="promo-image">🥗</div>
-                        <div class="promo-content">
-                            <h3 class="promo-card-title">维生素C泡腾片</h3>
-                            <p class="promo-card-desc">增强免疫力，酸甜可口，儿童成人均可服用</p>
-                            <div class="promo-price">
-                                <span class="price">¥45.6</span>
-                                <span class="original-price">¥68.0</span>
-                            </div>
-                        </div>
-                    </a>
-                    
-                    <a href="product-detail.html" class="promo-card stagger-3">
-                        <div class="promo-image">🩺</div>
-                        <div class="promo-content">
-                            <h3 class="promo-card-title">血压计家用</h3>
-                            <p class="promo-card-desc">全自动电子血压计，大屏显示，语音播报</p>
-                            <div class="promo-price">
-                                <span class="price">¥128.0</span>
-                                <span class="original-price">¥199.0</span>
-                            </div>
-                        </div>
-                    </a>
+                <!-- 加载状态 -->
+                <div id="drugLoadingState" class="loading-state" style="display: none;">
+                    <div class="loading-spinner">⏳</div>
+                    <div class="loading-text">正在加载药品数据...</div>
+                </div>
+
+                <!-- 错误状态 -->
+                <div id="drugErrorState" class="error-state" style="display: none;">
+                    <div class="error-icon">❌</div>
+                    <div class="error-text">加载失败，请稍后重试</div>
+                    <button class="retry-button" onclick="loadDrugList()">重新加载</button>
+                </div>
+
+                <!-- 药品列表 -->
+                <div id="drugList" class="promo-grid">
+                    <!-- 动态加载的药品数据将显示在这里 -->
                 </div>
             </section>
 
@@ -828,19 +899,217 @@
                     alert('进入专区: ' + title);
                 });
             });
+
+            // 页面滚动效果
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('.header');
+                if (window.scrollY > 100) {
+                    header.style.background = 'rgba(102, 126, 234, 0.95)';
+                    header.style.backdropFilter = 'blur(10px)';
+                } else {
+                    header.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                    header.style.backdropFilter = 'none';
+                }
+            });
+
+            // 加载药品列表
+            loadDrugList();
         });
 
-        // 页面滚动效果
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('.header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(102, 126, 234, 0.95)';
-                header.style.backdropFilter = 'blur(10px)';
-            } else {
-                header.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                header.style.backdropFilter = 'none';
+        // 药品列表相关功能
+        async function loadDrugList() {
+            const loadingState = document.getElementById('drugLoadingState');
+            const errorState = document.getElementById('drugErrorState');
+            const drugList = document.getElementById('drugList');
+
+            // 显示加载状态
+            showLoadingState();
+
+            try {
+                console.log('开始加载药品列表...');
+                
+                const response = await fetch('http://localhost:8888/v1/drug/list', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        frist_category_id: 0,
+                        second_category_id: 0,
+                        keyword: ""
+                    })
+                });
+
+                console.log('API响应状态:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP错误! 状态: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('API响应数据:', data);
+
+                if (data.code != 0) {
+                    throw new Error(data.msg || '获取药品列表失败');
+                }
+
+                // 隐藏加载状态
+                hideLoadingState();
+
+                // 显示药品列表
+                displayDrugList(data.drug || []);
+
+            } catch (error) {
+                console.error('加载药品列表失败:', error);
+                hideLoadingState();
+                showErrorState();
             }
-        });
+        }
+
+        function showLoadingState() {
+            document.getElementById('drugLoadingState').style.display = 'block';
+            document.getElementById('drugErrorState').style.display = 'none';
+            document.getElementById('drugList').style.display = 'none';
+        }
+
+        function hideLoadingState() {
+            document.getElementById('drugLoadingState').style.display = 'none';
+        }
+
+        function showErrorState() {
+            document.getElementById('drugErrorState').style.display = 'block';
+            document.getElementById('drugList').style.display = 'none';
+        }
+
+        function displayDrugList(drugs) {
+            const drugListElement = document.getElementById('drugList');
+            
+            if (!drugs || drugs.length === 0) {
+                drugListElement.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #999; grid-column: 1 / -1;">
+                        <div style="font-size: 24px; margin-bottom: 10px;">📦</div>
+                        <div>暂无药品数据</div>
+                    </div>
+                `;
+                drugListElement.style.display = 'grid';
+                return;
+            }
+
+            // 只显示前3个药品（热门推荐）
+            const displayDrugs = drugs.slice(0, 3);
+            
+            drugListElement.innerHTML = displayDrugs.map((drug, index) => {
+                // 处理字段名兼容性
+                const drugName = drug.drugName || drug.drug_name || '未知药品';
+                const specification = drug.specification || '规格待确认';
+                const price = drug.price || 0;
+                const inventory = drug.inventory || 0;
+                const drugId = drug.id || drug.Id || index;
+                const exhibitionUrl = drug.exhibitionUrl || drug.exhibition_url;
+
+                // 计算折扣价格
+                const originalPrice = (price * 1.2).toFixed(2);
+                const currentPrice = price.toFixed(2);
+
+                return `
+                    <a href="product-detail.html?id=${drugId}" class="promo-card stagger-${index + 1} drug-card">
+                        <div class="promo-image">
+                            ${exhibitionUrl ? `<img src="${exhibitionUrl}" alt="${drugName}" style="width: 100%; height: 100%; object-fit: cover;">` : '💊'}
+                        </div>
+                        <div class="promo-content">
+                            <h3 class="promo-card-title">${drugName}</h3>
+                            <p class="promo-card-desc">${specification}</p>
+                            <div class="promo-price">
+                                <span class="price">¥${currentPrice}</span>
+                                <span class="original-price">¥${originalPrice}</span>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn" 
+                                onclick="event.preventDefault(); event.stopPropagation(); addToCartFromMall('${drugId}', '${drugName}')"
+                                ${inventory <= 0 ? 'disabled' : ''}>
+                            ${inventory <= 0 ? '暂无库存' : '加入购物车'}
+                        </button>
+                    </a>
+                `;
+            }).join('');
+
+            drugListElement.style.display = 'grid';
+            console.log(`成功显示 ${displayDrugs.length} 个药品`);
+        }
+
+        // 从商城页面添加到购物车
+        async function addToCartFromMall(drugId, drugName) {
+            try {
+                const button = event.target;
+                const originalText = button.textContent;
+                
+                // 显示加载状态
+                button.textContent = '添加中...';
+                button.disabled = true;
+
+                const userId = getUserId();
+                const quantity = 1;
+
+                console.log('添加到购物车:', { userId, drugId, quantity, drugName });
+
+                const response = await fetch('http://localhost:8888/v1/cart/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_id: userId,
+                        drug_id: parseInt(drugId),
+                        number: quantity
+                    })
+                });
+
+                const data = await response.json();
+                console.log('添加购物车API响应:', data);
+
+                if (data.code == 0) {
+                    // 成功提示
+                    button.textContent = '已加入 ✓';
+                    button.style.background = '#28a745';
+                    
+                    // 2秒后恢复
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.style.background = '';
+                        button.disabled = false;
+                    }, 2000);
+                } else {
+                    throw new Error(data.msg || '添加失败');
+                }
+
+            } catch (error) {
+                console.error('添加到购物车失败:', error);
+                alert(`添加失败: ${error.message}`);
+                
+                // 恢复按钮状态
+                const button = event.target;
+                button.textContent = '加入购物车';
+                button.disabled = false;
+                button.style.background = '';
+            }
+        }
+
+        // 获取用户ID（简化版本）
+        function getUserId() {
+            // 从localStorage获取用户信息，如果没有则使用默认值1
+            const userInfo = localStorage.getItem('userInfo');
+            if (userInfo) {
+                try {
+                    const user = JSON.parse(userInfo);
+                    return user.id || user.user_id || 1;
+                } catch (e) {
+                    console.warn('解析用户信息失败:', e);
+                }
+            }
+            return 1; // 默认用户ID
+        }
     </script>
 </body>
 </html>

@@ -333,6 +333,49 @@
             margin-bottom: 15px;
         }
 
+        .loading-state, .error-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+
+        .loading-spinner {
+            font-size: 24px;
+            margin-bottom: 10px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text, .error-text {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .error-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .retry-button {
+            margin-top: 15px;
+            padding: 8px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .retry-button:hover {
+            background-color: #0056b3;
+        }
+
         .section-header {
             display: flex;
             justify-content: space-between;
@@ -354,18 +397,22 @@
 
         .product-list {
             display: flex;
-            overflow-x: auto;
+            flex-direction: column;
             gap: 15px;
             padding-bottom: 10px;
         }
 
         .product-item {
-            min-width: 150px;
-            background: #f8f9fa;
+            display: flex;
+            background: white;
             border-radius: 12px;
             overflow: hidden;
             cursor: pointer;
             transition: transform 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 15px;
+            align-items: center;
+            gap: 15px;
         }
 
         .product-item:hover {
@@ -379,25 +426,30 @@
         }
 
         .product-image-placeholder {
-            width: 100%;
-            height: 120px;
-            background: #f0f0f0;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 40px;
-            color: #999;
+            font-size: 32px;
+            color: white;
+            border-radius: 12px;
+            flex-shrink: 0;
         }
 
         .product-info {
-            padding: 12px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .product-name {
-            display: block;
-            font-size: 14px;
+            font-size: 16px;
+            font-weight: 600;
             color: #333;
-            margin-bottom: 5px;
+            margin: 0;
             line-height: 1.3;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -405,10 +457,9 @@
         }
 
         .product-desc {
-            display: block;
-            font-size: 12px;
-            color: #999;
-            margin-bottom: 8px;
+            font-size: 14px;
+            color: #666;
+            margin: 0;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -417,6 +468,8 @@
         .product-price {
             display: flex;
             align-items: center;
+            gap: 8px;
+            margin-top: 5px;
         }
 
         .price {
@@ -722,51 +775,22 @@
                 <span class="section-more" onclick="goToMore()">更多 ></span>
             </div>
             
-            <div class="product-list">
-                <div class="product-item" onclick="goToProduct(1)">
-                    <div class="product-image-placeholder">💊</div>
-                    <div class="product-info">
-                        <span class="product-name">感冒灵颗粒</span>
-                        <span class="product-desc">感冒发热专用</span>
-                        <div class="product-price">
-                            <span class="price">¥15.8</span>
-                            <span class="original-price">¥25.0</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-item" onclick="goToProduct(2)">
-                    <div class="product-image-placeholder">💊</div>
-                    <div class="product-info">
-                        <span class="product-name">维生素C片</span>
-                        <span class="product-desc">增强免疫力</span>
-                        <div class="product-price">
-                            <span class="price">¥28.0</span>
-                            <span class="original-price">¥35.0</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-item" onclick="goToProduct(3)">
-                    <div class="product-image-placeholder">💊</div>
-                    <div class="product-info">
-                        <span class="product-name">板蓝根颗粒</span>
-                        <span class="product-desc">清热解毒</span>
-                        <div class="product-price">
-                            <span class="price">¥12.5</span>
-                            <span class="original-price">¥18.0</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-item" onclick="goToProduct(4)">
-                    <div class="product-image-placeholder">💊</div>
-                    <div class="product-info">
-                        <span class="product-name">布洛芬片</span>
-                        <span class="product-desc">退烧止痛</span>
-                        <div class="product-price">
-                            <span class="price">¥18.5</span>
-                            <span class="original-price">¥25.0</span>
-                        </div>
-                    </div>
-                </div>
+            <!-- 加载状态 -->
+            <div id="productLoadingState" class="loading-state" style="display: none;">
+                <div class="loading-spinner">⏳</div>
+                <div class="loading-text">正在加载药品数据...</div>
+            </div>
+            
+            <!-- 错误状态 -->
+            <div id="productErrorState" class="error-state" style="display: none;">
+                <div class="error-icon">❌</div>
+                <div class="error-text">加载失败，请稍后重试</div>
+                <button class="retry-button" onclick="loadProductData()">重新加载</button>
+            </div>
+            
+            <!-- 药品列表 -->
+            <div id="productList" class="product-list">
+                <!-- 动态加载的药品数据将显示在这里 -->
             </div>
         </div>
 
@@ -809,12 +833,155 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('首页加载完成');
             loadData();
+            loadProductData();
         });
 
         // 加载数据
         function loadData() {
-            // 这里可以调用API获取数据
             console.log('首页数据加载完成');
+        }
+
+        // 加载药品数据
+        async function loadProductData() {
+            const loadingState = document.getElementById('productLoadingState');
+            const errorState = document.getElementById('productErrorState');
+            const productList = document.getElementById('productList');
+
+            try {
+                // 显示加载状态
+                showLoadingState();
+
+                console.log('📦 开始加载药品数据...');
+
+                // 调用药品列表API
+                const response = await fetch('http://localhost:8888/v1/drug/list', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        frist_category_id: 0,
+                        second_category_id: 0,
+                        keyword: ''
+                    })
+                });
+
+                console.log('📡 API响应状态:', response.status);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                console.log('✅ 药品数据API响应:', data);
+                console.log('🔍 详细数据检查:');
+                console.log('- data.drug:', data.drug);
+                console.log('- data.drug.length:', data.drug ? data.drug.length : 'undefined');
+                if (data.drug && data.drug.length > 0) {
+                    console.log('- 第一个药品数据:', data.drug[0]);
+                    console.log('- 第一个药品的drug_name:', data.drug[0].drug_name);
+                    console.log('- 第一个药品的所有字段:', Object.keys(data.drug[0]));
+                }
+
+                if (data.code != 0) {
+                    throw new Error(data.msg || 'API调用失败');
+                }
+
+                // 显示药品数据
+                displayProducts(data.drug || []);
+                hideLoadingState();
+
+            } catch (error) {
+                console.error('❌ 加载药品数据失败:', error);
+                showErrorState();
+            }
+        }
+
+        // 显示加载状态
+        function showLoadingState() {
+            document.getElementById('productLoadingState').style.display = 'block';
+            document.getElementById('productErrorState').style.display = 'none';
+            document.getElementById('productList').style.display = 'none';
+        }
+
+        // 显示错误状态
+        function showErrorState() {
+            document.getElementById('productLoadingState').style.display = 'none';
+            document.getElementById('productErrorState').style.display = 'block';
+            document.getElementById('productList').style.display = 'none';
+        }
+
+        // 隐藏加载状态，显示药品列表
+        function hideLoadingState() {
+            document.getElementById('productLoadingState').style.display = 'none';
+            document.getElementById('productErrorState').style.display = 'none';
+            document.getElementById('productList').style.display = 'flex';
+        }
+
+        // 显示药品数据
+        function displayProducts(drugs) {
+            const productList = document.getElementById('productList');
+            
+            // 添加详细的调试信息
+            console.log('=== displayProducts 函数调试 ===');
+            console.log('传入的drugs参数:', drugs);
+            console.log('drugs类型:', typeof drugs);
+            console.log('是否为数组:', Array.isArray(drugs));
+            console.log('数组长度:', drugs ? drugs.length : 'undefined');
+            
+            if (!drugs || drugs.length === 0) {
+                console.log('❌ 没有药品数据，显示空状态');
+                productList.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #999; width: 100%;">
+                        <div style="font-size: 24px; margin-bottom: 10px;">📦</div>
+                        <div>暂无药品数据</div>
+                        <div style="font-size: 12px; color: #ccc; margin-top: 10px;">调试: drugs=${drugs}, length=${drugs ? drugs.length : 'N/A'}</div>
+                    </div>
+                `;
+                return;
+            }
+
+            // 只显示前4个药品作为热门推荐
+            const displayDrugs = drugs.slice(0, 4);
+            console.log('准备显示的药品:', displayDrugs);
+            
+            const productsHTML = displayDrugs.map((drug, index) => {
+                console.log(`处理第${index + 1}个药品:`, drug);
+                console.log(`- drug.drug_name:`, drug.drug_name);
+                console.log(`- drug.specification:`, drug.specification);
+                console.log(`- drug.price:`, drug.price);
+                console.log(`- 所有字段:`, Object.keys(drug));
+                
+                const drugName = drug.drugName || drug.drug_name || '未知药品';
+                const specification = drug.specification || '规格待确认';
+                const price = drug.price ? drug.price.toFixed(2) : '0.00';
+                const originalPrice = drug.price ? (drug.price * 1.2).toFixed(2) : '0.00';
+                
+                console.log(`- 最终显示名称: "${drugName}"`);
+                console.log(`- 最终显示规格: "${specification}"`);
+                
+                // 获取药品ID，尝试多种可能的字段名
+                const drugId = drug.id || drug.Id || index + 1;
+                
+                return `
+                    <div class="product-item" onclick="goToProduct(${drugId})">
+                        <div class="product-image-placeholder">💊</div>
+                        <div class="product-info">
+                            <span class="product-name">${drugName}</span>
+                            <span class="product-desc">${specification}</span>
+                            <div class="product-price">
+                                <span class="price">¥${price}</span>
+                                <span class="original-price">¥${originalPrice}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            productList.innerHTML = productsHTML;
+            console.log(`✅ 已显示 ${displayDrugs.length} 个药品`);
+            console.log('=== displayProducts 函数调试结束 ===');
         }
 
         // 选择位置
@@ -860,7 +1027,13 @@
 
         // 跳转到商品详情
         function goToProduct(id) {
-            window.location.href = `product.html?id=${id}`;
+            if (!id || id === 'null') {
+                console.error('药品ID无效:', id);
+                alert('药品ID无效，无法查看详情');
+                return;
+            }
+            console.log('跳转到药品详情页，ID:', id);
+            window.location.href = `product-detail.html?id=${id}`;
         }
 
         // 跳转到更多页面

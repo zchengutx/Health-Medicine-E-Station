@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>购物车调试页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .debug-section {
+            background: white;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .error { background: #ffebee; border-left: 4px solid #f44336; }
+        .success { background: #e8f5e8; border-left: 4px solid #4caf50; }
+        .info { background: #e3f2fd; border-left: 4px solid #2196f3; }
+        pre { background: #f5f5f5; padding: 10px; border-radius: 4px; overflow-x: auto; }
+        button { 
+            background: #2196f3; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            margin: 5px;
+        }
+        button:hover { background: #1976d2; }
+        .cart-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>🛒 购物车调试工具</h1>
+    
+    <div class="debug-section info">
+        <h3>🔧 调试步骤</h3>
+        <p>1. 点击下面的按钮测试购物车API</p>
+        <p>2. 检查浏览器控制台（F12）的网络请求</p>
+        <p>3. 查看API返回的数据格式</p>
+        <button onclick="testCartAPI()">🧪 测试购物车API</button>
+        <button onclick="testAddItem()">➕ 添加测试商品</button>
+        <button onclick="clearDebugLog()">🗑️ 清空日志</button>
+    </div>
+
+    <div id="debugLog"></div>
+    
+    <div class="debug-section">
+        <h3>📦 购物车内容</h3>
+        <div id="cartDisplay">暂无数据</div>
+    </div>
+
+    <script>
+        function log(message, type = 'info') {
+            const debugLog = document.getElementById('debugLog');
+            const logDiv = document.createElement('div');
+            logDiv.className = `debug-section ${type}`;
+            logDiv.innerHTML = `
+                <strong>${new Date().toLocaleTimeString()}</strong><br>
+                ${message}
+            `;
+            debugLog.appendChild(logDiv);
+            console.log(message);
+        }
+
+        function clearDebugLog() {
+            document.getElementById('debugLog').innerHTML = '';
+        }
+
+        async function testAddItem() {
+            log('🧪 测试添加商品到购物车...', 'info');
+            
+            try {
+                const response = await fetch('http://localhost:8888/v1/cart/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_id: 1,
+                        drug_id: 1,
+                        number: 1
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.code == 0) {
+                    log('✅ 添加成功！现在测试获取购物车列表...', 'success');
+                    setTimeout(testCartAPI, 1000); // 1秒后自动测试列表
+                } else {
+                    log(`❌ 添加失败: ${data.msg}`, 'error');
+                }
+            } catch (error) {
+                log(`❌ 添加请求失败: ${error.message}`, 'error');
+            }
+        }
+
+        async function testCartAPI() {
+            log('🔍 开始测试购物车API...', 'info');
+            
+            try {
+                log('📤 发送请求到: http://localhost:8888/v1/cart/list', 'info');
+                
+                const response = await fetch('http://localhost:8888/v1/cart/list', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_id: 1
+                    })
+                });
+
+                log(`📥 响应状态: ${response.status} ${response.statusText}`, response.ok ? 'success' : 'error');
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                log(`📋 API响应数据:<pre>${JSON.stringify(data, null, 2)}</pre>`, 'info');
+
+                if (data.code == 0) {
+                    const cartItems = data.cart || [];
+                    log(`✅ 获取成功！购物车有 ${cartItems.length} 个商品`, 'success');
+                    
+                    displayCartItems(cartItems);
+                } else {
+                    log(`❌ API返回错误: code=${data.code}, msg=${data.msg}`, 'error');
+                }
+
+            } catch (error) {
+                log(`❌ 请求失败: ${error.message}`, 'error');
+                log('🔧 可能的原因:', 'info');
+                log('- 后端服务未启动 (检查 localhost:8888)', 'info');
+                log('- 网络连接问题', 'info');
+                log('- CORS跨域问题', 'info');
+            }
+        }
+
+        function displayCartItems(items) {
+            const cartDisplay = document.getElementById('cartDisplay');
+            
+            if (items.length === 0) {
+                cartDisplay.innerHTML = '<p>📦 购物车为空</p>';
+                return;
+            }
+
+            cartDisplay.innerHTML = items.map(item => `
+                <div class="cart-item">
+                    <strong>🏷️ 商品名称:</strong> ${item.drug_name || '未知'}<br>
+                    <strong>📏 规格:</strong> ${item.specification || '未知'}<br>
+                    <strong>💰 价格:</strong> ¥${item.price || 0}<br>
+                    <strong>📦 数量:</strong> ${item.number || 0}<br>
+                    <strong>🏪 库存:</strong> ${item.inventory || 0}<br>
+                    <strong>🆔 商品ID:</strong> ${item.drug_id || item.id || '未知'}
+                </div>
+            `).join('');
+        }
+
+        // 页面加载时自动检查
+        document.addEventListener('DOMContentLoaded', function() {
+            log('🚀 购物车调试页面已加载', 'info');
+            log('💡 提示: 请确保后端服务运行在 localhost:8888', 'info');
+        });
+    </script>
+</body>
+</html>

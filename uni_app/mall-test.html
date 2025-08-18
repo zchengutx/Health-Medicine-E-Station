@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>叮当商城 - 测试版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* 头部样式 */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .search-bar {
+            background: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            color: #333;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* 分类网格 */
+        .categories {
+            background: white;
+            margin: 20px;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .category-item {
+            text-align: center;
+            padding: 15px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .category-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        /* 药品列表区域 */
+        .drug-section {
+            background: white;
+            margin: 20px;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .view-more {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        /* 加载状态 */
+        .loading-state, .error-state {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .loading-spinner {
+            font-size: 24px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .retry-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        /* 药品网格 */
+        .drug-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .drug-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .drug-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .drug-image {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+        }
+
+        .drug-info {
+            padding: 15px;
+        }
+
+        .drug-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .drug-spec {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .drug-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .current-price {
+            font-size: 18px;
+            font-weight: 600;
+            color: #e74c3c;
+        }
+
+        .original-price {
+            font-size: 14px;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .add-cart-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .add-cart-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .add-cart-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .category-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+            
+            .drug-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <header class="header">
+        <h1>🏥 叮当商城</h1>
+        <div class="search-bar">
+            搜索药品、保健品、医疗器械...
+        </div>
+    </header>
+
+    <!-- 分类区域 -->
+    <section class="categories">
+        <div class="category-grid">
+            <div class="category-item">
+                <div class="category-icon">💊</div>
+                <div>处方药</div>
+            </div>
+            <div class="category-item">
+                <div class="category-icon">🩺</div>
+                <div>非处方药</div>
+            </div>
+            <div class="category-item">
+                <div class="category-icon">🥗</div>
+                <div>保健品</div>
+            </div>
+            <div class="category-item">
+                <div class="category-icon">🩻</div>
+                <div>医疗器械</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 药品列表区域 -->
+    <section class="drug-section">
+        <div class="section-header">
+            <h2 class="section-title">🔥 热门推荐</h2>
+            <a href="index.html" class="view-more">查看更多 ></a>
+        </div>
+
+        <!-- 加载状态 -->
+        <div id="loadingState" class="loading-state" style="display: none;">
+            <div class="loading-spinner">⏳</div>
+            <div>正在加载药品数据...</div>
+        </div>
+
+        <!-- 错误状态 -->
+        <div id="errorState" class="error-state" style="display: none;">
+            <div style="font-size: 24px; margin-bottom: 10px;">❌</div>
+            <div>加载失败，请稍后重试</div>
+            <button class="retry-btn" onclick="loadDrugs()">重新加载</button>
+        </div>
+
+        <!-- 药品网格 -->
+        <div id="drugGrid" class="drug-grid">
+            <!-- 动态加载的药品数据 -->
+        </div>
+    </section>
+
+    <script>
+        // 页面加载完成后自动加载药品
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('页面加载完成，开始加载药品列表...');
+            loadDrugs();
+        });
+
+        // 加载药品列表
+        async function loadDrugs() {
+            const loadingState = document.getElementById('loadingState');
+            const errorState = document.getElementById('errorState');
+            const drugGrid = document.getElementById('drugGrid');
+
+            // 显示加载状态
+            loadingState.style.display = 'block';
+            errorState.style.display = 'none';
+            drugGrid.style.display = 'none';
+
+            try {
+                console.log('发送API请求...');
+                
+                const response = await fetch('http://localhost:8888/v1/drug/list', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        frist_category_id: 0,
+                        second_category_id: 0,
+                        keyword: ""
+                    })
+                });
+
+                console.log('API响应状态:', response.status);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP错误! 状态: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('API响应数据:', data);
+
+                if (data.code != 0) {
+                    throw new Error(data.msg || '获取药品列表失败');
+                }
+
+                // 隐藏加载状态
+                loadingState.style.display = 'none';
+
+                // 显示药品
+                displayDrugs(data.drug || []);
+
+            } catch (error) {
+                console.error('加载药品失败:', error);
+                loadingState.style.display = 'none';
+                errorState.style.display = 'block';
+                drugGrid.style.display = 'none';
+            }
+        }
+
+        // 显示药品列表
+        function displayDrugs(drugs) {
+            const drugGrid = document.getElementById('drugGrid');
+
+            if (!drugs || drugs.length === 0) {
+                drugGrid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #999;">
+                        <div style="font-size: 24px; margin-bottom: 10px;">📦</div>
+                        <div>暂无药品数据</div>
+                    </div>
+                `;
+                drugGrid.style.display = 'grid';
+                return;
+            }
+
+            // 显示前6个药品
+            const displayDrugs = drugs.slice(0, 6);
+
+            drugGrid.innerHTML = displayDrugs.map(drug => {
+                const drugName = drug.drugName || drug.drug_name || '未知药品';
+                const specification = drug.specification || '规格待确认';
+                const price = drug.price || 0;
+                const inventory = drug.inventory || 0;
+                const drugId = drug.id || drug.Id || Math.random();
+
+                const originalPrice = (price * 1.2).toFixed(2);
+                const currentPrice = price.toFixed(2);
+
+                return `
+                    <div class="drug-card" onclick="goToDetail('${drugId}')">
+                        <div class="drug-image">💊</div>
+                        <div class="drug-info">
+                            <div class="drug-name">${drugName}</div>
+                            <div class="drug-spec">${specification}</div>
+                            <div class="drug-price">
+                                <span class="current-price">¥${currentPrice}</span>
+                                <span class="original-price">¥${originalPrice}</span>
+                            </div>
+                            <button class="add-cart-btn" 
+                                    onclick="event.stopPropagation(); addToCart('${drugId}', '${drugName}')"
+                                    ${inventory <= 0 ? 'disabled' : ''}>
+                                ${inventory <= 0 ? '暂无库存' : '加入购物车'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            drugGrid.style.display = 'grid';
+            console.log(`成功显示 ${displayDrugs.length} 个药品`);
+        }
+
+        // 跳转到详情页
+        function goToDetail(drugId) {
+            console.log('跳转到药品详情:', drugId);
+            window.location.href = `product-detail.html?id=${drugId}`;
+        }
+
+        // 添加到购物车
+        async function addToCart(drugId, drugName) {
+            try {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                
+                btn.textContent = '添加中...';
+                btn.disabled = true;
+
+                const response = await fetch('http://localhost:8888/v1/cart/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_id: 1,
+                        drug_id: parseInt(drugId),
+                        number: 1
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.code == 0) {
+                    btn.textContent = '已加入 ✓';
+                    btn.style.background = '#28a745';
+                    
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.style.background = '';
+                        btn.disabled = false;
+                    }, 2000);
+                } else {
+                    throw new Error(data.msg || '添加失败');
+                }
+
+            } catch (error) {
+                console.error('添加到购物车失败:', error);
+                alert(`添加失败: ${error.message}`);
+                
+                const btn = event.target;
+                btn.textContent = '加入购物车';
+                btn.disabled = false;
+                btn.style.background = '';
+            }
+        }
+    </script>
+</body>
+</html>

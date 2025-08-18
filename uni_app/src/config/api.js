@@ -25,9 +25,10 @@ const API_CONFIG = {
     
     // 药品相关接口
     DRUGS: {
-      LIST: '/v1/DrugList',
-      DETAIL: '/v1/DrugDetail',
-      SEARCH: '/v1/DrugSearch'
+      LIST: '/v1/drug/list',
+      DETAIL: '/v1/drug',
+      SEARCH: '/v1/drug/search',
+      HOT_SEARCH: '/v1/drug/hot-search'
     },
     
     // 购物车相关接口
