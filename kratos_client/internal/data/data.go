@@ -3,15 +3,19 @@ package data
 import (
 	"context"
 	"fmt"
+	"net/http"
+	"strings"
+
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-redis/redis/v8"
-	"net/http"
+
+	"kratos_client/internal/conf"
 
 	"github.com/google/wire"
 	"gorm.io/driver/mysql"
+	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
-	"kratos_client/internal/conf"
 )
 
 // ProviderSet is data providers.
@@ -30,9 +34,19 @@ func NewData(c *conf.Data, logger log.Logger, DB *gorm.DB) (*Data, func(), error
 		log.NewHelper(logger).Info("closing the data resources")
 	}
 
-	newRedis, err := NewRedis(c)
-	if err != nil {
-		return nil, nil, err
+	// Redis连接失败不会导致应用启动失败
+	var newRedis *redis.Client
+	if c.Redis != nil && c.Redis.Addr != "" {
+		var err error
+		newRedis, err = NewRedis(c)
+		if err != nil {
+			log.Errorf("Redis connection failed: %v", err)
+			log.Warn("Redis unavailable, some features will be limited")
+			newRedis = nil // 设置为nil，允许应用继续运行
+		}
+	} else {
+		log.Info("Redis not configured, running without Redis")
+		newRedis = nil
 	}
 
 	// Elasticsearch连接失败不会导致应用启动失败
@@ -68,7 +82,22 @@ func NewRedis(c *conf.Data) (Rdb *redis.Client, err error) {
 func NewDb(c *conf.Data) (Db *gorm.DB, err error) {
 	dsn := c.Database.Source
 	fmt.Println("dsn:", dsn)
-	Db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+
+	// 检查是否使用SQLite
+	if strings.Contains(dsn, ".db") || strings.Contains(dsn, "file:") {
+		log.Info("Using SQLite database")
+		Db, err = gorm.Open(sqlite.Open(dsn), &gorm.Config{})
+	} else {
+		log.Info("Using MySQL database")
+		Db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	}
+
+	if err != nil {
+		log.Errorf("Database connection failed: %v", err)
+		return nil, err
+	}
+
+	log.Info("Database connected successfully")
 	return
 }
 

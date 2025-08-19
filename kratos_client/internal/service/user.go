@@ -36,10 +36,14 @@ func NewUserService(uc *biz.UserService, d *data.Data, city *biz.CityService) *U
 
 // SendSms implements user.UserServer.
 func (s *UserService) SendSms(ctx context.Context, in *v1.SendSmsRequest) (*v1.SendSmsReply, error) {
-	// 验证手机号是否已发送验证码
-	if v := s.data.Redis().Exists(ctx, "sendSms").Val(); v != 0 {
-		return nil, errors.New("The verification code is not used")
+	// 检查Redis是否可用
+	if s.data.Redis() != nil {
+		// 验证手机号是否已发送验证码
+		if v := s.data.Redis().Exists(ctx, "sendSms").Val(); v != 0 {
+			return nil, errors.New("The verification code is not used")
+		}
 	}
+	
 	// 验证手机号
 	if !comment.CheckMobile(in.Mobile) {
 		return nil, errors.New("mobile error")
@@ -59,11 +63,18 @@ func (s *UserService) SendSms(ctx context.Context, in *v1.SendSmsRequest) (*v1.S
 	//if sms.Code != "OK" {
 	//	return nil, errors.New("send sms error")
 	//}
+	
 	// 保存验证码
-	s.data.Redis().Set(ctx, "sendSms"+in.Mobile+in.Source, code, time.Minute*10)
-	// 增加发送次数
-	s.data.Redis().Incr(ctx, "sendSms")
-	s.data.Redis().Expire(ctx, "sendSms", time.Minute*1)
+	if s.data.Redis() != nil {
+		s.data.Redis().Set(ctx, "sendSms"+in.Mobile+in.Source, code, time.Minute*10)
+		// 增加发送次数
+		s.data.Redis().Incr(ctx, "sendSms")
+		s.data.Redis().Expire(ctx, "sendSms", time.Minute*1)
+	} else {
+		// Redis不可用时的替代方案：简单记录到日志
+		fmt.Printf("验证码(无Redis): %s -> %d\n", in.Mobile, code)
+	}
+	
 	return &v1.SendSmsReply{Message: "sendSms success"}, nil
 }
 
@@ -72,14 +83,25 @@ func (s *UserService) Login(ctx context.Context, in *v1.LoginRequest) (*v1.Login
 	if !comment.CheckMobile(in.Mobile) {
 		return nil, errors.New("mobile error")
 	}
-	// 从redis获取验证码
-	code := s.data.Redis().Get(ctx, "sendSms"+in.Mobile+"login")
+	
 	// 验证验证码
-	if code.Val() != in.SendSmsCode {
-		return nil, errors.New("code error")
+	if s.data.Redis() != nil {
+		// 从redis获取验证码
+		code := s.data.Redis().Get(ctx, "sendSms"+in.Mobile+"login")
+		// 验证验证码
+		if code.Val() != in.SendSmsCode {
+			return nil, errors.New("code error")
+		}
+		// 验证成功，删除验证码
+		s.data.Redis().Del(ctx, "sendSms"+in.Mobile+"login")
+	} else {
+		// Redis不可用时的替代方案：跳过验证码验证或使用固定验证码
+		fmt.Printf("登录验证(无Redis): %s 使用验证码: %s\n", in.Mobile, in.SendSmsCode)
+		// 可以设置一个开发用的固定验证码，或者完全跳过验证
+		if in.SendSmsCode != "123456" {
+			return nil, errors.New("code error (dev mode: use 123456)")
+		}
 	}
-	// 验证成功，删除验证码
-	s.data.Redis().Del(ctx, "sendSms"+in.Mobile+"login")
 
 	// 验证成功，查询用户
 	find, err := s.uc.Find(ctx, &biz.MtUser{Mobile: in.Mobile})

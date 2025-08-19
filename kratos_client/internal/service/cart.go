@@ -47,6 +47,19 @@ func (s *CartService) CreateCart(ctx context.Context, req *cartv1.CreateCartRequ
 // 更新购物车项目
 func (s *CartService) UpdateCart(ctx context.Context, req *cartv1.UpdateCartRequest) (*cartv1.UpdateCartReply, error) {
 	err := s.uc.UpdateCart(ctx, req.UserId, req.DrugId, req.Number)
+	if req.Number == 0 {
+		err = s.uc.DeleteCart(ctx, req.UserId, []int64{req.UserId})
+		if err != nil {
+			return &cartv1.UpdateCartReply{
+				Code: 500,
+				Msg:  "删除购物车失败",
+			}, err
+		}
+		return &cartv1.UpdateCartReply{
+			Code: 0,
+			Msg:  "删除购物车成功",
+		}, nil
+	}
 	if err != nil {
 		if err == biz.ErrInsufficientInventory {
 			return &cartv1.UpdateCartReply{

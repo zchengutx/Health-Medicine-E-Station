@@ -188,7 +188,6 @@ func (cm *CouponManager) checkCouponItemRules(ctx context.Context, couponID int3
 	return false, nil
 }
 
-// CouponRule 优惠券规则常量
 const (
 	// 规则维度
 	RuleKeyStore = 1 // 店铺规则

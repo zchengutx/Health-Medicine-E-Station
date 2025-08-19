@@ -60,7 +60,10 @@ func wireApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*
 	cityRepo := data.NewCityRepo(dataData, logger)
 	cityService := biz.NewCityUsecase(cityRepo, logger)
 	serviceUserService := service.NewUserService(userService, dataData, cityService)
-	httpServer := server.NewHTTPServer(confServer, serviceDoctorsService, serviceDrugService, serviceEstimateService, serviceUserService, serviceCartService, logger)
+	paymentRepo := data.NewPaymentRepo(dataData, logger)
+	paymentUsecase := biz.NewPaymentUsecase(paymentRepo, logger)
+	paymentService := service.NewPaymentService(paymentUsecase, dataData)
+	httpServer := server.NewHTTPServer(confServer, serviceDoctorsService, serviceDrugService, serviceEstimateService, serviceUserService, serviceCartService, paymentService, logger)
 	app := newApp(logger, grpcServer, httpServer)
 	return app, func() {
 		cleanup()
