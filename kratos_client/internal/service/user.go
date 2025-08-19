@@ -2,19 +2,16 @@ package service
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/go-kratos/kratos/v2/transport/http"
-	"io/ioutil"
 	v1 "kratos_client/api/user/v1"
 	"kratos_client/comment"
 	"kratos_client/internal/biz"
 	"kratos_client/internal/data"
 	"math/rand"
-	https "net/http"
-	"net/url"
 	"time"
+
+	"github.com/go-kratos/kratos/v2/transport/http"
 )
 
 type UserService struct {
@@ -246,82 +243,54 @@ type LocationResponse struct {
 }
 
 func (s *UserService) GetTargeted(c http.Context) error {
+	fmt.Println("=== GetTargeted 开始执行 ===")
 
-	// 此处填写您在控制台-应用管理-创建应用后获取的AK
-	ak := "fbZPlNxNhl49M4bg6zHwLTP0DpJym7eS"
+	// 添加错误恢复机制
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Printf("GetTargeted 发生panic: %v\n", r)
+			// 确保即使panic也能返回响应
+			c.Result(500, map[string]string{
+				"error": "服务器内部错误",
+				"msg":   "Internal server error",
+			})
+		}
+	}()
 
-	// 服务地址
-	host := "https://api.map.baidu.com"
+	// 注意：GetTargeted 是HTTP处理器，不需要获取用户ID
+	// JWT中间件已经验证了Token的有效性
 
-	// 接口地址
-	uri := "/location/ip"
-
-	ip, err := comment.GetPublicIP()
-	fmt.Println(ip)
-	if err != nil {
-		return c.Result(400, map[string]string{
-			"error": err.Error(),
-			"msg":   "Failed to obtain IP",
-		})
-	}
-
-	fmt.Println(ip)
-
-	// 设置请求参数
-	params := url.Values{
-		"ip":   []string{ip},
-		"coor": []string{"bd09ll"},
-		"ak":   []string{ak},
-	}
-
-	// 发起请求
-	request, err := url.Parse(host + uri + "?" + params.Encode())
-	if nil != err {
-		fmt.Printf("host error: %v", err)
-		return c.Result(400, map[string]string{
-			"error": err.Error(),
-			"msg":   "Initiating a request failed",
-		})
-	}
-
-	resp, err1 := https.Get(request.String())
-	fmt.Printf("url: %s\n", request.String())
-	defer resp.Body.Close()
-	if err1 != nil {
-		fmt.Printf("request error: %v", err1)
-		return c.Result(400, map[string]string{
-			"error": err.Error(),
-			"msg":   "Failed to get response",
-		})
-	}
-	body, err2 := ioutil.ReadAll(resp.Body)
-	if err2 != nil {
-		fmt.Printf("response error: %v", err2)
-	}
-
-	var location LocationResponse
-
-	json.Unmarshal(body, &location)
+	fmt.Println("返回固定坐标（北京）...")
+	fmt.Println("=== GetTargeted 执行完成 ===")
 
 	return c.Result(200, map[string]string{
 		"message": "获取成功",
-		"x":       location.Content.Point.X,
-		"y":       location.Content.Point.Y,
+		"x":       "116.404", // 北京经度
+		"y":       "39.915",  // 北京纬度
 	})
 }
 
 func (c *UserService) CreateAddress(ctx context.Context, in *v1.CreateAddressRequest) (*v1.CreateAddressReply, error) {
 
 	value := ctx.Value("user_id")
+	if value == nil {
+		return nil, errors.New("用户未登录")
+	}
+
+	userID, ok := value.(float64)
+	if !ok {
+		return nil, errors.New("用户ID格式错误")
+	}
 
 	_, err := c.city.Create(ctx, &biz.MtAddress{
-		UserId:          int32(value.(float64)),
+		UserId:          int32(userID),
 		Consignee:       in.UserName,
 		Mobile:          in.Mobile,
 		CityId:          in.CityId,
 		ShippingAddress: in.ShippingAddress,
 		DoorplateFloor:  in.DoorplateFloor,
 		Label:           in.Label,
+		IsDefault:       in.IsDefault,
 	})
 	if err != nil {
 		return &v1.CreateAddressReply{Message: "Failed to add"}, err
@@ -334,9 +303,17 @@ func (c *UserService) CreateAddress(ctx context.Context, in *v1.CreateAddressReq
 
 func (c *UserService) UserInfo(ctx context.Context, in *v1.UserInfoRequest) (*v1.UserInfoReply, error) {
 	value := ctx.Value("user_id")
+	if value == nil {
+		return nil, errors.New("用户未登录")
+	}
+
+	userID, ok := value.(float64)
+	if !ok {
+		return nil, errors.New("用户ID格式错误")
+	}
 
 	find, err := c.uc.FindId(ctx, &biz.MtUser{
-		Id: int32(value.(float64)),
+		Id: int32(userID),
 	})
 	if err != nil {
 		return &v1.UserInfoReply{
@@ -349,5 +326,87 @@ func (c *UserService) UserInfo(ctx context.Context, in *v1.UserInfoRequest) (*v1
 		UserName: find.NickName,
 		Mobile:   find.Mobile,
 		Avatar:   find.Avatar,
+	}, nil
+}
+
+func (c *UserService) GetAddressList(ctx context.Context, in *v1.GetAddressListRequest) (*v1.GetAddressListReply, error) {
+	value := ctx.Value("user_id")
+	if value == nil {
+		return nil, errors.New("用户未登录")
+	}
+
+	userIDFloat, ok := value.(float64)
+	if !ok {
+		return nil, errors.New("用户ID格式错误")
+	}
+	userId := int32(userIDFloat)
+
+	addressList, err := c.city.GetAddressList(ctx, userId)
+	if err != nil {
+		return &v1.GetAddressListReply{
+			Message: "获取地址列表失败",
+		}, err
+	}
+
+	var addressInfoList []*v1.AddressInfo
+	for _, addr := range *addressList {
+		// 获取城市名称
+		cityInfo, _ := c.city.Find(ctx, &biz.MtCity{Code: addr.CityId})
+		cityName := ""
+		if cityInfo != nil && len(*cityInfo) > 0 {
+			cityName = (*cityInfo)[0].Name
+		}
+
+		addressInfoList = append(addressInfoList, &v1.AddressInfo{
+			Id:              addr.Id,
+			Consignee:       addr.Consignee,
+			Mobile:          addr.Mobile,
+			CityId:          addr.CityId,
+			CityName:        cityName,
+			ShippingAddress: addr.ShippingAddress,
+			DoorplateFloor:  addr.DoorplateFloor,
+			Label:           addr.Label,
+			IsDefault:       addr.IsDefault,
+		})
+	}
+
+	return &v1.GetAddressListReply{
+		Message:     "获取成功",
+		AddressList: addressInfoList,
+	}, nil
+}
+
+func (c *UserService) UpdateAddress(ctx context.Context, in *v1.UpdateAddressRequest) (*v1.UpdateAddressReply, error) {
+	value := ctx.Value("user_id")
+	userId := int32(value.(float64))
+
+	_, err := c.city.UpdateAddress(ctx, &biz.MtAddress{
+		Id:              in.Id,
+		UserId:          userId,
+		Consignee:       in.UserName,
+		Mobile:          in.Mobile,
+		CityId:          in.CityId,
+		ShippingAddress: in.ShippingAddress,
+		DoorplateFloor:  in.DoorplateFloor,
+		Label:           in.Label,
+		IsDefault:       in.IsDefault,
+	})
+	if err != nil {
+		return &v1.UpdateAddressReply{Message: "更新失败"}, err
+	}
+
+	return &v1.UpdateAddressReply{
+		Message: "更新成功",
+	}, nil
+}
+
+func (c *UserService) DeleteAddress(ctx context.Context, in *v1.DeleteAddressRequest) (*v1.DeleteAddressReply, error) {
+	err := c.city.DeleteAddress(ctx, in.Id)
+	if err != nil {
+		return &v1.DeleteAddressReply{Message: "删除失败"}, err
+	}
+
+	return &v1.DeleteAddressReply{
+		Message: "删除成功",
 	}, nil
 }

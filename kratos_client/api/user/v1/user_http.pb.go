@@ -8,9 +8,10 @@ package v1
 
 import (
 	context "context"
+	"kratos_client/comment"
+
 	http "github.com/go-kratos/kratos/v2/transport/http"
 	binding "github.com/go-kratos/kratos/v2/transport/http/binding"
-	"kratos_client/comment"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -21,21 +22,27 @@ var _ = binding.EncodeURL
 const _ = http.SupportPackageIsVersion1
 
 const OperationUserCreateAddress = "/user.v1.User/CreateAddress"
+const OperationUserDeleteAddress = "/user.v1.User/DeleteAddress"
+const OperationUserGetAddressList = "/user.v1.User/GetAddressList"
 const OperationUserLogin = "/user.v1.User/Login"
 const OperationUserSearchForCities = "/user.v1.User/SearchForCities"
 const OperationUserSelectTheCity = "/user.v1.User/SelectTheCity"
 const OperationUserSendSms = "/user.v1.User/SendSms"
+const OperationUserUpdateAddress = "/user.v1.User/UpdateAddress"
 const OperationUserUpdateMobile = "/user.v1.User/UpdateMobile"
 const OperationUserUpdateNickName = "/user.v1.User/UpdateNickName"
 const OperationUserUserInfo = "/user.v1.User/UserInfo"
 
 type UserHTTPServer interface {
 	CreateAddress(context.Context, *CreateAddressRequest) (*CreateAddressReply, error)
+	DeleteAddress(context.Context, *DeleteAddressRequest) (*DeleteAddressReply, error)
+	GetAddressList(context.Context, *GetAddressListRequest) (*GetAddressListReply, error)
 	Login(context.Context, *LoginRequest) (*LoginReply, error)
 	SearchForCities(context.Context, *SearchForCitiesRequest) (*SearchForCitiesReply, error)
 	SelectTheCity(context.Context, *SelectTheCityRequest) (*SelectTheCityReply, error)
 	// SendSms Sends a greeting
 	SendSms(context.Context, *SendSmsRequest) (*SendSmsReply, error)
+	UpdateAddress(context.Context, *UpdateAddressRequest) (*UpdateAddressReply, error)
 	UpdateMobile(context.Context, *UpdateMobileRequest) (*UpdateMobileReply, error)
 	UpdateNickName(context.Context, *UpdateNickNameRequest) (*UpdateNickNameReply, error)
 	UserInfo(context.Context, *UserInfoRequest) (*UserInfoReply, error)
@@ -48,9 +55,12 @@ func RegisterUserHTTPServer(s *http.Server, srv UserHTTPServer) {
 	r.POST("/v1/userInfo", _User_UserInfo0_HTTP_Handler(srv),comment.JWTMiddleware())
 	r.POST("/v1/updateNickName", _User_UpdateNickName0_HTTP_Handler(srv),comment.JWTMiddleware())
 	r.POST("/v1/updateMobile", _User_UpdateMobile0_HTTP_Handler(srv),comment.JWTMiddleware())
-	r.POST("/v1/SelectTheCity", _User_SelectTheCity0_HTTP_Handler(srv))
-	r.POST("/v1/SearchForCities", _User_SearchForCities0_HTTP_Handler(srv))
-	r.POST("/v1/createAddress", _User_CreateAddress0_HTTP_Handler(srv))
+	r.POST("/v1/SelectTheCity", _User_SelectTheCity0_HTTP_Handler(srv),comment.JWTMiddleware())
+	r.POST("/v1/SearchForCities", _User_SearchForCities0_HTTP_Handler(srv),comment.JWTMiddleware())
+	r.POST("/v1/createAddress", _User_CreateAddress0_HTTP_Handler(srv),comment.JWTMiddleware())
+	r.POST("/v1/getAddressList", _User_GetAddressList0_HTTP_Handler(srv),comment.JWTMiddleware())
+	r.POST("/v1/updateAddress", _User_UpdateAddress0_HTTP_Handler(srv),comment.JWTMiddleware())
+	r.POST("/v1/deleteAddress", _User_DeleteAddress0_HTTP_Handler(srv),comment.JWTMiddleware())
 }
 
 func _User_SendSms0_HTTP_Handler(srv UserHTTPServer) func(ctx http.Context) error {
@@ -229,12 +239,81 @@ func _User_CreateAddress0_HTTP_Handler(srv UserHTTPServer) func(ctx http.Context
 	}
 }
 
+func _User_GetAddressList0_HTTP_Handler(srv UserHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetAddressListRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationUserGetAddressList)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetAddressList(ctx, req.(*GetAddressListRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetAddressListReply)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _User_UpdateAddress0_HTTP_Handler(srv UserHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in UpdateAddressRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationUserUpdateAddress)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdateAddress(ctx, req.(*UpdateAddressRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*UpdateAddressReply)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _User_DeleteAddress0_HTTP_Handler(srv UserHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in DeleteAddressRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationUserDeleteAddress)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.DeleteAddress(ctx, req.(*DeleteAddressRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*DeleteAddressReply)
+		return ctx.Result(200, reply)
+	}
+}
+
 type UserHTTPClient interface {
 	CreateAddress(ctx context.Context, req *CreateAddressRequest, opts ...http.CallOption) (rsp *CreateAddressReply, err error)
+	DeleteAddress(ctx context.Context, req *DeleteAddressRequest, opts ...http.CallOption) (rsp *DeleteAddressReply, err error)
+	GetAddressList(ctx context.Context, req *GetAddressListRequest, opts ...http.CallOption) (rsp *GetAddressListReply, err error)
 	Login(ctx context.Context, req *LoginRequest, opts ...http.CallOption) (rsp *LoginReply, err error)
 	SearchForCities(ctx context.Context, req *SearchForCitiesRequest, opts ...http.CallOption) (rsp *SearchForCitiesReply, err error)
 	SelectTheCity(ctx context.Context, req *SelectTheCityRequest, opts ...http.CallOption) (rsp *SelectTheCityReply, err error)
 	SendSms(ctx context.Context, req *SendSmsRequest, opts ...http.CallOption) (rsp *SendSmsReply, err error)
+	UpdateAddress(ctx context.Context, req *UpdateAddressRequest, opts ...http.CallOption) (rsp *UpdateAddressReply, err error)
 	UpdateMobile(ctx context.Context, req *UpdateMobileRequest, opts ...http.CallOption) (rsp *UpdateMobileReply, err error)
 	UpdateNickName(ctx context.Context, req *UpdateNickNameRequest, opts ...http.CallOption) (rsp *UpdateNickNameReply, err error)
 	UserInfo(ctx context.Context, req *UserInfoRequest, opts ...http.CallOption) (rsp *UserInfoReply, err error)
@@ -253,6 +332,32 @@ func (c *UserHTTPClientImpl) CreateAddress(ctx context.Context, in *CreateAddres
 	pattern := "/v1/createAddress"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationUserCreateAddress))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *UserHTTPClientImpl) DeleteAddress(ctx context.Context, in *DeleteAddressRequest, opts ...http.CallOption) (*DeleteAddressReply, error) {
+	var out DeleteAddressReply
+	pattern := "/v1/deleteAddress"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationUserDeleteAddress))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *UserHTTPClientImpl) GetAddressList(ctx context.Context, in *GetAddressListRequest, opts ...http.CallOption) (*GetAddressListReply, error) {
+	var out GetAddressListReply
+	pattern := "/v1/getAddressList"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationUserGetAddressList))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
@@ -305,6 +410,19 @@ func (c *UserHTTPClientImpl) SendSms(ctx context.Context, in *SendSmsRequest, op
 	pattern := "/v1/sendSms"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationUserSendSms))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *UserHTTPClientImpl) UpdateAddress(ctx context.Context, in *UpdateAddressRequest, opts ...http.CallOption) (*UpdateAddressReply, error) {
+	var out UpdateAddressReply
+	pattern := "/v1/updateAddress"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationUserUpdateAddress))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

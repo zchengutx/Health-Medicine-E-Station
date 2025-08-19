@@ -69,6 +69,27 @@ service User {
     };
   }
 
+  rpc GetAddressList (GetAddressListRequest) returns (GetAddressListReply) {
+    option (google.api.http) = {
+      post: "/v1/getAddressList"
+      body: "*"
+    };
+  }
+
+  rpc UpdateAddress (UpdateAddressRequest) returns (UpdateAddressReply) {
+    option (google.api.http) = {
+      post: "/v1/updateAddress"
+      body: "*"
+    };
+  }
+
+  rpc DeleteAddress (DeleteAddressRequest) returns (DeleteAddressReply) {
+    option (google.api.http) = {
+      post: "/v1/deleteAddress"
+      body: "*"
+    };
+  }
+
 }
 
 // The request message containing the user's name.
@@ -149,6 +170,7 @@ message CreateAddressRequest {
   string shippingAddress = 4;
   string doorplateFloor = 5;
   string label = 6;
+  bool isDefault = 7;
 }
 
 // The response message containing the greetings
@@ -167,5 +189,55 @@ message UserInfoReply {
   string userName = 2;
   string mobile = 3;
   string avatar = 4;
+}
+
+// 获取地址列表请求
+message GetAddressListRequest {
+}
+
+// 获取地址列表响应
+message GetAddressListReply {
+  string message = 1;
+  repeated AddressInfo addressList = 2;
+}
+
+// 地址信息
+message AddressInfo {
+  int32 id = 1;
+  string consignee = 2;
+  string mobile = 3;
+  int32 cityId = 4;
+  string cityName = 5;
+  string shippingAddress = 6;
+  string doorplateFloor = 7;
+  string label = 8;
+  bool isDefault = 9;
+}
+
+// 更新地址请求
+message UpdateAddressRequest {
+  int32 id = 1;
+  string userName = 2;
+  string mobile = 3;
+  int32 cityId = 4;
+  string shippingAddress = 5;
+  string doorplateFloor = 6;
+  string label = 7;
+  bool isDefault = 8;
+}
+
+// 更新地址响应
+message UpdateAddressReply {
+  string message = 1;
+}
+
+// 删除地址请求
+message DeleteAddressRequest {
+  int32 id = 1;
+}
+
+// 删除地址响应
+message DeleteAddressReply {
+  string message = 1;
 }
 

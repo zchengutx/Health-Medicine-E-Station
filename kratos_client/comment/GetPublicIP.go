@@ -6,9 +6,9 @@ import (
 	"net/http"
 )
 
-//type IpS struct {
-//	Origin string `json:"origin"`
-//}
+type IpResponse struct {
+	Origin string `json:"origin"`
+}
 
 func GetPublicIP() (ip string, err error) {
 	resp, err := http.Get("https://httpbin.org/ip")
@@ -17,12 +17,16 @@ func GetPublicIP() (ip string, err error) {
 	}
 	defer resp.Body.Close()
 
-	Ip, err := ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return "", err
 	}
 
-	json.Unmarshal(Ip, &ip)
+	var ipResp IpResponse
+	err = json.Unmarshal(body, &ipResp)
+	if err != nil {
+		return "", err
+	}
 
-	return ip, nil
+	return ipResp.Origin, nil
 }
