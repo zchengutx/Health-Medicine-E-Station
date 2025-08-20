@@ -25,6 +25,7 @@ func initBizRouter(routers ...*gin.RouterGroup) {
 		medicineRouter.InitMtOrdersDrugRouter(privateGroup, publicGroup)
 		medicineRouter.InitMtUserRouter(privateGroup, publicGroup)
 		medicineRouter.InitMtOrdersRouter(privateGroup, publicGroup)
+		medicineRouter.InitMtChatMessageRouter(privateGroup, publicGroup)
 		medicineRouter.InitMtDiscountRouter(privateGroup, publicGroup)
 	}
 }

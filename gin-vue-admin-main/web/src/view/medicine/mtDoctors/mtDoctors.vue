@@ -60,7 +60,7 @@
 
             <el-table-column align="left" label="医生姓名" prop="name" width="120" />
 
-            <el-table-column align="left" label="性别：1-男，2-女" prop="gender" width="120">
+            <el-table-column align="left" label="性别" prop="gender" width="120">
     <template #default="scope">
     {{ filterDict(scope.row.gender,genderOptions) }}
     </template>
@@ -74,12 +74,12 @@
     {{ filterDict(scope.row.title,job_titleOptions) }}
     </template>
 </el-table-column>
-            <el-table-column align="left" label="审核状态：0-未通过，1-已通过，2-未审核" prop="status" width="120">
+            <el-table-column align="left" label="审核状态" prop="status" width="120">
     <template #default="scope">
     {{ filterDict(scope.row.status,doctor_statusOptions) }}
     </template>
 </el-table-column>
-            <el-table-column align="left" label="服务审核：0-未审核，1-已审核，2-待审核" prop="serviceAudit" width="120">
+            <el-table-column align="left" label="服务审核" prop="serviceAudit" width="120">
     <template #default="scope">
     {{ filterDict(scope.row.serviceAudit,service_auditOptions) }}
     </template>

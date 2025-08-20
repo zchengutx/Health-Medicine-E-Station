@@ -37,5 +37,5 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes
 })
-
+console.log('注册的路由表:', router.getRoutes())
 export default router

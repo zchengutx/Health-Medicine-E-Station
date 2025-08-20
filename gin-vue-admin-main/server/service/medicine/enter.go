@@ -14,5 +14,6 @@ type ServiceGroup struct {
 	MtExplainService
 	MtDoctorPatientsService
 	MtOrdersService
+	MtChatMessageService
 	MtDiscountService
 }

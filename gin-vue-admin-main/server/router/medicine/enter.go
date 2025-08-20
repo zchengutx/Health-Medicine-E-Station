@@ -16,6 +16,7 @@ type RouterGroup struct {
 	MtExplainRouter
 	MtDoctorPatientsRouter
 	MtOrdersRouter
+	MtChatMessageRouter
 	MtDiscountRouter
 }
 
@@ -33,5 +34,6 @@ var (
 	mtExplainApi        = api.ApiGroupApp.MedicineApiGroup.MtExplainApi
 	mtDoctorPatientsApi = api.ApiGroupApp.MedicineApiGroup.MtDoctorPatientsApi
 	mtOrdersApi         = api.ApiGroupApp.MedicineApiGroup.MtOrdersApi
+	mtChatMessageApi    = api.ApiGroupApp.MedicineApiGroup.MtChatMessageApi
 	mtDiscountApi       = api.ApiGroupApp.MedicineApiGroup.MtDiscountApi
 )

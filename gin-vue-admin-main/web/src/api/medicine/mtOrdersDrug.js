@@ -1,4 +1,4 @@
-import service from '@/utils/request'
+ import service from '@/utils/request'
 // @Tags MtOrdersDrug
 // @Summary 创建mtOrdersDrug表
 // @Security ApiKeyAuth

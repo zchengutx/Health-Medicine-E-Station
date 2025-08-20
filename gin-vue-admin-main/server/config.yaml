@@ -7,7 +7,7 @@ aliyun-oss:
     base-path: yourBasePath
 autocode:
     web: web/src
-    root: D:\Go\GoWork\Health-Medicine-E-Station\gin-vue-admin-main
+    root: ./
     server: server
     module: github.com/flipped-aurora/gin-vue-admin/server
     ai-path: ""

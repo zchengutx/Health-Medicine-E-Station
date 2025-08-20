@@ -64,7 +64,7 @@
 
             <el-table-column align="left" label="数量" prop="quantity" width="120" />
 
-            <el-table-column align="left" label="订单状态:1-待发货，2-待收货，3-已收货" prop="orderStatus" width="120">
+            <el-table-column align="left" label="订单状态" prop="orderStatus" width="120">
     <template #default="scope">
     {{ filterDict(scope.row.orderStatus,drug_orderOptions) }}
     </template>

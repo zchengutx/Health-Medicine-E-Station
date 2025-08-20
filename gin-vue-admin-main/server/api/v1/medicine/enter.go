@@ -16,6 +16,7 @@ type ApiGroup struct {
 	MtExplainApi
 	MtDoctorPatientsApi
 	MtOrdersApi
+	MtChatMessageApi
 	MtDiscountApi
 }
 
@@ -30,5 +31,6 @@ var (
 	mtExplainService        = service.ServiceGroupApp.MedicineServiceGroup.MtExplainService
 	mtDoctorPatientsService = service.ServiceGroupApp.MedicineServiceGroup.MtDoctorPatientsService
 	mtOrdersService         = service.ServiceGroupApp.MedicineServiceGroup.MtOrdersService
+	mtChatMessageService    = service.ServiceGroupApp.MedicineServiceGroup.MtChatMessageService
 	mtDiscountService       = service.ServiceGroupApp.MedicineServiceGroup.MtDiscountService
 )

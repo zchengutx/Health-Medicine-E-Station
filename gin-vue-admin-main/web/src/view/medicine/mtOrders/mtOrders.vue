@@ -68,12 +68,12 @@
 
             <el-table-column align="left" label="总金额" prop="totalAmount" width="120" />
 
-            <el-table-column align="left" label="支付方式：1-微信，2-支付宝，3-银行卡" prop="payType" width="120">
+            <el-table-column align="left" label="支付方式" prop="payType" width="120">
     <template #default="scope">
     {{ filterDict(scope.row.payType,pay_typeOptions) }}
     </template>
 </el-table-column>
-            <el-table-column align="left" label="订单状态：1-待支付，2-已支付，3-配药中，4-已发货，5-已完成，6-已取消" prop="status" width="120">
+            <el-table-column align="left" label="订单状态" prop="status" width="120">
     <template #default="scope">
     {{ filterDict(scope.row.status,order_statusOptions) }}
     </template>

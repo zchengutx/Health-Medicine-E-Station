@@ -11,6 +11,9 @@
         <el-option v-for="(item,key) in sourceOptions" :key="key" :label="item.label" :value="item.value" />
     </el-select>
 </el-form-item>
+        <el-form-item label="店铺id，平台卷为null:" prop="storeId">
+    <el-input v-model.number="formData.storeId" :clearable="true" placeholder="请输入店铺id，平台卷为null" />
+</el-form-item>
         <el-form-item label="优惠金额:" prop="discountAmout">
     <el-input-number v-model="formData.discountAmout" style="width:100%" :precision="2" :clearable="true" />
 </el-form-item>
@@ -67,6 +70,7 @@ const sourceOptions = ref([])
 const formData = ref({
             discountName: '',
             classify: '',
+            storeId: undefined,
             discountAmout: 0,
             minOrderAmount: 0,
             startTime: new Date(),
@@ -82,6 +86,11 @@ const rule = reactive({
                    trigger: ['input','blur'],
                }],
                classify : [{
+                   required: true,
+                   message: '',
+                   trigger: ['input','blur'],
+               }],
+               storeId : [{
                    required: true,
                    message: '',
                    trigger: ['input','blur'],
