@@ -8,7 +8,7 @@ import (
 type MtUser struct {
 	Id       int32  `gorm:"column:id;type:int;comment:主键id;primaryKey;" json:"id"`          // 主键id
 	NickName string `gorm:"column:nick_name;type:varchar(20);comment:昵称;" json:"nick_name"` // 昵称
-	Mobile   string `gorm:"column:mobile;type:char(11);comment:手机号;" json:"mobile"`        // 手机号
+	Mobile   string `gorm:"column:mobile;type:char(11);comment:手机号;" json:"mobile"`         // 手机号
 	Avatar   string `gorm:"column:avatar;type:varchar(255);comment:头像;" json:"avatar"`      // 头像
 }
 

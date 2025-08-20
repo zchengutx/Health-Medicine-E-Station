@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试商城API</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-result {
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+            background: #f8f9fa;
+        }
+        .error {
+            border-left-color: #dc3545;
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .success {
+            border-left-color: #28a745;
+            background: #d4edda;
+            color: #155724;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>叮当商城API测试</h1>
+        
+        <div>
+            <button onclick="testDrugListAPI()">测试药品列表API</button>
+            <button onclick="testBackendConnection()">测试后端连接</button>
+            <button onclick="clearResults()">清空结果</button>
+        </div>
+
+        <div id="results"></div>
+    </div>
+
+    <script>
+        function addResult(title, content, type = 'info') {
+            const results = document.getElementById('results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${type}`;
+            resultDiv.innerHTML = `
+                <h3>${title}</h3>
+                <div>${content}</div>
+            `;
+            results.appendChild(resultDiv);
+        }
+
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+        }
+
+        async function testBackendConnection() {
+            addResult('🔗 测试后端连接', '正在检查后端服务...', 'info');
+            
+            try {
+                const response = await fetch('http://localhost:8888/', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    addResult('✅ 后端连接成功', `状态码: ${response.status}`, 'success');
+                } else {
+                    addResult('❌ 后端连接失败', `状态码: ${response.status}`, 'error');
+                }
+            } catch (error) {
+                addResult('❌ 后端连接错误', `错误: ${error.message}`, 'error');
+            }
+        }
+
+        async function testDrugListAPI() {
+            addResult('🏥 测试药品列表API', '正在调用药品列表接口...', 'info');
+            
+            try {
+                const requestData = {
+                    frist_category_id: 0,
+                    second_category_id: 0,
+                    keyword: ""
+                };
+
+                addResult('📤 发送请求', `<pre>${JSON.stringify(requestData, null, 2)}</pre>`, 'info');
+
+                const response = await fetch('http://localhost:8888/v1/drug/list', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                });
+
+                addResult('📥 响应状态', `状态码: ${response.status} ${response.statusText}`, 
+                    response.ok ? 'success' : 'error');
+
+                if (!response.ok) {
+                    throw new Error(`HTTP错误! 状态: ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                addResult('📋 API响应数据', `<pre>${JSON.stringify(data, null, 2)}</pre>`, 'info');
+
+                if (data.code == 0) {
+                    const drugCount = data.drug ? data.drug.length : 0;
+                    addResult('✅ API调用成功', `获取到 ${drugCount} 个药品`, 'success');
+                    
+                    if (drugCount > 0) {
+                        const firstDrug = data.drug[0];
+                        addResult('🔍 第一个药品示例', `
+                            <strong>名称:</strong> ${firstDrug.drugName || firstDrug.drug_name || '未知'}<br>
+                            <strong>规格:</strong> ${firstDrug.specification || '未知'}<br>
+                            <strong>价格:</strong> ¥${firstDrug.price || 0}<br>
+                            <strong>库存:</strong> ${firstDrug.inventory || 0}
+                        `, 'success');
+                    }
+                } else {
+                    addResult('❌ API返回错误', `错误码: ${data.code}, 消息: ${data.msg}`, 'error');
+                }
+
+            } catch (error) {
+                addResult('❌ API调用失败', `错误: ${error.message}`, 'error');
+                console.error('药品列表API测试失败:', error);
+            }
+        }
+
+        // 页面加载时自动测试
+        document.addEventListener('DOMContentLoaded', function() {
+            addResult('🚀 测试页面启动', '点击按钮开始测试API连接', 'info');
+        });
+    </script>
+</body>
+</html>

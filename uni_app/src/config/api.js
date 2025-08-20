@@ -1,126 +1,127 @@
-// API 配置文件
+// API配置文件
 const API_CONFIG = {
   // 后端服务基础地址，请根据实际情况修改
-  BASE_URL: 'http://localhost:8000',
+  BASE_URL: 'http://localhost:8888',
   
-  // API 接口定义
+  // API版本
+  API_VERSION: 'v1',
+  
+  // 完整的API端点配置
   ENDPOINTS: {
-    // 发送短信验证码
+    // 用户相关接口
+    USER: {
     SEND_SMS: '/v1/sendSms',
-    // 用户登录
     LOGIN: '/v1/login',
-    // 修改昵称
-    UPDATE_NICKNAME: '/v1/updateNickName',
-    // 获取用户信息
-    GET_USER_INFO: '/v1/userInfo',
-    // 修改头像
-    UPDATE_AVATAR: '/upload'
-  }
-}
-
-// 通用请求方法
-const request = async (url, options = {}) => {
-  const fullUrl = `${API_CONFIG.BASE_URL}${url}`
-  
-  // 获取token
-  const token = localStorage.getItem('token')
-  
-  const defaultOptions = {
-    headers: {
-      'Content-Type': 'application/json',
-      ...(token && { 'Authorization': token }),
-      ...options.headers
-    }
-  }
-  
-  const finalOptions = { ...defaultOptions, ...options }
-  
-  try {
-    const response = await fetch(fullUrl, finalOptions)
+      UPLOAD_AVATAR: '/upload',
+      GET_USER_INFO: '/v1/GetTargeted',
+      SEARCH_CITIES: '/v1/SearchForCities',
+      SELECT_CITY: '/v1/SelectTheCity'
+    },
     
-    if (!response.ok) {
-      const errorText = await response.text()
-      throw new Error(`HTTP ${response.status}: ${errorText}`)
-    }
+    // 医生相关接口
+    DOCTORS: {
+      LIST: '/v1/DoctorsList'
+    },
     
-    return await response.json()
-  } catch (error) {
-    console.error('API请求失败:', error)
-    throw error
-  }
-}
-
-// API 方法
-export const api = {
-  // 发送短信验证码
-  sendSms: async (mobile, source = 'login') => {
-    return request(API_CONFIG.ENDPOINTS.SEND_SMS, {
-      method: 'POST',
-      body: JSON.stringify({ mobile, source })
-    })
+    // 药品相关接口
+    DRUGS: {
+      LIST: '/v1/drug/list',
+      DETAIL: '/v1/drug',
+      SEARCH: '/v1/drug/search',
+      HOT_SEARCH: '/v1/drug/hot-search'
+    },
+    
+    // 购物车相关接口
+    CART: {
+      CREATE: '/v1/cart/create',
+      UPDATE: '/v1/cart/update',
+      DELETE: '/v1/cart/delete',
+      LIST: '/v1/cart/list'
+    },
+    
+    // 订单相关接口
+    ORDER: {
+      CREATE: '/v1/order/create',
+      LIST: '/v1/order/list',
+      DETAIL: '/v1/order/detail',
+      UPDATE_STATUS: '/v1/order/update-status',
+      CANCEL: '/v1/order/cancel'
+    },
+    
+    // 支付相关接口
+    PAYMENT: {
+      CREATE: '/v1/payment/create',
+      QUERY: '/v1/payment/query',
+      REFUND: '/v1/payment/refund'
+    },
+    
+    // 优惠券相关接口
+    COUPON: {
+      LIST: '/v1/coupon/list',
+      APPLY: '/v1/coupon/apply',
+      MY_COUPONS: '/v1/coupon/my-coupons'
+    },
+    
+    // 处方相关接口
+    PRESCRIPTION: {
+      CREATE: '/v1/prescription/create',
+      LIST: '/v1/prescription/list',
+      DETAIL: '/v1/prescription/detail',
+      APPROVE: '/v1/prescription/approve'
+    },
+    
+    // 聊天相关接口
+    CHAT: {
+      HISTORY: '/v1/chat/history',
+      SAVE_MESSAGE: '/v1/chat/save-message',
+      ROOMS: '/v1/chat/rooms',
+      MARK_READ: '/v1/chat/mark-read',
+      WEBSOCKET: '/ws/chat'
+    },
+    
+    // 评估相关接口
+    ESTIMATE: {
+      CREATE: '/v1/estimate/create',
+      LIST: '/v1/estimate/list',
+      DETAIL: '/v1/estimate/detail'
+    },
+    
+    // 心跳检测接口
+    HEARTBEAT: {
+      USER_STATUS: '/api/heartbeat/user/{userId}/status',
+      ONLINE_USERS: '/api/heartbeat/online-users',
+      UPDATE: '/api/heartbeat/update'
+    }
   },
   
-  // 用户登录
-  login: async (mobile, sendSmsCode) => {
-    return request(API_CONFIG.ENDPOINTS.LOGIN, {
-      method: 'POST',
-      body: JSON.stringify({ mobile, sendSmsCode })
-    })
+  // 请求超时时间（毫秒）
+  TIMEOUT: 10000,
+  
+  // 请求头配置
+  HEADERS: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
   },
   
-  // 修改昵称
-  updateNickname: async (nickname) => {
-    return request(API_CONFIG.ENDPOINTS.UPDATE_NICKNAME, {
-      method: 'POST',
-      body: JSON.stringify({ nickName: nickname })
-    })
+  // 获取完整的API URL
+  getFullUrl: function(endpoint) {
+    return this.BASE_URL + endpoint;
   },
   
-  // 获取用户信息
-  getUserInfo: async () => {
-    const response = await request(API_CONFIG.ENDPOINTS.GET_USER_INFO, {
-      method: 'POST',
-      body: JSON.stringify({}) // 空的请求体，根据你的proto定义
-    })
-    
-    // 处理字段名映射 - 后端返回userName，前端期望username
-    if (response && response.data) {
-      const mappedData = {
-        ...response.data,
-        username: response.data.userName || response.data.username,
-        phone: response.data.mobile || response.data.phone
-      }
-      return { ...response, data: mappedData }
-    }
-    
-    return response
+  // 获取带版本号的API URL
+  getVersionedUrl: function(endpoint) {
+    return this.BASE_URL + '/' + this.API_VERSION + endpoint;
   },
-
-  // 修改头像
-  updateAvatar: async (avatarFile) => {
-    // 创建FormData对象用于文件上传
-    const formData = new FormData()
-    formData.append('file', avatarFile)
-    
-    // 获取token
-    const token = localStorage.getItem('token')
-    
-    const response = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.UPDATE_AVATAR}`, {
-      method: 'POST',
-      headers: {
-        'Authorization': token
-        // 注意：不要设置Content-Type，让浏览器自动设置multipart/form-data
-      },
-      body: formData
-    })
-    
-    if (!response.ok) {
-      const errorText = await response.text()
-      throw new Error(`HTTP ${response.status}: ${errorText}`)
+  
+  // 替换URL中的参数
+  replaceParams: function(url, params) {
+    let result = url;
+    for (const [key, value] of Object.entries(params)) {
+      result = result.replace(`{${key}}`, value);
     }
-    
-    return await response.json()
+    return result;
   }
-}
+};
 
-export default API_CONFIG
+// 导出配置到全局变量
+window.API_CONFIG = API_CONFIG;

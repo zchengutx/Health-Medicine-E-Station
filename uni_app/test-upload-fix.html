@@ -71,7 +71,7 @@
     <div class="test-section">
         <h3>当前状态</h3>
         <p>Token: <span id="tokenStatus">检查中...</span></p>
-        <p>后端地址: http://localhost:8000</p>
+        <p>后端地址: http://localhost:8888</p>
         <p>接口路径: /upload</p>
     </div>
 
@@ -121,7 +121,7 @@
                 formData.append('file', file);
 
                 // 上传文件
-                const response = await fetch('http://localhost:8000/upload', {
+                const response = await fetch('http://localhost:8888/upload', {
                     method: 'POST',
                     headers: {
                         'Authorization': token

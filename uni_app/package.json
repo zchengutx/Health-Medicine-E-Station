@@ -4,10 +4,11 @@
   "description": "Health Medicine E-Station Uni-App",
   "main": "main.js",
   "scripts": {
-    "dev:h5": "npm run dev:h5",
-    "dev:mp-weixin": "npm run dev:mp-weixin",
-    "build:h5": "npm run build:h5",
-    "build:mp-weixin": "npm run build:mp-weixin",
+    "dev:h5": "uni build --watch --platform h5",
+    "dev:mp-weixin": "uni build --watch --platform mp-weixin",
+    "build:h5": "uni build --platform h5",
+    "build:mp-weixin": "uni build --platform mp-weixin",
+    "serve": "http-server dist/build/h5 -p 8080",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"

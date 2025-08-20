@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import API_CONFIG from '@/config/api.js'
 export default {
   data() {
     return {
@@ -54,7 +55,7 @@ export default {
       
       // 调用真实的后端API发送验证码
       uni.request({
-        url: 'http://localhost:8000/v1/sendSms',
+        url: `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.SEND_SMS}`,
         method: 'POST',
         header: {
           'Content-Type': 'application/json'
@@ -118,7 +119,7 @@ export default {
       
       // 调用真实的后端API进行登录
       uni.request({
-        url: 'http://localhost:8000/v1/login',
+        url: `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.LOGIN}`,
         method: 'POST',
         header: {
           'Content-Type': 'application/json'

@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>清单列表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: white;
+            color: #333;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .page-title {
+            font-size: 18px;
+            font-weight: bold;
+            flex: 1;
+            text-align: center;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .action-icon {
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .action-icon:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .tabs {
+            background: white;
+            border-bottom: 1px solid #f0f0f0;
+            position: sticky;
+            top: 60px;
+            z-index: 999;
+        }
+
+        .tab-list {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .tab-item {
+            flex: 1;
+            text-align: center;
+        }
+
+        .tab-button {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 15px 10px;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            color: #e74c3c;
+            font-weight: 500;
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 3px;
+            background: #e74c3c;
+            border-radius: 2px;
+        }
+
+        .tab-button:hover {
+            background-color: #f8f9fa;
+        }
+
+        .tab-content {
+            display: none;
+            padding-bottom: 100px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .store-section {
+            background: white;
+            margin: 15px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .store-header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .store-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #e74c3c;
+            border-radius: 50%;
+            background: #e74c3c;
+            margin-right: 15px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .store-checkbox::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .store-info {
+            flex: 1;
+        }
+
+        .store-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .store-tag {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .tag-mall {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .tag-self {
+            background: #ffebee;
+            color: #d32f2f;
+        }
+
+        .store-name {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .store-arrow {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .store-shipping {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .store-promotion {
+            background: #fff3e0;
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .promotion-text {
+            color: #e74c3c;
+            font-size: 14px;
+        }
+
+        .promotion-link {
+            color: #e74c3c;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .redemption-section {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .redemption-scroll {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 10px;
+        }
+
+        .redemption-grid {
+            display: inline-flex;
+            gap: 15px;
+        }
+
+        .redemption-card {
+            min-width: 120px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #f0f0f0;
+        }
+
+        .redemption-image {
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .redemption-content {
+            padding: 10px;
+        }
+
+        .redemption-name {
+            font-size: 12px;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            white-space: normal;
+        }
+
+        .redemption-price {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .redemption-new-price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        .redemption-old-price {
+            font-size: 12px;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .redemption-cart {
+            width: 100%;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .main-product {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .product-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .product-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #e74c3c;
+            border-radius: 50%;
+            background: #e74c3c;
+            margin-top: 5px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .product-checkbox::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .product-image {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4caf50 0%, #8bc34a 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            position: relative;
+        }
+
+        .product-logo {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #4caf50;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 8px;
+            font-weight: bold;
+        }
+
+        .product-details {
+            flex: 1;
+        }
+
+        .product-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .product-specs {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .product-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .product-tag {
+            padding: 2px 6px;
+            border: 1px solid #e74c3c;
+            border-radius: 4px;
+            font-size: 10px;
+            color: #e74c3c;
+            background: rgba(231, 76, 60, 0.1);
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8f9fa;
+            padding: 8px 12px;
+            border-radius: 6px;
+            width: fit-content;
+        }
+
+        .quantity-btn {
+            width: 24px;
+            height: 24px;
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            color: #666;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .gift-info {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .gift-text {
+            flex: 1;
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .gift-image {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 20px;
+        }
+
+        .gift-price {
+            text-align: right;
+        }
+
+        .gift-new-price {
+            font-size: 14px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        .gift-old-price {
+            font-size: 10px;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .gift-quantity {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .disclaimer {
+            padding: 15px;
+            font-size: 12px;
+            color: #999;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .recommendation {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .recommendation::before,
+        .recommendation::after {
+            content: '//';
+            color: #e74c3c;
+            font-size: 12px;
+        }
+
+        .bottom-bar {
+            position: fixed;
+            bottom: 60px;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 15px 20px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .bottom-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .bottom-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .select-all {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .select-all-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #e74c3c;
+            border-radius: 50%;
+            background: #e74c3c;
+            position: relative;
+        }
+
+        .select-all-checkbox::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .select-all-text {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .total-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .total-amount {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .total-label {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .total-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        .total-details {
+            color: #e74c3c;
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+        .discount-info {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .submit-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .submit-text {
+            display: block;
+            line-height: 1.2;
+        }
+
+        .submit-store {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #f0f0f0;
+            z-index: 1001;
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .nav-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px 0;
+            text-decoration: none;
+            color: #666;
+            font-size: 12px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link.active {
+            color: #e74c3c;
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .nav-badge {
+            position: absolute;
+            top: 5px;
+            right: 50%;
+            transform: translateX(50%);
+            background: #e74c3c;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state .icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="page-title">清单列表</h1>
+            <div class="header-actions">
+                <button class="action-icon">⋯</button>
+                <button class="action-icon">─</button>
+                <button class="action-icon">◎</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 标签页导航 -->
+    <nav class="tabs">
+        <ul class="tab-list">
+            <li class="tab-item">
+                <button class="tab-button active" data-tab="shopping-list">清单列表</button>
+            </li>
+            <li class="tab-item">
+                <button class="tab-button" data-tab="frequent-list">常购清单</button>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- 清单列表标签页 -->
+    <div id="shopping-list" class="tab-content active">
+        <!-- 店铺区域 -->
+        <div class="store-section">
+            <div class="store-header">
+                <div class="store-checkbox" onclick="toggleStoreSelection(this)"></div>
+                <div class="store-info">
+                    <div class="store-tags">
+                        <span class="store-tag tag-mall">商城</span>
+                        <span class="store-tag tag-self">自营</span>
+                    </div>
+                    <div class="store-name">
+                        叮当商城旗舰店
+                        <span class="store-arrow">→</span>
+                    </div>
+                    <div class="store-shipping">满48元包邮,快递送</div>
+                </div>
+            </div>
+
+            <div class="store-promotion">
+                <span class="promotion-text">店铺有1个活动,可超值换购商品!</span>
+                <a href="#" class="promotion-link">查看更多 ></a>
+            </div>
+
+            <!-- 换购商品区域 -->
+            <div class="redemption-section">
+                <div class="redemption-scroll">
+                    <div class="redemption-grid">
+                        <div class="redemption-card">
+                            <div class="redemption-image">💊</div>
+                            <div class="redemption-content">
+                                <div class="redemption-name">OTC[立可安]复方木...</div>
+                                <div class="redemption-price">
+                                    <span class="redemption-new-price">¥10</span>
+                                    <span class="redemption-old-price">¥39.8</span>
+                                </div>
+                                <button class="redemption-cart">🛒</button>
+                            </div>
+                        </div>
+
+                        <div class="redemption-card">
+                            <div class="redemption-image">💊</div>
+                            <div class="redemption-content">
+                                <div class="redemption-name">OTC[氧和堂]健胃消食片</div>
+                                <div class="redemption-price">
+                                    <span class="redemption-new-price">¥5</span>
+                                    <span class="redemption-old-price">¥22.8</span>
+                                </div>
+                                <button class="redemption-cart">🛒</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 主商品项 -->
+            <div class="main-product">
+                <div class="product-item">
+                    <div class="product-checkbox" onclick="toggleProductSelection(this)"></div>
+                    <div class="product-image">
+                        <span>💊</span>
+                        <div class="product-logo">叮当商城</div>
+                    </div>
+                    <div class="product-details">
+                        <div class="product-name">OTC[仁和]藿香正气胶囊</div>
+                        <div class="product-specs">0.3gx12粒x2板</div>
+                        <div class="product-tags">
+                            <span class="product-tag">超值换购</span>
+                            <span class="product-tag">[999]医用外科口罩买赠</span>
+                        </div>
+                        <div class="product-price">¥15.6</div>
+                        <div class="quantity-selector">
+                            <button class="quantity-btn" onclick="changeQuantity(this, -1)">-</button>
+                            <input type="text" class="quantity-input" value="104" readonly>
+                            <button class="quantity-btn" onclick="changeQuantity(this, 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 赠品信息 -->
+            <div class="gift-info">
+                <div class="gift-text">[999]医用外科口罩买赠(数量有限,赠完即止)</div>
+                <div class="gift-image">😷</div>
+                <div class="gift-price">
+                    <div class="gift-new-price">¥0</div>
+                    <div class="gift-old-price">¥2.5</div>
+                    <div class="gift-quantity">x 104</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 免责声明 -->
+        <div class="disclaimer">
+            药品不支持7天无理由退换货。如有处方药,请凭处方单购买。
+        </div>
+
+        <!-- 推荐区域 -->
+        <div class="recommendation">
+            为你推荐
+        </div>
+    </div>
+
+    <!-- 常购清单标签页 -->
+    <div id="frequent-list" class="tab-content">
+        <div class="empty-state">
+            <div class="icon">📋</div>
+            <p>还没有常购清单哦~</p>
+            <p style="font-size: 14px; margin-top: 10px;">添加常用商品到常购清单，购物更便捷</p>
+        </div>
+    </div>
+
+    <!-- 底部结算栏 -->
+    <div class="bottom-bar">
+        <div class="bottom-content">
+            <div class="bottom-left">
+                <div class="select-all" onclick="toggleSelectAll()">
+                    <div class="select-all-checkbox" id="selectAllCheckbox"></div>
+                    <span class="select-all-text">全选</span>
+                </div>
+                <div class="total-info">
+                    <div class="total-amount">
+                        <span class="total-label">合计:</span>
+                        <span class="total-price">¥1592.4</span>
+                        <a href="#" class="total-details">明细へ</a>
+                    </div>
+                    <div class="discount-info">优惠: ¥30</div>
+                </div>
+            </div>
+            <button class="submit-btn" onclick="submitOrder()">
+                <span class="submit-text">提交</span>
+                <span class="submit-store">1个店铺</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <nav class="bottom-nav">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span class="nav-icon">⚡</span>
+                    <span>首页</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span class="nav-icon">🛍️</span>
+                    <span>叮当商城</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span class="nav-icon">🔥</span>
+                    <span>特价拼团</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link active">
+                    <span class="nav-icon">📋</span>
+                    <span>清单列表</span>
+                    <span class="nav-badge">99</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span class="nav-icon">👤</span>
+                    <span>我的</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <script>
+        // 标签页切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetTab = this.getAttribute('data-tab');
+                    
+                    // 移除所有活动状态
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // 添加当前活动状态
+                    this.classList.add('active');
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
+        });
+
+        // 切换店铺选择
+        function toggleStoreSelection(checkbox) {
+            checkbox.classList.toggle('selected');
+            updateSelectAllState();
+        }
+
+        // 切换商品选择
+        function toggleProductSelection(checkbox) {
+            checkbox.classList.toggle('selected');
+            updateSelectAllState();
+        }
+
+        // 更新全选状态
+        function updateSelectAllState() {
+            const storeCheckbox = document.querySelector('.store-checkbox');
+            const productCheckbox = document.querySelector('.product-checkbox');
+            const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+            
+            if (storeCheckbox.classList.contains('selected') && productCheckbox.classList.contains('selected')) {
+                selectAllCheckbox.classList.add('selected');
+            } else {
+                selectAllCheckbox.classList.remove('selected');
+            }
+        }
+
+        // 切换全选
+        function toggleSelectAll() {
+            const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+            const storeCheckbox = document.querySelector('.store-checkbox');
+            const productCheckbox = document.querySelector('.product-checkbox');
+            
+            if (selectAllCheckbox.classList.contains('selected')) {
+                selectAllCheckbox.classList.remove('selected');
+                storeCheckbox.classList.remove('selected');
+                productCheckbox.classList.remove('selected');
+            } else {
+                selectAllCheckbox.classList.add('selected');
+                storeCheckbox.classList.add('selected');
+                productCheckbox.classList.add('selected');
+            }
+        }
+
+        // 改变数量
+        function changeQuantity(btn, delta) {
+            const input = btn.parentNode.querySelector('.quantity-input');
+            let currentValue = parseInt(input.value);
+            let newValue = currentValue + delta;
+            
+            if (newValue < 1) newValue = 1;
+            if (newValue > 999) newValue = 999;
+            
+            input.value = newValue;
+            updateTotalPrice();
+        }
+
+        // 更新总价格
+        function updateTotalPrice() {
+            const quantity = parseInt(document.querySelector('.quantity-input').value);
+            const unitPrice = 15.6;
+            const total = quantity * unitPrice;
+            
+            document.querySelector('.total-price').textContent = `¥${total.toFixed(1)}`;
+        }
+
+        // 提交订单
+        function submitOrder() {
+            const selectedItems = document.querySelectorAll('.product-checkbox.selected, .store-checkbox.selected');
+            if (selectedItems.length === 0) {
+                alert('请选择要购买的商品');
+                return;
+            }
+            
+            alert('订单提交成功！\n\n已选择商品：\n- OTC[仁和]藿香正气胶囊 x 104\n- 医用外科口罩(赠品) x 104\n\n总金额：¥1592.4\n优惠：¥30\n实付：¥1562.4');
+        }
+
+        // 换购商品点击事件
+        document.querySelectorAll('.redemption-cart').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const card = this.closest('.redemption-card');
+                const name = card.querySelector('.redemption-name').textContent;
+                const newPrice = card.querySelector('.redemption-new-price').textContent;
+                const oldPrice = card.querySelector('.redemption-old-price').textContent;
+                
+                alert(`添加到换购清单\n\n商品：${name}\n换购价：${newPrice}\n原价：${oldPrice}\n\n换购成功！`);
+            });
+        });
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTotalPrice();
+        });
+    </script>
+</body>
+</html>

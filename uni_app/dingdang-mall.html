@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>叮当商城 - 健康医疗驿站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* 顶部导航栏 */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-icon {
+            width: 24px;
+            height: 24px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .header-icon:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        /* 搜索栏 */
+        .search-bar {
+            background: white;
+            margin: 15px 20px;
+            border-radius: 25px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .search-icon {
+            color: #999;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .search-input::placeholder {
+            color: #999;
+        }
+
+        /* 分类网格 */
+        .category-grid {
+            background: white;
+            margin: 15px 20px;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .category-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .category-item {
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            border-radius: 50%;
+            margin: 0 auto 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .category-name {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.3;
+        }
+
+        .category-label {
+            font-size: 10px;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        /* 服务功能 */
+        .services {
+            background: white;
+            margin: 15px 20px;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .service-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
+
+        .service-item {
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .service-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .service-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 10px;
+            margin: 0 auto 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        .service-name {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .service-tag {
+            background: #ff4757;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        /* 促销横幅 */
+        .promo-banners {
+            margin: 15px 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .promo-banner {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promo-banner:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .promo-banner:nth-child(2) {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .promo-banner:nth-child(3) {
+            background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
+        }
+
+        .promo-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .promo-subtitle {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .promo-go {
+            background: rgba(255,255,255,0.8);
+            color: #333;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        /* 主促销区域 */
+        .main-promo {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            margin: 15px 20px;
+            border-radius: 20px;
+            padding: 25px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(255,154,158,0.3);
+        }
+
+        .main-promo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .main-promo-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .main-promo-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .main-promo-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .main-promo-desc {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .main-promo-button {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .main-promo-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+
+        .main-promo-tag {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ff4757;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* 折扣产品分类 */
+        .discount-categories {
+            margin: 15px 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .discount-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .discount-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .discount-card:nth-child(1) {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .discount-card:nth-child(2) {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .discount-card:nth-child(3) {
+            background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
+        }
+
+        .discount-card:nth-child(4) {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .discount-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .discount-offer {
+            background: rgba(255,255,255,0.8);
+            color: #333;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        /* 底部导航 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #eee;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+
+        .nav-content {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-item {
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 5px;
+        }
+
+        .nav-item.active {
+            color: #667eea;
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .nav-label {
+            font-size: 12px;
+        }
+
+        .nav-badge {
+            background: #ff4757;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: 5px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .category-row,
+            .service-row {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 10px;
+            }
+
+            .promo-banners {
+                grid-template-columns: 1fr;
+            }
+
+            .discount-categories {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content,
+            .search-bar,
+            .category-grid,
+            .services,
+            .promo-banners,
+            .main-promo,
+            .discount-categories {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+        }
+
+        /* 滚动到顶部按钮 */
+        .scroll-top {
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+            width: 50px;
+            height: 50px;
+            background: rgba(102, 126, 234, 0.8);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .scroll-top:hover {
+            background: rgba(102, 126, 234, 1);
+            transform: scale(1.1);
+        }
+
+        /* 加载动画 */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 药品列表样式 */
+        .drug-list-section {
+            background: white;
+            margin: 15px 20px;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            margin-bottom: 100px; /* 为底部导航留出空间 */
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .view-more {
+            color: #667eea;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .view-more:hover {
+            color: #764ba2;
+        }
+
+        /* 加载和错误状态 */
+        .loading-state, .error-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+
+        .loading-spinner {
+            font-size: 24px;
+            margin-bottom: 10px;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-text, .error-text {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .error-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #e74c3c;
+        }
+
+        .retry-button {
+            margin-top: 15px;
+            padding: 8px 20px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .retry-button:hover {
+            background-color: #764ba2;
+        }
+
+        /* 药品列表布局 */
+        .drug-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .drug-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #f0f0f0;
+        }
+
+        .drug-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .drug-image {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+        }
+
+        .drug-info {
+            padding: 15px;
+        }
+
+        .drug-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .drug-spec {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .drug-price {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .current-price {
+            font-size: 18px;
+            font-weight: 600;
+            color: #e74c3c;
+        }
+
+        .original-price {
+            font-size: 14px;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .drug-inventory {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .add-to-cart-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .drug-list {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 10px;
+            }
+            
+            .drug-list-section {
+                margin: 10px;
+                padding: 15px;
+            }
+            
+            .drug-image {
+                height: 120px;
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .drug-list {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            
+            .drug-item {
+                border-radius: 8px;
+            }
+            
+            .drug-info {
+                padding: 10px;
+            }
+            
+            .drug-name {
+                font-size: 14px;
+            }
+            
+            .drug-spec {
+                font-size: 12px;
+            }
+            
+            .current-price {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="header-title">叮当商城</h1>
+            <div class="header-actions">
+                <div class="header-icon">⋯</div>
+                <div class="header-icon">−</div>
+                <div class="header-icon">●</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 搜索栏 -->
+    <div class="search-bar">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" placeholder="秋季滋补">
+    </div>
+
+    <!-- 分类网格 -->
+    <div class="category-grid">
+        <div class="category-row">
+            <div class="category-item">
+                <div class="category-icon">🌿</div>
+                <div class="category-name">防暑抗夏</div>
+                <div class="category-label">清热解暑</div>
+            </div>
+            <div class="category-item">
+                <div class="category-icon">🦶</div>
+                <div class="category-name">皮肤用药</div>
+                <div class="category-label">足光散</div>
+            </div>
+            <div class="category-item">
+                <div class="category-icon">💊</div>
+                <div class="category-name">肠胃消化</div>
+                <div class="category-label">蒙脱石散</div>
+            </div>
+            <div class="category-item">
+                <div class="category-icon">🍯</div>
+                <div class="category-name">呼吸止咳</div>
+                <div class="category-label">枇杷膏</div>
+            </div>
+            <div class="category-item">
+                <div class="category-icon">❤️</div>
+                <div class="category-name">心脑三高</div>
+                <div class="category-label">安宫牛黄丸</div>
+            </div>
+        </div>
+        <div class="category-row">
+            <div class="category-item">
+                <div class="category-icon">📚</div>
+                <div class="category-name">男科补肾</div>
+                <div class="category-label">肾宝片</div>
+            </div>
+            <div class="category-item">
+                <div class="category-icon">🌸</div>
+                <div class="category-name">妇科调理</div>
+                <div class="category-label">逍遥丸</div>
+            </div>
+            <div class="category-item">
+                <div class="category-icon">💝</div>
+                <div class="category-name">成人情趣</div>
+                <div class="category-label">持久</div>
+            </div>
+            <div class="category-item">
+                <div class="category-icon">🫁</div>
+                <div class="category-name">肝胆用药</div>
+                <div class="category-label">护肝片</div>
+            </div>
+            <div class="category-item">
+                <div class="category-icon">👁️</div>
+                <div class="category-name">五官用药</div>
+                <div class="category-label">玻璃酸钠滴眼液</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 服务功能 -->
+    <div class="services">
+        <div class="service-row">
+            <div class="service-item">
+                <div class="service-icon">👨‍⚕️</div>
+                <div class="service-name">免费问诊</div>
+                <div class="service-tag">查处方</div>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">👩‍⚕️</div>
+                <div class="service-name">药师指导</div>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">📱</div>
+                <div class="service-name">智能器械</div>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">🫀</div>
+                <div class="service-name">肠胃健康</div>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">💊</div>
+                <div class="service-name">新特药房</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 促销横幅 -->
+    <div class="promo-banners">
+        <div class="promo-banner">
+            <div class="promo-title">家庭药箱</div>
+            <div class="promo-subtitle">好物优选</div>
+            <div class="promo-go">GO></div>
+        </div>
+        <div class="promo-banner">
+            <div class="promo-title">成人情趣</div>
+            <div class="promo-subtitle">解锁愉悦</div>
+            <div class="promo-go">GO></div>
+        </div>
+        <div class="promo-banner">
+            <div class="promo-title">海外购药</div>
+            <div class="promo-subtitle">买遍全球</div>
+            <div class="promo-go">GO></div>
+        </div>
+    </div>
+
+    <!-- 主促销区域 -->
+    <div class="main-promo">
+        <div class="main-promo-tag">部分商品99-50元</div>
+        <div class="main-promo-content">
+            <h2 class="main-promo-title">秋至肠安</h2>
+            <div class="main-promo-subtitle">EARLY AUTUMN</div>
+            <p class="main-promo-desc">益生菌为养生打底</p>
+            <button class="main-promo-button">GO</button>
+        </div>
+    </div>
+
+    <!-- 折扣产品分类 -->
+    <div class="discount-categories">
+        <div class="discount-card">
+            <div class="discount-title">滋补调养</div>
+            <div class="discount-offer">满118减20</div>
+        </div>
+        <div class="discount-card">
+            <div class="discount-title">花草茶饮</div>
+            <div class="discount-offer">满299减50</div>
+        </div>
+        <div class="discount-card">
+            <div class="discount-title">营养保健</div>
+            <div class="discount-offer">满199减30</div>
+        </div>
+        <div class="discount-card">
+            <div class="discount-title">轻享生活</div>
+            <div class="discount-offer">满299减50</div>
+        </div>
+    </div>
+
+    <!-- 药品列表区域 -->
+    <div class="drug-list-section">
+        <div class="section-header">
+            <h2 class="section-title">热门药品</h2>
+            <span class="view-more" onclick="viewMoreDrugs()">查看更多 ></span>
+        </div>
+
+        <!-- 加载状态 -->
+        <div id="drugLoadingState" class="loading-state" style="display: none;">
+            <div class="loading-spinner">⏳</div>
+            <div class="loading-text">正在加载药品数据...</div>
+        </div>
+
+        <!-- 错误状态 -->
+        <div id="drugErrorState" class="error-state" style="display: none;">
+            <div class="error-icon">❌</div>
+            <div class="error-text">加载失败，请稍后重试</div>
+            <button class="retry-button" onclick="loadDrugList()">重新加载</button>
+        </div>
+
+        <!-- 药品列表 -->
+        <div id="drugList" class="drug-list">
+            <!-- 动态加载的药品数据将显示在这里 -->
+        </div>
+    </div>
+
+    <!-- 加载提示 -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <div>加载中...</div>
+    </div>
+
+    <!-- 滚动到顶部按钮 -->
+    <div class="scroll-top" id="scrollTop">↑</div>
+
+    <!-- 底部导航 -->
+    <nav class="bottom-nav">
+        <div class="nav-content">
+            <div class="nav-item active">
+                <div class="nav-icon">⚡</div>
+                <div class="nav-label">首页</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">🛍️</div>
+                <div class="nav-label">叮当商城</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">⭐</div>
+                <div class="nav-label">特价拼团</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">📋</div>
+                <div class="nav-label">清单列表</div>
+                <span class="nav-badge">99</span>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">我的</div>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 显示加载动画
+            document.getElementById('loading').style.display = 'block';
+            
+            // 模拟加载完成
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+            }, 1000);
+
+            // 滚动到顶部功能
+            const scrollTopBtn = document.getElementById('scrollTop');
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollTopBtn.style.display = 'flex';
+                } else {
+                    scrollTopBtn.style.display = 'none';
+                }
+            });
+
+            scrollTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // 分类项点击事件
+            const categoryItems = document.querySelectorAll('.category-item');
+            categoryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const categoryName = this.querySelector('.category-name').textContent;
+                    alert(`您点击了：${categoryName}`);
+                });
+            });
+
+            // 服务项点击事件
+            const serviceItems = document.querySelectorAll('.service-item');
+            serviceItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const serviceName = this.querySelector('.service-name').textContent;
+                    alert(`您点击了：${serviceName}`);
+                });
+            });
+
+            // 促销横幅点击事件
+            const promoBanners = document.querySelectorAll('.promo-banner');
+            promoBanners.forEach(banner => {
+                banner.addEventListener('click', function() {
+                    const promoTitle = this.querySelector('.promo-title').textContent;
+                    alert(`您点击了：${promoTitle}`);
+                });
+            });
+
+            // 折扣卡片点击事件
+            const discountCards = document.querySelectorAll('.discount-card');
+            discountCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const discountTitle = this.querySelector('.discount-title').textContent;
+                    alert(`您点击了：${discountTitle}`);
+                });
+            });
+
+            // 主促销按钮点击事件
+            const mainPromoBtn = document.querySelector('.main-promo-button');
+            mainPromoBtn.addEventListener('click', function() {
+                alert('正在跳转到益生菌专区...');
+            });
+
+            // 底部导航点击事件
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // 移除所有active类
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    // 添加active类到当前点击项
+                    this.classList.add('active');
+                    
+                    const navLabel = this.querySelector('.nav-label').textContent;
+                    alert(`您点击了：${navLabel}`);
+                });
+            });
+
+            // 搜索功能
+            const searchInput = document.querySelector('.search-input');
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const searchTerm = this.value.trim();
+                    if (searchTerm) {
+                        alert(`搜索：${searchTerm}`);
+                    }
+                }
+            });
+
+            // 顶部操作按钮点击事件
+            const headerIcons = document.querySelectorAll('.header-icon');
+            headerIcons.forEach((icon, index) => {
+                icon.addEventListener('click', function() {
+                    const actions = ['菜单', '最小化', '设置'];
+                    alert(`您点击了：${actions[index]}`);
+                });
+            });
+
+            // 添加页面滚动效果
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const parallax = document.querySelector('.main-promo');
+                if (parallax) {
+                    const speed = scrolled * 0.5;
+                    parallax.style.transform = `translateY(${speed}px)`;
+                }
+            });
+
+            // 添加分类项悬停效果
+            categoryItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.05)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // 加载药品列表
+            loadDrugList();
+
+            // 模拟数据加载
+            console.log('叮当商城页面加载完成！');
+            console.log('可用功能：');
+            console.log('- 分类浏览');
+            console.log('- 服务功能');
+            console.log('- 促销活动');
+            console.log('- 折扣商品');
+            console.log('- 搜索功能');
+            console.log('- 底部导航');
+            console.log('- 药品列表展示');
+        });
+
+        // 添加触摸支持（移动端）
+        if ('ontouchstart' in window) {
+            document.addEventListener('touchstart', function() {}, {passive: true});
+        }
+
+        // 性能优化：防抖函数
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // 优化滚动事件
+        const optimizedScrollHandler = debounce(function() {
+            // 滚动相关的优化逻辑
+        }, 16);
+
+        window.addEventListener('scroll', optimizedScrollHandler);
+
+        // 药品列表相关功能
+        async function loadDrugList() {
+            const loadingState = document.getElementById('drugLoadingState');
+            const errorState = document.getElementById('drugErrorState');
+            const drugList = document.getElementById('drugList');
+
+            // 显示加载状态
+            showLoadingState();
+
+            try {
+                console.log('开始加载药品列表...');
+                
+                const response = await fetch('http://localhost:8888/v1/drug/list', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        frist_category_id: 0,
+                        second_category_id: 0,
+                        keyword: ""
+                    })
+                });
+
+                console.log('API响应状态:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP错误! 状态: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('API响应数据:', data);
+
+                if (data.code != 0) {
+                    throw new Error(data.msg || '获取药品列表失败');
+                }
+
+                // 隐藏加载状态
+                hideLoadingState();
+
+                // 显示药品列表
+                displayDrugList(data.drug || []);
+
+            } catch (error) {
+                console.error('加载药品列表失败:', error);
+                hideLoadingState();
+                showErrorState();
+            }
+        }
+
+        function showLoadingState() {
+            document.getElementById('drugLoadingState').style.display = 'block';
+            document.getElementById('drugErrorState').style.display = 'none';
+            document.getElementById('drugList').style.display = 'none';
+        }
+
+        function hideLoadingState() {
+            document.getElementById('drugLoadingState').style.display = 'none';
+        }
+
+        function showErrorState() {
+            document.getElementById('drugErrorState').style.display = 'block';
+            document.getElementById('drugList').style.display = 'none';
+        }
+
+        function displayDrugList(drugs) {
+            const drugListElement = document.getElementById('drugList');
+            
+            if (!drugs || drugs.length === 0) {
+                drugListElement.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #999;">
+                        <div style="font-size: 24px; margin-bottom: 10px;">📦</div>
+                        <div>暂无药品数据</div>
+                    </div>
+                `;
+                drugListElement.style.display = 'block';
+                return;
+            }
+
+            // 只显示前8个药品（热门推荐）
+            const displayDrugs = drugs.slice(0, 8);
+            
+            drugListElement.innerHTML = displayDrugs.map((drug, index) => {
+                // 处理字段名兼容性
+                const drugName = drug.drugName || drug.drug_name || '未知药品';
+                const specification = drug.specification || '规格待确认';
+                const price = drug.price || 0;
+                const inventory = drug.inventory || 0;
+                const drugId = drug.id || drug.Id || index;
+                const exhibitionUrl = drug.exhibitionUrl || drug.exhibition_url;
+
+                // 计算折扣价格
+                const originalPrice = (price * 1.2).toFixed(2);
+                const currentPrice = price.toFixed(2);
+
+                return `
+                    <div class="drug-item" onclick="goToDrugDetail('${drugId}')">
+                        <div class="drug-image">
+                            ${exhibitionUrl ? `<img src="${exhibitionUrl}" alt="${drugName}" style="width: 100%; height: 100%; object-fit: cover;">` : '💊'}
+                        </div>
+                        <div class="drug-info">
+                            <div class="drug-name" title="${drugName}">${drugName}</div>
+                            <div class="drug-spec" title="${specification}">${specification}</div>
+                            <div class="drug-price">
+                                <span class="current-price">¥${currentPrice}</span>
+                                <span class="original-price">¥${originalPrice}</span>
+                            </div>
+                            <div class="drug-inventory">库存: ${inventory}件</div>
+                            <button class="add-to-cart-btn" 
+                                    onclick="event.stopPropagation(); addToCartFromMall('${drugId}', '${drugName}')"
+                                    ${inventory <= 0 ? 'disabled' : ''}>
+                                ${inventory <= 0 ? '暂无库存' : '加入购物车'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            drugListElement.style.display = 'grid';
+            console.log(`成功显示 ${displayDrugs.length} 个药品`);
+        }
+
+        // 跳转到药品详情页
+        function goToDrugDetail(drugId) {
+            if (!drugId || drugId === 'null' || drugId === 'undefined') {
+                console.error('药品ID无效:', drugId);
+                alert('药品信息错误，无法查看详情');
+                return;
+            }
+            
+            console.log('跳转到药品详情页，ID:', drugId);
+            window.location.href = `product-detail.html?id=${drugId}`;
+        }
+
+        // 从商城页面添加到购物车
+        async function addToCartFromMall(drugId, drugName) {
+            try {
+                const button = event.target;
+                const originalText = button.textContent;
+                
+                // 显示加载状态
+                button.textContent = '添加中...';
+                button.disabled = true;
+
+                const userId = getUserId();
+                const quantity = 1;
+
+                console.log('添加到购物车:', { userId, drugId, quantity, drugName });
+
+                const response = await fetch('http://localhost:8888/v1/cart/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_id: userId,
+                        drug_id: parseInt(drugId),
+                        number: quantity
+                    })
+                });
+
+                const data = await response.json();
+                console.log('添加购物车API响应:', data);
+
+                if (data.code == 0) {
+                    // 成功提示
+                    button.textContent = '已加入 ✓';
+                    button.style.background = '#28a745';
+                    
+                    // 2秒后恢复
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.style.background = '';
+                        button.disabled = false;
+                    }, 2000);
+                } else {
+                    throw new Error(data.msg || '添加失败');
+                }
+
+            } catch (error) {
+                console.error('添加到购物车失败:', error);
+                alert(`添加失败: ${error.message}`);
+                
+                // 恢复按钮状态
+                const button = event.target;
+                button.textContent = '加入购物车';
+                button.disabled = false;
+                button.style.background = '';
+            }
+        }
+
+        // 查看更多药品
+        function viewMoreDrugs() {
+            console.log('跳转到更多药品页面');
+            // 可以跳转到专门的药品列表页面，或者显示更多药品
+            window.location.href = 'index.html'; // 跳转到首页的完整药品列表
+        }
+
+        // 获取用户ID（简化版本）
+        function getUserId() {
+            // 从localStorage获取用户信息，如果没有则使用默认值1
+            const userInfo = localStorage.getItem('userInfo');
+            if (userInfo) {
+                try {
+                    const user = JSON.parse(userInfo);
+                    return user.id || user.user_id || 1;
+                } catch (e) {
+                    console.warn('解析用户信息失败:', e);
+                }
+            }
+            return 1; // 默认用户ID
+        }
+    </script>
+</body>
+</html>

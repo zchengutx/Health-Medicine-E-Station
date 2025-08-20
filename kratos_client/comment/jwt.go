@@ -2,9 +2,10 @@ package comment
 
 import (
 	"fmt"
+	"time"
+
 	"github.com/go-kratos/kratos/v2/errors"
 	"github.com/golang-jwt/jwt/v4"
-	"time"
 )
 
 const (
@@ -23,7 +24,7 @@ func TokenHandler(id int32) (string, error) {
 
 func GetToken(tokenString string) (jwt.MapClaims, string) {
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) { return []byte(App_Key), nil })
-	if token.Valid {
+	if token != nil && token.Valid {
 		fmt.Println("You look nice today")
 	} else if errors.Is(err, jwt.ErrTokenMalformed) {
 		fmt.Println("That's not even a token")
@@ -35,10 +36,10 @@ func GetToken(tokenString string) (jwt.MapClaims, string) {
 		fmt.Println("Couldn't handle this token:", err)
 		return nil, "token错误"
 	}
-	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		return claims, ""
-	} else {
-		fmt.Println(err)
+	if token != nil && token.Valid {
+		if claims, ok := token.Claims.(jwt.MapClaims); ok {
+			return claims, ""
+		}
 	}
-	return nil, ""
+	return nil, "token无效"
 }

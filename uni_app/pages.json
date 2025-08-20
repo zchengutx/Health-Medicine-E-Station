@@ -29,6 +29,54 @@
       "style": {
         "navigationBarTitleText": "更改昵称"
       }
+    },
+    {
+      "path": "pages/mall/mall",
+      "style": {
+        "navigationBarTitleText": "叮当商城"
+      }
+    },
+    {
+      "path": "pages/group/group",
+      "style": {
+        "navigationBarTitleText": "特价拼团"
+      }
+    },
+    {
+      "path": "pages/cart/cart",
+      "style": {
+        "navigationBarTitleText": "清单列表"
+      }
+    },
+    {
+      "path": "pages/search/search",
+      "style": {
+        "navigationBarTitleText": "搜索"
+      }
+    },
+    {
+      "path": "pages/category/category",
+      "style": {
+        "navigationBarTitleText": "分类"
+      }
+    },
+    {
+      "path": "pages/product/product",
+      "style": {
+        "navigationBarTitleText": "商品详情"
+      }
+    },
+    {
+      "path": "pages/product-list/product-list",
+      "style": {
+        "navigationBarTitleText": "商品列表"
+      }
+    },
+    {
+      "path": "pages/new-user/new-user",
+      "style": {
+        "navigationBarTitleText": "新人专享"
+      }
     }
   ],
   "globalStyle": {
@@ -38,18 +86,40 @@
     "backgroundColor": "#f5f5f5"
   },
   "tabBar": {
-    "color": "#7A7E83",
-    "selectedColor": "#3cc51f",
+    "color": "#999999",
+    "selectedColor": "#e74c3c",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "首页"
+        "text": "首页",
+        "iconPath": "static/tabbar/home.png",
+        "selectedIconPath": "static/tabbar/home-active.png"
+      },
+      {
+        "pagePath": "pages/mall/mall",
+        "text": "叮当商城",
+        "iconPath": "static/tabbar/mall.png",
+        "selectedIconPath": "static/tabbar/mall-active.png"
+      },
+      {
+        "pagePath": "pages/group/group",
+        "text": "特价拼团",
+        "iconPath": "static/tabbar/group.png",
+        "selectedIconPath": "static/tabbar/group-active.png"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "text": "清单列表",
+        "iconPath": "static/tabbar/cart.png",
+        "selectedIconPath": "static/tabbar/cart-active.png"
       },
       {
         "pagePath": "pages/user/user",
-        "text": "我的"
+        "text": "我的",
+        "iconPath": "static/tabbar/user.png",
+        "selectedIconPath": "static/tabbar/user-active.png"
       }
     ]
   }

@@ -3,9 +3,10 @@ package comment
 import (
 	"context"
 	"fmt"
-	"github.com/smartwalle/alipay/v3"
 	"log"
 	"net/url"
+
+	"github.com/smartwalle/alipay/v3"
 )
 
 // 支付宝配置结构
@@ -64,8 +65,8 @@ Ja+jHlt93/QfXcGOoBSB7GYkB3oRi50g24YnL0Uq9o9V8WKjkGooIgn9ifLiLoD
 JbwIDAQAB
 -----END PUBLIC KEY-----`,
 	IsProduction: false, // 沙箱环境
-	NotifyURL:    "http://localhost:8000/v1/payment/notify",
-	ReturnURL:    "http://localhost:8000/v1/payment/return",
+	NotifyURL:    "http://localhost:8888/v1/payment/notify",
+	ReturnURL:    "http://localhost:8888/v1/payment/return",
 }
 
 // 初始化支付宝客户端

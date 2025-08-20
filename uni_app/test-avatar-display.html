@@ -130,7 +130,7 @@
                 // 构建完整的头像URL
                 let fullAvatarUrl = avatarUrl;
                 if (!avatarUrl.startsWith('http')) {
-                    fullAvatarUrl = `http://localhost:8000/uploads/${avatarUrl}`;
+                    fullAvatarUrl = `http://localhost:8888/uploads/${avatarUrl}`;
                 }
                 
                 log(`完整头像URL: ${fullAvatarUrl}`);
@@ -184,7 +184,7 @@
                 }
                 
                 log('正在从后端获取用户信息...');
-                const response = await fetch('http://localhost:8000/v1/userInfo', {
+                const response = await fetch('http://localhost:8888/v1/userInfo', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -253,7 +253,7 @@
                 formData.append('file', file);
                 
                 // 上传文件
-                const response = await fetch('http://localhost:8000/upload', {
+                const response = await fetch('http://localhost:8888/upload', {
                     method: 'POST',
                     headers: {
                         'Authorization': token

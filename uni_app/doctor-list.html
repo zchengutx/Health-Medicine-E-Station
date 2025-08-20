@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>叮当快医 - 医生列表</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏥</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .doctor-page {
+            min-height: 100vh;
+            padding-bottom: 20px;
+        }
+        
+        /* 顶部导航栏 */
+        .header {
+            background: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #333;
+        }
+        
+        .page-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .action-icon {
+            font-size: 16px;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        /* 快速功能区域 */
+        .quick-features {
+            background: white;
+            padding: 20px;
+            margin-bottom: 10px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .quick-feature {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .quick-feature:hover {
+            transform: scale(1.05);
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: #f0f8ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            font-size: 20px;
+        }
+        
+        .feature-label {
+            font-size: 12px;
+            color: #333;
+        }
+        
+        /* 科室筛选区域 */
+        .department-section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-right: 10px;
+        }
+        
+        .certification-tag {
+            background: #ff6b35;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+        }
+        
+        .department-tabs {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 10px;
+        }
+        
+        .department-tab {
+            white-space: nowrap;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        
+        .department-tab.active {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        
+        .department-tab:not(.active) {
+            background: #f8f9fa;
+            color: #666;
+            border-color: #e9ecef;
+        }
+        
+        /* 医生列表 */
+        .doctor-list {
+            background: white;
+        }
+        
+        .doctor-item {
+            padding: 20px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .doctor-item:last-child {
+            border-bottom: none;
+        }
+        
+        .doctor-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        
+        .doctor-info {
+            flex: 1;
+        }
+        
+        .doctor-name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .doctor-title {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .doctor-hospital {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 10px;
+        }
+        
+        .doctor-metrics {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .metric-item {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .metric-value {
+            color: #007bff;
+            font-weight: bold;
+        }
+        
+        .doctor-specialties {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .doctor-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .doctor-tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+        }
+        
+        .consultation-method {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .consult-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .consult-btn:hover {
+            background: #0056b3;
+        }
+
+        /* 加载状态样式 */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .loading-text {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* 错误状态样式 */
+        .error-message {
+            text-align: center;
+            padding: 40px 20px;
+            color: #e74c3c;
+        }
+
+        .error-message .retry-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="doctor-page">
+        <!-- 顶部导航栏 -->
+        <div class="header">
+            <button class="back-btn" onclick="goBack()">←</button>
+            <div class="page-title">叮当快医</div>
+            <div class="header-actions">
+                <span class="action-icon">⋯</span>
+                <span class="action-icon">−</span>
+                <span class="action-icon">◎</span>
+            </div>
+        </div>
+        
+        <!-- 快速功能 -->
+        <div class="quick-features">
+            <div class="quick-feature" onclick="goToUrgentConsultation()">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-label">急速问诊</div>
+            </div>
+            <div class="quick-feature" onclick="goToHealthEncyclopedia()">
+                <div class="feature-icon">📚</div>
+                <div class="feature-label">健康医典</div>
+            </div>
+            <div class="quick-feature" onclick="goToMyPrescriptions()">
+                <div class="feature-icon">💊</div>
+                <div class="feature-label">我的处方</div>
+            </div>
+            <div class="quick-feature" onclick="goToConsultationRecords()">
+                <div class="feature-icon">📊</div>
+                <div class="feature-label">问诊记录</div>
+            </div>
+        </div>
+        
+        <!-- 按科室找医生 -->
+        <div class="department-section">
+            <div class="section-header">
+                <div class="section-title">按科室找医生</div>
+                <div class="certification-tag">平台认证 迅速响应</div>
+            </div>
+            <div class="department-tabs">
+                <div class="department-tab active" onclick="filterByDepartment('all')">全部</div>
+                <div class="department-tab" onclick="filterByDepartment('general')">全科</div>
+                <div class="department-tab" onclick="filterByDepartment('internal')">内科</div>
+                <div class="department-tab" onclick="filterByDepartment('surgery')">外科</div>
+                <div class="department-tab" onclick="filterByDepartment('gynecology')">妇科</div>
+                <div class="department-tab" onclick="filterByDepartment('pediatrics')">儿科</div>
+                <div class="department-tab" onclick="filterByDepartment('dermatology')">皮肤科</div>
+                <div class="department-tab" onclick="filterByDepartment('ophthalmology')">眼科</div>
+            </div>
+        </div>
+        
+        <!-- 医生列表 -->
+        <div class="doctor-list" id="doctorList">
+            <!-- 加载中提示 -->
+            <div class="loading" id="loading">
+                <div class="loading-text">正在加载医生列表...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量
+        let allDoctors = [];
+        let currentDepartment = 'all';
+
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('医生列表页面加载完成');
+            
+            // 检查用户登录状态
+            checkUserLoginStatus();
+            
+            // 加载医生列表
+            loadDoctorsList();
+        });
+
+        // 检查用户登录状态
+        function checkUserLoginStatus() {
+            const userInfoStr = localStorage.getItem('userInfo');
+            const token = localStorage.getItem('token');
+            
+            console.log('=== 检查用户登录状态 ===');
+            console.log('用户信息字符串:', userInfoStr);
+            console.log('Token:', token);
+            
+            if (userInfoStr && token) {
+                try {
+                    const userInfo = JSON.parse(userInfoStr);
+                    console.log('✅ 用户已登录:', userInfo);
+                    console.log('用户名:', userInfo.username);
+                    console.log('手机号:', userInfo.phone);
+                    console.log('Token:', token);
+                } catch (error) {
+                    console.error('❌ 解析用户信息失败:', error);
+                }
+            } else {
+                console.log('❌ 用户未登录');
+                console.log('建议: 请先登录后再使用医生咨询功能');
+            }
+        }
+
+        // 加载医生列表
+        async function loadDoctorsList() {
+            const doctorList = document.getElementById('doctorList');
+            
+            try {
+                console.log('开始加载医生列表...');
+                
+                // 显示加载状态
+                doctorList.innerHTML = '<div class="loading"><div class="loading-text">正在加载医生列表...</div></div>';
+                
+                // 调用后端API获取医生列表 - 修复端口为8888
+                const response = await fetch('http://localhost:8888/v1/DoctorsList', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({}) // 空的请求体
+                });
+                
+                console.log('API响应状态:', response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('API返回数据:', data);
+                    
+                    // 修复：正确处理后端返回的数据结构
+                    if (data.success || data.code === 0 || (data.message && data.message.includes('成功'))) {
+                        // 保存所有医生数据 - 修复数据字段名
+                        allDoctors = data.data || data.doctors || data.doctorsList || [];
+                        console.log('医生数据:', allDoctors);
+                        
+                        if (allDoctors && allDoctors.length > 0) {
+                            // 渲染医生列表
+                            renderDoctorsList(allDoctors);
+                        } else {
+                            showError('暂无医生数据');
+                        }
+                        return;
+                    } else {
+                        throw new Error(data.message || '获取医生列表失败');
+                    }
+                } else {
+                    throw new Error(`HTTP错误: ${response.status}`);
+                }
+                
+            } catch (error) {
+                console.error('加载医生列表失败:', error);
+                showError('加载医生列表失败，请重试');
+            }
+        }
+
+        // 渲染医生列表
+        function renderDoctorsList(doctors) {
+            const doctorList = document.getElementById('doctorList');
+            
+            if (!doctors || doctors.length === 0) {
+                doctorList.innerHTML = '<div class="error-message">暂无医生数据</div>';
+                return;
+            }
+            
+            const doctorsHTML = doctors.map(doctor => {
+                return `
+                    <div class="doctor-item">
+                        <div class="doctor-avatar">${doctor.avatar || '👨‍⚕️'}</div>
+                        <div class="doctor-info">
+                            <div class="doctor-name">${doctor.name || '未知医生'} ${doctor.title || ''}</div>
+                            <div class="doctor-title">${doctor.hospital || '鼎康慈桦互联网医院'}</div>
+                            <div class="doctor-metrics">
+                                <div class="metric-item">咨询次数 <span class="metric-value">${doctor.consultationCount || 0}</span></div>
+                                <div class="metric-item">好评率 <span class="metric-value">${doctor.rating || '100%'}</span></div>
+                                <div class="metric-item">响应时间 <span class="metric-value">${doctor.responseTime || '15s'}</span></div>
+                            </div>
+                            <div class="doctor-specialties">
+                                擅长：${doctor.specialties || '暂无专长信息'}
+                            </div>
+                            <div class="doctor-tags">
+                                ${(doctor.tags || []).map(tag => `<span class="doctor-tag">${tag}</span>`).join('')}
+                            </div>
+                            <div class="consultation-method">问诊方式: ${doctor.consultationMethod || '在线'}</div>
+                        </div>
+                        <button class="consult-btn" onclick="consultDoctor('${doctor.name || '医生'}')">咨询医生</button>
+                    </div>
+                `;
+            }).join('');
+            
+            doctorList.innerHTML = doctorsHTML;
+        }
+
+        // 显示错误信息
+        function showError(message) {
+            const doctorList = document.getElementById('doctorList');
+            doctorList.innerHTML = `
+                <div class="error-message">
+                    <div>${message}</div>
+                    <button class="retry-btn" onclick="loadDoctorsList()">重试</button>
+                </div>
+            `;
+        }
+
+        // 返回上一页
+        function goBack() {
+            window.history.back();
+        }
+        
+        // 急速问诊
+        function goToUrgentConsultation() {
+            alert('急速问诊功能开发中');
+        }
+        
+        // 健康医典
+        function goToHealthEncyclopedia() {
+            alert('健康医典功能开发中');
+        }
+        
+        // 我的处方
+        function goToMyPrescriptions() {
+            alert('我的处方功能开发中');
+        }
+        
+        // 问诊记录
+        function goToConsultationRecords() {
+            alert('问诊记录功能开发中');
+        }
+        
+        // 按科室筛选
+        function filterByDepartment(department) {
+            // 移除所有active类
+            document.querySelectorAll('.department-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // 添加active类到当前选中的tab
+            event.target.classList.add('active');
+            
+            currentDepartment = department;
+            console.log('筛选科室:', department);
+            
+            // 根据科室筛选医生
+            if (department === 'all') {
+                renderDoctorsList(allDoctors);
+            } else {
+                const filteredDoctors = allDoctors.filter(doctor => {
+                    // 这里可以根据实际的科室字段进行筛选
+                    return doctor.department === department || 
+                           doctor.specialties?.includes(department) ||
+                           doctor.tags?.some(tag => tag.includes(department));
+                });
+                renderDoctorsList(filteredDoctors);
+            }
+        }
+        
+        // 咨询医生 - 跳转到聊天页面
+        function consultDoctor(doctorName) {
+            console.log('=== 开始咨询医生 ===');
+            console.log('医生姓名:', doctorName);
+            
+            // 获取当前用户信息（从localStorage）
+            const userInfoStr = localStorage.getItem('userInfo');
+            const token = localStorage.getItem('token');
+            
+            console.log('用户信息字符串:', userInfoStr);
+            console.log('Token:', token);
+            
+            if (!userInfoStr || !token) {
+                console.log('❌ 缺少用户信息或token');
+                alert('请先登录后再咨询医生');
+                return;
+            }
+            
+            try {
+                const userInfo = JSON.parse(userInfoStr);
+                console.log('✅ 当前用户信息:', userInfo);
+                
+                if (!userInfo.username || !userInfo.phone) {
+                    console.log('❌ 用户信息不完整');
+                    alert('用户信息不完整，请重新登录');
+                    return;
+                }
+                
+                // 构造聊天页面的URL，自动填充参数
+                const chatUrl = `doctor-consultation.html?userId=${userInfo.phone}&userName=${encodeURIComponent(userInfo.username)}&userRole=patient&targetId=1&token=${token}&autoconnect=1`;
+                
+                console.log('🚀 准备跳转到聊天页面:', chatUrl);
+                
+                // 跳转到聊天页面
+                window.location.href = chatUrl;
+                
+            } catch (error) {
+                console.error('❌ 解析用户信息失败:', error);
+                alert('用户信息解析失败，请重新登录');
+            }
+        }
+    </script>
+</body>
+</html>

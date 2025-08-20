@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的叮当 - 健康医疗驿站</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏥</text></svg>">
     <style>
         * {
             margin: 0;
@@ -305,6 +306,63 @@
             cursor: pointer;
             z-index: 1000;
         }
+
+        /* 底部导航栏样式 */
+        .tabbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            height: 60px;
+            z-index: 1000;
+        }
+
+        .tab-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: color 0.3s;
+            color: #999;
+            position: relative;
+        }
+
+        .tab-item.active {
+            color: #e74c3c;
+        }
+
+        .tab-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .tab-text {
+            font-size: 12px;
+        }
+
+        .tab-badge {
+            position: absolute;
+            top: 8px;
+            right: 50%;
+            transform: translateX(50%);
+            background: #e74c3c;
+            color: white;
+            border-radius: 10px;
+            padding: 2px 6px;
+            font-size: 10px;
+            min-width: 16px;
+            text-align: center;
+        }
+
+        /* 为底部导航栏留出空间 */
+        .user-page {
+            padding-bottom: 60px;
+        }
     </style>
 </head>
 <body>
@@ -494,7 +552,7 @@
                 }
                 
                 console.log('正在从后端获取用户信息...');
-                const response = await fetch('http://localhost:8000/v1/userInfo', {
+                const response = await fetch('http://localhost:8888/v1/userInfo', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -571,7 +629,7 @@
              
              // 如果头像URL不是以http开头，则添加后端服务器地址
              if (!avatarUrl.startsWith('http')) {
-                 fullAvatarUrl = `http://localhost:8000/uploads/${avatarUrl}`;
+                 fullAvatarUrl = `http://localhost:8888/uploads/${avatarUrl}`;
              }
              
              console.log('完整头像URL:', fullAvatarUrl);
@@ -635,6 +693,50 @@
         function handleService(type) {
             alert(`${type}功能开发中`);
         }
+
+        // 底部导航栏切换
+        function switchTab(tab) {
+            // 根据tab类型跳转到相应页面
+            const pages = {
+                'home': 'index.html',
+                'mall': 'mall.html',
+                'group': 'group.html',
+                'cart': 'cart.html',
+                'user': 'user.html'
+            };
+            
+            const targetPage = pages[tab];
+            if (targetPage && targetPage !== 'user.html') {
+                // 直接跳转到对应页面
+                console.log(`切换到: ${targetPage}`);
+                window.location.href = targetPage;
+            }
+        }
     </script>
+
+    <!-- 底部导航栏 -->
+    <div class="tabbar">
+        <div class="tab-item" onclick="switchTab('home')">
+            <div class="tab-icon">🏠</div>
+            <div class="tab-text">首页</div>
+        </div>
+        <div class="tab-item" onclick="switchTab('mall')">
+            <div class="tab-icon">🛒</div>
+            <div class="tab-text">叮当商城</div>
+        </div>
+        <div class="tab-item" onclick="switchTab('group')">
+            <div class="tab-icon">🎯</div>
+            <div class="tab-text">特价拼团</div>
+        </div>
+        <div class="tab-item" onclick="switchTab('cart')">
+            <div class="tab-icon">📋</div>
+            <div class="tab-text">清单列表</div>
+            <div class="tab-badge">99</div>
+        </div>
+        <div class="tab-item active" onclick="switchTab('user')">
+            <div class="tab-icon">👤</div>
+            <div class="tab-text">我的</div>
+        </div>
+    </div>
 </body>
 </html>

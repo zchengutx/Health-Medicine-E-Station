@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医生列表API测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .loading {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>医生列表API测试</h1>
+        
+        <div class="test-section">
+            <h3>1. 测试医生列表API</h3>
+            <button onclick="testDoctorsList()">调用 /v1/DoctorsList</button>
+            <div id="doctorsResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>2. 测试连接状态</h3>
+            <button onclick="testConnection()">测试后端连接</button>
+            <div id="connectionResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>3. 测试数据格式</h3>
+            <button onclick="testDataFormat()">验证数据格式</button>
+            <div id="formatResult" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        // 测试医生列表API
+        async function testDoctorsList() {
+            const resultDiv = document.getElementById('doctorsResult');
+            resultDiv.className = 'result loading';
+            resultDiv.textContent = '正在调用API...';
+            
+            try {
+                console.log('开始调用医生列表API...');
+                
+                const response = await fetch('http://localhost:8888/v1/DoctorsList', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({})
+                });
+                
+                console.log('API响应状态:', response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('API返回数据:', data);
+                    
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `✅ API调用成功!\n\n状态码: ${response.status}\n响应数据:\n${JSON.stringify(data, null, 2)}`;
+                } else {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP ${response.status}: ${errorText}`);
+                }
+            } catch (error) {
+                console.error('API调用失败:', error);
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ API调用失败!\n\n错误信息: ${error.message}`;
+            }
+        }
+        
+        // 测试后端连接
+        async function testConnection() {
+            const resultDiv = document.getElementById('connectionResult');
+            resultDiv.className = 'result loading';
+            resultDiv.textContent = '正在测试连接...';
+            
+            try {
+                const response = await fetch('http://localhost:8888/', {
+                    method: 'GET'
+                });
+                
+                resultDiv.className = 'result success';
+                resultDiv.textContent = `✅ 后端服务连接正常!\n\n状态码: ${response.status}`;
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ 后端服务连接失败!\n\n错误信息: ${error.message}\n\n请确保后端服务正在运行在 http://localhost:8888`;
+            }
+        }
+        
+        // 测试数据格式
+        function testDataFormat() {
+            const resultDiv = document.getElementById('formatResult');
+            
+            // 模拟医生数据格式
+            const mockDoctorData = {
+                message: "DoctorsList success",
+                data: [
+                    {
+                        name: "张振北",
+                        title: "执业医师",
+                        hospital: "鼎康慈桦互联网医院",
+                        consultationCount: 8455,
+                        rating: "100%",
+                        responseTime: "15s",
+                        specialties: "妇科（月经不调、妇科炎症的治疗）、男科（阳痿、早泄）、成人消化系统疾病",
+                        tags: ["上呼吸道感染", "胃肠炎", "阳痿", "早泄", "关节炎"],
+                        consultationMethod: "在线",
+                        avatar: "👨‍⚕️"
+                    }
+                ]
+            };
+            
+            resultDiv.className = 'result success';
+            resultDiv.textContent = `📋 期望的数据格式:\n\n${JSON.stringify(mockDoctorData, null, 2)}\n\n请确保后端返回的数据格式与此匹配。`;
+        }
+        
+        // 页面加载时自动测试连接
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('医生列表API测试页面加载完成');
+            testConnection();
+        });
+    </script>
+</body>
+</html>

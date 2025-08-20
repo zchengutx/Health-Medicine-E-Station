@@ -197,6 +197,33 @@ npx http-server -p 8080
   }
   ```
 
+#### 6. 获取医生列表
+- **接口地址**: `POST /v1/DoctorsList`
+- **请求参数**: 
+  ```json
+  {}
+  ```
+- **响应格式**: 
+  ```json
+  {
+    "message": "DoctorsList success",
+    "data": [
+      {
+        "name": "医生姓名",
+        "title": "职称",
+        "hospital": "医院名称",
+        "consultationCount": "咨询次数",
+        "rating": "好评率",
+        "responseTime": "响应时间",
+        "specialties": "专长描述",
+        "tags": ["标签1", "标签2"],
+        "consultationMethod": "问诊方式",
+        "avatar": "头像"
+      }
+    ]
+  }
+  ```
+
 ### 注意事项
 
 1. 这是一个 uni-app 项目，完整功能需要在 HBuilderX 中运行

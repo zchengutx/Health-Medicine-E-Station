@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>药品API测试 - 健康医疗驿站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        .test-section h2 {
+            color: #007bff;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .test-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            transition: background-color 0.2s;
+        }
+
+        .test-button:hover {
+            background-color: #0056b3;
+        }
+
+        .test-button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .result.loading {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+        }
+
+        .result.success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .result.error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .api-info {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: #495057;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .input-row .input-group {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 药品API测试</h1>
+
+        <!-- 测试1: 获取药品列表 -->
+        <div class="test-section">
+            <h2>1. 获取药品列表</h2>
+            <div class="api-info">
+                <strong>接口:</strong> POST /v1/drug/list<br>
+                <strong>说明:</strong> 获取药品列表，支持按分类和关键词筛选
+            </div>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label>一级分类ID:</label>
+                    <input type="number" id="firstCategoryId" value="0" min="0">
+                </div>
+                <div class="input-group">
+                    <label>二级分类ID:</label>
+                    <input type="number" id="secondCategoryId" value="0" min="0">
+                </div>
+                <div class="input-group">
+                    <label>关键词:</label>
+                    <input type="text" id="keyword" placeholder="输入药品名称关键词">
+                </div>
+            </div>
+            
+            <button class="test-button" onclick="testDrugList()">测试药品列表API</button>
+            <div id="drugListResult" class="result" style="display: none;"></div>
+        </div>
+
+        <!-- 测试2: 搜索药品 -->
+        <div class="test-section">
+            <h2>2. 搜索药品</h2>
+            <div class="api-info">
+                <strong>接口:</strong> POST /v1/drug/search<br>
+                <strong>说明:</strong> 高级搜索功能，支持分页和多种筛选条件
+            </div>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label>搜索关键词:</label>
+                    <input type="text" id="searchKeyword" placeholder="输入搜索关键词" value="感冒">
+                </div>
+                <div class="input-group">
+                    <label>分类ID:</label>
+                    <input type="number" id="searchCategoryId" value="0" min="0">
+                </div>
+            </div>
+            <div class="input-row">
+                <div class="input-group">
+                    <label>页码:</label>
+                    <input type="number" id="searchPage" value="1" min="1">
+                </div>
+                <div class="input-group">
+                    <label>每页数量:</label>
+                    <input type="number" id="searchSize" value="10" min="1" max="50">
+                </div>
+            </div>
+            
+            <button class="test-button" onclick="testDrugSearch()">测试药品搜索API</button>
+            <div id="drugSearchResult" class="result" style="display: none;"></div>
+        </div>
+
+        <!-- 测试3: 获取热门搜索 -->
+        <div class="test-section">
+            <h2>3. 获取热门搜索</h2>
+            <div class="api-info">
+                <strong>接口:</strong> GET /v1/drug/hot-search<br>
+                <strong>说明:</strong> 获取热门搜索关键词、症状和问题
+            </div>
+            
+            <div class="input-group">
+                <label>限制数量:</label>
+                <input type="number" id="hotSearchLimit" value="10" min="1" max="20">
+            </div>
+            
+            <button class="test-button" onclick="testHotSearch()">测试热门搜索API</button>
+            <div id="hotSearchResult" class="result" style="display: none;"></div>
+        </div>
+
+        <!-- 测试4: 获取药品详情 -->
+        <div class="test-section">
+            <h2>4. 获取药品详情</h2>
+            <div class="api-info">
+                <strong>接口:</strong> POST /v1/drug<br>
+                <strong>说明:</strong> 根据药品ID获取详细信息
+            </div>
+            
+            <div class="input-group">
+                <label>药品ID:</label>
+                <input type="number" id="drugId" value="1" min="1">
+            </div>
+            
+            <button class="test-button" onclick="testDrugDetail()">测试药品详情API</button>
+            <div id="drugDetailResult" class="result" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        const BASE_URL = 'http://localhost:8888';
+
+        // 测试药品列表API
+        async function testDrugList() {
+            const resultDiv = document.getElementById('drugListResult');
+            const firstCategoryId = parseInt(document.getElementById('firstCategoryId').value) || 0;
+            const secondCategoryId = parseInt(document.getElementById('secondCategoryId').value) || 0;
+            const keyword = document.getElementById('keyword').value.trim();
+
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result loading';
+            resultDiv.textContent = '正在调用药品列表API...';
+
+            try {
+                console.log('🔍 测试药品列表API...');
+                
+                const requestBody = {
+                    frist_category_id: firstCategoryId,
+                    second_category_id: secondCategoryId,
+                    keyword: keyword
+                };
+
+                const response = await fetch(`${BASE_URL}/v1/drug/list`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                console.log('📡 API响应状态:', response.status);
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('✅ API返回数据:', data);
+
+                    resultDiv.className = 'result success';
+                    let statusText = '成功';
+                    if (data.code != 0) {
+                        statusText = `API返回错误码: ${data.code}`;
+                    }
+                    
+                    resultDiv.textContent = `✅ 药品列表API调用${statusText}!\n\n状态码: ${response.status}\n请求参数: ${JSON.stringify(requestBody, null, 2)}\n\n响应数据:\n${JSON.stringify(data, null, 2)}`;
+                } else {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP ${response.status}: ${errorText}`);
+                }
+            } catch (error) {
+                console.error('❌ API调用失败:', error);
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ 药品列表API调用失败!\n\n错误信息: ${error.message}`;
+            }
+        }
+
+        // 测试药品搜索API
+        async function testDrugSearch() {
+            const resultDiv = document.getElementById('drugSearchResult');
+            const keyword = document.getElementById('searchKeyword').value.trim();
+            const categoryId = parseInt(document.getElementById('searchCategoryId').value) || 0;
+            const page = parseInt(document.getElementById('searchPage').value) || 1;
+            const size = parseInt(document.getElementById('searchSize').value) || 10;
+
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result loading';
+            resultDiv.textContent = '正在调用药品搜索API...';
+
+            try {
+                console.log('🔍 测试药品搜索API...');
+                
+                const requestBody = {
+                    keyword: keyword,
+                    category_id: categoryId,
+                    page: page,
+                    size: size,
+                    only_in_stock: false,
+                    include_prescription: false
+                };
+
+                const response = await fetch(`${BASE_URL}/v1/drug/search`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                console.log('📡 API响应状态:', response.status);
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('✅ API返回数据:', data);
+
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `✅ 药品搜索API调用成功!\n\n状态码: ${response.status}\n请求参数: ${JSON.stringify(requestBody, null, 2)}\n\n响应数据:\n${JSON.stringify(data, null, 2)}`;
+                } else {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP ${response.status}: ${errorText}`);
+                }
+            } catch (error) {
+                console.error('❌ API调用失败:', error);
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ 药品搜索API调用失败!\n\n错误信息: ${error.message}`;
+            }
+        }
+
+        // 测试热门搜索API
+        async function testHotSearch() {
+            const resultDiv = document.getElementById('hotSearchResult');
+            const limit = parseInt(document.getElementById('hotSearchLimit').value) || 10;
+
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result loading';
+            resultDiv.textContent = '正在调用热门搜索API...';
+
+            try {
+                console.log('🔍 测试热门搜索API...');
+
+                const response = await fetch(`${BASE_URL}/v1/drug/hot-search?limit=${limit}`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                console.log('📡 API响应状态:', response.status);
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('✅ API返回数据:', data);
+
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `✅ 热门搜索API调用成功!\n\n状态码: ${response.status}\n请求参数: limit=${limit}\n\n响应数据:\n${JSON.stringify(data, null, 2)}`;
+                } else {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP ${response.status}: ${errorText}`);
+                }
+            } catch (error) {
+                console.error('❌ API调用失败:', error);
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ 热门搜索API调用失败!\n\n错误信息: ${error.message}`;
+            }
+        }
+
+        // 测试药品详情API
+        async function testDrugDetail() {
+            const resultDiv = document.getElementById('drugDetailResult');
+            const drugId = parseInt(document.getElementById('drugId').value) || 1;
+
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result loading';
+            resultDiv.textContent = '正在调用药品详情API...';
+
+            try {
+                console.log('🔍 测试药品详情API...');
+                
+                const requestBody = {
+                    id: drugId
+                };
+
+                const response = await fetch(`${BASE_URL}/v1/drug`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                console.log('📡 API响应状态:', response.status);
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('✅ API返回数据:', data);
+
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `✅ 药品详情API调用成功!\n\n状态码: ${response.status}\n请求参数: ${JSON.stringify(requestBody, null, 2)}\n\n响应数据:\n${JSON.stringify(data, null, 2)}`;
+                } else {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP ${response.status}: ${errorText}`);
+                }
+            } catch (error) {
+                console.error('❌ API调用失败:', error);
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ 药品详情API调用失败!\n\n错误信息: ${error.message}`;
+            }
+        }
+
+        // 页面加载完成后的提示
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🧪 药品API测试页面加载完成');
+            console.log('📋 使用说明:');
+            console.log('1. 确保后端服务正在运行 (http://localhost:8888)');
+            console.log('2. 点击相应按钮测试不同的API接口');
+            console.log('3. 查看控制台和页面结果');
+        });
+    </script>
+</body>
+</html>

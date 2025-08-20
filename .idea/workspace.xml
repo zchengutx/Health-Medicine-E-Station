@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9a2968d5-2ad3-496c-8385-d5b9680f5b3e" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/GOHCache.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/GOHCache.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Health-Medicine-E-Station.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Health-Medicine-E-Station.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/MarsCodeWorkspaceAppSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MarsCodeWorkspaceAppSettings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/migrateChatHistory.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kratos_client/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/kratos_client/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kratos_client/cmd/kratos_client/wire_gen.go" beforeDir="false" afterPath="$PROJECT_DIR$/kratos_client/cmd/kratos_client/wire_gen.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kratos_client/comment/JWTMiddleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/kratos_client/comment/JWTMiddleware.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kratos_client/comment/chat.go" beforeDir="false" afterPath="$PROJECT_DIR$/kratos_client/comment/chat.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kratos_client/internal/biz/biz.go" beforeDir="false" afterPath="$PROJECT_DIR$/kratos_client/internal/biz/biz.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kratos_client/internal/biz/city.go" beforeDir="false" afterPath="$PROJECT_DIR$/kratos_client/internal/biz/city.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kratos_client/internal/biz/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/kratos_client/internal/biz/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kratos_client/internal/data/data.go" beforeDir="false" afterPath="$PROJECT_DIR$/kratos_client/internal/data/data.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kratos_client/internal/server/http.go" beforeDir="false" afterPath="$PROJECT_DIR$/kratos_client/internal/server/http.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kratos_client/internal/service/chat.go" beforeDir="false" afterPath="$PROJECT_DIR$/kratos_client/internal/service/chat.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kratos_client/internal/service/dockors.go" beforeDir="false" afterPath="$PROJECT_DIR$/kratos_client/internal/service/dockors.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kratos_client/internal/service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/kratos_client/internal/service/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_app/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/uni_app/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_app/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/uni_app/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/uni_app/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_app/pages.json" beforeDir="false" afterPath="$PROJECT_DIR$/uni_app/pages.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_app/pages/index/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/uni_app/pages/index/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_app/pages/login/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/uni_app/pages/login/login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_app/pages/user/edit-nickname.vue" beforeDir="false" afterPath="$PROJECT_DIR$/uni_app/pages/user/edit-nickname.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_app/pages/user/profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/uni_app/pages/user/profile.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_app/pages/user/user.vue" beforeDir="false" afterPath="$PROJECT_DIR$/uni_app/pages/user/user.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_app/src/config/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/uni_app/src/config/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uni_app/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/uni_app/user.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Proto File" />
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" url="file://$PROJECT_DIR$/../../go/go1.24.4" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="30gEWqn7bJKnfLpP7k0KP2DsvTW" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultGoTemplateProperty": "Go File",
+    "DefaultProtoTemplateProperty": "Proto File",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.GoLinterPluginOnboarding": "true",
+    "RunOnceActivity.GoLinterPluginStorageMigration": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "git-widget-placeholder": "main",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "D:/GoWork/Health-Medicine-E-Station",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "google.protobuf.language",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\GoWork\Health-Medicine-E-Station" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\GoWork\Health-Medicine-E-Station\kratos_client\api\doctors\v1" />
+      <recent name="D:\GoWork\Health-Medicine-E-Station" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-gosdk-f466f9b0953e-3d2cccfc42a2-org.jetbrains.plugins.go.sharedIndexes.bundled-GO-252.23892.449" />
+        <option value="bundled-js-predefined-d6986cc7102b-e03c56caf84a-JavaScript-GO-252.23892.449" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="9a2968d5-2ad3-496c-8385-d5b9680f5b3e" name="更改" comment="" />
+      <created>1754040851260</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1754040851260</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+</project>

@@ -21,26 +21,26 @@ func NewDoctorsService(uc *biz.DoctorsService, d *data.Data) *DoctorsService {
 		uc:                         uc,
 	}
 }
-func (c *UserService) DoctorsList(ctx context.Context, in *v1.DoctorsListRequest) (*v1.DoctorsListReply, error) {
-	find, err := c.city.Find(ctx, &biz.MtCity{})
+func (c *DoctorsService) DoctorsList(ctx context.Context, in *v1.DoctorsListRequest) (*v1.DoctorsListReply, error) {
+	// 查询所有医生
+	find, err := c.uc.DoctorsFind(ctx, &biz.MtDoctors{})
 	if err != nil {
 		return &v1.DoctorsListReply{
 			Message: "查询失败",
 		}, err
 	}
 
-	var cityList []*v1.DoctorsList
+	var doctorsList []*v1.DoctorsList
 
-	for _, city := range *find {
-		cityList = append(cityList, &v1.DoctorsList{
-			DoctorCode:  string(city.Code),
-			DoctorsName: city.Name,
+	for _, doctor := range *find {
+		doctorsList = append(doctorsList, &v1.DoctorsList{
+			DoctorCode:  doctor.DoctorCode,
+			DoctorsName: doctor.Name,
 		})
 	}
 
 	return &v1.DoctorsListReply{
 		Message:     "查询成功",
-		DoctorsList: cityList,
+		DoctorsList: doctorsList,
 	}, nil
-
 }

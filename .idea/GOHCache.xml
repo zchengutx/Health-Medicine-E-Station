@@ -3,6 +3,7 @@
   <component name="GoORMHelperCache">
     <option name="schemaMapping">
       <map>
+<<<<<<< HEAD
         <entry key="AddMenuAuthorityInfo">
           <value>
             <set>
@@ -10,6 +11,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="AlipayConfig">
           <value>
             <set>
@@ -17,6 +20,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="AliyunOSS">
           <value>
             <set>
@@ -189,6 +193,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="AvailableCoupon">
           <value>
             <set>
@@ -197,6 +203,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="AwsS3">
           <value>
             <set>
@@ -240,6 +247,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="Bootstrap">
           <value>
             <set>
@@ -247,6 +256,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="CORS">
           <value>
             <set>
@@ -261,6 +271,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="CalculateAvailableCouponsReply">
           <value>
             <set>
@@ -275,6 +287,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="Captcha">
           <value>
             <set>
@@ -282,6 +295,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="CartHTTPClientImpl">
           <value>
             <set>
@@ -304,6 +319,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="CasbinApi">
           <value>
             <set>
@@ -339,6 +355,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="CategoryFacet">
           <value>
             <set>
@@ -396,10 +414,35 @@
             </set>
           </value>
         </entry>
-        <entry key="ChatService">
+        <entry key="CityList">
           <value>
             <set>
+<<<<<<< HEAD
               <option value="file://$PROJECT_DIR$/kratos_client/internal/service/chat.go" />
+=======
+              <option value="file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CityService">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/city.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ClaimCouponReply">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon.pb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ClaimCouponRequest">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon.pb.go" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
             </set>
           </value>
         </entry>
@@ -445,6 +488,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="CloudflareR2">
           <value>
             <set>
@@ -474,6 +518,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="Coupon">
           <value>
             <set>
@@ -537,6 +583,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="Cpu">
           <value>
             <set>
@@ -544,6 +591,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="CreateAddressReply">
           <value>
             <set>
@@ -636,6 +685,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="CurrentTime">
           <value>
             <set>
@@ -664,6 +714,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="Data">
           <value>
             <set>
@@ -700,6 +752,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="Db">
           <value>
             <set>
@@ -707,6 +760,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="DeleteCartReply">
           <value>
             <set>
@@ -735,6 +790,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="DictionaryApi">
           <value>
             <set>
@@ -792,6 +848,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="DoctorsHTTPClientImpl">
           <value>
             <set>
@@ -930,6 +988,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="GVA_MODEL">
           <value>
             <set>
@@ -958,6 +1017,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="GetCartRequest">
           <value>
             <set>
@@ -1077,6 +1138,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="GetNickname">
           <value>
             <set>
@@ -1084,6 +1146,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="GetOrderReply">
           <value>
             <set>
@@ -1126,6 +1190,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="GetUserList">
           <value>
             <set>
@@ -1133,6 +1198,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="GuideInfo">
           <value>
             <set>
@@ -1155,6 +1222,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="HuaWeiObs">
           <value>
             <set>
@@ -1190,6 +1258,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="InfoCart">
           <value>
             <set>
@@ -1212,6 +1282,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="InfoSearch">
           <value>
             <set>
@@ -1257,10 +1328,16 @@
         <entry key="InventoryInfo">
           <value>
             <set>
+=======
+        <entry key="InventoryInfo">
+          <value>
+            <set>
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option value="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go" />
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="JWT">
           <value>
             <set>
@@ -1318,6 +1395,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="ListCartReply">
           <value>
             <set>
@@ -1449,6 +1528,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="Local">
           <value>
             <set>
@@ -1457,6 +1537,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="LocationResponse">
           <value>
             <set>
@@ -1464,6 +1546,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="LogLayout">
           <value>
             <set>
@@ -1485,6 +1568,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="LoginReply">
           <value>
             <set>
@@ -1521,6 +1606,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="MenuRouter">
           <value>
             <set>
@@ -1617,12 +1703,19 @@
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/gin-vue-admin-main/server/service/medicine/mt_chat_message.go" />
+=======
+        <entry key="MtAddress">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/city.go" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
             </set>
           </value>
         </entry>
-        <entry key="MtChatRoom">
+        <entry key="MtCity">
           <value>
             <set>
+<<<<<<< HEAD
               <option value="file://$PROJECT_DIR$/gin-vue-admin-main/server/model/medicine/mt_room.go" />
             </set>
           </value>
@@ -1630,6 +1723,8 @@
         <entry key="MtCity">
           <value>
             <set>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/city.go" />
             </set>
           </value>
@@ -1642,6 +1737,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="MtDepartments">
           <value>
             <set>
@@ -1675,11 +1771,17 @@
             <set>
               <option value="file://$PROJECT_DIR$/gin-vue-admin-main/rm_file/756814300/server/model/medicine/mt_discount.go" />
               <option value="file://$PROJECT_DIR$/gin-vue-admin-main/server/model/medicine/mt_discount.go" />
+=======
+        <entry key="MtDiscount">
+          <value>
+            <set>
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/coupon.go" />
               <option value="file://$PROJECT_DIR$/kratos_client/internal/data/coupon.go" />
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="MtDiscountApi">
           <value>
             <set>
@@ -1712,6 +1814,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="MtDiscountUser">
           <value>
             <set>
@@ -1720,6 +1824,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="MtDoctorApproval">
           <value>
             <set>
@@ -1853,6 +1958,12 @@
               <option value="file://$PROJECT_DIR$/gin-vue-admin-main/rm_file/494756800/server/service/medicine/mt_doctors.go" />
               <option value="file://$PROJECT_DIR$/gin-vue-admin-main/rm_file/696446800/server/service/medicine/mt_doctors.go" />
               <option value="file://$PROJECT_DIR$/gin-vue-admin-main/server/service/medicine/mt_doctors.go" />
+=======
+        <entry key="MtDoctors">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/kratos_client/internal/biz/dockors.go" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
             </set>
           </value>
         </entry>
@@ -2075,6 +2186,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="MtGuideApi">
           <value>
             <set>
@@ -2131,6 +2243,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="MtOrder">
           <value>
             <set>
@@ -2155,6 +2269,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="MtOrders">
           <value>
             <set>
@@ -2230,6 +2345,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="MtPrescription">
           <value>
             <set>
@@ -2254,6 +2371,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="MtUserApi">
           <value>
             <set>
@@ -2331,6 +2449,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="Order">
           <value>
             <set>
@@ -2396,6 +2516,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="Os">
           <value>
             <set>
@@ -2452,6 +2573,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="PaymentHTTPClientImpl">
           <value>
             <set>
@@ -2524,6 +2647,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="Pgsql">
           <value>
             <set>
@@ -2580,6 +2704,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="Prescription">
           <value>
             <set>
@@ -2658,6 +2784,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="Qiniu">
           <value>
             <set>
@@ -2666,6 +2793,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="QueryPaymentReply">
           <value>
             <set>
@@ -2680,6 +2809,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="Ram">
           <value>
             <set>
@@ -2701,6 +2831,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="RefundRecord">
           <value>
             <set>
@@ -2709,6 +2841,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="Register">
           <value>
             <set>
@@ -2740,6 +2873,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="SaveChatMessageReply">
           <value>
             <set>
@@ -2754,6 +2889,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="SearchApiParams">
           <value>
             <set>
@@ -2761,6 +2897,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="SearchDrugInfo">
           <value>
             <set>
@@ -2869,6 +3007,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="ServiceGroup">
           <value>
             <set>
@@ -3280,6 +3419,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="UnimplementedCartServer">
           <value>
             <set>
@@ -3441,6 +3582,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="UserRouter">
           <value>
             <set>
@@ -3448,6 +3590,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="UserService">
           <value>
             <set>
@@ -3457,6 +3601,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="Visitor">
           <value>
             <set>
@@ -3571,6 +3716,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="cartClient">
           <value>
             <set>
@@ -3676,6 +3823,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="fields">
           <value>
             <set>
@@ -3837,10 +3985,23 @@
         <entry key="orderServiceClient">
           <value>
             <set>
+=======
+        <entry key="orderRepo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/kratos_client/internal/data/order.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="orderServiceClient">
+          <value>
+            <set>
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option value="file://$PROJECT_DIR$/kratos_client/api/order/v1/order_grpc.pb.go" />
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="orderedInitializer">
           <value>
             <set>
@@ -3848,6 +4009,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="paymentClient">
           <value>
             <set>
@@ -3862,6 +4025,7 @@
             </set>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="plugin">
           <value>
             <set>
@@ -3869,6 +4033,8 @@
             </set>
           </value>
         </entry>
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="prescriptionRepo">
           <value>
             <set>
@@ -3880,6 +4046,7 @@
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/kratos_client/api/prescription/v1/prescription_grpc.pb.go" />
+<<<<<<< HEAD
             </set>
           </value>
         </entry>
@@ -3922,6 +4089,8 @@
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/gin-vue-admin-main/server/utils/timer/timed_task.go" />
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
             </set>
           </value>
         </entry>
@@ -3960,6 +4129,7 @@
     </option>
     <option name="scannedPathMapping">
       <map>
+<<<<<<< HEAD
         <entry key="file://$PROJECT_DIR$/debug_approval_api.go">
           <value>
             <ScannedPath>
@@ -9046,6 +9216,12 @@
           <value>
             <ScannedPath>
               <option name="lastModified" value="1754676115096" />
+=======
+        <entry key="file://$PROJECT_DIR$/kratos_client/api/cart/v1/cart.pb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754671127708" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="CreateCartRequest" />
@@ -9067,7 +9243,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/cart/v1/cart_grpc.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115096" />
+=======
+              <option name="lastModified" value="1754645792175" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="cartClient" />
@@ -9080,7 +9260,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/cart/v1/cart_http.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115096" />
+=======
+              <option name="lastModified" value="1754645792175" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="CartHTTPClientImpl" />
@@ -9092,7 +9276,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115097" />
+=======
+              <option name="lastModified" value="1754645792175" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="GetChatHistoryRequest" />
@@ -9112,7 +9300,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat_grpc.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115097" />
+=======
+              <option name="lastModified" value="1754645792176" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="chatClient" />
@@ -9125,7 +9317,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/chat/v1/chat_http.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115097" />
+=======
+              <option name="lastModified" value="1754645792176" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="ChatHTTPClientImpl" />
@@ -9137,7 +9333,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115098" />
+=======
+              <option name="lastModified" value="1754671127710" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="ListCouponsRequest" />
@@ -9164,7 +9364,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon_grpc.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115098" />
+=======
+              <option name="lastModified" value="1754671127710" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="couponServiceClient" />
@@ -9177,7 +9381,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/coupon/v1/coupon_http.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115098" />
+=======
+              <option name="lastModified" value="1754671127710" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="CouponServiceHTTPClientImpl" />
@@ -9189,7 +9397,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/doctors/v1/doctors.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115099" />
+=======
+              <option name="lastModified" value="1754671127711" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="DoctorsListRequest" />
@@ -9204,7 +9416,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/doctors/v1/doctors_grpc.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115099" />
+=======
+              <option name="lastModified" value="1754671127712" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="doctorsClient" />
@@ -9217,7 +9433,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/doctors/v1/doctors_http.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115099" />
+=======
+              <option name="lastModified" value="1754671127712" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="DoctorsHTTPClientImpl" />
@@ -9229,7 +9449,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115100" />
+=======
+              <option name="lastModified" value="1754671127712" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="GetDrugRequest" />
@@ -9273,7 +9497,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug_grpc.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115100" />
+=======
+              <option name="lastModified" value="1754671127713" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="drugClient" />
@@ -9286,7 +9514,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/drug/v1/drug_http.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115100" />
+=======
+              <option name="lastModified" value="1754671127714" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="DrugHTTPClientImpl" />
@@ -9298,7 +9530,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115101" />
+=======
+              <option name="lastModified" value="1754645792176" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="CreateEstimateRequest" />
@@ -9320,7 +9556,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate_grpc.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115101" />
+=======
+              <option name="lastModified" value="1754645792178" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="estimateClient" />
@@ -9333,7 +9573,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/estimate/v1/estimate_http.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115101" />
+=======
+              <option name="lastModified" value="1754645792178" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="EstimateHTTPClientImpl" />
@@ -9345,7 +9589,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/order/v1/order.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115103" />
+=======
+              <option name="lastModified" value="1754671127715" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="CreateOrderRequest" />
@@ -9369,7 +9617,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/order/v1/order_grpc.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115104" />
+=======
+              <option name="lastModified" value="1754671127715" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="orderServiceClient" />
@@ -9382,7 +9634,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/order/v1/order_http.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115104" />
+=======
+              <option name="lastModified" value="1754671127715" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="OrderServiceHTTPClientImpl" />
@@ -9394,7 +9650,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/payment/v1/payment.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115105" />
+=======
+              <option name="lastModified" value="1754671127716" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="CreatePaymentRequest" />
@@ -9415,7 +9675,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/payment/v1/payment_grpc.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115105" />
+=======
+              <option name="lastModified" value="1754671127716" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="paymentClient" />
@@ -9428,7 +9692,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/payment/v1/payment_http.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115105" />
+=======
+              <option name="lastModified" value="1754671127716" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="PaymentHTTPClientImpl" />
@@ -9440,7 +9708,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/prescription/v1/prescription.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115106" />
+=======
+              <option name="lastModified" value="1754671127717" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="ListPrescriptionsRequest" />
@@ -9462,7 +9734,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/prescription/v1/prescription_grpc.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115106" />
+=======
+              <option name="lastModified" value="1754671127717" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="prescriptionServiceClient" />
@@ -9475,7 +9751,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/prescription/v1/prescription_http.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115106" />
+=======
+              <option name="lastModified" value="1754671127718" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="PrescriptionServiceHTTPClientImpl" />
@@ -9487,7 +9767,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/user/v1/user.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115107" />
+=======
+              <option name="lastModified" value="1754645792178" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="SendSmsRequest" />
@@ -9516,7 +9800,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/user/v1/user_grpc.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115109" />
+=======
+              <option name="lastModified" value="1754645792178" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="userClient" />
@@ -9529,7 +9817,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/api/user/v1/user_http.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115109" />
+=======
+              <option name="lastModified" value="1754645815222" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="UserHTTPClientImpl" />
@@ -9541,49 +9833,77 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/cmd/kratos_client/main.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115110" />
+=======
+              <option name="lastModified" value="1754538356434" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/kratos_client/cmd/kratos_client/wire.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1753969896944" />
+=======
+              <option name="lastModified" value="1753757950074" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/kratos_client/cmd/kratos_client/wire_gen.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115110" />
+=======
+              <option name="lastModified" value="1754872261971" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/kratos_client/comment/CheckMobile.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115111" />
+=======
+              <option name="lastModified" value="1754010204372" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/kratos_client/comment/GetPublicIP.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115111" />
+=======
+              <option name="lastModified" value="1754464267717" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/kratos_client/comment/JWTMiddleware.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115111" />
+=======
+              <option name="lastModified" value="1754706246557" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/kratos_client/comment/alipay.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115112" />
+=======
+              <option name="lastModified" value="1754671127718" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="AlipayConfig" />
@@ -9596,14 +9916,22 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/comment/alipay_config.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115112" />
+=======
+              <option name="lastModified" value="1754671127718" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/kratos_client/comment/chat.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115112" />
+=======
+              <option name="lastModified" value="1754708808327" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="ChatMessage" />
@@ -9617,14 +9945,22 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/comment/cors.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115113" />
+=======
+              <option name="lastModified" value="1754540190376" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/kratos_client/comment/coupon.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115113" />
+=======
+              <option name="lastModified" value="1754671127725" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="CouponManager" />
@@ -9637,7 +9973,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/comment/heartbeat.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115113" />
+=======
+              <option name="lastModified" value="1754619073394" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="HeartbeatManager" />
@@ -9649,28 +9989,44 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/comment/jwt.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115113" />
+=======
+              <option name="lastModified" value="1754573223793" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/kratos_client/comment/minio.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115113" />
+=======
+              <option name="lastModified" value="1754039775777" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/biz.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115115" />
+=======
+              <option name="lastModified" value="1754678471799" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/cart.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115115" />
+=======
+              <option name="lastModified" value="1754671127728" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="CartItem" />
@@ -9683,7 +10039,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/city.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115115" />
+=======
+              <option name="lastModified" value="1754679167971" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="MtCity" />
@@ -9697,7 +10057,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/coupon.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115115" />
+=======
+              <option name="lastModified" value="1754671127728" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="MtDiscount" />
@@ -9718,7 +10082,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/dockors.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115115" />
+=======
+              <option name="lastModified" value="1754671127728" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="MtDoctors" />
@@ -9731,7 +10099,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/drug.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115116" />
+=======
+              <option name="lastModified" value="1754671127729" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="MtDrug" />
@@ -9757,14 +10129,22 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/errors.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115116" />
+=======
+              <option name="lastModified" value="1754671127729" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/estimate.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115116" />
+=======
+              <option name="lastModified" value="1754549268738" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="MtEstimate" />
@@ -9777,7 +10157,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/order.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115116" />
+=======
+              <option name="lastModified" value="1754671127729" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="MtOrder" />
@@ -9796,7 +10180,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/payment.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115117" />
+=======
+              <option name="lastModified" value="1754671127729" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="PaymentOrder" />
@@ -9810,7 +10198,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/prescription.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115117" />
+=======
+              <option name="lastModified" value="1754671127730" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="MtPrescription" />
@@ -9828,7 +10220,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/biz/user.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115117" />
+=======
+              <option name="lastModified" value="1754679167974" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="MtUser" />
@@ -9841,7 +10237,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/conf/conf.pb.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115117" />
+=======
+              <option name="lastModified" value="1754671127730" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="Bootstrap" />
@@ -9861,7 +10261,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/cart.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115118" />
+=======
+              <option name="lastModified" value="1754671127731" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="cartRepo" />
@@ -9873,7 +10277,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/city.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115118" />
+=======
+              <option name="lastModified" value="1754465724349" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="cityRepo" />
@@ -9885,7 +10293,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/coupon.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115118" />
+=======
+              <option name="lastModified" value="1754671127731" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="MtDiscount" />
@@ -9901,7 +10313,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/data.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115118" />
+=======
+              <option name="lastModified" value="1754678471803" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="Data" />
@@ -9913,7 +10329,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/doctors.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115119" />
+=======
+              <option name="lastModified" value="1754671127732" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="doctorsRepo" />
@@ -9925,7 +10345,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/drug.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115119" />
+=======
+              <option name="lastModified" value="1754671127732" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="drugRepo" />
@@ -9937,7 +10361,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/estimate.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115119" />
+=======
+              <option name="lastModified" value="1754549268747" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="estimateRepo" />
@@ -9949,7 +10377,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/inventory.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115119" />
+=======
+              <option name="lastModified" value="1754671127732" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="drugInventoryRepo" />
@@ -9961,7 +10393,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/order.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115119" />
+=======
+              <option name="lastModified" value="1754671127732" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="MtOrder" />
@@ -9975,14 +10411,22 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/order_test.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115120" />
+=======
+              <option name="lastModified" value="1754671127732" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/payment.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115120" />
+=======
+              <option name="lastModified" value="1754671127733" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="PaymentOrder" />
@@ -9996,7 +10440,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/prescription.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115120" />
+=======
+              <option name="lastModified" value="1754671127733" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="MtPrescription" />
@@ -10010,7 +10458,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/data/user.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115120" />
+=======
+              <option name="lastModified" value="1754671127733" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="userRepo" />
@@ -10022,28 +10474,44 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/server/grpc.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115121" />
+=======
+              <option name="lastModified" value="1754671127733" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/server/http.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115121" />
+=======
+              <option name="lastModified" value="1754701885599" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/server/server.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1753969896947" />
+=======
+              <option name="lastModified" value="1753757950077" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/cart.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115121" />
+=======
+              <option name="lastModified" value="1754671127734" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="CartService" />
@@ -10055,10 +10523,33 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/chat.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115121" />
+=======
+              <option name="lastModified" value="1754701642059" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/coupon.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754671127734" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
-                  <option value="ChatService" />
+                  <option value="CouponService" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/dockors.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1754825776635" />
+              <option name="schema">
+                <list>
+                  <option value="DoctorsService" />
                 </list>
               </option>
             </ScannedPath>
@@ -10091,7 +10582,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/drug.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115122" />
+=======
+              <option name="lastModified" value="1754671127735" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="DrugService" />
@@ -10103,7 +10598,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/estimate.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115122" />
+=======
+              <option name="lastModified" value="1754549268759" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="EstimateService" />
@@ -10115,7 +10614,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/order.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115122" />
+=======
+              <option name="lastModified" value="1754671127735" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="OrderService" />
@@ -10127,7 +10630,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/payment.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115122" />
+=======
+              <option name="lastModified" value="1754671127735" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="PaymentService" />
@@ -10139,7 +10646,11 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/prescription.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115122" />
+=======
+              <option name="lastModified" value="1754671127735" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="PrescriptionService" />
@@ -10151,14 +10662,22 @@
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/service.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115123" />
+=======
+              <option name="lastModified" value="1754701718783" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/kratos_client/internal/service/user.go">
           <value>
             <ScannedPath>
+<<<<<<< HEAD
               <option name="lastModified" value="1754676115123" />
+=======
+              <option name="lastModified" value="1754646517850" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
               <option name="schema">
                 <list>
                   <option value="UserService" />
@@ -10179,6 +10698,7 @@
     </option>
     <option name="tableStructMapping">
       <map>
+<<<<<<< HEAD
         <entry key="_gorm" value="_gorm" />
         <entry key="add_menu_authority_info" value="AddMenuAuthorityInfo" />
         <entry key="alipay_config" value="AlipayConfig" />
@@ -10228,16 +10748,26 @@
         <entry key="calculate_available_coupons_reply" value="CalculateAvailableCouponsReply" />
         <entry key="calculate_available_coupons_request" value="CalculateAvailableCouponsRequest" />
         <entry key="captcha" value="Captcha" />
+=======
+        <entry key="alipay_config" value="AlipayConfig" />
+        <entry key="available_coupon" value="AvailableCoupon" />
+        <entry key="bootstrap" value="Bootstrap" />
+        <entry key="calculate_available_coupons_reply" value="CalculateAvailableCouponsReply" />
+        <entry key="calculate_available_coupons_request" value="CalculateAvailableCouponsRequest" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="cart_client" value="cartClient" />
         <entry key="cart_http_client_impl" value="CartHTTPClientImpl" />
         <entry key="cart_item" value="CartItem" />
         <entry key="cart_repo" value="cartRepo" />
         <entry key="cart_service" value="CartService" />
+<<<<<<< HEAD
         <entry key="casbin_api" value="CasbinApi" />
         <entry key="casbin_in_receive" value="CasbinInReceive" />
         <entry key="casbin_info" value="CasbinInfo" />
         <entry key="casbin_router" value="CasbinRouter" />
         <entry key="casbin_service" value="CasbinService" />
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="category_facet" value="CategoryFacet" />
         <entry key="change_password_req" value="ChangePasswordReq" />
         <entry key="change_user_info" value="ChangeUserInfo" />
@@ -10247,12 +10777,16 @@
         <entry key="chat_message" value="ChatMessage" />
         <entry key="chat_message_info" value="ChatMessageInfo" />
         <entry key="chat_room_info" value="ChatRoomInfo" />
+<<<<<<< HEAD
         <entry key="chat_service" value="ChatService" />
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="city_list" value="CityList" />
         <entry key="city_repo" value="cityRepo" />
         <entry key="city_service" value="CityService" />
         <entry key="claim_coupon_reply" value="ClaimCouponReply" />
         <entry key="claim_coupon_request" value="ClaimCouponRequest" />
+<<<<<<< HEAD
         <entry key="clear_db" value="ClearDB" />
         <entry key="client" value="Client" />
         <entry key="cloudflare_r2" value="CloudflareR2" />
@@ -10261,6 +10795,9 @@
         <entry key="config" value="Config" />
         <entry key="cors" value="CORS" />
         <entry key="cors_whitelist" value="CORSWhitelist" />
+=======
+        <entry key="client" value="Client" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="coupon" value="Coupon" />
         <entry key="coupon_calculate_item" value="CouponCalculateItem" />
         <entry key="coupon_calculate_request" value="CouponCalculateRequest" />
@@ -10272,7 +10809,10 @@
         <entry key="coupon_service_client" value="couponServiceClient" />
         <entry key="coupon_service_http_client_impl" value="CouponServiceHTTPClientImpl" />
         <entry key="coupon_usecase" value="CouponUsecase" />
+<<<<<<< HEAD
         <entry key="cpu" value="Cpu" />
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="create_address_reply" value="CreateAddressReply" />
         <entry key="create_address_request" value="CreateAddressRequest" />
         <entry key="create_cart_reply" value="CreateCartReply" />
@@ -10286,20 +10826,27 @@
         <entry key="create_payment_request" value="CreatePaymentRequest" />
         <entry key="create_prescription_reply" value="CreatePrescriptionReply" />
         <entry key="create_prescription_request" value="CreatePrescriptionRequest" />
+<<<<<<< HEAD
         <entry key="current_time" value="CurrentTime" />
         <entry key="custom_claims" value="CustomClaims" />
         <entry key="cutter" value="Cutter" />
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="data" value="Data" />
         <entry key="data__database" value="Data_Database" />
         <entry key="data__elasticsearch" value="Data_Elasticsearch" />
         <entry key="data__redis" value="Data_Redis" />
+<<<<<<< HEAD
         <entry key="data_source" value="DataSource" />
         <entry key="db" value="Db" />
         <entry key="db_api" value="DBApi" />
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="delete_cart_reply" value="DeleteCartReply" />
         <entry key="delete_cart_request" value="DeleteCartRequest" />
         <entry key="delete_estimate_reply" value="DeleteEstimateReply" />
         <entry key="delete_estimate_request" value="DeleteEstimateRequest" />
+<<<<<<< HEAD
         <entry key="dictionary_api" value="DictionaryApi" />
         <entry key="dictionary_detail_api" value="DictionaryDetailApi" />
         <entry key="dictionary_detail_router" value="DictionaryDetailRouter" />
@@ -10308,6 +10855,8 @@
         <entry key="dictionary_service" value="DictionaryService" />
         <entry key="disk" value="Disk" />
         <entry key="disk_list" value="DiskList" />
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="doctors_client" value="doctorsClient" />
         <entry key="doctors_http_client_impl" value="DoctorsHTTPClientImpl" />
         <entry key="doctors_list" value="DoctorsList" />
@@ -10336,10 +10885,13 @@
         <entry key="estimate_service" value="EstimateService" />
         <entry key="excel" value="Excel" />
         <entry key="explain_info" value="ExplainInfo" />
+<<<<<<< HEAD
         <entry key="fields" value="fields" />
         <entry key="general_db" value="GeneralDB" />
         <entry key="get_authority_id" value="GetAuthorityId" />
         <entry key="get_by_id" value="GetById" />
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="get_cart_request" value="GetCartRequest" />
         <entry key="get_chat_history_reply" value="GetChatHistoryReply" />
         <entry key="get_chat_history_request" value="GetChatHistoryRequest" />
@@ -10357,13 +10909,17 @@
         <entry key="get_hot_search_request" value="GetHotSearchRequest" />
         <entry key="get_inventory_reply" value="GetInventoryReply" />
         <entry key="get_inventory_request" value="GetInventoryRequest" />
+<<<<<<< HEAD
         <entry key="get_nickname" value="GetNickname" />
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="get_order_reply" value="GetOrderReply" />
         <entry key="get_order_request" value="GetOrderRequest" />
         <entry key="get_prescription_detail_reply" value="GetPrescriptionDetailReply" />
         <entry key="get_prescription_detail_request" value="GetPrescriptionDetailRequest" />
         <entry key="get_user_chat_rooms_reply" value="GetUserChatRoomsReply" />
         <entry key="get_user_chat_rooms_request" value="GetUserChatRoomsRequest" />
+<<<<<<< HEAD
         <entry key="get_user_list" value="GetUserList" />
         <entry key="guide_info" value="GuideInfo" />
         <entry key="gva_model" value="GVA_MODEL" />
@@ -10404,6 +10960,15 @@
         <entry key="jwt_router" value="JwtRouter" />
         <entry key="jwt_service" value="JwtService" />
         <entry key="limit_config" value="LimitConfig" />
+=======
+        <entry key="guide_info" value="GuideInfo" />
+        <entry key="heartbeat_manager" value="HeartbeatManager" />
+        <entry key="hot_item" value="HotItem" />
+        <entry key="info_cart" value="InfoCart" />
+        <entry key="info_drug" value="InfoDrug" />
+        <entry key="info_drugs" value="InfoDrugs" />
+        <entry key="inventory_info" value="InventoryInfo" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="list_cart_reply" value="ListCartReply" />
         <entry key="list_cart_request" value="ListCartRequest" />
         <entry key="list_coupons_reply" value="ListCouponsReply" />
@@ -10422,6 +10987,7 @@
         <entry key="list_user_coupons_request" value="ListUserCouponsRequest" />
         <entry key="list_user_orders_reply" value="ListUserOrdersReply" />
         <entry key="list_user_orders_request" value="ListUserOrdersRequest" />
+<<<<<<< HEAD
         <entry key="llm_auto_code" value="LLMAutoCode" />
         <entry key="local" value="Local" />
         <entry key="location_response" value="LocationResponse" />
@@ -10429,10 +10995,14 @@
         <entry key="logger" value="Logger" />
         <entry key="login" value="Login" />
         <entry key="login_auth" value="loginAuth" />
+=======
+        <entry key="location_response" value="LocationResponse" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="login_reply" value="LoginReply" />
         <entry key="login_request" value="LoginRequest" />
         <entry key="login_response" value="LoginResponse" />
         <entry key="manufacturer_facet" value="ManufacturerFacet" />
+<<<<<<< HEAD
         <entry key="mcp" value="MCP" />
         <entry key="menu_router" value="MenuRouter" />
         <entry key="menu_service" value="MenuService" />
@@ -10477,6 +11047,14 @@
         <entry key="mt_doctors_router" value="MtDoctorsRouter" />
         <entry key="mt_doctors_search" value="MtDoctorsSearch" />
         <entry key="mt_doctors_service" value="MtDoctorsService" />
+=======
+        <entry key="mt_address" value="MtAddress" />
+        <entry key="mt_city" value="MtCity" />
+        <entry key="mt_coupon_rule" value="MtCouponRule" />
+        <entry key="mt_discount" value="MtDiscount" />
+        <entry key="mt_discount_user" value="MtDiscountUser" />
+        <entry key="mt_doctors" value="MtDoctors" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="mt_drug" value="MtDrug" />
         <entry key="mt_drug_api" value="MtDrugApi" />
         <entry key="mt_drug_category" value="MtDrugCategory" />
@@ -10505,6 +11083,7 @@
         <entry key="mt_explain_search" value="MtExplainSearch" />
         <entry key="mt_explain_service" value="MtExplainService" />
         <entry key="mt_guide" value="MtGuide" />
+<<<<<<< HEAD
         <entry key="mt_guide_api" value="MtGuideApi" />
         <entry key="mt_guide_router" value="MtGuideRouter" />
         <entry key="mt_guide_search" value="MtGuideSearch" />
@@ -10540,6 +11119,14 @@
         <entry key="operation_record_router" value="OperationRecordRouter" />
         <entry key="operation_record_service" value="OperationRecordService" />
         <entry key="oracle" value="Oracle" />
+=======
+        <entry key="mt_order" value="MtOrder" />
+        <entry key="mt_order_coupon" value="MtOrderCoupon" />
+        <entry key="mt_order_item" value="MtOrderItem" />
+        <entry key="mt_prescription" value="MtPrescription" />
+        <entry key="mt_prescription_medicine" value="MtPrescriptionMedicine" />
+        <entry key="mt_user" value="MtUser" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="order" value="Order" />
         <entry key="order_coupon_info" value="OrderCouponInfo" />
         <entry key="order_detail" value="OrderDetail" />
@@ -10551,6 +11138,7 @@
         <entry key="order_service_http_client_impl" value="OrderServiceHTTPClientImpl" />
         <entry key="order_summary" value="OrderSummary" />
         <entry key="order_usecase" value="OrderUsecase" />
+<<<<<<< HEAD
         <entry key="ordered_initializer" value="orderedInitializer" />
         <entry key="os" value="Os" />
         <entry key="package_enter" value="PackageEnter" />
@@ -10560,6 +11148,8 @@
         <entry key="page_info" value="PageInfo" />
         <entry key="page_info_test" value="PageInfoTest" />
         <entry key="page_result" value="PageResult" />
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="payment_client" value="paymentClient" />
         <entry key="payment_http_client_impl" value="PaymentHTTPClientImpl" />
         <entry key="payment_info" value="PaymentInfo" />
@@ -10572,6 +11162,7 @@
         <entry key="payment_return_request" value="PaymentReturnRequest" />
         <entry key="payment_service" value="PaymentService" />
         <entry key="payment_usecase" value="PaymentUsecase" />
+<<<<<<< HEAD
         <entry key="pgsql" value="Pgsql" />
         <entry key="pgsql_init_handler" value="PgsqlInitHandler" />
         <entry key="plugin" value="plugin" />
@@ -10581,6 +11172,8 @@
         <entry key="plugin_initialize_router" value="PluginInitializeRouter" />
         <entry key="plugin_initialize_v2" value="PluginInitializeV2" />
         <entry key="policy_path_response" value="PolicyPathResponse" />
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="prescription" value="Prescription" />
         <entry key="prescription_detail" value="PrescriptionDetail" />
         <entry key="prescription_info" value="PrescriptionInfo" />
@@ -10594,6 +11187,7 @@
         <entry key="price_range" value="PriceRange" />
         <entry key="process_payment_reply" value="ProcessPaymentReply" />
         <entry key="process_payment_request" value="ProcessPaymentRequest" />
+<<<<<<< HEAD
         <entry key="qiniu" value="Qiniu" />
         <entry key="query_payment_reply" value="QueryPaymentReply" />
         <entry key="query_payment_request" value="QueryPaymentRequest" />
@@ -10610,6 +11204,13 @@
         <entry key="save_chat_message_reply" value="SaveChatMessageReply" />
         <entry key="save_chat_message_request" value="SaveChatMessageRequest" />
         <entry key="search_api_params" value="SearchApiParams" />
+=======
+        <entry key="query_payment_reply" value="QueryPaymentReply" />
+        <entry key="query_payment_request" value="QueryPaymentRequest" />
+        <entry key="refund_record" value="RefundRecord" />
+        <entry key="save_chat_message_reply" value="SaveChatMessageReply" />
+        <entry key="save_chat_message_request" value="SaveChatMessageRequest" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="search_drug_info" value="SearchDrugInfo" />
         <entry key="search_drugs_reply" value="SearchDrugsReply" />
         <entry key="search_drugs_request" value="SearchDrugsRequest" />
@@ -10625,6 +11226,7 @@
         <entry key="server" value="Server" />
         <entry key="server_grpc" value="Server_GRPC" />
         <entry key="server_http" value="Server_HTTP" />
+<<<<<<< HEAD
         <entry key="service" value="service" />
         <entry key="service_group" value="ServiceGroup" />
         <entry key="set_user_auth" value="SetUserAuth" />
@@ -10687,6 +11289,8 @@
         <entry key="task_manager" value="taskManager" />
         <entry key="tencent_cos" value="TencentCOS" />
         <entry key="timer" value="timer" />
+=======
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
         <entry key="unimplemented_cart_server" value="UnimplementedCartServer" />
         <entry key="unimplemented_chat_server" value="UnimplementedChatServer" />
         <entry key="unimplemented_coupon_service_server" value="UnimplementedCouponServiceServer" />
@@ -10721,6 +11325,10 @@
         <entry key="zap_core" value="ZapCore" />
       </map>
     </option>
+<<<<<<< HEAD
     <option name="lastTimeChecked" value="1755681492816" />
+=======
+    <option name="lastTimeChecked" value="1755093127465" />
+>>>>>>> ff6fb13683f159390efd443a0e3e34ba96e01f18
   </component>
 </project>

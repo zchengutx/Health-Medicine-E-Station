@@ -1,7 +1,6 @@
 package data
 
 import (
-	"context"
 	"testing"
 	"time"
 
@@ -12,7 +11,7 @@ import (
 // 测试订单模型转换
 func TestOrderModelConversion(t *testing.T) {
 	repo := &orderRepo{}
-	
+
 	// 测试数据
 	now := time.Now()
 	bizOrder := &biz.MtOrder{
@@ -31,7 +30,7 @@ func TestOrderModelConversion(t *testing.T) {
 		PayTime:       &now,
 		Remark:        "测试备注",
 	}
-	
+
 	// 业务模型转数据模型
 	dataOrder := repo.toDataOrder(bizOrder)
 	if dataOrder.OrderNo != bizOrder.OrderNo {
@@ -43,7 +42,7 @@ func TestOrderModelConversion(t *testing.T) {
 	if !dataOrder.TotalAmount.Equal(bizOrder.TotalAmount) {
 		t.Errorf("Expected TotalAmount %s, got %s", bizOrder.TotalAmount.String(), dataOrder.TotalAmount.String())
 	}
-	
+
 	// 数据模型转业务模型
 	convertedBizOrder := repo.toBizOrder(dataOrder)
 	if convertedBizOrder.OrderNo != bizOrder.OrderNo {
@@ -60,7 +59,7 @@ func TestOrderModelConversion(t *testing.T) {
 // 测试订单项模型转换
 func TestOrderItemModelConversion(t *testing.T) {
 	repo := &orderRepo{}
-	
+
 	// 测试数据
 	now := time.Now()
 	bizOrderItem := &biz.MtOrderItem{
@@ -74,7 +73,7 @@ func TestOrderItemModelConversion(t *testing.T) {
 		Subtotal:  decimal.NewFromFloat(99.98),
 		CreatedAt: now,
 	}
-	
+
 	// 业务模型转数据模型
 	dataOrderItem := repo.toDataOrderItem(bizOrderItem)
 	if dataOrderItem.DrugName != bizOrderItem.DrugName {
@@ -86,7 +85,7 @@ func TestOrderItemModelConversion(t *testing.T) {
 	if !dataOrderItem.Price.Equal(bizOrderItem.Price) {
 		t.Errorf("Expected Price %s, got %s", bizOrderItem.Price.String(), dataOrderItem.Price.String())
 	}
-	
+
 	// 数据模型转业务模型
 	convertedBizOrderItem := repo.toBizOrderItem(dataOrderItem)
 	if convertedBizOrderItem.DrugName != bizOrderItem.DrugName {
@@ -112,12 +111,12 @@ func TestStatusUpdateLogic(t *testing.T) {
 		{"5", "finish_time"}, // 已完成
 		{"6", "cancel_time"}, // 已取消
 	}
-	
+
 	for _, tc := range testCases {
 		updates := map[string]interface{}{
 			"status": tc.status,
 		}
-		
+
 		timestamp := time.Now()
 		switch tc.status {
 		case "2": // 已支付
@@ -133,7 +132,7 @@ func TestStatusUpdateLogic(t *testing.T) {
 		case "6": // 已取消
 			updates["cancel_time"] = timestamp
 		}
-		
+
 		if _, exists := updates[tc.expectedField]; !exists {
 			t.Errorf("Expected field %s to be set for status %s", tc.expectedField, tc.status)
 		}
